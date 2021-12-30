@@ -122,6 +122,7 @@ header {
 }
 
 .context-menu-icon {
+   user-select: none;
    cursor: pointer;
 }
 .context-menu-icon:hover {
@@ -131,7 +132,6 @@ header {
 .order-num {
    margin-left: 48px;
    user-select: none;
-   /* flex: 0.6; */
    font-family: Arial, Helvetica, sans-serif;
    color: #525f7f;
    font-size: 13px;
@@ -148,6 +148,7 @@ header {
 }
 
 .select-type-btn {
+   user-select: none;
    font-size: 14px;
    height: 100%;
    position: relative;
@@ -197,6 +198,7 @@ header {
    width: 22px;
    height: 22px;
    cursor: pointer;
+   user-select: none;
 }
 .trash-bin-icon:hover {
    transform: translateY(-1px);
@@ -208,4 +210,10 @@ header {
    align-items: center;
    justify-content: flex-start;
    column-gap: 8px;
+}
+
+
+/* STATES */
+.visible {
+   display: block;
 }
