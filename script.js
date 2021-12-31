@@ -12,6 +12,7 @@ const stepTypesTextContent = {
    "Element does't exist" : "Provide xpath, css selector or label of the element that is not present on the page"
 }
 
+//click the dropdown button for the dropdown to appear 
 document.addEventListener('click', (e) => {
    if (e.target.classList.contains('dropdown-btn')) {
       document.querySelectorAll('.dropdown').forEach(el => {
@@ -21,28 +22,54 @@ document.addEventListener('click', (e) => {
    }
 })
 
+//change btns and inputs' text content based on the selected step type
 document.addEventListener('click', (e) => {
    if (e.target.classList.contains('dropdown-item')) {
       const selectedType = e.target.textContent
-      e.target.parentNode.parentNode.parentNode.children[1].setAttribute('placeholder', stepTypesTextContent[selectedType]) //change input placeholder
-      e.target.parentNode.parentNode.children[0].textContent = e.target.textContent //change btn text content
+      const dropdownBtn = e.target.parentNode.parentNode.children[0]
+      const stepInput = e.target.parentNode.parentNode.parentNode.children[1]
+
+      stepInput.setAttribute('placeholder', stepTypesTextContent[selectedType]) //change input placeholder
+      dropdownBtn.textContent = e.target.textContent //change btn text content
       e.target.parentNode.classList.remove('visible') //hide dropdown
 
-      console.log(selectedType)
       if (selectedType == "Click element") {
-         e.target.parentNode.parentNode.parentNode.children[1].classList.add('no-edit')
-         e.target.parentNode.parentNode.parentNode.children[1].setAttribute('disabled', true)
+         stepInput.classList.add('no-edit')
+         stepInput.setAttribute('disabled', true)
       } else {
-         e.target.parentNode.parentNode.parentNode.children[1].classList.remove('no-edit')
-         e.target.parentNode.parentNode.parentNode.children[1].removeAttribute('disabled')
+         stepInput.classList.remove('no-edit')
+         stepInput.classList.remove('error')
+         stepInput.removeAttribute('disabled')
+      }
+
+      if (selectedType == "Click element") {
+         const stepsArr = [...document.querySelector('.steps').children]
+
+         for (let i = 0; i < stepsArr.length; i++) {
+            if (stepsArr[i].contains(e.target)) {
+               if (stepsArr[i-1].children[2].children[0].children[0].textContent != "Find element") {
+                  stepInput.classList.add('error')
+                  stepInput.setAttribute('placeholder', 'Find element first')
+               }
+            }
+         }
       }
    }
 })
 
+//click on trashbin icon to remove a step 
+document.addEventListener('click', (e) => {
+   if(e.target.classList.contains('trashbin-icon')) {
+      e.target.parentNode.remove()
+      stepsCounter.textContent = document.querySelector('.steps').children.length
+   }
+})
+
+//click add-step buttons to add steps
 addStepBtns.forEach(btn => btn.addEventListener('click', () => {
    hideDropdowns()
    addStep()
-   stepsCounter.textContent = Number(stepsCounter.textContent) + 1
+   stepsCounter.textContent = document.querySelector('.steps').children.length
 }))
 
 function addStep() {
@@ -115,7 +142,6 @@ function addStep() {
    fragment.appendChild(step)
    document.querySelector('.steps').append(fragment)
 }
-
 
 function hideDropdowns() {
    document.querySelectorAll('.dropdown').forEach(el => {
