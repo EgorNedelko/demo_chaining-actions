@@ -22,9 +22,10 @@ document.addEventListener('click', (e) => {
    }
 })
 
-//change btns and inputs' text content based on the selected step type
+//change btns and inputs' text content based on the selected step type, click element details
 document.addEventListener('click', (e) => {
    if (e.target.classList.contains('dropdown-item')) {
+
       const selectedType = e.target.textContent
       const dropdownBtn = e.target.parentNode.parentNode.children[0]
       const stepInput = e.target.parentNode.parentNode.parentNode.children[1]
@@ -33,6 +34,10 @@ document.addEventListener('click', (e) => {
       dropdownBtn.textContent = e.target.textContent //change btn text content
       e.target.parentNode.classList.remove('visible') //hide dropdown
 
+      checkPrevious(e)
+      checkNext(e)
+
+      //Highlighting the click input grey and making it non-editable
       if (selectedType == "Click element") {
          stepInput.classList.add('no-edit')
          stepInput.setAttribute('disabled', true)
@@ -42,18 +47,7 @@ document.addEventListener('click', (e) => {
          stepInput.removeAttribute('disabled')
       }
 
-      if (selectedType == "Click element") {
-         const stepsArr = [...document.querySelector('.steps').children]
-
-         for (let i = 0; i < stepsArr.length; i++) {
-            if (stepsArr[i].contains(e.target)) {
-               if (stepsArr[i-1].children[2].children[0].children[0].textContent != "Find element") {
-                  stepInput.classList.add('error')
-                  stepInput.setAttribute('placeholder', 'Find element first')
-               }
-            }
-         }
-      }
+      
    }
 })
 
@@ -147,4 +141,45 @@ function hideDropdowns() {
    document.querySelectorAll('.dropdown').forEach(el => {
       el.classList.remove('visible')
    })
+}
+
+function checkPrevious(e) {
+   const selectedType = e.target.textContent
+   const dropdownBtn = e.target.parentNode.parentNode.children[0]
+   const stepInput = e.target.parentNode.parentNode.parentNode.children[1]
+   
+   //Highlighting the click input red if the previous step type isn't Find element
+   if (selectedType == "Click element") {
+      const stepsArr = [...document.querySelector('.steps').children]
+
+      for (let i = 0; i < stepsArr.length; i++) {
+         if (stepsArr[i].contains(e.target)) {
+            if (!stepsArr[i-1] || stepsArr[i-1].children[2].children[0].children[0].textContent != "Find element") {
+               stepInput.classList.add('error')
+               console.log(stepInput)
+               stepInput.setAttribute('placeholder', 'Find element first')
+            }
+         }
+      }
+   }
+}
+
+function checkNext(e) {
+   const selectedType = e.target.textContent
+   const dropdownBtn = e.target.parentNode.parentNode.children[0]
+   const stepInput = e.target.parentNode.parentNode.parentNode.children[1]
+   
+   //Highlighting the click input red if the previous step isn't Find element
+   if (selectedType == "Find element") {
+      const stepsArr = [...document.querySelector('.steps').children]
+
+      for (let i = 0; i < stepsArr.length; i++) {
+         if (stepsArr[i].contains(e.target)) {
+            if (stepsArr[i+1] && stepsArr[i+1].children[2].children[0].children[0].textContent == "Click element") {
+               stepsArr[i+1].children[2].children[1].classList.remove('error')
+               stepsArr[i+1].children[2].children[1].setAttribute('placeholder', 'Click the element found at the previous step')
+            }
+         }
+      }
+   }
 }
