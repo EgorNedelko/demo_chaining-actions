@@ -1,5 +1,16 @@
 const addStepBtns = document.querySelectorAll(".btn[name='Add']")
 const stepsCounter = document.getElementById("stepsCounter")
+const stepTypesTextContent = {
+   "Go to URL" : "Provide the URL to go to: https://example.com/",
+   "Check URL" : "Provide the URL where you should be now",
+   "Check path" : "Provide the path (trailing part of the URL) or regular expression where you should be now",
+   "Find element" : "Provide xpath, css selector or label of the element",
+   "Click element" : "Click the element found at the previous step",
+   "Find input" : "Provide xpath, css selector or label of the input",
+   "Type in" : "Provide data for the input found at the previous step",
+   "Find text" : "Provide a string to search",
+   "Element does't exist" : "Provide xpath, css selector or label of the element that is not present on the page"
+}
 
 document.addEventListener('click', (e) => {
    if (e.target.classList.contains('dropdown-btn')) {
@@ -12,7 +23,19 @@ document.addEventListener('click', (e) => {
 
 document.addEventListener('click', (e) => {
    if (e.target.classList.contains('dropdown-item')) {
-      console.log('dropdown-item')
+      const selectedType = e.target.textContent
+      e.target.parentNode.parentNode.parentNode.children[1].setAttribute('placeholder', stepTypesTextContent[selectedType]) //change input placeholder
+      e.target.parentNode.parentNode.children[0].textContent = e.target.textContent //change btn text content
+      e.target.parentNode.classList.remove('visible') //hide dropdown
+
+      console.log(selectedType)
+      if (selectedType == "Click element") {
+         e.target.parentNode.parentNode.parentNode.children[1].classList.add('no-edit')
+         e.target.parentNode.parentNode.parentNode.children[1].setAttribute('disabled', true)
+      } else {
+         e.target.parentNode.parentNode.parentNode.children[1].classList.remove('no-edit')
+         e.target.parentNode.parentNode.parentNode.children[1].removeAttribute('disabled')
+      }
    }
 })
 

@@ -152,6 +152,7 @@ header {
    font-size: 14px;
    height: 100%;
    position: relative;
+   width: 175px;
 }
 
 .dropdown {
@@ -187,7 +188,7 @@ header {
    border-left: none;
    padding: 4px 8px 4px 12px;
    height: 100%;
-   width: 550px;
+   width: 600px;
    font-size: 14px;
    color: #525f7f;
 }
@@ -198,7 +199,7 @@ header {
 }
 
 .trashbin-icon {
-   margin-left: 240px;
+   margin-left: 130px;
    width: 22px;
    height: 22px;
    cursor: pointer;
@@ -220,4 +221,8 @@ header {
 /* STATES */
 .visible {
    display: block;
+}
+
+.no-edit {
+   background-color: #c5c5c546;
 }
