@@ -1,92 +1,101 @@
-//top-btns
 const addStepBtns = document.querySelectorAll(".btn[name='Add']")
+const stepsCounter = document.getElementById("stepsCounter")
 
-//select-type-btns
-const selectTypeBtn = document.getElementById('selectTypeBtn')
-const dropdownMenu = document.getElementById('dropdownMenu')
-const dropdownItems = document.querySelectorAll('.dropdown-item-link')
-
-selectTypeBtn.addEventListener('click', () => {
-   dropdownMenu.classList.toggle('visible')
+document.addEventListener('click', (e) => {
+   if (e.target.classList.contains('dropdown-btn')) {
+      document.querySelectorAll('.dropdown').forEach(el => {
+         if (el != e.target.parentNode.children[1]) el.classList.remove('visible')
+      })
+      e.target.parentNode.children[1].classList.toggle('visible')
+   }
 })
 
-addStepBtns.forEach(btn => btn.addEventListener('click', addStep))
+document.addEventListener('click', (e) => {
+   if (e.target.classList.contains('dropdown-item')) {
+      console.log('dropdown-item')
+   }
+})
 
-//there are 9 step types
-// dropdownItems.forEach(item => item.addEventListener('click', () => {
-
-// }))
-
+addStepBtns.forEach(btn => btn.addEventListener('click', () => {
+   hideDropdowns()
+   addStep()
+   stepsCounter.textContent = Number(stepsCounter.textContent) + 1
+}))
 
 function addStep() {
    //create document fragment
-   const newStep = document.createDocumentFragment()
+   const fragment = document.createDocumentFragment()
 
    //create step container
    const step = document.createElement('div')
    step.classList.add('step')
 
-   //create context-menu-icon
-   const contextMenuIcon = document.createElement('img')
-   contextMenuIcon.setAttribute('src', 'https://img.icons8.com/material-outlined/24/000000/menu--v1.png')
-   contextMenuIcon.classList.add('context-menu-icon')
+   //create order-icon
+   const orderIcon = document.createElement('img')
+   orderIcon.setAttribute('src', 'https://img.icons8.com/material-outlined/24/000000/menu--v1.png')
+   orderIcon.classList.add('order-icon')
 
    //create  order-number
    const orderNumber = document.createElement('span')
    orderNumber.classList.add('order-num')
    orderNumber.textContent = document.querySelectorAll('.order-num').length + 1
 
-   //create select-type-container
-   const selectTypeContainer = document.createElement('div')
-   selectTypeContainer.classList.add('select-type-container')
+   //create inputs-group
+   const inputsGroup = document.createElement('div')
+   inputsGroup.classList.add('inputs-group')
 
-   const selectTypeMenu = document.createElement('div')
-   selectTypeMenu.classList.add('select-type-menu')
+   //create dropdown-container
+   const dropdownContainer = document.createElement('div')
+   dropdownContainer.classList.add('dropdown-container')
 
-   const selectTypeButton = document.createElement('button')
-   selectTypeButton.classList.add('btn', 'btn-white', 'select-type-btn')
-   selectTypeButton.setAttribute('id', 'selectTypeBtn2')
-   selectTypeButton.setAttribute('type', 'button')
-   selectTypeButton.textContent = 'Select Type'
+   //create dropdown-btn
+   const dropdownBtn = document.createElement('button')
+   dropdownBtn.classList.add('btn', 'btn-white', 'dropdown-btn')
+   dropdownBtn.setAttribute('type', 'button')
+   dropdownBtn.textContent = 'Select Type'
 
-   const dropdownMenu = document.createElement('div')
-   dropdownMenu.classList.add('select-type-dropdown')
-   dropdownMenu.setAttribute('id', 'dropdownMenu')
+   const dropdown = document.createElement('div')
+   dropdown.classList.add('dropdown')
 
-   const dropdownList = document.createElement('ul')
-   dropdownList.classList.add('dropdown-list')
-
+   //create dropdownItems and attach them to dropdown
    for (let i = 0; i < 9; i++) {
-      const li = document.createElement('li')
-      li.classList.add('dropdown-item')
+      const contentArr = ['Go To URL', 'Check URL', 'Check path', 'Find element', 'Click element',
+                           'Find input', 'Type in', 'Find text', "Element doesn't exist"]
       const a = document.createElement('a')
-      a.classList.add('dropdown-item-link')
-      li.appendChild(a)
-      dropdownList.appendChild(li) //attaching li>a to ul
+      a.classList.add('dropdown-item')
+      a.textContent = contentArr[i]
+      dropdown.appendChild(a)
    }
 
-   const stepTypeInput = document.createElement('input')
-   stepTypeInput.classList.add('step-type-input')
-   stepTypeInput.setAttribute('type', 'text')
-   stepTypeInput.setAttribute('placeholder', 'Select Type first')
+   const stepInput = document.createElement('input')
+   stepInput.classList.add('step-input')
+   stepInput.setAttribute('type', 'text')
+   stepInput.setAttribute('placeholder', 'Select Type first')
 
-   //create trash-bin icon
-   const trashBinIcon = document.createElement('img')
-   trashBinIcon.setAttribute('src', 'https://img.icons8.com/external-kmg-design-flat-kmg-design/32/000000/external-trash-bin-ui-essential-kmg-design-flat-kmg-design.png')
-   trashBinIcon.classList.add('trash-bin-icon')
+   //create trashbin icon
+   const trashbinIcon = document.createElement('img')
+   trashbinIcon.setAttribute('src', 'https://img.icons8.com/external-kmg-design-flat-kmg-design/32/000000/external-trash-bin-ui-essential-kmg-design-flat-kmg-design.png')
+   trashbinIcon.classList.add('trashbin-icon')
    
    //attachments
-   step.appendChild(contextMenuIcon) //attaching order-icon to the step
-   step.appendChild(orderNumber) //attaching order-number to the step
-   step.appendChild(selectTypeContainer) //attaching inputs group to the step
-   step.appendChild(trashBinIcon) //attaching trashbin icon to the step
+   step.appendChild(orderIcon)
+   step.appendChild(orderNumber)
+   step.appendChild(inputsGroup)
+   step.appendChild(trashbinIcon)
 
-   selectTypeContainer.appendChild(selectTypeMenu) //attaching selectTypeMenu container to inputsGroup
-   selectTypeContainer.appendChild(stepTypeInput) //attaching input-text to select-type-inputs
-   selectTypeMenu.appendChild(selectTypeButton) //attaching selectTypeBtn to the 
-   selectTypeMenu.appendChild(dropdownMenu) 
-   dropdownMenu.appendChild(dropdownList) //attaching ul with all the li>a's to the 
+   inputsGroup.appendChild(dropdownContainer)
+   inputsGroup.appendChild(stepInput)
+
+   dropdownContainer.appendChild(dropdownBtn)
+   dropdownContainer.appendChild(dropdown) 
    
-   newStep.appendChild(step) //attaching container for all to the fragment
-   document.querySelector('.steps').append(newStep) //attaching the frament to the page
+   fragment.appendChild(step)
+   document.querySelector('.steps').append(fragment)
+}
+
+
+function hideDropdowns() {
+   document.querySelectorAll('.dropdown').forEach(el => {
+      el.classList.remove('visible')
+   })
 }

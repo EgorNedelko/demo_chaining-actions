@@ -121,11 +121,11 @@ header {
    border-bottom: 1px solid #e9ecef;
 }
 
-.context-menu-icon {
+.order-icon {
    user-select: none;
    cursor: pointer;
 }
-.context-menu-icon:hover {
+.order-icon:hover {
    transform: translateY(-1px);
 }
 
@@ -139,7 +139,7 @@ header {
    line-height: 19.5px;
 }
 
-.select-type-container {
+.inputs-group {
    margin-left: 100px;
    display: flex;
    align-items: center;
@@ -147,19 +147,23 @@ header {
    height: 28px;
 }
 
-.select-type-btn {
+.dropdown-btn {
    user-select: none;
    font-size: 14px;
    height: 100%;
    position: relative;
 }
 
-.select-type-dropdown {
+.dropdown {
    display: none;
+   z-index: 1;
    position: absolute;
    background-color: rgb(255,255,255);
    border-bottom-left-radius: 6px;
    border-bottom-right-radius: 6px;
+}
+.dropdown a {
+   display: block;
 }
 
 .dropdown-list {
@@ -177,7 +181,7 @@ header {
    background-color: #e5ebf3;
 }
 
-.step-type-input {
+.step-input {
    outline: none;
    border: 1px solid #cad1d7;
    border-left: none;
@@ -187,20 +191,20 @@ header {
    font-size: 14px;
    color: #525f7f;
 }
-.step-type-input::placeholder {
+.step-input::placeholder {
    font-size: 14px;
    color: #525f7f;
    opacity: 0.5;
 }
 
-.trash-bin-icon {
+.trashbin-icon {
    margin-left: 240px;
    width: 22px;
    height: 22px;
    cursor: pointer;
    user-select: none;
 }
-.trash-bin-icon:hover {
+.trashbin-icon:hover {
    transform: translateY(-1px);
 }
 
