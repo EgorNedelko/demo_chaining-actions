@@ -1,6 +1,7 @@
 const addStepBtns = document.querySelectorAll(".btn[name='Add']")
 const stepsCounter = document.getElementById("stepsCounter")
 const stepTypesTextContent = {
+   "Select Type" : "Select Type first",
    "Go to URL" : "Provide the URL to go to: https://example.com/",
    "Check URL" : "Provide the URL where you should be now",
    "Check path" : "Provide the path (trailing part of the URL) or regular expression where you should be now",
@@ -22,40 +23,12 @@ document.addEventListener('click', (e) => {
    }
 })
 
-//change btns and inputs' text content based on the selected step type, click element details
-document.addEventListener('click', (e) => {
-   if (e.target.classList.contains('dropdown-item')) {
-
-      const selectedType = e.target.textContent
-      const dropdownBtn = e.target.parentNode.parentNode.children[0]
-      const stepInput = e.target.parentNode.parentNode.parentNode.children[1]
-
-      stepInput.setAttribute('placeholder', stepTypesTextContent[selectedType]) //change input placeholder
-      dropdownBtn.textContent = e.target.textContent //change btn text content
-      e.target.parentNode.classList.remove('visible') //hide dropdown
-
-      checkPrevious(e)
-      checkNext(e)
-
-      //Highlighting the click input grey and making it non-editable
-      if (selectedType == "Click element") {
-         stepInput.classList.add('no-edit')
-         stepInput.setAttribute('disabled', true)
-      } else {
-         stepInput.classList.remove('no-edit')
-         stepInput.classList.remove('error')
-         stepInput.removeAttribute('disabled')
-      }
-
-      
-   }
-})
-
 //click on trashbin icon to remove a step 
 document.addEventListener('click', (e) => {
    if(e.target.classList.contains('trashbin-icon')) {
       e.target.parentNode.remove()
       stepsCounter.textContent = document.querySelector('.steps').children.length
+      checkRelations()
    }
 })
 
@@ -64,6 +37,7 @@ addStepBtns.forEach(btn => btn.addEventListener('click', () => {
    hideDropdowns()
    addStep()
    stepsCounter.textContent = document.querySelector('.steps').children.length
+   checkRelations()
 }))
 
 function addStep() {
@@ -103,11 +77,12 @@ function addStep() {
 
    //create dropdownItems and attach them to dropdown
    for (let i = 0; i < 9; i++) {
-      const contentArr = ['Go To URL', 'Check URL', 'Check path', 'Find element', 'Click element',
+      const contentArr = ['Go to URL', 'Check URL', 'Check path', 'Find element', 'Click element',
                            'Find input', 'Type in', 'Find text', "Element doesn't exist"]
       const a = document.createElement('a')
       a.classList.add('dropdown-item')
-      a.textContent = contentArr[i]
+      // a.textContent = contentArr[i]
+      a.textContent = Object.keys(stepTypesTextContent)[i]
       dropdown.appendChild(a)
    }
 
@@ -143,43 +118,77 @@ function hideDropdowns() {
    })
 }
 
-function checkPrevious(e) {
-   const selectedType = e.target.textContent
-   const dropdownBtn = e.target.parentNode.parentNode.children[0]
-   const stepInput = e.target.parentNode.parentNode.parentNode.children[1]
-   
-   //Highlighting the click input red if the previous step type isn't Find element
-   if (selectedType == "Click element") {
-      const stepsArr = [...document.querySelector('.steps').children]
+//change btns and inputs' text content based on the selected step type, click element details
+document.addEventListener('click', (e) => {
+   if (e.target.classList.contains('dropdown-item')) {
+      const selectedType = e.target.textContent
+      const dropdownBtn = e.target.parentNode.parentNode.children[0]
+      const stepInput = e.target.parentNode.parentNode.parentNode.children[1]
 
-      for (let i = 0; i < stepsArr.length; i++) {
-         if (stepsArr[i].contains(e.target)) {
-            if (!stepsArr[i-1] || stepsArr[i-1].children[2].children[0].children[0].textContent != "Find element") {
-               stepInput.classList.add('error')
-               console.log(stepInput)
-               stepInput.setAttribute('placeholder', 'Find element first')
-            }
+      stepInput.setAttribute('placeholder', stepTypesTextContent[selectedType]) //change input placeholder
+      dropdownBtn.textContent = e.target.textContent //change btn text content
+      e.target.parentNode.classList.remove('visible') //hide dropdown
+
+      //Highlighting the click input grey and making it non-editable
+      if (selectedType == "Click element") {
+         stepInput.classList.add('no-edit')
+         stepInput.setAttribute('disabled', true)
+      } else {
+         stepInput.classList.remove('no-edit')
+         stepInput.removeAttribute('disabled')
+      }
+
+      checkRelations()
+
+   }
+})
+
+function checkRelations() {
+   const steps = [...document.querySelectorAll('.step')]
+
+   for (let i = 0; i < steps.length; i++) {
+      if (steps[i-1]) prevStepType = steps[i-1].children[2].children[0].children[0].textContent
+      currentStepType = steps[i].children[2].children[0].children[0].textContent
+      currentStepInput = steps[i].children[2].children[1]
+      if (i == 0) {
+         if (currentStepType != "Go to URL") {
+         steps.forEach(step => {
+            step.children[2].children[1].classList.add('error')
+            step.children[2].children[1].setAttribute('placeholder', "Go to URL first.")
+         })
+         return
+         } else {
+            steps.forEach(step => {
+               step.children[2].children[1].classList.remove('error')
+               step.children[2].children[1].setAttribute('placeholder', stepTypesTextContent[step.children[2].children[0].children[0].textContent])
+            })
          }
       }
-   }
-}
 
-function checkNext(e) {
-   const selectedType = e.target.textContent
-   const dropdownBtn = e.target.parentNode.parentNode.children[0]
-   const stepInput = e.target.parentNode.parentNode.parentNode.children[1]
-   
-   //Highlighting the click input red if the previous step isn't Find element
-   if (selectedType == "Find element") {
-      const stepsArr = [...document.querySelector('.steps').children]
-
-      for (let i = 0; i < stepsArr.length; i++) {
-         if (stepsArr[i].contains(e.target)) {
-            if (stepsArr[i+1] && stepsArr[i+1].children[2].children[0].children[0].textContent == "Click element") {
-               stepsArr[i+1].children[2].children[1].classList.remove('error')
-               stepsArr[i+1].children[2].children[1].setAttribute('placeholder', 'Click the element found at the previous step')
+      switch (currentStepType) {
+         case "Click element":
+            if (!steps[i-1] || prevStepType != "Find element") {
+               currentStepInput.classList.add('error')
+               currentStepInput.setAttribute('placeholder', 'Find element first')
+            } else {
+               if (currentStepInput.classList.contains('error')) {
+                  currentStepInput.classList.error('error')
+               }
+               currentStepInput.setAttribute('placeholder', stepTypesTextContent[currentStepType])
             }
-         }
+            break;
+
+         case "Type in":
+            if (!steps[i-1] || prevStepType != "Find input") {
+               currentStepInput.classList.add('error')
+               currentStepInput.setAttribute('placeholder', 'Find input first')
+            } else {
+               if (currentStepInput.classList.contains('error')) {
+                  currentStepInput.classList.error('error')
+               }
+               currentStepInput.setAttribute('placeholder', stepTypesTextContent[currentStepType])
+            }
+            break;
       }
    }
 }
