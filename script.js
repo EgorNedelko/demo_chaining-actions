@@ -1,3 +1,11 @@
+let draggables = document.querySelectorAll(".step[draggable='true']")
+draggables.forEach(draggables => {
+   draggables.remove
+   draggables.addEventListener('dragstart', () => {
+      console.log('drag start')
+   })
+})
+
 const addStepBtns = document.querySelectorAll(".btn[name='Add']")
 const stepsCounter = document.getElementById("stepsCounter")
 const stepTypesTextContent = {
@@ -36,6 +44,15 @@ document.addEventListener('click', (e) => {
 addStepBtns.forEach(btn => btn.addEventListener('click', () => {
    hideDropdowns()
    addStep()
+
+   // draggables = document.querySelectorAll(".step[draggable='true']")
+   // draggables.forEach(draggables => {
+   //    draggables.remove
+   //    draggables.addEventListener('dragstart', () => {
+   //       console.log('drag start')
+   //    })
+   // })
+
    stepsCounter.textContent = document.querySelector('.steps').children.length
    checkRelations()
 }))
@@ -47,6 +64,13 @@ function addStep() {
    //create step container
    const step = document.createElement('div')
    step.classList.add('step')
+   step.setAttribute('draggable', true)
+   // step.addEventListener('dragstart', () => {
+   //    step.classList.add('dragging')
+   // })
+   // step.addEventListener('dragend', () => {
+   //    step.classList.remove('dragging')
+   // })
 
    //create order-icon
    const orderIcon = document.createElement('img')
@@ -76,7 +100,7 @@ function addStep() {
    dropdown.classList.add('dropdown')
 
    //create dropdownItems and attach them to dropdown
-   for (let i = 0; i < 9; i++) {
+   for (let i = 1; i < 10; i++) {
       const contentArr = ['Go to URL', 'Check URL', 'Check path', 'Find element', 'Click element',
                            'Find input', 'Type in', 'Find text', "Element doesn't exist"]
       const a = document.createElement('a')
@@ -192,3 +216,4 @@ function checkRelations() {
       }
    }
 }
+

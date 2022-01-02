@@ -123,7 +123,7 @@ header {
 
 .order-icon {
    user-select: none;
-   cursor: pointer;
+   cursor: move;
 }
 .order-icon:hover {
    transform: translateY(-1px);
@@ -221,6 +221,10 @@ header {
 /* STATES */
 .visible {
    display: block;
+}
+
+.dragging {
+   opacity: 1;
 }
 
 .no-edit {
