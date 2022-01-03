@@ -125,7 +125,13 @@ header {
    display: flex;
    align-items: center;
    justify-content: flex-start;
+   flex-wrap: wrap;
    border-bottom: 1px solid #e9ecef;
+   position: relative;
+}
+
+.hover-menu{
+
 }
 
 .order-icon {
@@ -206,7 +212,7 @@ header {
 }
 
 .trashbin-icon {
-   margin-left: 130px;
+   margin-left: 110px;
    width: 22px;
    height: 22px;
    cursor: pointer;
@@ -214,6 +220,17 @@ header {
 }
 .trashbin-icon:hover {
    transform: translateY(-1px);
+}
+
+.specific-step-buttons {
+   display: none;
+   align-items: center;
+   justify-content: flex-start;
+   padding: 16px 44px 20px;
+   transition: all 1s ease;
+}
+.specific-step-buttons.visible {
+   display: flex;
 }
 
 .step-btns {

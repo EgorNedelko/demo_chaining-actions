@@ -246,3 +246,25 @@ function assignOrderNumber() {
       document.querySelectorAll('.order-num')[i].textContent = i+1
    }
 }
+
+document.querySelectorAll('.step').forEach(step => {
+   step.addEventListener('mouseover', () => {
+      step.children[4].classList.add('visible')
+      // step.children[length-1].classList.add('.visible')
+      // step.classList.add('hover-menu')
+      // const div = document.createElement('div')
+      // for (let i = 0; i < 4; i++) {
+      //    const img = document.createElement('img')
+      //    img.setAttribute('src', "https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/ffffff/external-magnifying-glass-interface-kiranshastry-lineal-kiranshastry.png")
+      //    img.classList.add('btn, btn-blue, btn-find-el')
+      //    div.append(img)
+      // }
+      // div.classList.add('hover-menu')
+      
+      // step.appendChild(div)
+      // console.log(step.childNodes)
+   })
+   step.addEventListener('mouseout', () => {
+      // step.classList.remove('hover-menu')
+   })
+})
