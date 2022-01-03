@@ -67,6 +67,10 @@ header {
    column-gap: 8px;
 }
 
+.btn-chain-mode {
+   width: 34px;
+}
+
 .btn {
    padding: 4px 8px;
    letter-spacing: 0.5px;
@@ -84,6 +88,9 @@ header {
    transform: translateY(-1px);
 }
 
+.btn-grey {
+   background-color: rgb(202, 202, 202); 
+}
 .btn-blue {
    background-color: rgb(94, 114, 228); 
 }
@@ -207,6 +214,51 @@ header {
 }
 .trashbin-icon:hover {
    transform: translateY(-1px);
+}
+
+.step-btns {
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   padding: 16px 44px 20px;
+}
+
+.step-btns-menu {
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   column-gap: 8px;
+   padding: 16px 44px 20px;
+}
+
+.btn-plus {
+   transition: all .3s ease;
+   opacity: 1;
+}
+
+.btn-plus:hover {
+   opacity: 0;
+}
+
+.step-btns-menu > .btn-white {
+   border-top-right-radius: 6px;
+   border-bottom-right-radius: 6px;
+}
+
+.btn-find-el {
+   width: 35px;
+}
+
+.btn-click {
+   width: 35px;
+}
+
+.btn-find-input {
+   width: 35px;
+}
+
+.btn-typein {
+   width: 35px;
 }
 
 .btns-bottom {

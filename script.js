@@ -1,11 +1,12 @@
-let draggables = document.querySelectorAll(".step[draggable='true']")
-draggables.forEach(draggables => {
-   draggables.remove
-   draggables.addEventListener('dragstart', () => {
-      console.log('drag start')
-   })
-})
+// let draggables = document.querySelectorAll(".step[draggable='true']")
+// draggables.forEach(draggables => {
+//    draggables.remove
+//    draggables.addEventListener('dragstart', () => {
+//       console.log('drag start')
+//    })
+// })
 
+const stepsBtns = document.querySelectorAll(".step-btns-menu > .btn")
 const addStepBtns = document.querySelectorAll(".btn[name='Add']")
 const stepsCounter = document.getElementById("stepsCounter")
 const stepTypesTextContent = {
@@ -38,6 +39,22 @@ document.addEventListener('click', (e) => {
       stepsCounter.textContent = document.querySelector('.steps').children.length
       checkRelations()
    }
+})
+
+stepsBtns.forEach(stepBtn => {
+   let commonTypesArr = {
+      "btn-find-el" : "Find element",
+      "btn-click" : "Click element",
+      "btn-find-input" : "Find input",
+      "btn-typein" : "Type in"
+   } 
+   stepBtn.addEventListener('click', (e) => {
+      const btnClicked = commonTypesArr[e.target.classList[2]]
+      addStep()
+      const steps = [...document.querySelectorAll('.step')]
+      steps[steps.length-1].children[2].children[0].children[0].textContent = btnClicked
+      steps[steps.length-1].children[2].children[1].setAttribute('placeholder', stepTypesTextContent[btnClicked])
+   })
 })
 
 //click add-step buttons to add steps
