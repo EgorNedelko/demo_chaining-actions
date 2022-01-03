@@ -38,9 +38,11 @@ document.addEventListener('click', (e) => {
       e.target.parentNode.remove()
       stepsCounter.textContent = document.querySelector('.steps').children.length
       checkRelations()
+      assignOrderNumber()
    }
 })
 
+//common step types as buttons
 stepsBtns.forEach(stepBtn => {
    let commonTypesArr = {
       "btn-find-el" : "Find element",
@@ -54,6 +56,8 @@ stepsBtns.forEach(stepBtn => {
       const steps = [...document.querySelectorAll('.step')]
       steps[steps.length-1].children[2].children[0].children[0].textContent = btnClicked
       steps[steps.length-1].children[2].children[1].setAttribute('placeholder', stepTypesTextContent[btnClicked])
+      checkRelations()
+      assignOrderNumber()
    })
 })
 
@@ -61,6 +65,7 @@ stepsBtns.forEach(stepBtn => {
 addStepBtns.forEach(btn => btn.addEventListener('click', () => {
    hideDropdowns()
    addStep()
+   assignOrderNumber()
 
    // draggables = document.querySelectorAll(".step[draggable='true']")
    // draggables.forEach(draggables => {
@@ -234,3 +239,10 @@ function checkRelations() {
    }
 }
 
+function assignOrderNumber() {
+   const steps = [...document.querySelectorAll('.step')]
+
+   for (let i = 0; i < steps.length; i++) {
+      document.querySelectorAll('.order-num')[i].textContent = i+1
+   }
+}
