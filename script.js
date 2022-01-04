@@ -1,6 +1,7 @@
 const stepsBtns = document.querySelectorAll(".step-btns-menu > .btn")
 const addStepBtns = document.querySelectorAll(".btn[name='Add']")
 const stepsCounter = document.getElementById("stepsCounter")
+const chainModeBtn = document.querySelector('.btn-chain-mode')
 const stepTypesTextContent = {
    "Select Type" : "Select Type first",
    "Go to URL" : "Provide the URL to go to: https://example.com/",
@@ -13,6 +14,18 @@ const stepTypesTextContent = {
    "Find text" : "Provide a string to search",
    "Element does't exist" : "Provide xpath, css selector or label of the element that is not present on the page"
 }
+const chainModeIconsUrls = [ "https://img.icons8.com/material-sharp/24/ffffff/broken-link.png",
+                             "https://img.icons8.com/material-sharp/24/ffffff/link--v1.png" ]
+                             
+//Chain mode
+let isChainMode = false
+function handleChainMode() {
+   isChainMode = isChainMode == false ? true : false
+   chainModeBtn.setAttribute('src', isChainMode ? "https://img.icons8.com/material-sharp/24/ffffff/link--v1.png" : "https://img.icons8.com/material-sharp/24/ffffff/broken-link.png")
+   chainModeBtn.classList.toggle('btn-green')
+}
+chainModeBtn.addEventListener('click', handleChainMode)
+
 
 //click the dropdown button for the dropdown to appear 
 document.addEventListener('click', (e) => {
@@ -53,16 +66,48 @@ stepsBtns.forEach(stepBtn => {
    })
 })
 
-//click add-step buttons to add steps
-addStepBtns.forEach(btn => btn.addEventListener('click', () => {
+//click add-common-step button to add template steps
+document.querySelector("input[value='Add Common Step'").addEventListener('click', () => {
+   hideDropdowns()
+   addStep()
+   openStepOptions()
+   assignOrderNumber()
+   stepsCounter.textContent = document.querySelector('.steps').children.length
+   checkRelations()
+})
+
+// click add-step button to add select type steps
+document.querySelector("input[value='Add Select Type Step']").addEventListener('click', () => {
    hideDropdowns()
    addStep()
    assignOrderNumber()
    stepsCounter.textContent = document.querySelector('.steps').children.length
    checkRelations()
-}))
+})
 
-function addStep() {
+//click plus button to add steps and open the options
+document.addEventListener('click', (e) => {
+   if (e.target.classList.contains('btn-plus')) {
+      //find position
+      const steps = [...document.querySelectorAll('.step')]
+      // console.log(steps)
+      let targetPosition;
+      for (let i = 0; i < steps.length; i++) {
+         if (steps[i].contains(e.target)) {
+            targetPosition = steps.indexOf(steps[i])
+            // console.log('targetPosition',targetPosition)
+         }
+      }
+
+      hideDropdowns()
+      addStep(targetPosition)
+      openStepOptions()
+   }
+})
+
+function addStep(targetPosition) {
+   console.log('.init addStep(), targetPosition = ', targetPosition)
+   if (targetPosition == undefined) console.log('no targetPosition ~ Add Step button')
    //create document fragment
    const fragment = document.createDocumentFragment()
 
@@ -157,20 +202,56 @@ function addStep() {
 
    dropdownContainer.appendChild(dropdownBtn)
    dropdownContainer.appendChild(dropdown) 
-   
+
    fragment.appendChild(step)
-   document.querySelector('.steps').append(fragment)
+   console.log('.runnning addStep(), created step = ', step)
+
+   if (!targetPosition) {
+      document.querySelector('.steps').append(fragment)
+
+   } else {
+      let stepsArr = [...document.querySelectorAll('.step')]
+      let arr = []
+      for (let i = 0; i < stepsArr.slice(0,targetPosition+1).length; i++) {
+         arr.push(stepsArr[i])
+      }
+      arr.push(step)
+      for (let i = 0; i < stepsArr.slice(targetPosition+2).length; i++) {
+         arr.push(stepsArr[i])
+      }
+      console.log(arr)
+      // stepsArr = stepsArr.slice(0,targetPosition) + step + stepsArr.slice(targetPosition+1)
+
+      document.querySelector('.steps').innerHTML = ''
+      for (let i = 0; i < arr.length; i++) {
+         document.querySelector('.steps').appendChild(arr[i])
+      }
+
+      // stepsArr.forEach(item => document.querySelector('.steps').append(item))
+
+      // console.log(stepsArr.slice(0,targetPosition))
+      // console.log(stepsArr.slice(targetPosition+1))
+   }
+
 }
 
-//plus button events
-document.addEventListener('click', (e) => {
-   if (e.target.classList.contains('btn-plus')) {
-      hideDropdowns()
-      addStep()
-      assignOrderNumber()
-      checkRelations()
-   }
-})
+function chainAddStep(selectedType) {
+   console.log(selectedType)
+   addStep()
+   const steps = [...document.querySelectorAll('.step')]
+   if (selectedType == "Find element") {
+      const elem = steps[steps.length-1].children[2].children[1]
+      console.log(elem)
+      console.log(selectedType)
+      let ind = Object.keys(stepTypesTextContent).indexOf(selectedType)
+      let values = Object.values(stepTypesTextContent)
+      console.log(values)
+      console.log(ind)
+      
+      elem.setAttribute('placeholder', "Click")
+      // elem.setAttribute('placeholder', values[ind])
+   } 
+}
 
 function hideDropdowns() {
    document.querySelectorAll('.dropdown').forEach(el => {
@@ -178,21 +259,43 @@ function hideDropdowns() {
    })
 }
 
+function openStepOptions() {
+   const steps = [...document.querySelectorAll('.step')]
+   const stepToOpen = steps[steps.length-1]
+   const plusBtn = stepToOpen.children[0]
+   const order = stepToOpen.children[1]
+   const trashBin = stepToOpen.children[3]
+   const commonBtns = stepToOpen.children[4]
+   console.log(commonBtns)
+
+   stepToOpen.classList.add('options-opened')
+   commonBtns.classList.remove('invisible')
+   plusBtn.classList.add('invisible')
+   order.classList.add('invisible')
+   trashBin.classList.add('invisible')
+}
+
+function closeStepOptions() {
+   const steps = [...document.querySelectorAll('.step')]
+   const stepToOpen = steps[steps.length-1]
+   const plusBtn = stepToOpen.children[0]
+   const order = stepToOpen.children[1]
+   const trashBin = stepToOpen.children[3]
+
+   stepToOpen.classList.remove('options-opened')
+   plusBtn.classList.remove('invisible')
+   order.classList.remove('invisible')
+   trashBin.classList.remove('invisible')
+}
+
 //change btns and inputs' text content based on the selected step type, click element details
 document.addEventListener('click', (e) => {
    if (e.target.classList.contains('dropdown-item')) {
+      closeStepOptions()
+
       const selectedType = e.target.textContent
       const dropdownBtn = e.target.parentNode.parentNode.children[0]
       const stepInput = e.target.parentNode.parentNode.parentNode.children[1]
-      
-      document.querySelectorAll('.step').forEach(step => {
-         // step.classList.remove('.step-options')
-         step.children[0].classList.remove('invisible')
-         step.children[1].classList.remove('invisible')
-         // step.children[1].children[0].removeAttribute('class')
-         step.children[2].classList.remove('invisible')
-         step.children[4].classList.remove('visible')
-      })
 
       stepInput.setAttribute('placeholder', stepTypesTextContent[selectedType]) //change input placeholder
       dropdownBtn.textContent = e.target.textContent //change btn text content
@@ -206,9 +309,13 @@ document.addEventListener('click', (e) => {
          stepInput.classList.remove('no-edit')
          stepInput.removeAttribute('disabled')
       }
-
-      checkRelations()
       
+      
+      if ((isChainMode && selectedType == "Find element") || (isChainMode && selectedType == "Find input")) {
+         chainAddStep(selectedType)
+      }
+      
+      checkRelations()
    }
 })
 

@@ -69,6 +69,7 @@ header {
 
 .btn-chain-mode {
    width: 34px;
+   transition: background-color 0.5s ease;
 }
 
 .btn {
@@ -119,21 +120,22 @@ header {
    text-transform: uppercase;
 }
 
+.steps {
+   min-height: 300px;
+}
+
 .step {
+   /* height: 1000px; */
    padding: 16px 24px;
    display: flex;
-   align-items: center;
+   align-items: flex-start;
    justify-content: flex-start;
    flex-wrap: wrap;
    border-bottom: 1px solid #e9ecef;
    position: relative;
+   transition: background-color 0.4s ease;
    /* transform: translateY(200px); */
 }
-
-/* .step-options { */
-   /* display: absolute; */
-   /* transform: translateY(200px); */
-/* } */
 
 .order-icon {
    user-select: none;
@@ -214,6 +216,7 @@ header {
    width: 600px;
    font-size: 14px;
    color: #525f7f;
+   transition: background-color 0.3s ease;
 }
 .step-input::placeholder {
    font-size: 14px;
@@ -235,7 +238,7 @@ header {
 .specific-step-buttons {
    max-width: 15%;
    position: absolute;
-   display: none;
+   /* display: none; */
    align-items: center;
    justify-content: space-between;
    /* flex-wrap: wrap; */
@@ -246,11 +249,15 @@ header {
 }
 
 .specific-step-buttons .btn{
+   transition: all 1s ease;
    width: 35px;
 }
 
-.specific-step-buttons.visible {
+.specific-step-buttons {
    display: flex;
+}
+.specific-step-buttons.invisible {
+   display: none;
 }
 
 .step-btns {
@@ -326,4 +333,8 @@ header {
 
 .white-out {
    color: rgba(0,0,0,0.2);
+}
+
+.options-opened {
+   background-color: #d3d3d346;
 }
