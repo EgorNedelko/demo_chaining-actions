@@ -64,6 +64,7 @@ document.addEventListener('click', (e) => {
       stepInput.setAttribute('placeholder', stepTypesTextContent[dropdownBtn.textContent])
       const elemToClose = e.target.parentNode.parentNode
       closeStepOptions(elemToClose)
+      console.log('checkRelations')
       checkRelations()
    }
 })
@@ -110,13 +111,14 @@ document.addEventListener('click', (e) => {
       const elemToOpen = steps[targetPosition+1]
       console.log('elemToOpen', elemToOpen)
       openStepOptions(elemToOpen)
-      
+
       assignOrderNumber()
    }
 })
 
 function addStep(targetPosition) {
-   console.log('.init addStep(), targetPosition is ', targetPosition)
+   console.log('--------------------------------------')
+   console.log('addStep(): targetPosition =', targetPosition)
    if (targetPosition == undefined) console.log('no targetPosition ~ Add Step button')
    //create document fragment
    const fragment = document.createDocumentFragment()
@@ -215,7 +217,6 @@ function addStep(targetPosition) {
 
    fragment.appendChild(step)
    console.log('created step = ', step)
-      // document.querySelector('.steps').append(fragment)
 
    if (targetPosition == undefined) {
       console.log('no target position ~ end of list')
@@ -228,30 +229,6 @@ function addStep(targetPosition) {
       document.querySelector('.steps').insertBefore(step, stepsArr[targetPosition].nextSibling)
    }
 
-
-   // for (item in stepsArr) {
-   //    console.log(step)
-   // }
-
-}
-
-function chainAddStep(selectedType) {
-   console.log(selectedType)
-   addStep()
-   const steps = [...document.querySelectorAll('.step')]
-   if (selectedType == "Find element") {
-      const elem = steps[steps.length-1].children[2].children[1]
-      console.log(elem)
-      console.log(selectedType)
-      let ind = Object.keys(stepTypesTextContent).indexOf(selectedType)
-      let values = Object.values(stepTypesTextContent)
-      console.log(values)
-      console.log(ind)
-      
-      elem.setAttribute('placeholder', "Click")
-      // elem.setAttribute('placeholder', values[ind])
-   } 
-   //dont add steps if there already needed step right ahead
 }
 
 function hideDropdowns() {
@@ -289,7 +266,7 @@ function closeStepOptions(elemToClose) {
    // trashBin.classList.remove('invisible')
 }
 
-//change btns and inputs' text content based on the selected step type, click element details
+//click DROPDOWN-ITEMS to change step type
 document.addEventListener('click', (e) => {
    if (e.target.classList.contains('dropdown-item')) {
       const elemToClose = e.target.parentNode.parentNode.parentNode.parentNode
@@ -316,13 +293,39 @@ document.addEventListener('click', (e) => {
          stepInput.removeAttribute('disabled')
       }
       
-      
+      let targetPosition;
       if ((isChainMode && selectedType == "Find element") || (isChainMode && selectedType == "Find input")) {
-         console.log('isChainMode and selectedType is ', selectedType)
-         console.log('.init chainAddStep(', selectedType, ')')
-         chainAddStep(selectedType)
+         let steps = [...document.querySelectorAll('.step')]
+         for (let i = 0; i < steps.length; i++) {
+            if (steps[i].contains(e.target)) {
+               targetPosition = i
+               console.log('is chain_targetPosition is ', targetPosition)
+               console.log('is chain_targeted elem is ', steps[i])
+               if (steps[i] == steps[steps.length-1]) {
+                  addStep()
+               } else {
+                  addStep(targetPosition)
+               }
+            }
+         }
+         // steps = [...document.querySelectorAll('.step')]
+         // let elemToCloseSibling
+         // if (e.target.parentNode.parentNode.parentNode.parentNode.nextSibling != null) {
+         //    elemToCloseSibling = e.target.parentNode.parentNode.parentNode.parentNode.nextSibling
+         // }
+         // console.log('steps[targetPosition]',steps[targetPosition])
+         // console.log('elemToCloseSibling', elemToCloseSibling)
+         // if (steps[i] == steps[steps.length-1]) {
+         //    addStep()
+         // } else {
+         //    let elemToCloseSibling
+         //    if (e.target.parentNode.parentNode.parentNode.parentNode.nextSibling != null) {
+         //       elemToCloseSibling = e.target.parentNode.parentNode.parentNode.parentNode.nextSibling
+         //    }
+         //    addStep(targetPosition)
+         // }
+         assignOrderNumber()
       }
-      
       checkRelations()
    }
 })
