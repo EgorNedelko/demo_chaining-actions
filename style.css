@@ -121,7 +121,7 @@ header {
 }
 
 .steps {
-   min-height: 300px;
+   min-height: 400px;
 }
 
 .step {
@@ -134,7 +134,7 @@ header {
    border-bottom: 1px solid #e9ecef;
    position: relative;
    transition: background-color 0.4s ease;
-   /* transform: translateY(200px); */
+   /* transform: translateY(100px); */
 }
 
 .order-icon {
@@ -245,11 +245,12 @@ header {
    /* flex-wrap: wrap; */
    /* padding: 36px 44px 20px; */
    column-gap: 8px;
-   transition: all 1s ease;
+   transition: opacity 1s ease;
    /* left: 3%; */
 }
 
 .specific-step-buttons .btn{
+   /* border-radius: 9px; */
    transition: all 1s ease;
    width: 35px;
 }
@@ -338,4 +339,8 @@ header {
 
 .options-opened {
    background-color: #d3d3d346;
+}
+
+.color-blue {
+   color:rgb(94, 114, 228);
 }

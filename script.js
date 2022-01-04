@@ -1,4 +1,4 @@
-const stepsBtns = document.querySelectorAll(".step-btns-menu > .btn")
+// const stepsBtns = document.querySelectorAll(".step-btns-menu > .btn")
 const addStepBtns = document.querySelectorAll(".btn[name='Add']")
 const stepsCounter = document.getElementById("stepsCounter")
 const chainModeBtn = document.querySelector('.btn-chain-mode')
@@ -47,23 +47,24 @@ document.addEventListener('click', (e) => {
    }
 })
 
-//common step types as buttons
-stepsBtns.forEach(stepBtn => {
+//click on open options common type btn to make that step this type
+document.addEventListener('click', (e) => {
    let commonTypesArr = {
-      "btn-find-el" : "Find element",
-      "btn-click" : "Click element",
-      "btn-find-input" : "Find input",
-      "btn-typein" : "Type in"
-   } 
-   stepBtn.addEventListener('click', (e) => {
-      const btnClicked = commonTypesArr[e.target.classList[2]]
-      addStep()
-      const steps = [...document.querySelectorAll('.step')]
-      steps[steps.length-1].children[2].children[0].children[0].textContent = btnClicked
-      steps[steps.length-1].children[2].children[1].setAttribute('placeholder', stepTypesTextContent[btnClicked])
+            "btn-find-el" : "Find element",
+            "btn-click" : "Click element",
+            "btn-find-input" : "Find input",
+            "btn-typein" : "Type in"
+         }
+
+   if (e.target.classList.contains('btn-options')) {
+      const dropdownBtn = e.target.parentNode.parentNode.children[2].children[0].children[0]
+      const stepInput = e.target.parentNode.parentNode.children[2].children[1]
+      dropdownBtn.textContent = commonTypesArr[e.target.classList[3]]
+      stepInput.setAttribute('placeholder', stepTypesTextContent[dropdownBtn.textContent])
+      const elemToClose = e.target.parentNode.parentNode
+      closeStepOptions(elemToClose)
       checkRelations()
-      assignOrderNumber()
-   })
+   }
 })
 
 //click add-common-step button to add template steps
@@ -145,7 +146,7 @@ function addStep(targetPosition) {
 
    //create dropdown-btn
    const dropdownBtn = document.createElement('button')
-   dropdownBtn.classList.add('btn', 'btn-white', 'dropdown-btn')
+   dropdownBtn.classList.add('btn', 'btn-grey', 'color-blue','dropdown-btn')
    dropdownBtn.setAttribute('type', 'button')
    dropdownBtn.textContent = 'Select Type'
 
@@ -184,7 +185,7 @@ function addStep(targetPosition) {
    ]
    for (let i = 0; i < stepIconsSrc.length; i++) {
       const img = document.createElement('img')
-      img.classList.add('btn', 'btn-blue', stepIconsClass[i])
+      img.classList.add('btn', 'btn-options', 'btn-blue', stepIconsClass[i])
       img.setAttribute('src', stepIconsSrc[i])
       specificStepButtons.append(img)
    }
@@ -266,41 +267,51 @@ function openStepOptions() {
    const stepToOpen = steps[steps.length-1]
    const plusBtn = stepToOpen.children[0]
    const order = stepToOpen.children[1]
-   const trashBin = stepToOpen.children[3]
+   // const trashBin = stepToOpen.children[3]
    const commonBtns = stepToOpen.children[4]
 
    stepToOpen.classList.add('options-opened')
    commonBtns.classList.remove('invisible')
    plusBtn.classList.add('invisible')
    order.classList.add('invisible')
-   trashBin.classList.add('invisible')
+   // trashBin.classList.add('invisible')
 }
 
-function closeStepOptions() {
-   const steps = [...document.querySelectorAll('.step')]
-   const stepToOpen = steps[steps.length-1]
-   const plusBtn = stepToOpen.children[0]
-   const order = stepToOpen.children[1]
-   const trashBin = stepToOpen.children[3]
+function closeStepOptions(elemToClose) {
+   // stepToClose = e.target.parentNode.parentNode.parentNode.parentNode
+   // console.log(stepToClose)
+   const plusBtn = elemToClose.children[0]
+   const order = elemToClose.children[1]
+   const dropdownBtn = elemToClose.children[2].children[0].children[0]
+   const commonBtns = elemToClose.children[4]
+   // const trashBin = stepToClose.children[3]
 
-   stepToOpen.classList.remove('options-opened')
+   elemToClose.classList.remove('options-opened')
    plusBtn.classList.remove('invisible')
    order.classList.remove('invisible')
-   trashBin.classList.remove('invisible')
+   dropdownBtn.classList.remove('btn-grey')
+   dropdownBtn.classList.add('btn-white')
+   commonBtns.classList.add('invisible')
+   // trashBin.classList.remove('invisible')
 }
 
 //change btns and inputs' text content based on the selected step type, click element details
 document.addEventListener('click', (e) => {
    if (e.target.classList.contains('dropdown-item')) {
-      closeStepOptions()
+      const elemToClose = e.target.parentNode.parentNode.parentNode.parentNode
+      closeStepOptions(elemToClose)
 
       const selectedType = e.target.textContent
       const dropdownBtn = e.target.parentNode.parentNode.children[0]
+      const commonBtns = e.target.parentNode.parentNode.parentNode.parentNode.children[4]
       const stepInput = e.target.parentNode.parentNode.parentNode.children[1]
 
       stepInput.setAttribute('placeholder', stepTypesTextContent[selectedType]) //change input placeholder
       dropdownBtn.textContent = e.target.textContent //change btn text content
       e.target.parentNode.classList.remove('visible') //hide dropdown
+      dropdownBtn.classList.remove('btn-grey', 'color-blue')
+      dropdownBtn.classList.add('btn-white')
+      commonBtns.classList.add('invisible')
 
       //Highlighting the click input grey and making it non-editable
       if (selectedType == "Click element") {
