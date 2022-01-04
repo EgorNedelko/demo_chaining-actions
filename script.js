@@ -138,6 +138,7 @@ function addStep(targetPosition) {
 
 
 // MOUSE EVENTS
+///////////////
 //click DROPDOWN-ITEMS to change step type
 document.addEventListener('click', (e) => {
    if (e.target.classList.contains('dropdown-item')) {
@@ -149,6 +150,7 @@ document.addEventListener('click', (e) => {
       const commonBtns = e.target.parentNode.parentNode.parentNode.parentNode.children[4]
       const stepInput = e.target.parentNode.parentNode.parentNode.children[1]
 
+      //modify
       stepInput.setAttribute('placeholder', stepTypesTextContent[selectedType]) //change input placeholder
       dropdownBtn.textContent = e.target.textContent //change btn text content
       e.target.parentNode.classList.remove('visible') //hide dropdown
@@ -217,16 +219,71 @@ document.addEventListener('click', (e) => {
          }
 
    if (e.target.classList.contains('btn-options')) {
-      console.log('option clicked')
+      //classes - event start
       const elemToClose = e.target.parentNode.parentNode
       closeStepOptions(elemToClose)
       hideDropdowns()
+
+      //modify
       const dropdownBtn = e.target.parentNode.parentNode.children[2].children[0].children[0]
-      console.log('dropdownBtn',dropdownBtn)
       const stepInput = e.target.parentNode.parentNode.children[2].children[1]
-      console.log('stepInput',stepInput)
       dropdownBtn.textContent = commonTypesArr[e.target.classList[3]]
       stepInput.setAttribute('placeholder', stepTypesTextContent[dropdownBtn.textContent])
+      const selectedType = dropdownBtn.textContent
+
+      //Highlighting the click input grey and making it non-editable
+      if (selectedType == "Click element") {
+         stepInput.classList.add('no-edit')
+         stepInput.setAttribute('disabled', true)
+      } else {
+         stepInput.classList.remove('no-edit')
+         stepInput.removeAttribute('disabled')
+      }
+
+      let targetPosition;
+      if ((isChainMode && selectedType == "Find element") || (isChainMode && selectedType == "Find input")) {
+         let steps = [...document.querySelectorAll('.step')]
+         for (let i = 0; i < steps.length; i++) {
+            if (steps[i].contains(e.target)) {
+               targetPosition = i
+               if (steps[i] == steps[steps.length-1]) {
+                  addStep()
+               } else {
+                  addStep(targetPosition)
+               }
+
+               //MODIFYING THE CHAIN-ADDED STEP
+               steps = [...document.querySelectorAll('.step')]
+               const stepToModify = steps[steps.indexOf(steps[i+1])]
+               const dropdownBtn = stepToModify.children[2].children[0].children[0]
+               const stepInput = stepToModify.children[2].children[1]
+               if (selectedType == "Find element") {
+                  dropdownBtn.textContent = "Click element"
+                  stepInput.setAttribute('placeholder', stepTypesTextContent[dropdownBtn.textContent])
+                  
+                  //Highlighting the click input grey and making it non-editable
+                  if (selectedType == "Find element") {
+                     stepInput.classList.add('no-edit')
+                     stepInput.setAttribute('disabled', true)
+                  } else {
+                     stepInput.classList.remove('no-edit')
+                     stepInput.removeAttribute('disabled')
+                  }
+
+               } else if (selectedType == "Find input") {
+                  dropdownBtn.textContent = "Type in"
+                  stepInput.setAttribute('placeholder', stepTypesTextContent[dropdownBtn.textContent])
+               }
+               dropdownBtn.classList.remove('btn-grey')
+               dropdownBtn.classList.add('btn-white')
+            }
+         }
+         assignOrderNumber()
+      }
+      checkRelations()
+
+      //refresh core
+      assignOrderNumber()
       checkRelations()
    }
 })
@@ -293,14 +350,13 @@ document.querySelector("input[value='Add Common Step'").addEventListener('click'
 })
 
 // click ADD SELECT TYPE BUTTON to add select type steps
-document.querySelector("input[value='Add Select Type Step']").addEventListener('click', () => {
+document.querySelector("input[value='Add Step']").addEventListener('click', () => {
    hideDropdowns()
    addStep()
    assignOrderNumber()
    stepsCounter.textContent = document.querySelector('.steps').children.length
    checkRelations()
 })
-
 
 //HELPER FUNCTIONS
 function openStepOptions(elemToOpen) {
