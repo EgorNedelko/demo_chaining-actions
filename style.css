@@ -130,10 +130,10 @@ header {
    /* transform: translateY(200px); */
 }
 
-.step-options {
-   display: absolute;
+/* .step-options { */
+   /* display: absolute; */
    /* transform: translateY(200px); */
-}
+/* } */
 
 .order-icon {
    user-select: none;
@@ -141,6 +141,10 @@ header {
 }
 .order-icon:hover {
    transform: translateY(-1px);
+}
+
+.order {
+   display: flex;
 }
 
 .order-num {
@@ -155,15 +159,6 @@ header {
    align-items: center;
    justify-content: space-between;
 }
-/* .order-num::before {
-   content: '';
-   position: absolute;
-   top: -6%;
-   left: 10%;
-   width: 20px;
-   height: 80%;
-   background: url("https://img.icons8.com/ios-glyphs/30/000000/resize-vertical.png") center no-repeat;
-} */
 
 .inputs-group {
    margin-left: 100px;
@@ -278,10 +273,6 @@ header {
    opacity: 1;
 }
 
-/* .btn-plus:hover {
-   opacity: 0;
-} */
-
 .step-btns-menu > .btn-white {
    border-top-right-radius: 6px;
    border-bottom-right-radius: 6px;
@@ -331,4 +322,8 @@ header {
 
 .error {
    background-color: rgba(255, 104, 104, 0.575);
+}
+
+.white-out {
+   color: rgba(0,0,0,0.2);
 }

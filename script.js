@@ -71,11 +71,6 @@ function addStep() {
    step.classList.add('step')
    step.setAttribute('draggable', true)
 
-   //create order-icon
-   // const orderIcon = document.createElement('img')
-   // orderIcon.setAttribute('src', 'https://img.icons8.com/material-outlined/24/000000/menu--v1.png')
-   // orderIcon.classList.add('order-icon')
-
    // create plus button
    const plusBtn = document.createElement('input')
    plusBtn.classList.add('btn', 'btn-white', 'btn-plus')
@@ -83,11 +78,14 @@ function addStep() {
    plusBtn.setAttribute('value', "+")
    plusBtn.setAttribute('name', "Plus")
 
-   //create  order-number
+   //create  order
+   const order = document.createElement('div')
+   order.classList.add('order')
    const orderNumber = document.createElement('span')
    orderNumber.classList.add('order-num')
    orderNumber.textContent = document.querySelectorAll('.order-num').length + 1
    const changeOrderIcon = document.createElement('img')
+   changeOrderIcon.classList.add('order-icon')
    changeOrderIcon.setAttribute('src', "https://img.icons8.com/ios-glyphs/30/000000/resize-vertical.png")
 
    //create inputs-group
@@ -145,122 +143,14 @@ function addStep() {
    }
 
    //attachments
-   // step.appendChild(orderIcon)
    step.appendChild(plusBtn)
-   step.appendChild(orderNumber)
+   step.appendChild(order)
    step.appendChild(inputsGroup)
    step.appendChild(trashbinIcon)
-   // step.appendChild(plusBtn)
    step.appendChild(specificStepButtons)
 
-   orderNumber.append(changeOrderIcon)
-
-   inputsGroup.appendChild(dropdownContainer)
-   inputsGroup.appendChild(stepInput)
-
-   dropdownContainer.appendChild(dropdownBtn)
-   dropdownContainer.appendChild(dropdown) 
-   
-   fragment.appendChild(step)
-   document.querySelector('.steps').append(fragment)
-}
-
-function addStepOptions() {
-   //create document fragment
-   const fragment = document.createDocumentFragment()
-
-   //create step container
-   const step = document.createElement('div')
-   step.classList.add('step', 'step-options')
-   step.setAttribute('draggable', true)
-
-   //create order-icon
-   // const orderIcon = document.createElement('img')
-   // orderIcon.setAttribute('src', 'https://img.icons8.com/material-outlined/24/000000/menu--v1.png')
-   // orderIcon.classList.add('order-icon', 'invisible')
-
-   // create plus button
-   const plusBtn = document.createElement('input')
-   plusBtn.classList.add('btn', 'btn-white', 'btn-plus', 'invisible')
-   plusBtn.setAttribute('type', 'button')
-   plusBtn.setAttribute('value', "+")
-   plusBtn.setAttribute('name', "Plus")
-
-   //create  order-number
-   const orderNumber = document.createElement('span')
-   orderNumber.classList.add('order-num', 'invisible')
-   orderNumber.textContent = document.querySelectorAll('.order-num').length + 1
-   const changeOrderIcon = document.createElement('img')
-   changeOrderIcon.classList.add('invisible')
-   changeOrderIcon.setAttribute('src', "https://img.icons8.com/ios-glyphs/30/000000/resize-vertical.png")
-
-   //create inputs-group
-   const inputsGroup = document.createElement('div')
-   inputsGroup.classList.add('inputs-group')
-
-   //create dropdown-container
-   const dropdownContainer = document.createElement('div')
-   dropdownContainer.classList.add('dropdown-container')
-
-   //create dropdown-btn
-   const dropdownBtn = document.createElement('button')
-   dropdownBtn.classList.add('btn', 'btn-white', 'dropdown-btn')
-   dropdownBtn.setAttribute('type', 'button')
-   dropdownBtn.textContent = 'Select Type'
-
-   const dropdown = document.createElement('div')
-   dropdown.classList.add('dropdown')
-
-   //create dropdownItems and attach them to dropdown
-   for (let i = 1; i < 10; i++) {
-      const contentArr = ['Go to URL', 'Check URL', 'Check path', 'Find element', 'Click element',
-                           'Find input', 'Type in', 'Find text', "Element doesn't exist"]
-      const a = document.createElement('a')
-      a.classList.add('dropdown-item', 'invisible')
-      // a.textContent = contentArr[i]
-      a.textContent = Object.keys(stepTypesTextContent)[i]
-      dropdown.appendChild(a)
-   }
-
-   const stepInput = document.createElement('input')
-   stepInput.classList.add('step-input')
-   stepInput.setAttribute('type', 'text')
-   stepInput.setAttribute('placeholder', 'Select Type first')
-
-   //create trashbin icon
-   const trashbinIcon = document.createElement('img')
-   trashbinIcon.setAttribute('src', 'https://img.icons8.com/external-kmg-design-flat-kmg-design/32/000000/external-trash-bin-ui-essential-kmg-design-flat-kmg-design.png')
-   trashbinIcon.classList.add('trashbin-icon', 'invisible')
-
-   //create specific step buttons
-   const specificStepButtons = document.createElement('div')
-   specificStepButtons.classList.add('specific-step-buttons', 'visible')
-   let stepIconsSrc = [
-      "https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/ffffff/external-magnifying-glass-interface-kiranshastry-lineal-kiranshastry.png",
-      "https://img.icons8.com/pastel-glyph/64/ffffff/click-and-collect--v2.png",
-      "https://img.icons8.com/ios/50/ffffff/text-input-form.png",
-      "https://img.icons8.com/material-outlined/24/ffffff/text.png"
-   ]
-   let stepIconsClass = [
-      "btn-find-el", "btn-click", "btn-find-input", "btn-typein"
-   ]
-   for (let i = 0; i < stepIconsSrc.length; i++) {
-      const img = document.createElement('img')
-      img.classList.add('btn', 'btn-blue', stepIconsClass[i])
-      img.setAttribute('src', stepIconsSrc[i])
-      specificStepButtons.append(img)
-   }
-   
-   //attachments
-   // step.appendChild(orderIcon)
-   step.appendChild(plusBtn)
-   step.appendChild(orderNumber)
-   step.appendChild(inputsGroup)
-   step.appendChild(trashbinIcon)
-   // step.appendChild(plusBtn)
-   step.appendChild(specificStepButtons)
-
-   orderNumber.append(changeOrderIcon)
+   order.append(orderNumber)
+   order.append(changeOrderIcon)
 
    inputsGroup.appendChild(dropdownContainer)
    inputsGroup.appendChild(stepInput)
@@ -273,10 +163,13 @@ function addStepOptions() {
 }
 
 //plus button events
-document.querySelectorAll('.btn-plus').forEach(plusBtn => {
-   plusBtn.addEventListener('click', () => {
-      addStepOptions()
-   })
+document.addEventListener('click', (e) => {
+   if (e.target.classList.contains('btn-plus')) {
+      hideDropdowns()
+      addStep()
+      assignOrderNumber()
+      checkRelations()
+   }
 })
 
 function hideDropdowns() {
@@ -291,6 +184,15 @@ document.addEventListener('click', (e) => {
       const selectedType = e.target.textContent
       const dropdownBtn = e.target.parentNode.parentNode.children[0]
       const stepInput = e.target.parentNode.parentNode.parentNode.children[1]
+      
+      document.querySelectorAll('.step').forEach(step => {
+         // step.classList.remove('.step-options')
+         step.children[0].classList.remove('invisible')
+         step.children[1].classList.remove('invisible')
+         // step.children[1].children[0].removeAttribute('class')
+         step.children[2].classList.remove('invisible')
+         step.children[4].classList.remove('visible')
+      })
 
       stepInput.setAttribute('placeholder', stepTypesTextContent[selectedType]) //change input placeholder
       dropdownBtn.textContent = e.target.textContent //change btn text content
@@ -306,7 +208,7 @@ document.addEventListener('click', (e) => {
       }
 
       checkRelations()
-
+      
    }
 })
 
@@ -364,20 +266,8 @@ function assignOrderNumber() {
    const steps = [...document.querySelectorAll('.step')]
 
    for (let i = 0; i < steps.length; i++) {
-      document.querySelectorAll('.order-num')[i].children[1].textContent = i+1
+      // console.log(document.querySelectorAll('.order-num')[i])
+      document.querySelectorAll('.order-num')[i].textContent = i+1
+      // document.querySelectorAll('.order-num')[i].children[1].textContent = i+1
    }
 }
-
-// document.querySelectorAll('.step').forEach(step => {
-//    step.addEventListener('mouseover', () => {
-//       step.children[4].classList.add('visible')
-//       addStepOptions()
-      
-//    })
-//    step.addEventListener('mouseout', () => {
-//       step.children[4].classList.remove('visible')
-//    })
-// })
-
-
-// addStepButton.onclick.create step-options
