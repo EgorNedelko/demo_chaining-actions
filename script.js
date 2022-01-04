@@ -1,11 +1,3 @@
-// let draggables = document.querySelectorAll(".step[draggable='true']")
-// draggables.forEach(draggables => {
-//    draggables.remove
-//    draggables.addEventListener('dragstart', () => {
-//       console.log('drag start')
-//    })
-// })
-
 const stepsBtns = document.querySelectorAll(".step-btns-menu > .btn")
 const addStepBtns = document.querySelectorAll(".btn[name='Add']")
 const stepsCounter = document.getElementById("stepsCounter")
@@ -66,15 +58,6 @@ addStepBtns.forEach(btn => btn.addEventListener('click', () => {
    hideDropdowns()
    addStep()
    assignOrderNumber()
-
-   // draggables = document.querySelectorAll(".step[draggable='true']")
-   // draggables.forEach(draggables => {
-   //    draggables.remove
-   //    draggables.addEventListener('dragstart', () => {
-   //       console.log('drag start')
-   //    })
-   // })
-
    stepsCounter.textContent = document.querySelector('.steps').children.length
    checkRelations()
 }))
@@ -87,22 +70,129 @@ function addStep() {
    const step = document.createElement('div')
    step.classList.add('step')
    step.setAttribute('draggable', true)
-   // step.addEventListener('dragstart', () => {
-   //    step.classList.add('dragging')
-   // })
-   // step.addEventListener('dragend', () => {
-   //    step.classList.remove('dragging')
-   // })
 
    //create order-icon
-   const orderIcon = document.createElement('img')
-   orderIcon.setAttribute('src', 'https://img.icons8.com/material-outlined/24/000000/menu--v1.png')
-   orderIcon.classList.add('order-icon')
+   // const orderIcon = document.createElement('img')
+   // orderIcon.setAttribute('src', 'https://img.icons8.com/material-outlined/24/000000/menu--v1.png')
+   // orderIcon.classList.add('order-icon')
+
+   // create plus button
+   const plusBtn = document.createElement('input')
+   plusBtn.classList.add('btn', 'btn-white', 'btn-plus')
+   plusBtn.setAttribute('type', 'button')
+   plusBtn.setAttribute('value', "+")
+   plusBtn.setAttribute('name', "Plus")
 
    //create  order-number
    const orderNumber = document.createElement('span')
    orderNumber.classList.add('order-num')
    orderNumber.textContent = document.querySelectorAll('.order-num').length + 1
+   const changeOrderIcon = document.createElement('img')
+   changeOrderIcon.setAttribute('src', "https://img.icons8.com/ios-glyphs/30/000000/resize-vertical.png")
+
+   //create inputs-group
+   const inputsGroup = document.createElement('div')
+   inputsGroup.classList.add('inputs-group')
+
+   //create dropdown-container
+   const dropdownContainer = document.createElement('div')
+   dropdownContainer.classList.add('dropdown-container')
+
+   //create dropdown-btn
+   const dropdownBtn = document.createElement('button')
+   dropdownBtn.classList.add('btn', 'btn-white', 'dropdown-btn')
+   dropdownBtn.setAttribute('type', 'button')
+   dropdownBtn.textContent = 'Select Type'
+
+   const dropdown = document.createElement('div')
+   dropdown.classList.add('dropdown')
+
+   //create dropdownItems and attach them to dropdown
+   for (let i = 1; i < 10; i++) {
+      const a = document.createElement('a')
+      a.classList.add('dropdown-item')
+      a.textContent = Object.keys(stepTypesTextContent)[i]
+      dropdown.appendChild(a)
+   }
+
+   const stepInput = document.createElement('input')
+   stepInput.classList.add('step-input')
+   stepInput.setAttribute('type', 'text')
+   stepInput.setAttribute('placeholder', 'Select Type first')
+
+   //create trashbin icon
+   const trashbinIcon = document.createElement('img')
+   trashbinIcon.setAttribute('src', 'https://img.icons8.com/external-kmg-design-flat-kmg-design/32/000000/external-trash-bin-ui-essential-kmg-design-flat-kmg-design.png')
+   trashbinIcon.classList.add('trashbin-icon')
+
+   //create specific step buttons
+   const specificStepButtons = document.createElement('div')
+   specificStepButtons.classList.add('specific-step-buttons', 'invisible')
+   let stepIconsSrc = [
+      "https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/ffffff/external-magnifying-glass-interface-kiranshastry-lineal-kiranshastry.png",
+      "https://img.icons8.com/pastel-glyph/64/ffffff/click-and-collect--v2.png",
+      "https://img.icons8.com/ios/50/ffffff/text-input-form.png",
+      "https://img.icons8.com/material-outlined/24/ffffff/text.png"
+   ]
+   let stepIconsClass = [
+      "btn-find-el", "btn-click", "btn-find-input", "btn-typein"
+   ]
+   for (let i = 0; i < stepIconsSrc.length; i++) {
+      const img = document.createElement('img')
+      img.classList.add('btn', 'btn-blue', stepIconsClass[i])
+      img.setAttribute('src', stepIconsSrc[i])
+      specificStepButtons.append(img)
+   }
+
+   //attachments
+   // step.appendChild(orderIcon)
+   step.appendChild(plusBtn)
+   step.appendChild(orderNumber)
+   step.appendChild(inputsGroup)
+   step.appendChild(trashbinIcon)
+   // step.appendChild(plusBtn)
+   step.appendChild(specificStepButtons)
+
+   orderNumber.append(changeOrderIcon)
+
+   inputsGroup.appendChild(dropdownContainer)
+   inputsGroup.appendChild(stepInput)
+
+   dropdownContainer.appendChild(dropdownBtn)
+   dropdownContainer.appendChild(dropdown) 
+   
+   fragment.appendChild(step)
+   document.querySelector('.steps').append(fragment)
+}
+
+function addStepOptions() {
+   //create document fragment
+   const fragment = document.createDocumentFragment()
+
+   //create step container
+   const step = document.createElement('div')
+   step.classList.add('step', 'step-options')
+   step.setAttribute('draggable', true)
+
+   //create order-icon
+   // const orderIcon = document.createElement('img')
+   // orderIcon.setAttribute('src', 'https://img.icons8.com/material-outlined/24/000000/menu--v1.png')
+   // orderIcon.classList.add('order-icon', 'invisible')
+
+   // create plus button
+   const plusBtn = document.createElement('input')
+   plusBtn.classList.add('btn', 'btn-white', 'btn-plus', 'invisible')
+   plusBtn.setAttribute('type', 'button')
+   plusBtn.setAttribute('value', "+")
+   plusBtn.setAttribute('name', "Plus")
+
+   //create  order-number
+   const orderNumber = document.createElement('span')
+   orderNumber.classList.add('order-num', 'invisible')
+   orderNumber.textContent = document.querySelectorAll('.order-num').length + 1
+   const changeOrderIcon = document.createElement('img')
+   changeOrderIcon.classList.add('invisible')
+   changeOrderIcon.setAttribute('src', "https://img.icons8.com/ios-glyphs/30/000000/resize-vertical.png")
 
    //create inputs-group
    const inputsGroup = document.createElement('div')
@@ -126,7 +216,7 @@ function addStep() {
       const contentArr = ['Go to URL', 'Check URL', 'Check path', 'Find element', 'Click element',
                            'Find input', 'Type in', 'Find text', "Element doesn't exist"]
       const a = document.createElement('a')
-      a.classList.add('dropdown-item')
+      a.classList.add('dropdown-item', 'invisible')
       // a.textContent = contentArr[i]
       a.textContent = Object.keys(stepTypesTextContent)[i]
       dropdown.appendChild(a)
@@ -140,13 +230,37 @@ function addStep() {
    //create trashbin icon
    const trashbinIcon = document.createElement('img')
    trashbinIcon.setAttribute('src', 'https://img.icons8.com/external-kmg-design-flat-kmg-design/32/000000/external-trash-bin-ui-essential-kmg-design-flat-kmg-design.png')
-   trashbinIcon.classList.add('trashbin-icon')
+   trashbinIcon.classList.add('trashbin-icon', 'invisible')
+
+   //create specific step buttons
+   const specificStepButtons = document.createElement('div')
+   specificStepButtons.classList.add('specific-step-buttons', 'visible')
+   let stepIconsSrc = [
+      "https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/ffffff/external-magnifying-glass-interface-kiranshastry-lineal-kiranshastry.png",
+      "https://img.icons8.com/pastel-glyph/64/ffffff/click-and-collect--v2.png",
+      "https://img.icons8.com/ios/50/ffffff/text-input-form.png",
+      "https://img.icons8.com/material-outlined/24/ffffff/text.png"
+   ]
+   let stepIconsClass = [
+      "btn-find-el", "btn-click", "btn-find-input", "btn-typein"
+   ]
+   for (let i = 0; i < stepIconsSrc.length; i++) {
+      const img = document.createElement('img')
+      img.classList.add('btn', 'btn-blue', stepIconsClass[i])
+      img.setAttribute('src', stepIconsSrc[i])
+      specificStepButtons.append(img)
+   }
    
    //attachments
-   step.appendChild(orderIcon)
+   // step.appendChild(orderIcon)
+   step.appendChild(plusBtn)
    step.appendChild(orderNumber)
    step.appendChild(inputsGroup)
    step.appendChild(trashbinIcon)
+   // step.appendChild(plusBtn)
+   step.appendChild(specificStepButtons)
+
+   orderNumber.append(changeOrderIcon)
 
    inputsGroup.appendChild(dropdownContainer)
    inputsGroup.appendChild(stepInput)
@@ -157,6 +271,13 @@ function addStep() {
    fragment.appendChild(step)
    document.querySelector('.steps').append(fragment)
 }
+
+//plus button events
+document.querySelectorAll('.btn-plus').forEach(plusBtn => {
+   plusBtn.addEventListener('click', () => {
+      addStepOptions()
+   })
+})
 
 function hideDropdowns() {
    document.querySelectorAll('.dropdown').forEach(el => {
@@ -243,28 +364,20 @@ function assignOrderNumber() {
    const steps = [...document.querySelectorAll('.step')]
 
    for (let i = 0; i < steps.length; i++) {
-      document.querySelectorAll('.order-num')[i].textContent = i+1
+      document.querySelectorAll('.order-num')[i].children[1].textContent = i+1
    }
 }
 
-document.querySelectorAll('.step').forEach(step => {
-   step.addEventListener('mouseover', () => {
-      step.children[4].classList.add('visible')
-      // step.children[length-1].classList.add('.visible')
-      // step.classList.add('hover-menu')
-      // const div = document.createElement('div')
-      // for (let i = 0; i < 4; i++) {
-      //    const img = document.createElement('img')
-      //    img.setAttribute('src', "https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/ffffff/external-magnifying-glass-interface-kiranshastry-lineal-kiranshastry.png")
-      //    img.classList.add('btn, btn-blue, btn-find-el')
-      //    div.append(img)
-      // }
-      // div.classList.add('hover-menu')
+// document.querySelectorAll('.step').forEach(step => {
+//    step.addEventListener('mouseover', () => {
+//       step.children[4].classList.add('visible')
+//       addStepOptions()
       
-      // step.appendChild(div)
-      // console.log(step.childNodes)
-   })
-   step.addEventListener('mouseout', () => {
-      // step.classList.remove('hover-menu')
-   })
-})
+//    })
+//    step.addEventListener('mouseout', () => {
+//       step.children[4].classList.remove('visible')
+//    })
+// })
+
+
+// addStepButton.onclick.create step-options

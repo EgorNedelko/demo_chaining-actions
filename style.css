@@ -101,8 +101,7 @@ header {
    background-color: rgb(245, 54, 92); 
 }
 .btn-white {
-   border-top-right-radius: 0;
-   border-bottom-right-radius: 0;
+   border-radius: 6px;
    color: rgb(94, 114, 228);
    background-color: rgb(255,255,255);
    border: 1px solid #cad1d7; 
@@ -128,10 +127,12 @@ header {
    flex-wrap: wrap;
    border-bottom: 1px solid #e9ecef;
    position: relative;
+   /* transform: translateY(200px); */
 }
 
-.hover-menu{
-
+.step-options {
+   display: absolute;
+   /* transform: translateY(200px); */
 }
 
 .order-icon {
@@ -147,10 +148,22 @@ header {
    user-select: none;
    font-family: Arial, Helvetica, sans-serif;
    color: #525f7f;
-   font-size: 13px;
+   font-size: 17px;
    font-weight: 400;
    line-height: 19.5px;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
 }
+/* .order-num::before {
+   content: '';
+   position: absolute;
+   top: -6%;
+   left: 10%;
+   width: 20px;
+   height: 80%;
+   background: url("https://img.icons8.com/ios-glyphs/30/000000/resize-vertical.png") center no-repeat;
+} */
 
 .inputs-group {
    margin-left: 100px;
@@ -166,6 +179,8 @@ header {
    height: 100%;
    position: relative;
    width: 175px;
+   border-top-right-radius: 0;
+   border-bottom-right-radius: 0;
 }
 
 .dropdown {
@@ -212,7 +227,7 @@ header {
 }
 
 .trashbin-icon {
-   margin-left: 110px;
+   margin-left: 90px;
    width: 22px;
    height: 22px;
    cursor: pointer;
@@ -223,12 +238,22 @@ header {
 }
 
 .specific-step-buttons {
+   max-width: 15%;
+   position: absolute;
    display: none;
    align-items: center;
-   justify-content: flex-start;
-   padding: 16px 44px 20px;
+   justify-content: space-between;
+   /* flex-wrap: wrap; */
+   /* padding: 36px 44px 20px; */
+   column-gap: 8px;
    transition: all 1s ease;
+   left: 3%;
 }
+
+.specific-step-buttons .btn{
+   width: 35px;
+}
+
 .specific-step-buttons.visible {
    display: flex;
 }
@@ -253,9 +278,9 @@ header {
    opacity: 1;
 }
 
-.btn-plus:hover {
+/* .btn-plus:hover {
    opacity: 0;
-}
+} */
 
 .step-btns-menu > .btn-white {
    border-top-right-radius: 6px;
@@ -290,6 +315,10 @@ header {
 /* STATES */
 .visible {
    display: block;
+}
+
+.invisible {
+   opacity: 0;
 }
 
 .dragging {
