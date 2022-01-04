@@ -28,7 +28,7 @@ body {
 }
 
 header {
-   padding: 150px 25px 18px;
+   padding: 66px 25px 18px;
    background-image: linear-gradient(87deg, rgb(94, 114, 228), rgb(130, 94, 228));
 }
 
@@ -90,7 +90,8 @@ header {
 }
 
 .btn-grey {
-   background-color: rgb(202, 202, 202); 
+   background-color: rgb(202, 202, 202);
+   border: 1px solid rgb(202, 202, 202);
 }
 .btn-blue {
    background-color: rgb(94, 114, 228); 
@@ -121,7 +122,8 @@ header {
 }
 
 .steps {
-   min-height: 400px;
+   min-height: 60vh;
+   /* overflow: scroll; */
 }
 
 .step {
@@ -134,7 +136,7 @@ header {
    border-bottom: 1px solid #e9ecef;
    position: relative;
    transition: background-color 0.4s ease;
-   /* transform: translateY(100px); */
+   /* transform: translateY(63px); */
 }
 
 .order-icon {
