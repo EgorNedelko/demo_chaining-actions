@@ -147,6 +147,7 @@ header {
 
 .order {
    display: flex;
+   width: 60px;
 }
 
 .order-num {
@@ -245,7 +246,7 @@ header {
    /* padding: 36px 44px 20px; */
    column-gap: 8px;
    transition: all 1s ease;
-   left: 3%;
+   /* left: 3%; */
 }
 
 .specific-step-buttons .btn{

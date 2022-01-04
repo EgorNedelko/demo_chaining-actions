@@ -100,7 +100,9 @@ document.addEventListener('click', (e) => {
       }
 
       hideDropdowns()
-      addStep(targetPosition)
+      // addStep(targetPosition)
+      addStep()
+      stepsCounter.textContent = document.querySelector('.steps').children.length
       openStepOptions()
    }
 })
@@ -266,7 +268,6 @@ function openStepOptions() {
    const order = stepToOpen.children[1]
    const trashBin = stepToOpen.children[3]
    const commonBtns = stepToOpen.children[4]
-   console.log(commonBtns)
 
    stepToOpen.classList.add('options-opened')
    commonBtns.classList.remove('invisible')
