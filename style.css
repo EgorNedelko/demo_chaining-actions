@@ -69,6 +69,8 @@ header {
 
 .btn-chain-mode {
    width: 34px;
+   outline: none;
+   user-select: none;
    transition: background-color 0.5s ease;
 }
 
@@ -329,6 +331,10 @@ header {
 
 .no-edit {
    background-color: #c5c5c546;
+}
+
+.no-input {
+   background-color: #d3d3d346;
 }
 
 .error {

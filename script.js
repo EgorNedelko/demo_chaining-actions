@@ -19,11 +19,7 @@ const chainModeIconsUrls = [ "https://img.icons8.com/material-sharp/24/ffffff/br
                              
 //Chain mode
 let isChainMode = false
-function handleChainMode() {
-   isChainMode = isChainMode == false ? true : false
-   chainModeBtn.setAttribute('src', isChainMode ? "https://img.icons8.com/material-sharp/24/ffffff/link--v1.png" : "https://img.icons8.com/material-sharp/24/ffffff/broken-link.png")
-   chainModeBtn.classList.toggle('btn-green')
-}
+
 chainModeBtn.addEventListener('click', handleChainMode)
 
 
@@ -151,13 +147,8 @@ document.addEventListener('click', (e) => {
       let selectedType = e.target.textContent
       const dropdownBtn = e.target.parentNode.parentNode.children[0]
       const stepInput = e.target.parentNode.parentNode.parentNode.children[1]
-      // const commonBtns = e.target.parentNode.parentNode.parentNode.parentNode.children[4]
-      dropdownBtn.textContent = e.target.textContent //change btn text content
-      stepInput.setAttribute('placeholder', stepTypesTextContent[selectedType]) //change input placeholder
-      // e.target.parentNode.classList.remove('visible') //hide dropdown
-      // dropdownBtn.classList.remove('btn-grey', 'color-blue')
-      // dropdownBtn.classList.add('btn-white')
-      // commonBtns.classList.add('invisible')
+      dropdownBtn.textContent = e.target.textContent
+      stepInput.setAttribute('placeholder', stepTypesTextContent[selectedType])
 
       //Highlighting the click input grey and making it non-editable
       handleClickBtnInput(selectedType, stepInput)
@@ -433,4 +424,11 @@ function assignOrderNumber() {
    for (let i = 0; i < steps.length; i++) {
       document.querySelectorAll('.order-num')[i].textContent = i+1
    }
+}
+
+function handleChainMode() {
+   isChainMode = isChainMode == false ? true : false
+   chainModeBtn.setAttribute('src', isChainMode ? "https://img.icons8.com/material-sharp/24/ffffff/link--v1.png" : "https://img.icons8.com/material-sharp/24/ffffff/broken-link.png")
+   chainModeBtn.classList.toggle('btn-green')
+   chainModeBtn.classList.toggle('btn-grey')
 }
