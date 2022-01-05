@@ -96,6 +96,7 @@ header {
    border: 1px solid rgb(202, 202, 202);
 }
 .dropdown-btn.btn-grey {
+   background-color: rgb(236, 236, 236);
    border: 1px solid #afafaf; 
 }
 .btn-blue {
@@ -155,23 +156,27 @@ header {
 .order {
    display: flex;
    width: 60px;
+   margin-left: 24px;
+   margin-right: 20px;
+   cursor: move;
+
 }
 
 .order-num {
-   margin-left: 48px;
    user-select: none;
    font-family: Arial, Helvetica, sans-serif;
    color: #525f7f;
    font-size: 17px;
    font-weight: 400;
    line-height: 19.5px;
+   padding-top: 4px;
    display: flex;
    align-items: center;
    justify-content: space-between;
 }
 
 .inputs-group {
-   margin-left: 100px;
+   margin-left: 20px;
    display: flex;
    align-items: center;
    justify-content: space-between;
@@ -225,6 +230,8 @@ header {
    font-size: 14px;
    color: #525f7f;
    transition: background-color 0.3s ease;
+   border-bottom-right-radius: 6px;
+   border-top-right-radius: 6px;
 }
 .step-input::placeholder {
    font-size: 14px;
@@ -234,8 +241,8 @@ header {
 
 .trashbin-icon {
    margin-left: 90px;
-   width: 22px;
-   height: 22px;
+   width: 25px;
+   height: 25px;
    cursor: pointer;
    user-select: none;
 }
@@ -285,6 +292,7 @@ header {
 }
 
 .btn-plus {
+   margin-right: 24px;
    transition: all .3s ease;
    opacity: 1;
 }

@@ -82,7 +82,7 @@ function addStep(targetPosition) {
 
    //create trashbin icon
    const trashbinIcon = document.createElement('img')
-   trashbinIcon.setAttribute('src', 'https://img.icons8.com/external-kmg-design-flat-kmg-design/32/000000/external-trash-bin-ui-essential-kmg-design-flat-kmg-design.png')
+   trashbinIcon.setAttribute('src', "https://img.icons8.com/windows/32/4a90e2/trash.png")
    trashbinIcon.classList.add('trashbin-icon')
 
    //create specific step buttons
