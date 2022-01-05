@@ -155,9 +155,10 @@ header {
 
 .order {
    display: flex;
-   width: 60px;
-   margin-left: 24px;
-   margin-right: 20px;
+   padding: 1px 14px 0px 14px;
+   /* width: 30px; */
+   /* margin-left: 14px; */
+   /* margin-right: 20px; */
    cursor: move;
 
 }
@@ -176,7 +177,7 @@ header {
 }
 
 .inputs-group {
-   margin-left: 20px;
+   margin-left: 50px;
    display: flex;
    align-items: center;
    justify-content: space-between;
@@ -251,14 +252,15 @@ header {
 }
 
 .specific-step-buttons {
-   max-width: 15%;
+   left: 1.3%;
+   max-width: 10%;
    position: absolute;
    /* display: none; */
    align-items: center;
    justify-content: space-between;
    /* flex-wrap: wrap; */
    /* padding: 36px 44px 20px; */
-   column-gap: 8px;
+   column-gap: 3px;
    transition: opacity 1s ease;
    /* left: 3%; */
 }
@@ -266,7 +268,7 @@ header {
 .specific-step-buttons .btn{
    /* border-radius: 9px; */
    transition: all 1s ease;
-   width: 35px;
+   width: 34px;
 }
 
 .specific-step-buttons {
@@ -292,7 +294,7 @@ header {
 }
 
 .btn-plus {
-   margin-right: 24px;
+   margin-left: 35px;
    transition: all .3s ease;
    opacity: 1;
 }

@@ -105,14 +105,14 @@ function addStep(targetPosition) {
    }
 
    //attachments
-   step.appendChild(plusBtn)
    step.appendChild(order)
+   step.appendChild(plusBtn)
    step.appendChild(inputsGroup)
    step.appendChild(trashbinIcon)
    step.appendChild(specificStepButtons)
 
    order.append(orderNumber)
-   order.append(changeOrderIcon)
+   // order.append(changeOrderIcon)
 
    inputsGroup.appendChild(dropdownContainer)
    inputsGroup.appendChild(stepInput)
@@ -343,28 +343,28 @@ function handleClickBtnInput(selectedType, stepInput) {
 }
 
 function openStepOptions(elemToOpen) {
-   const plusBtn = elemToOpen.children[0]
-   const order = elemToOpen.children[1]
+   const order = elemToOpen.children[0]
+   const plusBtn = elemToOpen.children[1]
    const commonBtns = elemToOpen.children[4]
    // const trashBin = stepToOpen.children[3]
 
    elemToOpen.classList.add('options-opened')
    commonBtns.classList.remove('invisible')
-   plusBtn.classList.add('invisible')
    order.classList.add('invisible')
+   plusBtn.classList.add('invisible')
    // trashBin.classList.add('invisible')
 }
 
 function closeStepOptions(elemToClose) {
-   const plusBtn = elemToClose.children[0]
-   const order = elemToClose.children[1]
+   const order = elemToClose.children[0]
+   const plusBtn = elemToClose.children[1]
    const dropdownBtn = elemToClose.children[2].children[0].children[0]
    const commonBtns = elemToClose.children[4]
    // const trashBin = stepToClose.children[3]
 
    elemToClose.classList.remove('options-opened')
-   plusBtn.classList.remove('invisible')
    order.classList.remove('invisible')
+   plusBtn.classList.remove('invisible')
    dropdownBtn.classList.remove('btn-grey')
    dropdownBtn.classList.add('btn-white')
    commonBtns.classList.add('invisible')
@@ -429,7 +429,6 @@ function checkRelations() {
 
 function assignOrderNumber() {
    const steps = [...document.querySelectorAll('.step')]
-
    for (let i = 0; i < steps.length; i++) {
       document.querySelectorAll('.order-num')[i].textContent = i+1
    }
