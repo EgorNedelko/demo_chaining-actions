@@ -76,7 +76,7 @@ function addStep(targetPosition) {
    }
 
    const stepInput = document.createElement('input')
-   stepInput.classList.add('step-input')
+   stepInput.classList.add('step-input', 'no-input')
    stepInput.setAttribute('type', 'text')
    stepInput.setAttribute('placeholder', 'Select Type first')
 
@@ -132,6 +132,15 @@ function addStep(targetPosition) {
 
 }
 
+//coloring INPUTS depending on absence of value
+document.addEventListener('input', (e) => {
+   const editedInput = e.target
+   if (editedInput.value) {
+      editedInput.classList.remove('no-input')
+   } else {
+      editedInput.classList.add('no-input')
+   }
+})
 
 // MOUSE EVENTS
 ///////////////
