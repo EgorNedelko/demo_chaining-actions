@@ -333,6 +333,7 @@ document.querySelector("input[value='Add Step']").addEventListener('click', () =
 //HELPER FUNCTIONS
 function handleClickBtnInput(selectedType, stepInput) {
    if (selectedType == "Click element") {
+      stepInput.value = ''
       stepInput.classList.add('no-edit')
       stepInput.setAttribute('disabled', true)
    } else {
