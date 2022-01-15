@@ -176,8 +176,11 @@ document.addEventListener('click', (e) => {
                      assignOrderNumber()
                      checkRelations()
                      return
+                  } 
+
+                  if (!steps[i+1].children[2].children[0].children[0].classList.contains('btn-grey')) {
+                     addStep(targetPosition)
                   }
-                  addStep(targetPosition)
                }
 
                //Find and modify chain step
@@ -195,6 +198,7 @@ document.addEventListener('click', (e) => {
       }
 
       //refresh core
+      stepsCounter.textContent = document.querySelector('.steps').children.length
       assignOrderNumber()
       checkRelations()
    }
@@ -239,8 +243,11 @@ document.addEventListener('click', (e) => {
                      assignOrderNumber()
                      checkRelations()
                      return
+                  } 
+
+                  if (!steps[i+1].children[2].children[0].children[0].classList.contains('btn-grey')) {
+                     addStep(targetPosition)
                   }
-                  addStep(targetPosition)
                }
 
                //Find and modify chain step
@@ -258,6 +265,7 @@ document.addEventListener('click', (e) => {
       }
 
       //refresh core
+      stepsCounter.textContent = document.querySelector('.steps').children.length
       assignOrderNumber()
       checkRelations()
    }
@@ -429,7 +437,9 @@ function checkRelations() {
 }
 
 function assignOrderNumber() {
+   console.log('assignOrderNumber')
    const steps = [...document.querySelectorAll('.step')]
+   console.log(steps)
    for (let i = 0; i < steps.length; i++) {
       document.querySelectorAll('.order-num')[i].textContent = i+1
    }
