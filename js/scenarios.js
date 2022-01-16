@@ -358,6 +358,11 @@ document.querySelector("input[value='ClearAll']").addEventListener('click', () =
    document.querySelector('.steps').children[0].children[2].children[1].setAttribute('placeholder', "Provide the URL to go to: https://example.com/")
 })
 
+//click on the BACK BUTTON to navigate one level up
+// document.querySelector("input[value='Back']").addEventListener('click', () => {
+
+// })
+
 //HELPER FUNCTIONS
 function handleClickBtnInput(selectedType, stepInput) {
    if (selectedType == "Click element") {
