@@ -236,115 +236,32 @@ header {
 }
 
 .project {
-   /* height: 1000px; */
+   font-size: 14px;
+   font-weight: 400;
+   color: rgb(82, 95, 127);
+
    padding: 16px 24px;
    display: flex;
    align-items: flex-start;
-   justify-content: flex-start;
+   justify-content: space-between;
    flex-wrap: wrap;
    border-bottom: 1px solid #e9ecef;
    position: relative;
    transition: background-color 0.4s ease;
    /* transform: translateY(63px); */
 }
-
-.order-icon {
+.project-name {
+   cursor: pointer;
    user-select: none;
-   cursor: move;
-}
-.order-icon:hover {
-   transform: translateY(-1px);
-}
-
-.order {
-   display: flex;
-   padding: 1px 14px 0px 14px;
-   width: 30px;
-   /* margin-left: 14px; */
-   /* margin-right: 20px; */
-   cursor: move;
-
-}
-
-.order-num {
-   user-select: none;
-   font-family: Arial, Helvetica, sans-serif;
-   color: #525f7f;
-   font-size: 17px;
-   font-weight: 400;
-   line-height: 19.5px;
-   padding-top: 4px;
-   display: flex;
-   align-items: center;
-   justify-content: space-between;
-}
-
-.inputs-group {
-   margin-left: 50px;
-   display: flex;
-   align-items: center;
-   justify-content: space-between;
-   height: 28px;
-}
-
-.dropdown-btn {
-   user-select: none;
-   font-size: 14px;
+   font-weight: 600;
+   line-height: 20px;
    height: 100%;
    position: relative;
-   width: 175px;
-   border-top-right-radius: 0;
-   border-bottom-right-radius: 0;
+   width: 150px;
+   color:rgb(94, 114, 228);
 }
 
-.dropdown {
-   display: none;
-   z-index: 1;
-   position: absolute;
-   background-color: rgb(255,255,255);
-   border-bottom-left-radius: 6px;
-   border-bottom-right-radius: 6px;
-}
-.dropdown a {
-   display: block;
-}
-
-.dropdown-list {
-   list-style-type: none;
-}
-
-.dropdown-item {
-   padding: 8px 16px;
-   color: rgb(82, 95, 127);
-   font-size: 14px;
-   line-height: 21px;
-   cursor: pointer;
-}
-.dropdown-item:hover {
-   background-color: #e5ebf3;
-}
-
-.step-input {
-   outline: none;
-   border: 1px solid #cad1d7;
-   /* border: 1px solid #afafaf; */
-   border-left: none;
-   padding: 4px 8px 4px 12px;
-   height: 100%;
-   width: 600px;
-   font-size: 14px;
-   color: #525f7f;
-   transition: background-color 0.3s ease;
-   border-bottom-right-radius: 6px;
-   border-top-right-radius: 6px;
-}
-.step-input::placeholder {
-   font-size: 14px;
-   color: #525f7f;
-   opacity: 0.5;
-}
-
-.menu-icon {
+.project-menu-icon {
    width: 14px;
    height: 14px;
 }
