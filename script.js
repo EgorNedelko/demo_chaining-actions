@@ -178,7 +178,7 @@ document.addEventListener('click', (e) => {
                      return
                   } 
 
-                  if (!steps[i+1].children[2].children[0].children[0].classList.contains('btn-grey')) {
+                  if (!steps[i+1].children[2].children[0].children[0].classList.contains('no-type')) {
                      addStep(targetPosition)
                   }
                }
@@ -245,7 +245,7 @@ document.addEventListener('click', (e) => {
                      return
                   } 
 
-                  if (!steps[i+1].children[2].children[0].children[0].classList.contains('btn-grey')) {
+                  if (!steps[i+1].children[2].children[0].children[0].classList.contains('no-type')) {
                      addStep(targetPosition)
                   }
                }
