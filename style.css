@@ -182,10 +182,11 @@ header {
 .btn-grey {
    background-color: rgb(202, 202, 202);
    border: 1px solid rgb(202, 202, 202);
-}
-.dropdown-btn.btn-grey {
+}  
+.dropdown-btn.no-type {
    background-color: rgb(236, 236, 236);
-   border: 1px solid #afafaf; 
+   border: 1px solid #cad1d7;
+   /* border: 1px solid #afafaf; */
 }
 .btn-blue {
    background-color: rgb(94, 114, 228); 
@@ -197,10 +198,11 @@ header {
    background-color: rgb(245, 54, 92); 
 }
 .btn-white {
-   border-radius: 6px;
+   /* border-radius: 6px; */
    color: rgb(94, 114, 228);
    background-color: rgb(255,255,255);
    border: 1px solid #cad1d7; 
+   /* border: 1px solid #afafaf; */
 }
 
 .divider {
@@ -312,6 +314,7 @@ header {
 .step-input {
    outline: none;
    border: 1px solid #cad1d7;
+   /* border: 1px solid #afafaf; */
    border-left: none;
    padding: 4px 8px 4px 12px;
    height: 100%;
@@ -449,6 +452,11 @@ header {
 .options-opened {
    background-color: #d3d3d346;
 }
+
+/* .no-type {
+   background-color: rgb(202, 202, 202);
+   border: 1px solid rgb(202, 202, 202);
+} */
 
 .color-blue {
    color:rgb(94, 114, 228);

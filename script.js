@@ -60,7 +60,7 @@ function addStep(targetPosition) {
 
    //create dropdown-btn
    const dropdownBtn = document.createElement('button')
-   dropdownBtn.classList.add('btn', 'btn-grey', 'color-blue','dropdown-btn')
+   dropdownBtn.classList.add('btn', 'no-type', 'color-blue','dropdown-btn')
    dropdownBtn.setAttribute('type', 'button')
    dropdownBtn.textContent = 'Select Type'
 
@@ -338,6 +338,85 @@ document.querySelector("input[value='Add Step']").addEventListener('click', () =
    checkRelations()
 })
 
+// ClearAll (localstorage) button
+document.querySelector("input[value='ClearAll']").addEventListener('click', () => {
+   localStorage.clear()
+})
+
+// Save button
+document.querySelector("input[value='Save']").addEventListener('click', () => {
+   const steps = document.querySelectorAll('.step')
+   let stepTypes = []
+   let stepStyles = []
+   let stepValues = []
+   
+   for (let i = 0; i < steps.length; i++) {
+      stepTypes.push(steps[i].children[2].children[0].children[0].textContent)
+      stepStyles.push(steps[i].className)
+      stepValues.push(steps[i].children[2].children[1].value)
+   }
+
+   localStorage.removeItem('stepTypes')
+   localStorage.removeItem('stepStyles')
+   localStorage.removeItem('stepValues')
+   localStorage.setItem('stepTypes', stepTypes)
+   localStorage.setItem('stepStyles', stepStyles)
+   localStorage.setItem('stepValues', stepValues)
+})
+
+// document.addEventListener('onbeforeunload', () => {
+//    const steps = document.querySelectorAll('.step')
+//    localStorage.removeItem('steps')
+//    localStorage.setItem('steps', steps)
+// })
+
+// window.BeforeUnloadEvent = (e) => {
+//    const steps = document.querySelectorAll('.step')
+//    localStorage.removeItem('steps')
+//    localStorage.setItem('steps', steps)
+// }
+
+// Load steps
+document.addEventListener('DOMContentLoaded', () => {
+   let stepsContainer = document.querySelector('.steps')
+
+   if (localStorage.getItem('stepTypes')) {
+      stepsContainer.removeChild(stepsContainer.children[0])
+   
+      const parsedTypes = localStorage.getItem('stepTypes')
+      const parsedStyles = localStorage.getItem('stepStyles')
+      const parsedValues = localStorage.getItem('stepValues')
+      const stepTypes = parsedTypes.split(',')
+      const stepStyles = parsedStyles.split(',')
+      const stepValues = parsedValues.split(',')
+
+      for (let i = 0; i < stepTypes.length; i++) {
+         addStep()
+
+         //modify stepDropdownBtn and stepInput
+         stepsContainer.children[i].children[2].children[0].children[0].textContent = stepTypes[i]
+         stepsContainer.children[i].children[2].children[1].value = stepValues[i]
+         stepsContainer.children[i].children[2].children[1].setAttribute('placeholder', stepTypesTextContent[stepTypes[i]])
+
+         //add styles to steps, btns and inputs
+         stepStyles[i].split(' ').forEach(style => stepsContainer.children[i].classList.add(style))
+         if (stepStyles[i].includes('options-opened')) {
+            openStepOptions(stepsContainer.children[i])
+         }
+         if (stepTypes[i] != 'Select Type') {
+            stepsContainer.children[i].children[2].children[0].children[0].classList.remove('no-type')
+            stepsContainer.children[i].children[2].children[0].children[0].classList.add('btn-white')
+         }
+      }
+
+      //refresh core
+      checkRelations()
+      assignOrderNumber()
+      stepsCounter.textContent = document.querySelector('.steps').children.length
+   } 
+   
+})
+
 //HELPER FUNCTIONS
 function handleClickBtnInput(selectedType, stepInput) {
    if (selectedType == "Click element") {
@@ -374,7 +453,8 @@ function closeStepOptions(elemToClose) {
    elemToClose.classList.remove('options-opened')
    order.classList.remove('invisible')
    plusBtn.classList.remove('invisible')
-   dropdownBtn.classList.remove('btn-grey')
+   // dropdownBtn.classList.remove('btn-grey')
+   dropdownBtn.classList.remove('no-type')
    dropdownBtn.classList.add('btn-white')
    commonBtns.classList.add('invisible')
    // trashBin.classList.remove('invisible')
@@ -437,9 +517,7 @@ function checkRelations() {
 }
 
 function assignOrderNumber() {
-   console.log('assignOrderNumber')
    const steps = [...document.querySelectorAll('.step')]
-   console.log(steps)
    for (let i = 0; i < steps.length; i++) {
       document.querySelectorAll('.order-num')[i].textContent = i+1
    }
