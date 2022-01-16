@@ -329,7 +329,7 @@ document.querySelector("input[value='Add Common Step'").addEventListener('click'
    checkRelations()
 })
 
-// click ADD SELECT TYPE BUTTON to add select type steps
+//click ADD SELECT TYPE BUTTON to add select type steps
 document.querySelector("input[value='Add Step']").addEventListener('click', () => {
    hideDropdowns()
    addStep()
@@ -338,83 +338,24 @@ document.querySelector("input[value='Add Step']").addEventListener('click', () =
    checkRelations()
 })
 
-// ClearAll (localstorage) button
+//click on the SAVE BUTTON to save current scenario steps
+document.querySelector("input[value='Save']").addEventListener('click', saveSteps)
+
+//automatically saves current scenario steps when the PAGE IS REFRESHED 
+window.addEventListener("beforeunload", saveSteps)
+
+//automatically loads the steps when the PAGE IS LOADED
+document.addEventListener('DOMContentLoaded', loadSteps)
+
+//click on the CLEAR ALL BUTTON to clear out the local storage and current 
 document.querySelector("input[value='ClearAll']").addEventListener('click', () => {
    localStorage.clear()
-})
-
-// Save button
-document.querySelector("input[value='Save']").addEventListener('click', () => {
-   const steps = document.querySelectorAll('.step')
-   let stepTypes = []
-   let stepStyles = []
-   let stepValues = []
-   
-   for (let i = 0; i < steps.length; i++) {
-      stepTypes.push(steps[i].children[2].children[0].children[0].textContent)
-      stepStyles.push(steps[i].className)
-      stepValues.push(steps[i].children[2].children[1].value)
-   }
-
-   localStorage.removeItem('stepTypes')
-   localStorage.removeItem('stepStyles')
-   localStorage.removeItem('stepValues')
-   localStorage.setItem('stepTypes', stepTypes)
-   localStorage.setItem('stepStyles', stepStyles)
-   localStorage.setItem('stepValues', stepValues)
-})
-
-// document.addEventListener('onbeforeunload', () => {
-//    const steps = document.querySelectorAll('.step')
-//    localStorage.removeItem('steps')
-//    localStorage.setItem('steps', steps)
-// })
-
-// window.BeforeUnloadEvent = (e) => {
-//    const steps = document.querySelectorAll('.step')
-//    localStorage.removeItem('steps')
-//    localStorage.setItem('steps', steps)
-// }
-
-// Load steps
-document.addEventListener('DOMContentLoaded', () => {
-   let stepsContainer = document.querySelector('.steps')
-
-   if (localStorage.getItem('stepTypes')) {
-      stepsContainer.removeChild(stepsContainer.children[0])
-   
-      const parsedTypes = localStorage.getItem('stepTypes')
-      const parsedStyles = localStorage.getItem('stepStyles')
-      const parsedValues = localStorage.getItem('stepValues')
-      const stepTypes = parsedTypes.split(',')
-      const stepStyles = parsedStyles.split(',')
-      const stepValues = parsedValues.split(',')
-
-      for (let i = 0; i < stepTypes.length; i++) {
-         addStep()
-
-         //modify stepDropdownBtn and stepInput
-         stepsContainer.children[i].children[2].children[0].children[0].textContent = stepTypes[i]
-         stepsContainer.children[i].children[2].children[1].value = stepValues[i]
-         stepsContainer.children[i].children[2].children[1].setAttribute('placeholder', stepTypesTextContent[stepTypes[i]])
-
-         //add styles to steps, btns and inputs
-         stepStyles[i].split(' ').forEach(style => stepsContainer.children[i].classList.add(style))
-         if (stepStyles[i].includes('options-opened')) {
-            openStepOptions(stepsContainer.children[i])
-         }
-         if (stepTypes[i] != 'Select Type') {
-            stepsContainer.children[i].children[2].children[0].children[0].classList.remove('no-type')
-            stepsContainer.children[i].children[2].children[0].children[0].classList.add('btn-white')
-         }
-      }
-
-      //refresh core
-      checkRelations()
-      assignOrderNumber()
-      stepsCounter.textContent = document.querySelector('.steps').children.length
-   } 
-   
+   document.querySelectorAll('.step').forEach(step => document.querySelector('.steps').removeChild(step))
+   addStep()
+   document.querySelector('.steps').children[0].children[2].children[0].children[0].textContent = "Go to URL"
+   document.querySelector('.steps').children[0].children[2].children[0].children[0].classList.remove('no-type')
+   document.querySelector('.steps').children[0].children[2].children[0].children[0].classList.add('btn-white')
+   document.querySelector('.steps').children[0].children[2].children[1].setAttribute('placeholder', "Provide the URL to go to: https://example.com/")
 })
 
 //HELPER FUNCTIONS
@@ -528,4 +469,64 @@ function handleChainMode() {
    chainModeBtn.setAttribute('src', isChainMode ? "https://img.icons8.com/material-sharp/24/ffffff/link--v1.png" : "https://img.icons8.com/material-sharp/24/ffffff/broken-link.png")
    chainModeBtn.classList.toggle('btn-green')
    chainModeBtn.classList.toggle('btn-grey')
+}
+
+//STORAGE FUNCTIONS
+function saveSteps() {
+   const steps = document.querySelectorAll('.step')
+   let stepTypes = []
+   let stepStyles = []
+   let stepValues = []
+   
+   for (let i = 0; i < steps.length; i++) {
+      stepTypes.push(steps[i].children[2].children[0].children[0].textContent)
+      stepStyles.push(steps[i].className)
+      stepValues.push(steps[i].children[2].children[1].value)
+   }
+
+   localStorage.removeItem('stepTypes')
+   localStorage.removeItem('stepStyles')
+   localStorage.removeItem('stepValues')
+   localStorage.setItem('stepTypes', stepTypes)
+   localStorage.setItem('stepStyles', stepStyles)
+   localStorage.setItem('stepValues', stepValues)
+}
+
+function loadSteps() {
+   let stepsContainer = document.querySelector('.steps')
+
+   if (localStorage.getItem('stepTypes')) {
+      stepsContainer.removeChild(stepsContainer.children[0])
+   
+      const parsedTypes = localStorage.getItem('stepTypes')
+      const parsedStyles = localStorage.getItem('stepStyles')
+      const parsedValues = localStorage.getItem('stepValues')
+      const stepTypes = parsedTypes.split(',')
+      const stepStyles = parsedStyles.split(',')
+      const stepValues = parsedValues.split(',')
+
+      for (let i = 0; i < stepTypes.length; i++) {
+         addStep()
+
+         //modify stepDropdownBtn and stepInput
+         stepsContainer.children[i].children[2].children[0].children[0].textContent = stepTypes[i]
+         stepsContainer.children[i].children[2].children[1].value = stepValues[i]
+         stepsContainer.children[i].children[2].children[1].setAttribute('placeholder', stepTypesTextContent[stepTypes[i]])
+
+         //add styles to steps, btns and inputs
+         stepStyles[i].split(' ').forEach(style => stepsContainer.children[i].classList.add(style))
+         if (stepStyles[i].includes('options-opened')) {
+            openStepOptions(stepsContainer.children[i])
+         }
+         if (stepTypes[i] != 'Select Type') {
+            stepsContainer.children[i].children[2].children[0].children[0].classList.remove('no-type')
+            stepsContainer.children[i].children[2].children[0].children[0].classList.add('btn-white')
+         }
+      }
+
+      //refresh core
+      checkRelations()
+      assignOrderNumber()
+      stepsCounter.textContent = document.querySelector('.steps').children.length
+   } 
 }
