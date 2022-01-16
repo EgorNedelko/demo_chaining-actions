@@ -11,11 +11,11 @@ html {
    background-color: rgb(248, 249, 254);
 }
 
-button,
+/* button,
 input,
 input::placeholder {
    font-family: 'Open Sans', sans-serif;
-}
+} */
 
 h5 {
    color: rgb(136, 152, 170);
@@ -28,7 +28,12 @@ body {
    width: 1920px;
 }
 
+.container {
+   margin: 0 auto;
+}
+
 .sidebar {
+   margin-left: 250px;
    display: block;
    position: fixed;
    top: 0;
@@ -81,9 +86,12 @@ body {
 }
 
 .wrapper {
+   min-height: 100vh;
+   box-shadow: 0 0 2rem 0 rgb(136 152 170 / 15%) !important;
    max-width: 60%;
    background-color: rgb(255, 255, 255);
-   margin-left: 200px;
+   margin-left: 450px;
+   /* margin-left: 200px; */
    /* margin: 0 auto; */
 }
 

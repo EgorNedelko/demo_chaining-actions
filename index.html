@@ -11,123 +11,126 @@
    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-   <nav class="sidebar">
-      <div class="sidebar-container">
-         <a href="/" class="sidebar-logo">
-            <img class="sidebar-logo-img" src="./img/logo.PNG" alt="sidebar-logo-icon">
-         </a>
-         <div class="sidebar-menu"> 
-            <ul class="sidebar-list">
-               <li class="sidebar-item">Dashboard</li>
-               <li class="sidebar-item">Projects</li>
-               <li class="sidebar-item">Test Runs</li>
-               <li class="sidebar-item">Macros</li>
-               <li class="sidebar-item">Profile</li>
-               <li class="sidebar-item">Team</li>
-               <li class="sidebar-item">Usage History</li>
-               <li class="sidebar-item">Subscription</li>
-               <li class="sidebar-item">Logout</li>
-            </ul>
-            <hr class="sidebar-divider">
-            <ul class="sidebar-list">
-               <li class="sidebar-item">Documentation</li>
-            </ul>
-         </div>
-      </div>
-   </nav>
-   <div class="wrapper">
-      <header class="header">
-         <div class="header-specs">
-            <div class="specs-item">
-               <h5>name</h5>
-               <span>chaining</span>
-            </div>
-            <div class="specs-item">
-               <h5>status</h5>
-               <span>created</span>
-            </div>
-            <div class="specs-item">
-               <h5>steps</h5>
-               <span id="stepsCounter">1</span>
-            </div>
-            <div class="specs-item">
-               <h5>runs</h5>
-               <span>0</span>
+   <div class="container">
+      <nav class="sidebar">
+         <div class="sidebar-container">
+            <a href="/" class="sidebar-logo">
+               <img class="sidebar-logo-img" src="./img/logo.PNG" alt="sidebar-logo-icon">
+            </a>
+            <div class="sidebar-menu"> 
+               <ul class="sidebar-list">
+                  <li class="sidebar-item">Dashboard</li>
+                  <li class="sidebar-item">Projects</li>
+                  <li class="sidebar-item">Test Runs</li>
+                  <li class="sidebar-item">Macros</li>
+                  <li class="sidebar-item">Profile</li>
+                  <li class="sidebar-item">Team</li>
+                  <li class="sidebar-item">Usage History</li>
+                  <li class="sidebar-item">Subscription</li>
+                  <li class="sidebar-item">Logout</li>
+               </ul>
+               <hr class="sidebar-divider">
+               <ul class="sidebar-list">
+                  <li class="sidebar-item">Documentation</li>
+               </ul>
             </div>
          </div>
-      </header>
-
-      <div class="btns">
-         <div class="btns-col-1">
-            <input class="btn btn-blue" type="button" value="Back">
-         </div>
-
-         <div class="btns-col-2">
-            <span>Path: </span>
-            <span class="path path-project">demo project</span>
-            <span class="path path-divider">/</span>
-            <span class="path path-module">demo module</span>
-            <span class="path path-divider">/</span>
-            <span class="path path-scenario">chain mode</span>
-         </div>
-
-         <div class="btns-col-3">
-            <img class="btn btn-grey btn-chain-mode" src="https://img.icons8.com/material-sharp/24/ffffff/broken-link.png"/>
-            <input class="btn btn-blue" type="button" value="Copy" name="Copy">
-            <input class="btn btn-green" type="button" value="Execute" name="Execute">
-            <input class="btn btn-green" type="button" value="Disable" name="Disable">
-            <input class="btn btn-red" type="button" value="Delete" name="Delete">
-         </div>
-      </div>
-
-      <div class="divider">
-         <!-- "margin-left: 62px;" "margin-left: 82px;" -->
-         <span>order</span>   
-         <span style="margin-left: 122px;">action</span>
-      </div>
-
-      <div class="steps">
-         
-         <div class="step" draggable="true">
-            <div class="order">
-               <span class="order-num">1</span>
-               <!-- <img class="order-icon" src="https://img.icons8.com/ios-glyphs/30/000000/resize-vertical.png"> -->
-            </div>
-            <input class="btn btn-white btn-plus" type="button" value="+" name="Plus">
-            <div class="inputs-group">
-               <div class="dropdown-container">
-                  <button class="btn btn-white dropdown-btn" type="button">Go to URL</button>
-                  <div class="dropdown">
-                     <a class="dropdown-item">Go to URL</a>
-                     <a class="dropdown-item">Check URL</a>
-                     <a class="dropdown-item">Check path</a>
-                     <a class="dropdown-item">Find element</a>
-                     <a class="dropdown-item">Click element</a>
-                     <a class="dropdown-item">Find input</a>
-                     <a class="dropdown-item">Type in</a>
-                     <a class="dropdown-item">Find text</a>
-                     <a class="dropdown-item">Element doesn't exist</a>
-                  </div>
+      </nav>
+      <div class="wrapper">
+         <header class="header">
+            <div class="header-specs">
+               <div class="specs-item">
+                  <h5>name</h5>
+                  <span>chaining</span>
                </div>
-               <input class="step-input no-input" type="text" placeholder="Provide the URL to go to: https://example.com/">
+               <div class="specs-item">
+                  <h5>status</h5>
+                  <span>created</span>
+               </div>
+               <div class="specs-item">
+                  <h5>steps</h5>
+                  <span id="stepsCounter">1</span>
+               </div>
+               <div class="specs-item">
+                  <h5>runs</h5>
+                  <span>0</span>
+               </div>
             </div>
-            <img class="trashbin-icon" src="https://img.icons8.com/windows/32/4a90e2/trash.png"/>
-            <div class="specific-step-buttons invisible">
-               <img class="btn btn-blue btn-options btn-find-el"src="https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/ffffff/external-magnifying-glass-interface-kiranshastry-lineal-kiranshastry.png"/>
-               <img class="btn btn-blue btn-options btn-click"src="https://img.icons8.com/pastel-glyph/64/ffffff/click-and-collect--v2.png"/>
-               <img class="btn btn-blue btn-options btn-find-input" src="https://img.icons8.com/ios/50/ffffff/text-input-form.png"/>
-               <img class="btn btn-blue btn-options btn-typein" src="https://img.icons8.com/material-outlined/24/ffffff/text.png"/>
+         </header>
+   
+         <div class="btns">
+            <div class="btns-col-1">
+               <input class="btn btn-blue" type="button" value="Back">
+            </div>
+   
+            <div class="btns-col-2">
+               <span>Path: </span>
+               <span class="path path-project">demo project</span>
+               <span class="path path-divider">/</span>
+               <span class="path path-module">demo module</span>
+               <span class="path path-divider">/</span>
+               <span class="path path-scenario">chain mode</span>
+            </div>
+   
+            <div class="btns-col-3">
+               <img class="btn btn-grey btn-chain-mode" src="https://img.icons8.com/material-sharp/24/ffffff/broken-link.png"/>
+               <input class="btn btn-blue" type="button" value="Copy" name="Copy">
+               <input class="btn btn-green" type="button" value="Execute" name="Execute">
+               <input class="btn btn-green" type="button" value="Disable" name="Disable">
+               <input class="btn btn-red" type="button" value="Delete" name="Delete">
             </div>
          </div>
-         
-      </div>
-
-      <div class="btns-bottom">
-         <input class="btn btn-blue" type="button" value="Add Common Step" name="Add">
-         <input class="btn btn-blue" type="button" value="Add Step" name="Add">
-         <input class="btn btn-green" type="button" value="Execute" name="Execute">
+   
+         <div class="divider">
+            <!-- "margin-left: 62px;" "margin-left: 82px;" -->
+            <span>order</span>   
+            <span style="margin-left: 122px;">action</span>
+         </div>
+   
+         <div class="steps">
+            
+            <div class="step" draggable="true">
+               <div class="order">
+                  <span class="order-num">1</span>
+                  <!-- <img class="order-icon" src="https://img.icons8.com/ios-glyphs/30/000000/resize-vertical.png"> -->
+               </div>
+               <input class="btn btn-white btn-plus" type="button" value="+" name="Plus">
+               <div class="inputs-group">
+                  <div class="dropdown-container">
+                     <button class="btn btn-white dropdown-btn" type="button">Go to URL</button>
+                     <div class="dropdown">
+                        <a class="dropdown-item">Go to URL</a>
+                        <a class="dropdown-item">Check URL</a>
+                        <a class="dropdown-item">Check path</a>
+                        <a class="dropdown-item">Find element</a>
+                        <a class="dropdown-item">Click element</a>
+                        <a class="dropdown-item">Find input</a>
+                        <a class="dropdown-item">Type in</a>
+                        <a class="dropdown-item">Find text</a>
+                        <a class="dropdown-item">Element doesn't exist</a>
+                     </div>
+                  </div>
+                  <input class="step-input no-input" type="text" placeholder="Provide the URL to go to: https://example.com/">
+               </div>
+               <img class="trashbin-icon" src="https://img.icons8.com/windows/32/4a90e2/trash.png"/>
+               <div class="specific-step-buttons invisible">
+                  <img class="btn btn-blue btn-options btn-find-el"src="https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/ffffff/external-magnifying-glass-interface-kiranshastry-lineal-kiranshastry.png"/>
+                  <img class="btn btn-blue btn-options btn-click"src="https://img.icons8.com/pastel-glyph/64/ffffff/click-and-collect--v2.png"/>
+                  <img class="btn btn-blue btn-options btn-find-input" src="https://img.icons8.com/ios/50/ffffff/text-input-form.png"/>
+                  <img class="btn btn-blue btn-options btn-typein" src="https://img.icons8.com/material-outlined/24/ffffff/text.png"/>
+               </div>
+            </div>
+            
+         </div>
+   
+         <div class="btns-bottom">
+            <input class="btn btn-blue" type="button" value="Add Common Step" name="Add">
+            <input class="btn btn-blue" type="button" value="Add Step" name="Add">
+            <input class="btn btn-green" type="button" value="Execute" name="Execute">
+         </div>
       </div>
    </div>
+   
    <script src="script.js"></script>
 </body>
 </html>
