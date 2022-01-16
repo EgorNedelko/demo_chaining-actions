@@ -2,12 +2,19 @@
    padding: 0;
    margin: 0;
    box-sizing: border-box;
+   outline: none;
 }
 
 html {
    font-size: 10px;
    font-family: 'Open Sans', sans-serif;
    background-color: rgb(248, 249, 254);
+}
+
+button,
+input,
+input::placeholder {
+   font-family: 'Open Sans', sans-serif;
 }
 
 h5 {
@@ -21,10 +28,63 @@ body {
    width: 1920px;
 }
 
+.sidebar {
+   display: block;
+   position: fixed;
+   top: 0;
+   bottom: 0;
+   background-color: rgb(255,255,255);
+   overflow-y: auto;
+   /* width: 100%; */
+   min-width: 200px;
+   font-size: 14.4px;
+   color: rgba(0, 0, 0, 0.5);
+   box-shadow: 0 0 2rem 0 rgb(136 152 170 / 15%) !important;
+}
+
+.sidebar-container {
+   padding: 16px 24px;
+   display: flex;
+   flex-direction: column;
+   align-items: stretch;
+   justify-content: center;
+}
+
+.sidebar-logo {
+   padding-left: 14px;
+   margin-top: 14px;
+}
+
+.sidebar-list {
+   list-style-type: none;
+   text-decoration: none;
+   cursor: pointer;
+}
+.sidebar-list:first-child::before {
+   content: '';
+   display: block;
+   padding: 20px;
+}
+
+.sidebar-item {
+   padding: 10px 0;
+   transition: all .3s ease;
+}
+.sidebar-item:hover {
+   color: #000;
+}
+
+.sidebar-divider {
+   background-color: rgba(0, 0, 0, 0.5);
+   min-width: 100%;
+   margin: 16px 0;
+}
+
 .wrapper {
    max-width: 60%;
    background-color: rgb(255, 255, 255);
-   margin: 0 auto;
+   margin-left: 200px;
+   /* margin: 0 auto; */
 }
 
 header {
