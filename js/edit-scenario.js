@@ -348,7 +348,7 @@ window.addEventListener("beforeunload", saveSteps)
 document.addEventListener('DOMContentLoaded', loadSteps)
 
 //click on the CLEAR ALL BUTTON to clear out the local storage and current 
-document.querySelector("input[value='ClearAll']").addEventListener('click', () => {
+document.querySelector("input[value='Clear All']").addEventListener('click', () => {
    localStorage.clear()
    document.querySelectorAll('.step').forEach(step => document.querySelector('.steps').removeChild(step))
    addStep()

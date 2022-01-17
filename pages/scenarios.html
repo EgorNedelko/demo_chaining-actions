@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>DogQ Demo</title>
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="../css/scenarios.css">
+</head>
+<body>
+   <div style="display: none;" class="overlay"></div>
+   <div class="container">
+
+      <div style="display: none;" class="new-scenario-modal">
+         <div class="scenario-modal-header">Create Module</div>
+         <div class="scenario-modal-form">
+            <input type="text" class="new-scenario-name" placeholder="Name"></input>
+         </div>
+         <div class="scenario-modal-footer-btns">
+            <input class="btn btn-grey" type="button" value="Cancel">
+            <input class="btn btn-blue" type="button" value="Save">
+         </div>
+      </div>
+
+      <nav class="sidebar">
+         <div class="sidebar-container">
+            <a href="/" class="sidebar-logo">
+               <img class="sidebar-logo-img" src="../img/logo.PNG" alt="sidebar-logo-icon">
+            </a>
+            <div class="sidebar-menu"> 
+               <ul class="sidebar-list">
+                  <li class="sidebar-item">Dashboard</li>
+                  <li class="sidebar-item">
+                     <a href="../pages/projects.html">Projects</a>
+                  </li>
+                  <li class="sidebar-item">Test Runs</li>
+                  <li class="sidebar-item">Macros</li>
+                  <li class="sidebar-item">Profile</li>
+                  <li class="sidebar-item">Team</li>
+                  <li class="sidebar-item">Usage History</li>
+                  <li class="sidebar-item">Subscription</li>
+                  <li class="sidebar-item">Logout</li>
+               </ul>
+               <hr class="sidebar-divider">
+               <ul class="sidebar-list">
+                  <li class="sidebar-item">Documentation</li>
+               </ul>
+            </div>
+         </div>
+      </nav>
+
+      <div class="wrapper">
+         <header class="header">
+            <div class="header-specs">
+               <div class="specs-item">
+                  <h5>name</h5>
+                  <span>chain mode</span>
+               </div>
+               <div class="specs-item">
+                  <h5>status</h5>
+                  <span>Created</span>
+               </div>
+               <div class="specs-item">
+                  <h5>steps</h5>
+                  <span id="stepsCounter">1</span>
+               </div>
+               <div class="specs-item">
+                  <h5>runs</h5>
+                  <span>0</span>
+               </div>
+            </div>
+         </header>
+
+         <div class="btns">
+            <div class="btns-col-1">
+               <a href="./projects.html">
+                  <input class="btn btn-blue" type="button" value="Back">
+               </a>
+            </div>
+   
+            <div class="btns-col-2">
+               <span>Path: </span>
+               <span class="path path-project">demo project</span>
+               <span class="path path-divider">/</span>
+               <span class="path path-module">demo module</span>
+               <span class="path path-divider">/</span>
+               <!-- <span class="path path-scenario">chain mode</span> -->
+               <!-- <span class="path path-scenario">/</span> -->
+            </div>
+   
+            <div class="btns-col-3">
+               <input class="btn btn-blue" type="button" value="Add Scenario" name="Add Scenario">
+               <input class="btn btn-blue" type="button" value="Schedule" name="Schedule">
+               <input class="btn btn-green" type="button" value="Execute All" name="Execute All">
+               <input class="btn btn-green" type="button" value="Disable" name="Disable">
+               <input class="btn btn-red" type="button" value="Delete" name="Delete">
+            </div>
+         </div>
+
+         <div class="divider">
+            <span class="divider-scenario-name">name</span>
+            <span>status</span>   
+            <span>steps</span>   
+            <span>runs</span>
+            <span>actions</span>
+         </div>
+
+         <div class="scenarios">
+
+            <div class="scenario">
+               <a href="./edit-scenario.html" class="scenario-name">My first scenario</a>
+               <p class="scenario-status">Created</p>
+               <p class="scenario-steps-counter">10</p>
+               <p class="scenario-runs-counter">0</p>
+               <img class="scenario-menu-icon" src="https://img.icons8.com/color/48/000000/menu-2.png"/>
+            </div>
+
+         </div>
+
+         <div class="btns-bottom">
+            <input class="btn btn-blue" type="button" value="Add Scenario" name="Add Scenario">
+            <input class="btn btn-green" type="button" value="Execute All" name="Execute All">
+         </div>
+
+      </div>
+   </div>
+   
+   <script src="../js/scenarios.js"></script>
+</body>
