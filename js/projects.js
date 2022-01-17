@@ -159,6 +159,34 @@ document.querySelectorAll("input[value='New']").forEach(btn => btn.addEventListe
    openProjectModal()
 }))
 
-//click on the PROJECT NAME to view this project's modules
-// document.add
+/////STORAGE FUNCTIONS
+//click on the STORE to save to local Storage
+document.querySelector("input[value='Store']").addEventListener('click', () => {
+   const projectsList = document.querySelectorAll('.project')
+   let userProjects = []
+   for (let i = 0; i < projectsList.length; i++) {
+      userProjects[i] = {
+         name: projectsList[i].querySelector('.project-name').textContent
+      }
+   }
+   localStorage.setItem('userProjects', JSON.stringify(userProjects))
+})
 
+//LOADING 
+document.addEventListener('DOMContentLoaded', () => {
+   if (localStorage.getItem('userProjects')) {
+      let parsedProjects = JSON.parse(localStorage.getItem('userProjects'))
+      for (let i = 0; i < parsedProjects.length; i++) {
+         addProject(parsedProjects[i].name)
+      }
+   }
+})
+
+//click on the project name to STORE DESTINATION 
+document.addEventListener('click', (e) => {
+   if (e.target.classList.contains('project-name')) {
+      console.log(e.target.textContent)
+      localStorage.removeItem('targetProject')
+      localStorage.setItem('targetProject', e.target.textContent)
+   }
+})

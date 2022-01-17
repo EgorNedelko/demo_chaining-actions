@@ -75,3 +75,48 @@ document.addEventListener('click', (e) => {
 document.querySelectorAll("input[value='Add Module']").forEach(btn => btn.addEventListener('click', () => {
    openModuleModal()
 }))
+
+/////STORAGE FUNCTIONS
+//click on the STORE to save to local Storage
+document.querySelector("input[value='Store']").addEventListener('click', () => {
+   let userProjects = JSON.parse(localStorage.getItem('userProjects'))
+   let targetProject = localStorage.getItem('targetProject')
+   const modulesList = document.querySelectorAll('.module')
+
+   for (let i = 0; i < userProjects.length; i++) {
+      if (userProjects[i].name == targetProject) {
+         userProjects[i].modules = []
+
+         for (let j = 0; j < modulesList.length; j++) {
+            userProjects[i].modules[j] = {
+               name: modulesList[j].querySelector('.module-name').textContent
+            }
+         }
+      }
+   }
+   localStorage.removeItem('userProjects')
+   localStorage.setItem('userProjects', JSON.stringify(userProjects))
+})
+
+//LOADING 
+document.addEventListener('DOMContentLoaded', () => {
+   let userProjects = JSON.parse(localStorage.getItem('userProjects'))
+   let targetProject = localStorage.getItem('targetProject')
+   
+   for (let i = 0; i < userProjects.length; i++) {
+      if (userProjects[i].name == targetProject) {
+         for (let j = 0; j < userProjects[i].modules.length; j++) {
+            addModule(userProjects[i].modules[j].name)
+         }
+      }
+   }
+})
+
+//click on the module name to STORE DESTINATION 
+document.addEventListener('click', (e) => {
+   if (e.target.classList.contains('module-name')) {
+      console.log(e.target.textContent)
+      localStorage.removeItem('targetModule')
+      localStorage.setItem('targetModule', e.target.textContent)
+   }
+})
