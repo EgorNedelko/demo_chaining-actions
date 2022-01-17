@@ -75,3 +75,58 @@ document.addEventListener('click', (e) => {
 document.querySelectorAll("input[value='Add Scenario']").forEach(btn => btn.addEventListener('click', () => {
    openScenarioModal()
 }))
+
+/////STORAGE FUNCTIONS
+//click on the STORE to save to local Storage
+document.querySelector("input[value='Store']").addEventListener('click', () => {
+   let userProjects = JSON.parse(localStorage.getItem('userProjects'))
+   let targetProject = localStorage.getItem('targetProject')
+   let targetModule = localStorage.getItem('targetModule')
+   const scenariosList = document.querySelectorAll('.scenario')
+
+   for (let i = 0; i < userProjects.length; i++) {
+      if (userProjects[i].name == targetProject) {
+         for (let j = 0; j < userProjects[i].modules.length; j++) {
+            if (userProjects[i].modules[j].name == targetModule) {
+               userProjects[i].modules[j].scenarios = []
+
+               for (let y = 0; y < scenariosList.length; y++) {
+                  userProjects[i].modules[j].scenarios[j] = {
+                     name: scenariosList[j].querySelector('.scenario-name').textContent
+                  }
+               }
+            }
+         }
+      }
+   }
+   localStorage.removeItem('userProjects')
+   localStorage.setItem('userProjects', JSON.stringify(userProjects))
+})
+
+//LOADING 
+document.addEventListener('DOMContentLoaded', () => {
+   let userProjects = JSON.parse(localStorage.getItem('userProjects'))
+   let targetProject = localStorage.getItem('targetProject')
+   let targetModule = localStorage.getItem('targetModule')
+   
+   for (let i = 0; i < userProjects.length; i++) {
+      if (userProjects[i].name == targetProject) {
+         for (let j = 0; j < userProjects[i].modules.length; j++) {
+            if (userProjects[i].modules[j].name == targetModule) {
+               for (let y = 0; y < userProjects[i].modules[j].scenarios.length; y++) {
+                  addScenario(userProjects[i].modules[j].scenarios[y].name)
+               }
+            }
+         }
+      }
+   }
+})
+
+//click on the module name to STORE DESTINATION 
+document.addEventListener('click', (e) => {
+   if (e.target.classList.contains('scenario-name')) {
+      console.log(e.target.textContent)
+      localStorage.removeItem('targetScenario')
+      localStorage.setItem('targetScenario', e.target.textContent)
+   }
+})
