@@ -1,3 +1,6 @@
+const overlay = document.querySelector('.overlay')
+const newProjectModal = document.querySelector('.new-project-modal')
+
 // class Project {
 //    constructor(name, mods, scens) {
 //       this.name = name
@@ -76,7 +79,7 @@
 //    } 
 // }
 
-function addProject() {
+function addProject(name) {
    //create document fragment
    const fragment = document.createDocumentFragment()
 
@@ -86,7 +89,7 @@ function addProject() {
    
    const projectName = document.createElement('p')
    projectName.classList.add('project-name')
-   projectName.textContent = 'new project'
+   projectName.textContent = name
 
    const projectStatus = document.createElement('p')
    projectStatus.classList.add('project-status')
@@ -116,6 +119,41 @@ function addProject() {
    project.appendChild(projectMenuIcon)
    fragment.appendChild(project)
    document.querySelector('.projects').append(fragment)
-} 
+}
 
-document.querySelectorAll("input[value='New']").forEach(btn => btn.addEventListener('click', addProject))
+function openProjectModal() {
+   overlay.style = "display: block"
+   newProjectModal.style = "display: block"
+}
+function closeProjectModal() {
+   overlay.style = "display: none"
+   newProjectModal.style = "display: none"
+}
+
+//click on the SAVE BUTTON in the project modal to create a new project
+document.addEventListener('click', (e) => {
+   if (e.target.value == "Save") {
+      const newProjectNameInput = document.querySelector('.new-project-name')
+      if (newProjectNameInput.value) {
+         addProject(newProjectNameInput.value)
+         newProjectNameInput.value = ''
+      } else {
+         addProject('new project')
+      }
+      closeProjectModal()
+   }
+})
+
+//click on the CANCEL BUTTON in the project modal to cancel new project creation
+document.addEventListener('click', (e) => {
+   if (e.target.value == "Cancel") {
+      const newProjectNameInput = document.querySelector('.new-project-name')
+      newProjectNameInput.value = ''
+      closeProjectModal()
+   }
+})
+
+//click on the NEW BUTTON to add new project
+document.querySelectorAll("input[value='New']").forEach(btn => btn.addEventListener('click', () => {
+   openProjectModal()
+}))

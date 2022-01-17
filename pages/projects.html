@@ -11,7 +11,20 @@
    <link rel="stylesheet" href="../css/projects.css">
 </head>
 <body>
+   <div style="display: none;" class="overlay"></div>
    <div class="container">
+
+      <div style="display: none;" class="new-project-modal">
+         <div class="project-modal-header">Create Project</div>
+         <div class="project-modal-form">
+            <input type="text" class="new-project-name" placeholder="Name"></input>
+         </div>
+         <div class="project-modal-footer-btns">
+            <input class="btn btn-grey" type="button" value="Cancel">
+            <input class="btn btn-blue" type="button" value="Save">
+         </div>
+      </div>
+
       <nav class="sidebar">
          <div class="sidebar-container">
             <a href="/" class="sidebar-logo">
