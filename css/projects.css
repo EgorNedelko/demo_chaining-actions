@@ -133,41 +133,6 @@ header {
    justify-content: flex-end;
 }
 
-.btns-col-2 {
-   color: rgb(50, 50, 93);
-   font-size: 20px;
-   font-weight: bold;
-   margin-right: 200px;
-   display: flex;
-   align-items: center;
-   column-gap: 5px;
-}
-
-.path {
-   display: block;
-   cursor: pointer;
-   transition: all .2s ease;
-}
-.path:hover {
-   color: rgb(68, 68, 187);
-   transform: translateY(-1px);
-}
-
-.btns-col-3 {
-   max-width: fit-content;
-   display: flex;
-   align-items: center;
-   justify-content: space-between;
-   column-gap: 8px;
-}
-
-.btn-chain-mode {
-   width: 34px;
-   outline: none;
-   user-select: none;
-   transition: background-color 0.5s ease;
-}
-
 .btn {
    padding: 4px 8px;
    letter-spacing: 0.5px;
@@ -231,7 +196,7 @@ header {
 }
 
 .projects {
-   min-height: 60vh;
+   min-height: 50vh;
    /* overflow: scroll; */
 }
 
@@ -347,7 +312,7 @@ header {
 }
 
 .btns-bottom {
-   margin-top: 30px;
+   margin-top: 10px;
    padding: 34px 24px 24px;
    display: flex;
    align-items: center;
