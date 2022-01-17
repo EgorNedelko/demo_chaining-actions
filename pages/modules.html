@@ -11,7 +11,20 @@
    <link rel="stylesheet" href="../css/modules.css">
 </head>
 <body>
+   <div style="display: none;" class="overlay"></div>
    <div class="container">
+
+      <div style="display: none;" class="new-module-modal">
+         <div class="module-modal-header">Create Module</div>
+         <div class="module-modal-form">
+            <input type="text" class="new-module-name" placeholder="Name"></input>
+         </div>
+         <div class="module-modal-footer-btns">
+            <input class="btn btn-grey" type="button" value="Cancel">
+            <input class="btn btn-blue" type="button" value="Save">
+         </div>
+      </div>
+
       <nav class="sidebar">
          <div class="sidebar-container">
             <a href="/" class="sidebar-logo">
@@ -38,10 +51,10 @@
             </div>
          </div>
       </nav>
+
       <div class="wrapper">
-         
          <header class="header">
-            <!-- <div class="header-specs">
+            <div class="header-specs">
                <div class="specs-item">
                   <h5>name</h5>
                   <span>chain mode</span>
@@ -58,48 +71,57 @@
                   <h5>runs</h5>
                   <span>0</span>
                </div>
-            </div> -->
+            </div>
          </header>
 
          <div class="btns">
-            <!-- <div class="btns-col-1">
-               <input class="btn btn-blue" type="button" value="Back">
-            </div> -->
+            <div class="btns-col-1">
+               <a href="./projects.html">
+                  <input class="btn btn-blue" type="button" value="Back">
+               </a>
+            </div>
    
-            <!-- <div class="btns-col-2">
+            <div class="btns-col-2">
                <span>Path: </span>
                <span class="path path-project">demo project</span>
                <span class="path path-divider">/</span>
-               <span class="path path-module">demo module</span>
-               <span class="path path-divider">/</span>
-               <span class="path path-scenario">chain mode</span>
-            </div> -->
+               <!-- <span class="path path-module">demo module</span> -->
+               <!-- <span class="path path-divider">/</span> -->
+               <!-- <span class="path path-scenario">chain mode</span> -->
+               <!-- <span class="path path-scenario">/</span> -->
+            </div>
    
             <div class="btns-col-3">
-               <input class="btn btn-blue" type="button" value="New" name="New">
+               <input class="btn btn-blue" type="button" value="Add Module" name="Add Module">
+               <input class="btn btn-blue" type="button" value="Schedule" name="Schedule">
+               <input class="btn btn-green" type="button" value="Execute All" name="Execute All">
+               <input class="btn btn-red" type="button" value="Delete" name="Delete">
             </div>
          </div>
 
          <div class="divider">
-            <span class="divider-project-name">name</span>
+            <span class="divider-module-name">name</span>
             <span>status</span>   
-            <span>modules</span>   
             <span>scenarios</span>   
-            <span>macros</span>   
-            <span>runs</span>   
-            <span>last full run</span>   
-            <span>scheduled</span>
+            <span>runs</span>
+            <span>actions</span> 
          </div>
 
-         <div class="projects">
+         <div class="modules">
 
-            <div class="project">
-               <p class="project-name">My first project</p>
-               
-               
-               <img class="menu-icon" src="https://img.icons8.com/color/48/000000/menu-2.png"/>
+            <div class="module">
+               <a href="./scenarios.html" class="module-name">My first module</a>
+               <p class="module-status">Created</p>
+               <p class="module-scenarios-counter">3</p>
+               <p class="module-runs-counter">0</p>
+               <img class="module-menu-icon" src="https://img.icons8.com/color/48/000000/menu-2.png"/>
             </div>
 
+         </div>
+
+         <div class="btns-bottom">
+            <input class="btn btn-blue" type="button" value="Add Module" name="Add Module">
+            <input class="btn btn-green" type="button" value="Execute All" name="Execute All">
          </div>
 
       </div>

@@ -87,8 +87,9 @@ function addProject(name) {
    const project = document.createElement('div')
    project.classList.add('project')
    
-   const projectName = document.createElement('p')
+   const projectName = document.createElement('a')
    projectName.classList.add('project-name')
+   projectName.setAttribute('href', "./modules.html")
    projectName.textContent = name
 
    const projectStatus = document.createElement('p')
@@ -157,3 +158,7 @@ document.addEventListener('click', (e) => {
 document.querySelectorAll("input[value='New']").forEach(btn => btn.addEventListener('click', () => {
    openProjectModal()
 }))
+
+//click on the PROJECT NAME to view this project's modules
+// document.add
+
