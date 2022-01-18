@@ -174,14 +174,74 @@ document.querySelector("input[value='Clear All']").addEventListener('click', () 
 //click on the STORE to save to local Storage
 document.querySelector("input[value='Store']").addEventListener('click', () => {
    const projectsList = document.querySelectorAll('.project')
-
-   //Store projects
    let userProjects = []
-   for (let i = 0; i < projectsList.length; i++) {
-      userProjects[i] = {
-         name: projectsList[i].querySelector('.project-name').textContent
+   if (localStorage.getItem('userProjects')) {
+      userProjects = JSON.parse(localStorage.getItem('userProjects'))
+   }
+
+   //If there's USERPROJECTS in localStorage
+   if (localStorage.getItem('userProjects')) {
+      //Get stored and current projects
+      const storedProjects = []
+      const currentProjects = []
+      for (let i = 0; i < userProjects.length; i++) {
+         storedProjects.push(userProjects[i].name)
+      }
+      for (let i = 0; i < projectsList.length; i++) {
+         currentProjects.push(projectsList[i].querySelector('.project-name').textContent)
+      }
+
+      //Check #1 - get projects that were deleted
+      let deletedProjects = []
+      for (let i = 0; i < storedProjects.length; i++) {
+         if (!currentProjects.includes(storedProjects[i])) {
+            deletedProjects.push(storedProjects[i])
+         }
+      }
+      //Check #2 - get projects that were added
+      let addedProjects = []
+      for (let i = 0; i < currentProjects.length; i++) {
+         if (!storedProjects.includes(currentProjects[i])) {
+            addedProjects.push(currentProjects[i])
+         }
+      }
+
+      //Check #3 - whether there were changes 
+      if (addedProjects.length == 0 && deletedProjects.length == 0) {
+         return
+      }
+
+      //Remove deleted projects from the USERSPROJECT object
+      if (deletedProjects.length != 0) {
+         for (let i = 0; i < deletedProjects.length; i++) {
+            for (let j = 0; j < userProjects.length; j++) {
+               if (userProjects[j].name == deletedProjects[i]) {
+                  userProjects.splice(j,1)
+               }
+            }
+         }
+      }
+
+      //Add new projects to USERPROJECTS object
+      if (addedProjects.length != 0) {
+         for (let i = 0; i < addedProjects.length; i++) {
+            const userProjectsLength = userProjects.length
+            userProjects[userProjectsLength] = {
+               name: addedProjects[i]
+            }
+         }
+      }
+
+   //If there's no USERPROJECTS in localStorage   
+   } else {
+      for (let i = 0; i < projectsList.length; i++) {
+         userProjects[i] = {
+            name: projectsList[i].querySelector('.project-name').textContent
+         }
       }
    }
+      
+   localStorage.removeItem('userProjects')
    localStorage.setItem('userProjects', JSON.stringify(userProjects))
 })
 
