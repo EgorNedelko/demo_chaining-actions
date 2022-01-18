@@ -255,7 +255,35 @@ header {
    user-select: none;
 }
 
-.module-menu-icon {
+.actions-dropdown {
+   display: none;
+   z-index: 1;
+   position: absolute;
+   background-color: rgb(255,255,255);
+   border-radius: 6px;
+   outline: none;
+   user-select: none;
+   box-shadow: 0 7px 14px rgb(50 50 93 / 10%), 0 3px 6px rgb(0 0 0 / 8%);
+}
+
+.actions-dropdown-item {
+   padding: 8px 16px;
+   color: rgb(82, 95, 127);
+   font-size: 14px;
+   line-height: 21px;
+   cursor: pointer;
+   user-select: none;
+   outline: none;
+}
+.actions-dropdown-item:hover {
+   background-color: #e5ebf3;
+}
+
+.actions-dropdown a {
+   display: block;
+}
+
+.actions-icon {
    width: 14px;
    height: 14px;
    margin-right: 14px;
@@ -264,7 +292,7 @@ header {
    user-select: none;
    margin-top: 3px;
 }
-.module-menu-icon:hover {
+.actions-icon:hover {
    transform: translateY(-1px);
 }
 
@@ -284,6 +312,10 @@ header {
 
 .invisible {
    opacity: 0;
+}
+
+.display-none {
+   display: none;
 }
 
 .dragging {
@@ -326,6 +358,7 @@ header {
    bottom:0;
    z-index: 1;
    width: 100vw;
+   height: 100vh;
    background-color: rgba(0,0,0,0.4);
 }
 
@@ -380,4 +413,64 @@ header {
    border-top: 1px solid #e9ecef;
    border-bottom-left-radius: 6px;
    border-bottom-right-radius: 6px;
+}
+
+/* DELETION MODAL */
+.deletion-modal {
+   z-index: 2;
+   position: absolute;
+   top: 30%;
+   left: 37%;
+   background-color: rgb(255,255,255);
+   border-radius: 6px;
+   box-shadow: 0 2px 2px rgb(50 50 93 / 5%), 0 3px 6px rgb(0 0 0 / 8%);
+   user-select: none;
+}
+
+.deletion-modal-header {
+   font-size: 17px;
+   line-height: 25.5px;
+   font-weight: 600;
+   color: rgb(50, 50, 93);
+   padding: 20px 20px;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}
+
+.close-deletion-modal-icon {
+   cursor: pointer;
+}
+
+.deletion-modal-body {
+   font-size: 16px;
+   font-weight: 300;
+   line-height: 27.2px;
+   padding: 20px 20px;
+   outline: none;
+   border: none;
+   max-width: 490px;
+}
+
+.deletion-modal-footer {
+   font-size: 14px;
+   font-weight: 600;
+   line-height: 21px;
+   padding: 20px 24px;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}
+
+.deletion-cancel {
+   color: rgb(35, 61, 210);
+   cursor: pointer;
+}
+
+.deletion-confirmation {
+   color: rgb(255,255,255);
+   background-color: rgb(245, 54, 92);
+   border-radius: 6px;
+   padding: 10px 20px;
+   cursor: pointer;
 }

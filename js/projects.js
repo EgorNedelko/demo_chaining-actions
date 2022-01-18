@@ -1,7 +1,7 @@
 const overlay = document.querySelector('.overlay')
 const newProjectModal = document.querySelector('.new-project-modal')
-const deletionModal = document.querySelector('.deletion-modal')
-let projectToDelete;
+// const deletionModal = document.querySelector('.deletion-modal')
+let itemToDelete;
 
 function addProject(name) {
    //create document fragment
@@ -32,33 +32,33 @@ function addProject(name) {
    projectRunsCounter.classList.add('project-runs-counter')
    projectRunsCounter.textContent = '0'
 
-   const projectActionsBtn = document.createElement('div')
-   projectActionsBtn.classList.add('actions-btn')
+   const actionsBtn = document.createElement('div')
+   actionsBtn.classList.add('actions-btn')
 
-   const projectMenuIcon = document.createElement('img')
-   projectMenuIcon.classList.add('project-menu-icon')
-   projectMenuIcon.setAttribute('src', "https://img.icons8.com/color/48/000000/menu-2.png")
+   const actionsIcon = document.createElement('img')
+   actionsIcon.classList.add('actions-icon')
+   actionsIcon.setAttribute('src', "https://img.icons8.com/color/48/000000/menu-2.png")
 
-   const projectActionsDropdown = document.createElement('div')
-   projectActionsDropdown.classList.add('actions-dropdown')
+   const actionsDropdown = document.createElement('div')
+   actionsDropdown.classList.add('actions-dropdown')
 
-   const projectActionsArr = ['Show', 'Execute', 'Schedule', 'Copy', 'Delete']
-   for (let i = 0; i < projectActionsArr.length; i++) {
-      const projectAction = document.createElement('a')
-      projectAction.classList.add('actions-dropdown-item')
-      projectAction.textContent = projectActionsArr[i]
-      projectActionsDropdown.appendChild(projectAction)
+   const actionsArr = ['Show', 'Execute', 'Schedule', 'Copy', 'Delete']
+   for (let i = 0; i < actionsArr.length; i++) {
+      const actionsItem = document.createElement('a')
+      actionsItem.classList.add('actions-dropdown-item')
+      actionsItem.textContent = actionsArr[i]
+      actionsDropdown.appendChild(actionsItem)
    }
 
-   projectActionsBtn.appendChild(projectMenuIcon)
-   projectActionsBtn.appendChild(projectActionsDropdown)
+   actionsBtn.appendChild(actionsIcon)
+   actionsBtn.appendChild(actionsDropdown)
 
    project.appendChild(projectName)
    project.appendChild(projectStatus)
    project.appendChild(projectModulesCounter)
    project.appendChild(projectScenariosCounter)
    project.appendChild(projectRunsCounter)
-   project.appendChild(projectActionsBtn)
+   project.appendChild(actionsBtn)
    fragment.appendChild(project)
    document.querySelector('.projects').append(fragment)
 }
@@ -81,12 +81,9 @@ function handleDeletionModal() {
 function openDeletionModal() {
    overlay.classList.remove('display-none')
    deletionModal.classList.remove('display-none')
-
 }
 
 function closeDeletionModal() {
-   document.querySelector('.overlay').classList.add('display-none')
-   document.querySelector('.deletion-modal').classList.add('display-none')
    overlay.classList.add('display-none')
    deletionModal.classList.add('display-none')
 
@@ -95,7 +92,7 @@ function closeDeletionModal() {
 //click on the DELETE (CONFIRM DELETION) BUTTON in the DELETION MODAL
 document.addEventListener('click', (e) => {
    if (e.target.classList.contains('deletion-confirmation')) {
-      document.querySelector('.projects').removeChild(projectToDelete)
+      document.querySelector('.projects').removeChild(itemToDelete)
       closeDeletionModal()
       // handleDeletionModal()
    }
@@ -120,25 +117,17 @@ document.addEventListener('click', (e) => {
 //click on the DELETE ACTION BUTTON to delete selected project
 document.addEventListener('click', (e) => {
    if (e.target.textContent == 'Delete') {
-      projectToDelete = e.target.parentNode.parentNode.parentNode
+      itemToDelete = e.target.parentNode.parentNode.parentNode
       document.querySelectorAll('.actions-dropdown').forEach(el => el.classList.remove('visible'))
-      document.querySelector('.projects').removeChild(projectToDelete)
+      document.querySelector('.projects').removeChild(itemToDelete)
       // openDeletionModal()
       // handleDeletionModal()
    }
 })
 
-
-
-
-
-
-
-
-
 //click on the ACTIONS BUTTON for dropdown menu to appear
 document.addEventListener('click', (e) => {
-   if (e.target.classList.contains('project-menu-icon')) {
+   if (e.target.classList.contains('actions-icon')) {
       document.querySelectorAll('.actions-dropdown').forEach(el => {
          if (el != e.target.parentNode.parentNode.querySelector('.actions-dropdown')) el.classList.remove('visible')
       })

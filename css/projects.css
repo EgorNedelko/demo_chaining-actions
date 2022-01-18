@@ -251,7 +251,7 @@ header {
    display: block;
 }
 
-.project-menu-icon {
+.actions-icon {
    width: 14px;
    height: 14px;
    margin-right: 14px;
@@ -260,7 +260,7 @@ header {
    user-select: none;
    margin-top: 3px;
 }
-.project-menu-icon:hover {
+.actions-icon:hover {
    transform: translateY(-1px);
 }
 

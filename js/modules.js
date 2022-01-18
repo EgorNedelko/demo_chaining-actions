@@ -1,5 +1,7 @@
 const overlay = document.querySelector('.overlay')
 const newModuleModal = document.querySelector('.new-module-modal')
+// const deletionModal = document.querySelector('.deletion-modal')
+let itemToDelete;
 
 function addModule(name) {
    //create document fragment
@@ -26,15 +28,32 @@ function addModule(name) {
    moduleRunsCounter.classList.add('module-runs-counter')
    moduleRunsCounter.textContent = '0'
 
-   const moduleMenuIcon = document.createElement('img')
-   moduleMenuIcon.classList.add('module-menu-icon')
-   moduleMenuIcon.setAttribute('src', "https://img.icons8.com/color/48/000000/menu-2.png")
+   const actionsBtn = document.createElement('div')
+   actionsBtn.classList.add('actions-btn')
+
+   const actionsIcon = document.createElement('img')
+   actionsIcon.classList.add('actions-icon')
+   actionsIcon.setAttribute('src', "https://img.icons8.com/color/48/000000/menu-2.png")
+
+   const actionsDropdown = document.createElement('div')
+   actionsDropdown.classList.add('actions-dropdown')
+
+   const actionsArr = ['Show', 'Execute', 'Schedule', 'Copy', 'Delete']
+   for (let i = 0; i < actionsArr.length; i++) {
+      const actionsItem = document.createElement('a')
+      actionsItem.classList.add('actions-dropdown-item')
+      actionsItem.textContent = actionsArr[i]
+      actionsDropdown.appendChild(actionsItem)
+   }
+
+   actionsBtn.appendChild(actionsIcon)
+   actionsBtn.appendChild(actionsDropdown)
 
    module.appendChild(moduleName)
    module.appendChild(moduleStatus)
    module.appendChild(moduleScenariosCounter)
    module.appendChild(moduleRunsCounter)
-   module.appendChild(moduleMenuIcon)
+   module.appendChild(actionsBtn)
    fragment.appendChild(module)
    document.querySelector('.modules').append(fragment)
 }
@@ -48,6 +67,68 @@ function closeModuleModal() {
    overlay.style = "display: none;"
    newModuleModal.style = "display: none;"
 }
+
+function handleDeletionModal() {
+   overlay.classList.toggle('display-none')
+   deletionModal.classList.toggle('display-none')
+}
+
+function openDeletionModal() {
+   overlay.classList.remove('display-none')
+   deletionModal.classList.remove('display-none')
+}
+
+function closeDeletionModal() {
+   overlay.classList.add('display-none')
+   deletionModal.classList.add('display-none')
+
+}
+
+//click on the DELETE (CONFIRM DELETION) BUTTON in the DELETION MODAL
+document.addEventListener('click', (e) => {
+   if (e.target.classList.contains('deletion-confirmation')) {
+      document.querySelector('.modules').removeChild(itemToDelete)
+      closeDeletionModal()
+      // handleDeletionModal()
+   }
+})
+
+//click on the CANCEL (CANCEL DELETION) BUTTON in the DELETION MODAL
+document.addEventListener('click', (e) => {
+   if (e.target.classList.contains('deletion-cancel')) {
+      closeDeletionModal()
+      // handleDeletionModal()
+   }
+})
+
+//click on the CLOSE (CANCEL DELETION) ICON at the top of the DELETION MODAL
+document.addEventListener('click', (e) => {
+   if (e.target.classList.contains('close-deletion-modal-icon')) {
+      closeDeletionModal()
+      // handleDeletionModal()
+   }
+})
+
+//click on the DELETE ACTION BUTTON to delete selected project
+document.addEventListener('click', (e) => {
+   if (e.target.textContent == 'Delete') {
+      itemToDelete = e.target.parentNode.parentNode.parentNode
+      document.querySelectorAll('.actions-dropdown').forEach(el => el.classList.remove('visible'))
+      document.querySelector('.modules').removeChild(itemToDelete)
+      // openDeletionModal()
+      // handleDeletionModal()
+   }
+})
+
+//click on the ACTIONS BUTTON for dropdown menu to appear
+document.addEventListener('click', (e) => {
+   if (e.target.classList.contains('actions-icon')) {
+      document.querySelectorAll('.actions-dropdown').forEach(el => {
+         if (el != e.target.parentNode.parentNode.querySelector('.actions-dropdown')) el.classList.remove('visible')
+      })
+      e.target.parentNode.parentNode.querySelector('.actions-dropdown').classList.toggle('visible')
+   }
+})
 
 //click on the SAVE BUTTON in the project modal to create a new project
 document.addEventListener('click', (e) => {

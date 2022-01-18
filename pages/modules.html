@@ -11,10 +11,10 @@
    <link rel="stylesheet" href="../css/modules.css">
 </head>
 <body>
-   <div style="display: none;" class="overlay"></div>
+   <div class="overlay display-none"></div>
    <div class="container">
 
-      <div style="display: none;" class="new-module-modal">
+      <div class="new-module-modal display-none">
          <div class="module-modal-header">Create Module</div>
          <div class="module-modal-form">
             <input type="text" class="new-module-name" placeholder="Name"></input>
@@ -24,6 +24,20 @@
             <input class="btn btn-blue" type="button" value="Save">
          </div>
       </div>
+
+      <!-- <div class="deletion-modal display-none">
+         <div class="deletion-modal-header">
+            Delete Module
+            <img class="close-deletion-modal-icon" src="https://img.icons8.com/material-outlined/24/000000/delete-sign.png"/>
+         </div>
+         <div class="deletion-modal-body">Are you sure you want to delete
+            this Module? These changes are irreversible.
+         </div>
+         <div class="deletion-modal-footer">
+            <p class="deletion-cancel">Cancel</p>
+            <p class="deletion-confirmation">Delete</p>
+         </div>
+      </div> -->
 
       <nav class="sidebar">
          <div class="sidebar-container">
@@ -108,15 +122,22 @@
          </div>
 
          <div class="modules">
-
             <!-- <div class="module">
                <a href="./scenarios.html" class="module-name">My first module</a>
                <p class="module-status">Created</p>
                <p class="module-scenarios-counter">3</p>
                <p class="module-runs-counter">0</p>
-               <img class="module-menu-icon" src="https://img.icons8.com/color/48/000000/menu-2.png"/>
+               <div class="actions-btn">
+                  <img class="actions-icon" src="https://img.icons8.com/color/48/000000/menu-2.png"/>
+                  <div class="actions-dropdown">
+                     <a class="actions-dropdown-item">Show</a>
+                     <a class="actions-dropdown-item">Execute</a>
+                     <a class="actions-dropdown-item">Schedule</a>
+                     <a class="actions-dropdown-item">Copy</a>
+                     <a class="actions-dropdown-item">Delete</a>
+                  </div>
+               </div>
             </div> -->
-
          </div>
 
          <div class="btns-bottom">
