@@ -166,10 +166,12 @@ document.querySelector("input[value='Store']").addEventListener('click', () => {
    let targetProject = localStorage.getItem('targetProject')
    const modulesList = document.querySelectorAll('.module')
 
+   //Locate project
    for (let i = 0; i < userProjects.length; i++) {
       if (userProjects[i].name == targetProject) {
+         
+         //Store modules
          userProjects[i].modules = []
-
          for (let j = 0; j < modulesList.length; j++) {
             userProjects[i].modules[j] = {
                name: modulesList[j].querySelector('.module-name').textContent
@@ -186,16 +188,22 @@ document.addEventListener('DOMContentLoaded', () => {
    let userProjects = JSON.parse(localStorage.getItem('userProjects'))
    let targetProject = localStorage.getItem('targetProject')
 
+   //Update path
+   document.querySelector('.path-project').textContent = targetProject
+
+   //Locate project
    for (let i = 0; i < userProjects.length; i++) {
       if (userProjects[i].name == targetProject) {
+
+         //Load modules
          if (userProjects[i].modules) {
             for (let j = 0; j < userProjects[i].modules.length; j++) {
                addModule(userProjects[i].modules[j].name)
 
                //Update scenarios counter
                let scenariosCounter = 0
-               for (let j = 0; j < userProjects[i].modules.length; j++) {
-                  if (userProjects[i].modules[j].scenarios) {
+               for (let y = 0; y < userProjects[i].modules.length; y++) {
+                  if (userProjects[i].modules[y].scenarios) {
                      scenariosCounter += userProjects[i].modules[j].scenarios.length
                   }
                }
@@ -204,13 +212,6 @@ document.addEventListener('DOMContentLoaded', () => {
          }
       }
    }
-})
-
-///LOADING DATA FOR PATH and COUNTERS
-document.addEventListener('DOMContentLoaded', () => {
-   let userProjects = JSON.parse(localStorage.getItem('userProjects'))
-   let targetProject = localStorage.getItem('targetProject')
-   document.querySelector('.path-project').textContent = targetProject
 })
 
 //click on the module name to STORE DESTINATION 

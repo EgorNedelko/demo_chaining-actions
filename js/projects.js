@@ -174,6 +174,8 @@ document.querySelector("input[value='Clear All']").addEventListener('click', () 
 //click on the STORE to save to local Storage
 document.querySelector("input[value='Store']").addEventListener('click', () => {
    const projectsList = document.querySelectorAll('.project')
+
+   //Store projects
    let userProjects = []
    for (let i = 0; i < projectsList.length; i++) {
       userProjects[i] = {
@@ -187,6 +189,8 @@ document.querySelector("input[value='Store']").addEventListener('click', () => {
 document.addEventListener('DOMContentLoaded', () => {
    if (localStorage.getItem('userProjects')) {
       let userProjects = JSON.parse(localStorage.getItem('userProjects'))
+
+      //Load projects
       for (let i = 0; i < userProjects.length; i++) {
          addProject(userProjects[i].name)
 

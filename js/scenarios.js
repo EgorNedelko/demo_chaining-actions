@@ -167,12 +167,16 @@ document.querySelector("input[value='Store']").addEventListener('click', () => {
    let targetModule = localStorage.getItem('targetModule')
    const scenariosList = document.querySelectorAll('.scenario')
 
+   //Locate project
    for (let i = 0; i < userProjects.length; i++) {
       if (userProjects[i].name == targetProject) {
+
+         //Locate module
          for (let j = 0; j < userProjects[i].modules.length; j++) {
             if (userProjects[i].modules[j].name == targetModule) {
+               
+               //Store scenarios
                userProjects[i].modules[j].scenarios = []
-
                for (let y = 0; y < scenariosList.length; y++) {
                   userProjects[i].modules[j].scenarios[j] = {
                      name: scenariosList[j].querySelector('.scenario-name').textContent
@@ -192,16 +196,32 @@ document.addEventListener('DOMContentLoaded', () => {
    let targetProject = localStorage.getItem('targetProject')
    let targetModule = localStorage.getItem('targetModule')
    
+   //Update path
+   document.querySelector('.path-project').textContent = targetProject
+   document.querySelector('.path-module').textContent = targetModule
+   
+   //Locate project
    for (let i = 0; i < userProjects.length; i++) {
       if (userProjects[i].name == targetProject) {
+
+         //Locate module
          if (userProjects[i].modules) {
             for (let j = 0; j < userProjects[i].modules.length; j++) {
                if (userProjects[i].modules[j].name == targetModule) {
+
+                  //Load scenarios
                   if (userProjects[i].modules[j].scenarios) {
                      for (let y = 0; y < userProjects[i].modules[j].scenarios.length; y++) {
                         addScenario(userProjects[i].modules[j].scenarios[y].name)
-
                         
+                        //Update steps counter
+                        let stepsCounter = 0
+                        for (let s = 0; s < userProjects[i].modules.length; s++) {
+                           if (userProjects[i].modules[j].scenarios[y].steps) {
+                              stepsCounter += userProjects[i].modules[j].scenarios[y].steps.length
+                           }
+                        }
+                        document.querySelector('.scenario').querySelector('.scenario-steps-counter').textContent = stepsCounter
                      }
                   }
                }
@@ -209,15 +229,6 @@ document.addEventListener('DOMContentLoaded', () => {
          }
       }
    }
-})
-
-///LOADING DATA FOR PATH and COUNTERS
-document.addEventListener('DOMContentLoaded', () => {
-   let userProjects = JSON.parse(localStorage.getItem('userProjects'))
-   let targetProject = localStorage.getItem('targetProject')
-   let targetModule = localStorage.getItem('targetModule')
-   document.querySelector('.path-project').textContent = targetProject
-   document.querySelector('.path-module').textContent = targetModule
 })
 
 //click on the module name to STORE DESTINATION 

@@ -338,14 +338,14 @@ document.querySelector("input[value='Add Step']").addEventListener('click', () =
    checkRelations()
 })
 
-//click on the SAVE BUTTON to save current scenario steps
-document.querySelector("input[value='Store']").addEventListener('click', saveSteps)
+//click on the STORE BUTTON to save current scenario steps
+// document.querySelector("input[value='Store']").addEventListener('click', saveSteps)
 
 //automatically saves current scenario steps when the PAGE IS REFRESHED 
-window.addEventListener("beforeunload", saveSteps)
+// window.addEventListener("beforeunload", saveSteps)
 
 //automatically loads the steps when the PAGE IS LOADED
-document.addEventListener('DOMContentLoaded', loadSteps)
+// document.addEventListener('DOMContentLoaded', loadSteps)
 
 //click on the CLEAR ALL BUTTON to clear out the local storage and current 
 document.querySelector("input[value='Clear All']").addEventListener('click', () => {
@@ -472,107 +472,110 @@ function handleChainMode() {
 }
 
 //STORAGE FUNCTIONS
-function saveSteps() {
-   const steps = document.querySelectorAll('.step')
-   let stepTypes = []
-   let stepStyles = []
-   let stepValues = []
-   
-   for (let i = 0; i < steps.length; i++) {
-      stepTypes.push(steps[i].children[2].children[0].children[0].textContent)
-      stepStyles.push(steps[i].className)
-      stepValues.push(steps[i].children[2].children[1].value)
-   }
+// click on the STORE to save to local Storage
+document.querySelector("input[value='Store']").addEventListener('click', () => {
+   let userProjects = JSON.parse(localStorage.getItem('userProjects'))
+   let targetProject = localStorage.getItem('targetProject')
+   let targetModule = localStorage.getItem('targetModule')
+   let targetScenario = localStorage.getItem('targetScenario')
+   const stepsList = document.querySelectorAll('.step')
 
-   localStorage.removeItem('stepTypes')
-   localStorage.removeItem('stepStyles')
-   localStorage.removeItem('stepValues')
-   localStorage.setItem('stepTypes', stepTypes)
-   localStorage.setItem('stepStyles', stepStyles)
-   localStorage.setItem('stepValues', stepValues)
-}
+   //Locate the project
+   for (let i = 0; i < userProjects.length; i++) {
+      if (userProjects[i].name == targetProject) {
 
-function loadSteps() {
-   let stepsContainer = document.querySelector('.steps')
+         //Locate the module
+         for (let j = 0; j < userProjects[i].modules.length; j++) {
+            if (userProjects[i].modules[j].name == targetModule) {
 
-   if (localStorage.getItem('stepTypes')) {
-      stepsContainer.removeChild(stepsContainer.children[0])
-   
-      const parsedTypes = localStorage.getItem('stepTypes')
-      const parsedStyles = localStorage.getItem('stepStyles')
-      const parsedValues = localStorage.getItem('stepValues')
-      const stepTypes = parsedTypes.split(',')
-      const stepStyles = parsedStyles.split(',')
-      const stepValues = parsedValues.split(',')
+               //Locate the scenario
+               for (let y = 0; y < userProjects[i].modules[j].scenarios.length; y++) {
+                  if (userProjects[i].modules[j].scenarios[y].name == targetScenario) {
 
-      for (let i = 0; i < stepTypes.length; i++) {
-         addStep()
-
-         //modify stepDropdownBtn and stepInput
-         stepsContainer.children[i].children[2].children[0].children[0].textContent = stepTypes[i]
-         stepsContainer.children[i].children[2].children[1].value = stepValues[i]
-         stepsContainer.children[i].children[2].children[1].setAttribute('placeholder', stepTypesTextContent[stepTypes[i]])
-
-         //add styles to steps, btns and inputs
-         stepStyles[i].split(' ').forEach(style => stepsContainer.children[i].classList.add(style))
-         if (stepStyles[i].includes('options-opened')) {
-            openStepOptions(stepsContainer.children[i])
-         }
-         if (stepTypes[i] != 'Select Type') {
-            stepsContainer.children[i].children[2].children[0].children[0].classList.remove('no-type')
-            stepsContainer.children[i].children[2].children[0].children[0].classList.add('btn-white')
+                     //Store steps
+                     userProjects[i].modules[j].scenarios[y].steps = []
+                     for (let s = 0; s < stepsList.length; s++) {
+                        stylesList = stepsList[s].className.split(' ')
+                        userProjects[i].modules[j].scenarios[y].steps[s] = {
+                           type: stepsList[s].querySelector('.dropdown-btn').textContent,
+                           value: stepsList[s].querySelector('.step-input').value,
+                           styles: stylesList
+                        }
+                     }
+                  }
+               }
+            }
          }
       }
-
-      //refresh core
-      checkRelations()
-      assignOrderNumber()
-      stepsCounter.textContent = document.querySelector('.steps').children.length
-   } 
-}
-
-//click on the STORE to save to local Storage
-// document.querySelector("input[value='Store']").addEventListener('click', () => {
-//    let userProjects = JSON.parse(localStorage.getItem('userProjects'))
-//    let targetProject = localStorage.getItem('targetProject')
-//    const modulesList = document.querySelectorAll('.module')
-
-//    for (let i = 0; i < userProjects.length; i++) {
-//       if (userProjects[i].name == targetProject) {
-//          userProjects[i].modules = []
-
-//          for (let j = 0; j < modulesList.length; j++) {
-//             userProjects[i].modules[j] = {
-//                name: modulesList[j].querySelector('.module-name').textContent
-//             }
-//          }
-//       }
-//    }
-//    localStorage.removeItem('userProjects')
-//    localStorage.setItem('userProjects', JSON.stringify(userProjects))
-// })
+   }
+   localStorage.removeItem('userProjects')
+   localStorage.setItem('userProjects', JSON.stringify(userProjects))
+})
 
 //LOADING 
-// document.addEventListener('DOMContentLoaded', () => {
-//    let userProjects = JSON.parse(localStorage.getItem('userProjects'))
-//    let targetProject = localStorage.getItem('targetProject')
+document.addEventListener('DOMContentLoaded', () => {
+   let userProjects = JSON.parse(localStorage.getItem('userProjects'))
+   let targetProject = localStorage.getItem('targetProject')
+   let targetModule = localStorage.getItem('targetModule')
+   let targetScenario = localStorage.getItem('targetScenario')
+   
+   //Update path
+   document.querySelector('.path-project').textContent = targetProject
+   document.querySelector('.path-module').textContent = targetModule
+   document.querySelector('.path-scenario').textContent = targetScenario
+   
+   //Locate project
+   for (let i = 0; i < userProjects.length; i++) {
+      if (userProjects[i].name == targetProject) {
 
-//    for (let i = 0; i < userProjects.length; i++) {
-//       if (userProjects[i].name == targetProject) {
-//          if (userProjects[i].modules) {
-//             for (let j = 0; j < userProjects[i].modules.length; j++) {
-//                addModule(userProjects[i].modules[j].name)
+         //Locate module
+         if (userProjects[i].modules) {
+            for (let j = 0; j < userProjects[i].modules.length; j++) {
+               if (userProjects[i].modules[j].name == targetModule) {
 
-//                //Update scenarios counter
-//                let scenariosCounter = 0
-//                for (let j = 0; j < userProjects[i].modules.length; j++) {
-//                   if (userProjects[i].modules[j].scenarios) {
-//                      scenariosCounter += userProjects[i].modules[j].scenarios.length
-//                   }
-//                }
-//                document.querySelector('.module').querySelector('.module-scenarios-counter').textContent = scenariosCounter
-//             }
-//          }
-//       }
-//    }
-// })
+                  //Locate the scenario
+                  if (userProjects[i].modules[j].scenarios) {
+                     for (let y = 0; y < userProjects[i].modules[j].scenarios.length; y++) {
+                        if (userProjects[i].modules[j].scenarios[y].name == targetScenario) {
+
+                           //Load steps
+                           if (userProjects[i].modules[j].scenarios[y].steps) {
+                              
+                              //Clean the slate if there're custom steps
+                              document.querySelectorAll('.step').forEach(step => document.querySelector('.steps').removeChild(step))
+                              
+                              for (let s = 0; s < userProjects[i].modules[j].scenarios[y].steps.length; s++) {
+                                 addStep()
+                                 let stepToModify = document.querySelectorAll('.step')[s]
+                                 stepToModify.querySelector('.dropdown-btn').textContent = userProjects[i].modules[j].scenarios[y].steps[s].type
+                                 stepToModify.querySelector('.step-input').value = userProjects[i].modules[j].scenarios[y].steps[s].value
+                                 
+                                 //Add styles to steps, btns and inputs
+                                 let stepStyles = []
+                                 for (let style = 0; style < userProjects[i].modules[j].scenarios[y].steps[s].styles.length; style++) {
+                                    stepStyles.push(userProjects[i].modules[j].scenarios[y].steps[s].styles[style])
+                                 }
+                                 stepStyles.forEach(style => stepToModify.classList.add(style))
+                                 if (stepStyles.includes('options-opened')) {
+                                    openStepOptions(stepToModify)
+                                 }
+                                 if (stepToModify.querySelector('.dropdown-btn').textContent != 'Select Type') {
+                                    stepToModify.querySelector('.dropdown-btn').classList.remove('no-type')
+                                    stepToModify.querySelector('.dropdown-btn').classList.add('btn-white')
+                                 }
+                              }
+                           }
+
+                           //Refresh core
+                           checkRelations()
+                           assignOrderNumber()
+                           stepsCounter.textContent = document.querySelector('.steps').children.length
+                        }   
+                     }
+                  }
+               }
+            }
+         }
+      }
+   }
+})
