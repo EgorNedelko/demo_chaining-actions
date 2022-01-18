@@ -147,6 +147,11 @@ header {
    transform: translateY(-1px);
 }
 
+.path-project,
+.path-module {
+   text-decoration: none;
+}
+
 .btns-col-3 {
    max-width: fit-content;
    display: flex;

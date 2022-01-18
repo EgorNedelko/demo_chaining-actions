@@ -66,6 +66,7 @@ function addProject(name) {
 function openProjectModal() {
    overlay.classList.remove('display-none')
    newProjectModal.classList.remove('display-none')
+   newProjectModal.querySelector('.new-project-name').focus()
 }
 
 function closeProjectModal() {
@@ -163,6 +164,12 @@ document.querySelectorAll("input[value='New']").forEach(btn => btn.addEventListe
    openProjectModal()
 }))
 
+//click on the CLEAR ALL BUTTON to clear out the localStorage and the list
+document.querySelector("input[value='Clear All']").addEventListener('click', () => {
+   localStorage.clear()
+   document.querySelectorAll('.project').forEach(pr => document.querySelector('.projects').removeChild(pr))
+})
+
 /////STORAGE FUNCTIONS
 //click on the STORE to save to local Storage
 document.querySelector("input[value='Store']").addEventListener('click', () => {
@@ -179,9 +186,23 @@ document.querySelector("input[value='Store']").addEventListener('click', () => {
 //LOADING 
 document.addEventListener('DOMContentLoaded', () => {
    if (localStorage.getItem('userProjects')) {
-      let parsedProjects = JSON.parse(localStorage.getItem('userProjects'))
-      for (let i = 0; i < parsedProjects.length; i++) {
-         addProject(parsedProjects[i].name)
+      let userProjects = JSON.parse(localStorage.getItem('userProjects'))
+      for (let i = 0; i < userProjects.length; i++) {
+         addProject(userProjects[i].name)
+
+         //Update modules counter
+         if (userProjects[i].modules) {
+            document.querySelector('.project').querySelector('.project-modules-counter').textContent = userProjects[i].modules.length
+         
+            //Update scenarios counter
+            let scenariosCounter = 0
+            for (let j = 0; j < userProjects[i].modules.length; j++) {
+               if (userProjects[i].modules[j].scenarios) {
+                  scenariosCounter += userProjects[i].modules[j].scenarios.length
+               }
+            }
+            document.querySelector('.project').querySelector('.project-scenarios-counter').textContent = scenariosCounter
+         }
       }
    }
 })

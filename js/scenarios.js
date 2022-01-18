@@ -61,6 +61,7 @@ function addScenario(name) {
 function openScenarioModal() {
    overlay.style = "display: block;"
    newScenarioModal.style = "display: block;"
+   newScenarioModal.querySelector('.new-scenario-name').focus()
 }
 
 function closeScenarioModal() {
@@ -202,6 +203,15 @@ document.addEventListener('DOMContentLoaded', () => {
          }
       }
    }
+})
+
+///LOADING DATA FOR PATH and COUNTERS
+document.addEventListener('DOMContentLoaded', () => {
+   let userProjects = JSON.parse(localStorage.getItem('userProjects'))
+   let targetProject = localStorage.getItem('targetProject')
+   let targetModule = localStorage.getItem('targetModule')
+   document.querySelector('.path-project').textContent = targetProject
+   document.querySelector('.path-module').textContent = targetModule
 })
 
 //click on the module name to STORE DESTINATION 

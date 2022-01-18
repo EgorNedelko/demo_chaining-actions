@@ -61,6 +61,7 @@ function addModule(name) {
 function openModuleModal() {
    overlay.style = "display: block;"
    newModuleModal.style = "display: block;"
+   newModuleModal.querySelector('.new-module-name').focus()
 }
 
 function closeModuleModal() {
@@ -192,6 +193,13 @@ document.addEventListener('DOMContentLoaded', () => {
          }
       }
    }
+})
+
+///LOADING DATA FOR PATH and COUNTERS
+document.addEventListener('DOMContentLoaded', () => {
+   let userProjects = JSON.parse(localStorage.getItem('userProjects'))
+   let targetProject = localStorage.getItem('targetProject')
+   document.querySelector('.path-project').textContent = targetProject
 })
 
 //click on the module name to STORE DESTINATION 

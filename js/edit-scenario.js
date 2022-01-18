@@ -339,7 +339,7 @@ document.querySelector("input[value='Add Step']").addEventListener('click', () =
 })
 
 //click on the SAVE BUTTON to save current scenario steps
-document.querySelector("input[value='Save']").addEventListener('click', saveSteps)
+document.querySelector("input[value='Store']").addEventListener('click', saveSteps)
 
 //automatically saves current scenario steps when the PAGE IS REFRESHED 
 window.addEventListener("beforeunload", saveSteps)
