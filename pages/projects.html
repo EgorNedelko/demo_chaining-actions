@@ -11,10 +11,10 @@
    <link rel="stylesheet" href="../css/projects.css">
 </head>
 <body>
-   <div style="display: none;" class="overlay"></div>
+   <div class="overlay display-none"></div>
    <div class="container">
 
-      <div style="display: none;" class="new-project-modal">
+      <div class="new-project-modal display-none">
          <div class="project-modal-header">Create Project</div>
          <div class="project-modal-form">
             <input type="text" class="new-project-name" placeholder="Name"></input>
@@ -22,6 +22,20 @@
          <div class="project-modal-footer-btns">
             <input class="btn btn-grey" type="button" value="Cancel">
             <input class="btn btn-blue" type="button" value="Save">
+         </div>
+      </div>
+
+      <div class="deletion-modal display-none">
+         <div class="deletion-modal-header">
+            Delete Project
+            <img class="close-deletion-modal-icon" src="https://img.icons8.com/material-outlined/24/000000/delete-sign.png"/>
+         </div>
+         <div class="deletion-modal-body">Are you sure you want to delete
+            this Project? These changes are irreversible.
+         </div>
+         <div class="deletion-modal-footer">
+            <p class="deletion-cancel">Cancel</p>
+            <p class="deletion-confirmation">Delete</p>
          </div>
       </div>
 
@@ -72,7 +86,7 @@
          </div>
 
          <div class="projects">
-            <div class="project">
+            <!-- <div class="project">
                <a href="./modules.html" class="project-name">My first project</a>
                <p class="project-status">Created</p>
                <p class="project-modules-counter">3</p>
@@ -88,7 +102,7 @@
                      <a class="actions-dropdown-item">Delete</a>
                   </div>
                </div>
-            </div>
+            </div> -->
          </div>
 
          <div class="btns-bottom">

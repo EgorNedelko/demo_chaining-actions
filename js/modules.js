@@ -40,13 +40,13 @@ function addModule(name) {
 }
 
 function openModuleModal() {
-   overlay.style = "display: block"
-   newModuleModal.style = "display: block"
+   overlay.style = "display: block;"
+   newModuleModal.style = "display: block;"
 }
 
 function closeModuleModal() {
-   overlay.style = "display: none"
-   newModuleModal.style = "display: none"
+   overlay.style = "display: none;"
+   newModuleModal.style = "display: none;"
 }
 
 //click on the SAVE BUTTON in the project modal to create a new project

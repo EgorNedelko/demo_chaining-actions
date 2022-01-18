@@ -1,5 +1,7 @@
 const overlay = document.querySelector('.overlay')
 const newProjectModal = document.querySelector('.new-project-modal')
+const deletionModal = document.querySelector('.deletion-modal')
+let projectToDelete;
 
 function addProject(name) {
    //create document fragment
@@ -62,14 +64,77 @@ function addProject(name) {
 }
 
 function openProjectModal() {
-   overlay.style = "display: block"
-   newProjectModal.style = "display: block"
+   overlay.classList.remove('display-none')
+   newProjectModal.classList.remove('display-none')
 }
 
 function closeProjectModal() {
-   overlay.style = "display: none"
-   newProjectModal.style = "display: none"
+   overlay.classList.add('display-none')
+   newProjectModal.classList.add('display-none')
 }
+
+function handleDeletionModal() {
+   overlay.classList.toggle('display-none')
+   deletionModal.classList.toggle('display-none')
+}
+
+function openDeletionModal() {
+   overlay.classList.remove('display-none')
+   deletionModal.classList.remove('display-none')
+
+}
+
+function closeDeletionModal() {
+   document.querySelector('.overlay').classList.add('display-none')
+   document.querySelector('.deletion-modal').classList.add('display-none')
+   overlay.classList.add('display-none')
+   deletionModal.classList.add('display-none')
+
+}
+
+//click on the DELETE (CONFIRM DELETION) BUTTON in the DELETION MODAL
+document.addEventListener('click', (e) => {
+   if (e.target.classList.contains('deletion-confirmation')) {
+      document.querySelector('.projects').removeChild(projectToDelete)
+      closeDeletionModal()
+      // handleDeletionModal()
+   }
+})
+
+//click on the CANCEL (CANCEL DELETION) BUTTON in the DELETION MODAL
+document.addEventListener('click', (e) => {
+   if (e.target.classList.contains('deletion-cancel')) {
+      closeDeletionModal()
+      // handleDeletionModal()
+   }
+})
+
+//click on the CLOSE (CANCEL DELETION) ICON at the top of the DELETION MODAL
+document.addEventListener('click', (e) => {
+   if (e.target.classList.contains('close-deletion-modal-icon')) {
+      closeDeletionModal()
+      // handleDeletionModal()
+   }
+})
+
+//click on the DELETE ACTION BUTTON to delete selected project
+document.addEventListener('click', (e) => {
+   if (e.target.textContent == 'Delete') {
+      projectToDelete = e.target.parentNode.parentNode.parentNode
+      document.querySelectorAll('.actions-dropdown').forEach(el => el.classList.remove('visible'))
+      document.querySelector('.projects').removeChild(projectToDelete)
+      // openDeletionModal()
+      // handleDeletionModal()
+   }
+})
+
+
+
+
+
+
+
+
 
 //click on the ACTIONS BUTTON for dropdown menu to appear
 document.addEventListener('click', (e) => {

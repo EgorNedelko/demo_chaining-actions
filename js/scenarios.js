@@ -40,13 +40,13 @@ function addScenario(name) {
 }
 
 function openScenarioModal() {
-   overlay.style = "display: block"
-   newScenarioModal.style = "display: block"
+   overlay.style = "display: block;"
+   newScenarioModal.style = "display: block;"
 }
 
 function closeScenarioModal() {
-   overlay.style = "display: none"
-   newScenarioModal.style = "display: none"
+   overlay.style = "display: none;"
+   newScenarioModal.style = "display: none;"
 }
 
 //click on the SAVE BUTTON in the project modal to create a new project
