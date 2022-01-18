@@ -1,15 +1,6 @@
 const overlay = document.querySelector('.overlay')
 const newModuleModal = document.querySelector('.new-module-modal')
 
-function openModuleModal() {
-   overlay.style = "display: block"
-   newModuleModal.style = "display: block"
-}
-function closeModuleModal() {
-   overlay.style = "display: none"
-   newModuleModal.style = "display: none"
-}
-
 function addModule(name) {
    //create document fragment
    const fragment = document.createDocumentFragment()
@@ -46,6 +37,16 @@ function addModule(name) {
    module.appendChild(moduleMenuIcon)
    fragment.appendChild(module)
    document.querySelector('.modules').append(fragment)
+}
+
+function openModuleModal() {
+   overlay.style = "display: block"
+   newModuleModal.style = "display: block"
+}
+
+function closeModuleModal() {
+   overlay.style = "display: none"
+   newModuleModal.style = "display: none"
 }
 
 //click on the SAVE BUTTON in the project modal to create a new project
@@ -102,7 +103,7 @@ document.querySelector("input[value='Store']").addEventListener('click', () => {
 document.addEventListener('DOMContentLoaded', () => {
    let userProjects = JSON.parse(localStorage.getItem('userProjects'))
    let targetProject = localStorage.getItem('targetProject')
-   
+
    for (let i = 0; i < userProjects.length; i++) {
       if (userProjects[i].name == targetProject) {
          for (let j = 0; j < userProjects[i].modules.length; j++) {
@@ -115,7 +116,6 @@ document.addEventListener('DOMContentLoaded', () => {
 //click on the module name to STORE DESTINATION 
 document.addEventListener('click', (e) => {
    if (e.target.classList.contains('module-name')) {
-      console.log(e.target.textContent)
       localStorage.removeItem('targetModule')
       localStorage.setItem('targetModule', e.target.textContent)
    }

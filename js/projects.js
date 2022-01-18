@@ -1,84 +1,6 @@
 const overlay = document.querySelector('.overlay')
 const newProjectModal = document.querySelector('.new-project-modal')
 
-// class Project {
-//    constructor(name, mods, scens) {
-//       this.name = name
-//       this.mods = mods
-//       this.scens = scens
-//       this.modsNum = mods.length
-//       this.scensNum = scens.length
-//    }
-// }
-
-//STORAGE FUNCTIONS
-// function saveProjects() {
-//    const projects = document.querySelectorAll('.project')
-
-//    let projects = {
-//       0 : {
-//          name: 'someName',
-//          mods: 0,
-//          scens: 0,
-//          modules: {
-//             0
-//          }
-//       }
-//    }
-//    let projectNames = []
-//    let projectMods = []
-//    let projectScens = []
-   
-   // for (let i = 0; i < projects.length; i++) {
-      // projectNames.push(projects[i].)
-      // projectMods.push(projects[i].)
-      // projectScens.push(projects[i].)
-   // }
-
-   // localStorage.removeItem('stepTypes')
-   // localStorage.removeItem('stepStyles')
-   // localStorage.removeItem('stepValues')
-   // localStorage.setItem('stepTypes', stepTypes)
-   // localStorage.setItem('stepStyles', stepStyles)
-   // localStorage.setItem('stepValues', stepValues)
-// }
-
-// window.addEventListener("beforeunload", saveProjects)
-
-// function loadSteps() {
-//    let stepsContainer = document.querySelector('.steps')
-
-//    if (localStorage.getItem('stepTypes')) {
-//       stepsContainer.removeChild(stepsContainer.children[0])
-   
-//       const parsedTypes = localStorage.getItem('stepTypes')
-//       const parsedStyles = localStorage.getItem('stepStyles')
-//       const parsedValues = localStorage.getItem('stepValues')
-//       const stepTypes = parsedTypes.split(',')
-//       const stepStyles = parsedStyles.split(',')
-//       const stepValues = parsedValues.split(',')
-
-//       for (let i = 0; i < stepTypes.length; i++) {
-//          addStep()
-
-//          //modify stepDropdownBtn and stepInput
-//          stepsContainer.children[i].children[2].children[0].children[0].textContent = stepTypes[i]
-//          stepsContainer.children[i].children[2].children[1].value = stepValues[i]
-//          stepsContainer.children[i].children[2].children[1].setAttribute('placeholder', stepTypesTextContent[stepTypes[i]])
-
-//          //add styles to steps, btns and inputs
-//          stepStyles[i].split(' ').forEach(style => stepsContainer.children[i].classList.add(style))
-//          if (stepStyles[i].includes('options-opened')) {
-//             openStepOptions(stepsContainer.children[i])
-//          }
-//          if (stepTypes[i] != 'Select Type') {
-//             stepsContainer.children[i].children[2].children[0].children[0].classList.remove('no-type')
-//             stepsContainer.children[i].children[2].children[0].children[0].classList.add('btn-white')
-//          }
-//       }
-//    } 
-// }
-
 function addProject(name) {
    //create document fragment
    const fragment = document.createDocumentFragment()
@@ -108,16 +30,33 @@ function addProject(name) {
    projectRunsCounter.classList.add('project-runs-counter')
    projectRunsCounter.textContent = '0'
 
+   const projectActionsBtn = document.createElement('div')
+   projectActionsBtn.classList.add('actions-btn')
+
    const projectMenuIcon = document.createElement('img')
    projectMenuIcon.classList.add('project-menu-icon')
    projectMenuIcon.setAttribute('src', "https://img.icons8.com/color/48/000000/menu-2.png")
+
+   const projectActionsDropdown = document.createElement('div')
+   projectActionsDropdown.classList.add('actions-dropdown')
+
+   const projectActionsArr = ['Show', 'Execute', 'Schedule', 'Copy', 'Delete']
+   for (let i = 0; i < projectActionsArr.length; i++) {
+      const projectAction = document.createElement('a')
+      projectAction.classList.add('actions-dropdown-item')
+      projectAction.textContent = projectActionsArr[i]
+      projectActionsDropdown.appendChild(projectAction)
+   }
+
+   projectActionsBtn.appendChild(projectMenuIcon)
+   projectActionsBtn.appendChild(projectActionsDropdown)
 
    project.appendChild(projectName)
    project.appendChild(projectStatus)
    project.appendChild(projectModulesCounter)
    project.appendChild(projectScenariosCounter)
    project.appendChild(projectRunsCounter)
-   project.appendChild(projectMenuIcon)
+   project.appendChild(projectActionsBtn)
    fragment.appendChild(project)
    document.querySelector('.projects').append(fragment)
 }
@@ -126,10 +65,21 @@ function openProjectModal() {
    overlay.style = "display: block"
    newProjectModal.style = "display: block"
 }
+
 function closeProjectModal() {
    overlay.style = "display: none"
    newProjectModal.style = "display: none"
 }
+
+//click on the ACTIONS BUTTON for dropdown menu to appear
+document.addEventListener('click', (e) => {
+   if (e.target.classList.contains('project-menu-icon')) {
+      document.querySelectorAll('.actions-dropdown').forEach(el => {
+         if (el != e.target.parentNode.parentNode.querySelector('.actions-dropdown')) el.classList.remove('visible')
+      })
+      e.target.parentNode.parentNode.querySelector('.actions-dropdown').classList.toggle('visible')
+   }
+})
 
 //click on the SAVE BUTTON in the project modal to create a new project
 document.addEventListener('click', (e) => {
@@ -185,7 +135,6 @@ document.addEventListener('DOMContentLoaded', () => {
 //click on the project name to STORE DESTINATION 
 document.addEventListener('click', (e) => {
    if (e.target.classList.contains('project-name')) {
-      console.log(e.target.textContent)
       localStorage.removeItem('targetProject')
       localStorage.setItem('targetProject', e.target.textContent)
    }

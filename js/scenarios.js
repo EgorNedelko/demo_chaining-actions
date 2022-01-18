@@ -1,15 +1,6 @@
 const overlay = document.querySelector('.overlay')
 const newScenarioModal = document.querySelector('.new-scenario-modal')
 
-function openScenarioModal() {
-   overlay.style = "display: block"
-   newScenarioModal.style = "display: block"
-}
-function closeScenarioModal() {
-   overlay.style = "display: none"
-   newScenarioModal.style = "display: none"
-}
-
 function addScenario(name) {
    //create document fragment
    const fragment = document.createDocumentFragment()
@@ -46,6 +37,16 @@ function addScenario(name) {
    scenario.appendChild(scenarioMenuIcon)
    fragment.appendChild(scenario)
    document.querySelector('.scenarios').append(fragment)
+}
+
+function openScenarioModal() {
+   overlay.style = "display: block"
+   newScenarioModal.style = "display: block"
+}
+
+function closeScenarioModal() {
+   overlay.style = "display: none"
+   newScenarioModal.style = "display: none"
 }
 
 //click on the SAVE BUTTON in the project modal to create a new project
@@ -125,7 +126,6 @@ document.addEventListener('DOMContentLoaded', () => {
 //click on the module name to STORE DESTINATION 
 document.addEventListener('click', (e) => {
    if (e.target.classList.contains('scenario-name')) {
-      console.log(e.target.textContent)
       localStorage.removeItem('targetScenario')
       localStorage.setItem('targetScenario', e.target.textContent)
    }
