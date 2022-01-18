@@ -169,16 +169,64 @@ document.querySelector("input[value='Store']").addEventListener('click', () => {
    //Locate project
    for (let i = 0; i < userProjects.length; i++) {
       if (userProjects[i].name == targetProject) {
-         
-         //Store modules
-         userProjects[i].modules = []
-         for (let j = 0; j < modulesList.length; j++) {
-            userProjects[i].modules[j] = {
-               name: modulesList[j].querySelector('.module-name').textContent
+
+         //Get stored and current modules
+         const storedModules = []
+         const currentModules = []
+         if (userProjects[i].modules) {
+            for (let j = 0; j < userProjects[i].modules.length; j++) {
+               storedModules.push(userProjects[i].modules[j].name)
+            }
+            for (let y = 0; y < modulesList.length; y++) {
+               currentModules.push(modulesList[y].querySelector('.module-name').textContent)
+            }
+
+            //Check #1 - get projects that were deleted
+            let deletedModules = []
+            for (let del = 0; del < storedModules.length; del++) {
+               if (!currentModules.includes(storedModules[del])) {
+                  deletedModules.push(storedModules[del])
+               }
+            }
+
+            //Check #2 - get projects that were added
+            let addedModules = []
+            for (let add = 0; add < currentModules.length; add++) {
+               if (!storedModules.includes(currentModules[add])) {
+                  addedModules.push(currentModules[add])
+               }
+            }
+
+            //Check #3 - whether there were changes 
+            if (addedModules.length == 0 && deletedModules.length == 0) {
+               return
+            }
+
+            //Remove deleted projects from the USERSPROJECT object
+            if (deletedModules.length != 0) {
+               for (let del = 0; del < deletedModules.length; del++) {
+                  for (let j = 0; j < userProjects[i].modules.length; j++) {
+                     if (userProjects[i].modules[j].name == deletedModules[del]) {
+                        userProjects[i].modules.splice(j,1)
+                     }
+                  }
+               }
+            }
+
+            //Add new projects to USERPROJECTS object
+            if (addedModules.length != 0) {
+               for (let add = 0; add < addedModules.length; add++) {
+                  const modulesLength = userProjects[i].modules.length
+                  userProjects[i].modules[modulesLength] = {
+                     name: addedModules[add]
+                  }
+               }
             }
          }
       }
    }
+
+   //Rewrite USERPROJECT object
    localStorage.removeItem('userProjects')
    localStorage.setItem('userProjects', JSON.stringify(userProjects))
 })

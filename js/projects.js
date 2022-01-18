@@ -240,7 +240,8 @@ document.querySelector("input[value='Store']").addEventListener('click', () => {
          }
       }
    }
-      
+
+   //Rewrite USERPROJECTS object
    localStorage.removeItem('userProjects')
    localStorage.setItem('userProjects', JSON.stringify(userProjects))
 })
