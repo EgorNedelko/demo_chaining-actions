@@ -194,10 +194,16 @@ document.addEventListener('DOMContentLoaded', () => {
    
    for (let i = 0; i < userProjects.length; i++) {
       if (userProjects[i].name == targetProject) {
-         for (let j = 0; j < userProjects[i].modules.length; j++) {
-            if (userProjects[i].modules[j].name == targetModule) {
-               for (let y = 0; y < userProjects[i].modules[j].scenarios.length; y++) {
-                  addScenario(userProjects[i].modules[j].scenarios[y].name)
+         if (userProjects[i].modules) {
+            for (let j = 0; j < userProjects[i].modules.length; j++) {
+               if (userProjects[i].modules[j].name == targetModule) {
+                  if (userProjects[i].modules[j].scenarios) {
+                     for (let y = 0; y < userProjects[i].modules[j].scenarios.length; y++) {
+                        addScenario(userProjects[i].modules[j].scenarios[y].name)
+
+                        
+                     }
+                  }
                }
             }
          }

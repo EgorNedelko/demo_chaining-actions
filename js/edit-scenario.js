@@ -530,3 +530,49 @@ function loadSteps() {
       stepsCounter.textContent = document.querySelector('.steps').children.length
    } 
 }
+
+//click on the STORE to save to local Storage
+// document.querySelector("input[value='Store']").addEventListener('click', () => {
+//    let userProjects = JSON.parse(localStorage.getItem('userProjects'))
+//    let targetProject = localStorage.getItem('targetProject')
+//    const modulesList = document.querySelectorAll('.module')
+
+//    for (let i = 0; i < userProjects.length; i++) {
+//       if (userProjects[i].name == targetProject) {
+//          userProjects[i].modules = []
+
+//          for (let j = 0; j < modulesList.length; j++) {
+//             userProjects[i].modules[j] = {
+//                name: modulesList[j].querySelector('.module-name').textContent
+//             }
+//          }
+//       }
+//    }
+//    localStorage.removeItem('userProjects')
+//    localStorage.setItem('userProjects', JSON.stringify(userProjects))
+// })
+
+//LOADING 
+// document.addEventListener('DOMContentLoaded', () => {
+//    let userProjects = JSON.parse(localStorage.getItem('userProjects'))
+//    let targetProject = localStorage.getItem('targetProject')
+
+//    for (let i = 0; i < userProjects.length; i++) {
+//       if (userProjects[i].name == targetProject) {
+//          if (userProjects[i].modules) {
+//             for (let j = 0; j < userProjects[i].modules.length; j++) {
+//                addModule(userProjects[i].modules[j].name)
+
+//                //Update scenarios counter
+//                let scenariosCounter = 0
+//                for (let j = 0; j < userProjects[i].modules.length; j++) {
+//                   if (userProjects[i].modules[j].scenarios) {
+//                      scenariosCounter += userProjects[i].modules[j].scenarios.length
+//                   }
+//                }
+//                document.querySelector('.module').querySelector('.module-scenarios-counter').textContent = scenariosCounter
+//             }
+//          }
+//       }
+//    }
+// })

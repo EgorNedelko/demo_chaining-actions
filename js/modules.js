@@ -188,8 +188,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
    for (let i = 0; i < userProjects.length; i++) {
       if (userProjects[i].name == targetProject) {
-         for (let j = 0; j < userProjects[i].modules.length; j++) {
-            addModule(userProjects[i].modules[j].name)
+         if (userProjects[i].modules) {
+            for (let j = 0; j < userProjects[i].modules.length; j++) {
+               addModule(userProjects[i].modules[j].name)
+
+               //Update scenarios counter
+               let scenariosCounter = 0
+               for (let j = 0; j < userProjects[i].modules.length; j++) {
+                  if (userProjects[i].modules[j].scenarios) {
+                     scenariosCounter += userProjects[i].modules[j].scenarios.length
+                  }
+               }
+               document.querySelector('.module').querySelector('.module-scenarios-counter').textContent = scenariosCounter
+            }
          }
       }
    }
