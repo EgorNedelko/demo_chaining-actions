@@ -254,10 +254,11 @@ document.addEventListener('DOMContentLoaded', () => {
       //Load projects
       for (let i = 0; i < userProjects.length; i++) {
          addProject(userProjects[i].name)
+         let projectToModify = document.querySelectorAll('.project')[document.querySelectorAll('.project').length-1]
 
          //Update modules counter
          if (userProjects[i].modules) {
-            document.querySelector('.project').querySelector('.project-modules-counter').textContent = userProjects[i].modules.length
+            projectToModify.querySelector('.project-modules-counter').textContent = userProjects[i].modules.length
          
             //Update scenarios counter
             let scenariosCounter = 0
@@ -266,7 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
                   scenariosCounter += userProjects[i].modules[j].scenarios.length
                }
             }
-            document.querySelector('.project').querySelector('.project-scenarios-counter').textContent = scenariosCounter
+            projectToModify.querySelector('.project-scenarios-counter').textContent = scenariosCounter
          }
       }
    }

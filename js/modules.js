@@ -222,11 +222,20 @@ document.querySelector("input[value='Store']").addEventListener('click', () => {
                   }
                }
             }
+         
+         //If there're no modules in this project
+         } else {
+            userProjects[i].modules = []
+            for (let q = 0; q < modulesList.length; q++) {
+               userProjects[i].modules[q] = {
+                  name: modulesList[q].querySelector('.module-name').textContent
+               }
+            }
          }
       }
    }
 
-   //Rewrite USERPROJECT object
+   //Rewrite USERPROJECTS object
    localStorage.removeItem('userProjects')
    localStorage.setItem('userProjects', JSON.stringify(userProjects))
 })
@@ -247,15 +256,12 @@ document.addEventListener('DOMContentLoaded', () => {
          if (userProjects[i].modules) {
             for (let j = 0; j < userProjects[i].modules.length; j++) {
                addModule(userProjects[i].modules[j].name)
-
+               let moduleToModify = document.querySelectorAll('.module')[document.querySelectorAll('.module').length-1]
+               
                //Update scenarios counter
-               let scenariosCounter = 0
-               for (let y = 0; y < userProjects[i].modules.length; y++) {
-                  if (userProjects[i].modules[y].scenarios) {
-                     scenariosCounter += userProjects[i].modules[j].scenarios.length
-                  }
+               if (userProjects[i].modules[j].scenarios) {
+                  moduleToModify.querySelector('.module-scenarios-counter').textContent = userProjects[i].modules[j].scenarios.length
                }
-               document.querySelector('.module').querySelector('.module-scenarios-counter').textContent = scenariosCounter
             }
          }
       }

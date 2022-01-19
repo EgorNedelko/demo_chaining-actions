@@ -22,7 +22,7 @@ function addScenario(name) {
 
    const scenarioStepsCounter = document.createElement('p')
    scenarioStepsCounter.classList.add('scenario-steps-counter')
-   scenarioStepsCounter.textContent = '0'
+   scenarioStepsCounter.textContent = '1'
 
    const scenarioRunsCounter = document.createElement('p')
    scenarioRunsCounter.classList.add('scenario-runs-counter')
@@ -174,18 +174,75 @@ document.querySelector("input[value='Store']").addEventListener('click', () => {
          //Locate module
          for (let j = 0; j < userProjects[i].modules.length; j++) {
             if (userProjects[i].modules[j].name == targetModule) {
-               
-               //Store scenarios
-               userProjects[i].modules[j].scenarios = []
-               for (let y = 0; y < scenariosList.length; y++) {
-                  userProjects[i].modules[j].scenarios[j] = {
-                     name: scenariosList[j].querySelector('.scenario-name').textContent
+
+               //Get stored and current modules
+               const storedScenarios = []
+               const currentScenarios = []
+               if (userProjects[i].modules[j].scenarios) {
+                  for (let y = 0; y < userProjects[i].modules[j].scenarios.length; y++) {
+                     storedScenarios.push(userProjects[i].modules[j].scenarios[y].name)
+                  }
+                  for (let q = 0; q < scenariosList.length; q++) {
+                     currentScenarios.push(scenariosList[q].querySelector('.scenario-name').textContent)
+                  }
+
+                  //Check #1 - get projects that were deleted
+                  let deletedScenarios = []
+                  for (let del = 0; del < storedScenarios.length; del++) {
+                     if (!currentScenarios.includes(storedScenarios[del])) {
+                        deletedScenarios.push(storedScenarios[del])
+                     }
+                  }
+
+                  //Check #2 - get projects that were added
+                  let addedScenarios = []
+                  for (let add = 0; add < currentScenarios.length; add++) {
+                     if (!storedScenarios.includes(currentScenarios[add])) {
+                        addedScenarios.push(currentScenarios[add])
+                     }
+                  }
+
+                  //Check #3 - whether there were changes 
+                  if (addedScenarios.length == 0 && deletedScenarios.length == 0) {
+                     return
+                  }
+
+                  //Remove deleted projects from the USERSPROJECT object
+                  if (deletedScenarios.length != 0) {
+                     for (let del = 0; del < deletedScenarios.length; del++) {
+                        for (let y = 0; y < userProjects[i].modules[j].scenarios.length; y++) {
+                           if (userProjects[i].modules[j].scenarios[y].name == deletedScenarios[del]) {
+                              userProjects[i].modules[j].scenarios.splice(y,1)
+                           }
+                        }
+                     }
+                  }
+
+                  //Add new projects to USERPROJECTS object
+                  if (addedScenarios.length != 0) {
+                     for (let add = 0; add < addedScenarios.length; add++) {
+                        const scenariosLength = userProjects[i].modules[j].scenarios.length
+                        userProjects[i].modules[j].scenarios[scenariosLength] = {
+                           name: addedScenarios[add]
+                        }
+                     }
+                  }
+
+               //If there're no scenarios   
+               } else {
+                  userProjects[i].modules[j].scenarios = []
+                  for (let q = 0; q < scenariosList.length; q++) {
+                     userProjects[i].modules[j].scenarios[q] = {
+                        name: scenariosList[q].querySelector('.scenario-name').textContent
+                     }
                   }
                }
             }
          }
       }
    }
+
+   //Rewrite USERPROJECTS object
    localStorage.removeItem('userProjects')
    localStorage.setItem('userProjects', JSON.stringify(userProjects))
 })
@@ -213,15 +270,12 @@ document.addEventListener('DOMContentLoaded', () => {
                   if (userProjects[i].modules[j].scenarios) {
                      for (let y = 0; y < userProjects[i].modules[j].scenarios.length; y++) {
                         addScenario(userProjects[i].modules[j].scenarios[y].name)
+                        let scenarioToModify = document.querySelectorAll('.scenario')[document.querySelectorAll('.scenario').length-1]
                         
                         //Update steps counter
-                        let stepsCounter = 0
-                        for (let s = 0; s < userProjects[i].modules.length; s++) {
-                           if (userProjects[i].modules[j].scenarios[y].steps) {
-                              stepsCounter += userProjects[i].modules[j].scenarios[y].steps.length
-                           }
+                        if (userProjects[i].modules[j].scenarios[y].steps) {
+                           scenarioToModify.querySelector('.scenario-steps-counter').textContent = userProjects[i].modules[j].scenarios[y].steps.length
                         }
-                        document.querySelector('.scenario').querySelector('.scenario-steps-counter').textContent = stepsCounter
                      }
                   }
                }
