@@ -338,25 +338,7 @@ document.querySelector("input[value='Add Step']").addEventListener('click', () =
    checkRelations()
 })
 
-//click on the STORE BUTTON to save current scenario steps
-// document.querySelector("input[value='Store']").addEventListener('click', saveSteps)
 
-//automatically saves current scenario steps when the PAGE IS REFRESHED 
-// window.addEventListener("beforeunload", saveSteps)
-
-//automatically loads the steps when the PAGE IS LOADED
-// document.addEventListener('DOMContentLoaded', loadSteps)
-
-//click on the CLEAR ALL BUTTON to clear out the local storage and current 
-document.querySelector("input[value='Clear All']").addEventListener('click', () => {
-   localStorage.clear()
-   document.querySelectorAll('.step').forEach(step => document.querySelector('.steps').removeChild(step))
-   addStep()
-   document.querySelector('.steps').children[0].children[2].children[0].children[0].textContent = "Go to URL"
-   document.querySelector('.steps').children[0].children[2].children[0].children[0].classList.remove('no-type')
-   document.querySelector('.steps').children[0].children[2].children[0].children[0].classList.add('btn-white')
-   document.querySelector('.steps').children[0].children[2].children[1].setAttribute('placeholder', "Provide the URL to go to: https://example.com/")
-})
 
 //HELPER FUNCTIONS
 function handleClickBtnInput(selectedType, stepInput) {
@@ -472,12 +454,11 @@ function handleChainMode() {
 }
 
 //STORAGE FUNCTIONS
-// click on the STORE to save to local Storage
-document.querySelector("input[value='Store']").addEventListener('click', () => {
+function saveSteps() {
    let userProjects = JSON.parse(localStorage.getItem('userProjects'))
-   let targetProject = localStorage.getItem('targetProject')
-   let targetModule = localStorage.getItem('targetModule')
-   let targetScenario = localStorage.getItem('targetScenario')
+   const targetProject = localStorage.getItem('targetProject')
+   const targetModule = localStorage.getItem('targetModule')
+   const targetScenario = localStorage.getItem('targetScenario')
    const stepsList = document.querySelectorAll('.step')
 
    //Locate the project
@@ -512,14 +493,13 @@ document.querySelector("input[value='Store']").addEventListener('click', () => {
    //Rewrite USERPROJECTS object
    localStorage.removeItem('userProjects')
    localStorage.setItem('userProjects', JSON.stringify(userProjects))
-})
+}
 
-//LOADING 
-document.addEventListener('DOMContentLoaded', () => {
+function loadSteps() {
    let userProjects = JSON.parse(localStorage.getItem('userProjects'))
-   let targetProject = localStorage.getItem('targetProject')
-   let targetModule = localStorage.getItem('targetModule')
-   let targetScenario = localStorage.getItem('targetScenario')
+   const targetProject = localStorage.getItem('targetProject')
+   const targetModule = localStorage.getItem('targetModule')
+   const targetScenario = localStorage.getItem('targetScenario')
    
    //Update path
    document.querySelector('.path-project').textContent = targetProject
@@ -580,4 +560,55 @@ document.addEventListener('DOMContentLoaded', () => {
          }
       }
    }
+}
+
+//Click on the CLEAR ALL BUTTON to clear out CURRENT SCENARIO
+document.querySelector("input[value='Clear All']").addEventListener('click', () => {
+   let userProjects = JSON.parse(localStorage.getItem('userProjects'))
+   const targetProject = localStorage.getItem('targetProject')
+   const targetModule = localStorage.getItem('targetModule')
+   const targetScenario = localStorage.getItem('targetScenario')
+   
+   //Locate project
+   for (let i = 0; i < userProjects.length; i++) {
+      if (userProjects[i].name == targetProject) {
+
+         //Locate module
+         if (userProjects[i].modules) {
+            for (let j = 0; j < userProjects[i].modules.length; j++) {
+               if (userProjects[i].modules[j].name == targetModule) {
+
+                  //Locate the scenario
+                  if (userProjects[i].modules[j].scenarios) {
+                     for (let y = 0; y < userProjects[i].modules[j].scenarios.length; y++) {
+                        if (userProjects[i].modules[j].scenarios[y].name == targetScenario) {
+
+                           //Erase all steps at this destination inside USERPROJECTS object
+                           userProjects[i].modules[j].scenarios[y].steps = []
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      }
+   }
+
+   //Rewrite USERPROJECTS object
+   localStorage.removeItem('userProjects')
+   localStorage.setItem('userProjects', JSON.stringify(userProjects))
+   
+   //Clean all current steps and add the default 'Go to URL'
+   document.querySelectorAll('.step').forEach(step => document.querySelector('.steps').removeChild(step))
+   addStep()
+   document.querySelector('.steps').children[0].children[2].children[0].children[0].textContent = "Go to URL"
+   document.querySelector('.steps').children[0].children[2].children[0].children[0].classList.remove('no-type')
+   document.querySelector('.steps').children[0].children[2].children[0].children[0].classList.add('btn-white')
+   document.querySelector('.steps').children[0].children[2].children[1].setAttribute('placeholder', "Provide the URL to go to: https://example.com/")
 })
+
+//AUTO-SAVING
+window.addEventListener("beforeunload", saveSteps)
+
+//AUTO-LOADING 
+document.addEventListener('DOMContentLoaded', loadSteps)

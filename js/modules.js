@@ -160,10 +160,9 @@ document.querySelectorAll("input[value='Add Module']").forEach(btn => btn.addEve
 }))
 
 /////STORAGE FUNCTIONS
-//click on the STORE to save to local Storage
-document.querySelector("input[value='Store']").addEventListener('click', () => {
+function saveModules() {
    let userProjects = JSON.parse(localStorage.getItem('userProjects'))
-   let targetProject = localStorage.getItem('targetProject')
+   const targetProject = localStorage.getItem('targetProject')
    const modulesList = document.querySelectorAll('.module')
 
    //Locate project
@@ -238,12 +237,11 @@ document.querySelector("input[value='Store']").addEventListener('click', () => {
    //Rewrite USERPROJECTS object
    localStorage.removeItem('userProjects')
    localStorage.setItem('userProjects', JSON.stringify(userProjects))
-})
+}
 
-//LOADING 
-document.addEventListener('DOMContentLoaded', () => {
+function loadModules() {
    let userProjects = JSON.parse(localStorage.getItem('userProjects'))
-   let targetProject = localStorage.getItem('targetProject')
+   const targetProject = localStorage.getItem('targetProject')
 
    //Update path
    document.querySelector('.path-project').textContent = targetProject
@@ -266,6 +264,28 @@ document.addEventListener('DOMContentLoaded', () => {
          }
       }
    }
+}
+
+//Click on the CLEAR ALL BUTTON to clear out CURRENT PROJECT
+document.querySelector("input[value='Clear All']").addEventListener('click', () => {
+   let userProjects = JSON.parse(localStorage.getItem('userProjects'))
+   const targetProject = localStorage.getItem('targetProject')
+   
+   //Locate project
+   for (let i = 0; i < userProjects.length; i++) {
+      if (userProjects[i].name == targetProject) {
+
+         //Erase all modules at this destination inside USERPROJECTS object
+         userProjects[i].modules = []
+      }
+   }
+
+   //Rewrite USERPROJECTS object
+   localStorage.removeItem('userProjects')
+   localStorage.setItem('userProjects', JSON.stringify(userProjects))
+   
+   //Clean all current module
+   document.querySelectorAll('.module').forEach(module => document.querySelector('.modules').removeChild(module))
 })
 
 //click on the module name to STORE DESTINATION 
@@ -275,3 +295,9 @@ document.addEventListener('click', (e) => {
       localStorage.setItem('targetModule', e.target.textContent)
    }
 })
+
+//AUTO-SAVING
+window.addEventListener('beforeunload', saveModules)
+
+//AUTO-LOADING 
+document.addEventListener('DOMContentLoaded', loadModules)

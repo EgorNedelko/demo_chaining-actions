@@ -171,8 +171,7 @@ document.querySelector("input[value='Clear All']").addEventListener('click', () 
 })
 
 /////STORAGE FUNCTIONS
-//click on the STORE to save to local Storage
-document.querySelector("input[value='Store']").addEventListener('click', () => {
+function saveProjects() {
    const projectsList = document.querySelectorAll('.project')
    let userProjects = []
    if (localStorage.getItem('userProjects')) {
@@ -244,10 +243,9 @@ document.querySelector("input[value='Store']").addEventListener('click', () => {
    //Rewrite USERPROJECTS object
    localStorage.removeItem('userProjects')
    localStorage.setItem('userProjects', JSON.stringify(userProjects))
-})
+}
 
-//LOADING 
-document.addEventListener('DOMContentLoaded', () => {
+function loadProjects() {
    if (localStorage.getItem('userProjects')) {
       let userProjects = JSON.parse(localStorage.getItem('userProjects'))
 
@@ -271,6 +269,16 @@ document.addEventListener('DOMContentLoaded', () => {
          }
       }
    }
+}
+
+//Click on the CLEAR ALL BUTTON to clear out CURRENT MODULE
+document.querySelector("input[value='Clear All']").addEventListener('click', () => {
+   //Rewrite USERPROJECTS object
+   localStorage.clear()
+   // localStorage.removeItem('userProjects')
+   
+   //Clean all current projects
+   document.querySelectorAll('.project').forEach(project => document.querySelector('.projects').removeChild(project))
 })
 
 //click on the project name to STORE DESTINATION 
@@ -280,3 +288,9 @@ document.addEventListener('click', (e) => {
       localStorage.setItem('targetProject', e.target.textContent)
    }
 })
+
+//AUTO-SAVING
+window.addEventListener('beforeunload', saveProjects)
+
+//LOADING 
+document.addEventListener('DOMContentLoaded', loadProjects)

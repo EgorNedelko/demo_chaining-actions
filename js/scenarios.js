@@ -160,11 +160,10 @@ document.querySelectorAll("input[value='Add Scenario']").forEach(btn => btn.addE
 }))
 
 /////STORAGE FUNCTIONS
-//click on the STORE to save to local Storage
-document.querySelector("input[value='Store']").addEventListener('click', () => {
+function saveScenarios() {
    let userProjects = JSON.parse(localStorage.getItem('userProjects'))
-   let targetProject = localStorage.getItem('targetProject')
-   let targetModule = localStorage.getItem('targetModule')
+   const targetProject = localStorage.getItem('targetProject')
+   const targetModule = localStorage.getItem('targetModule')
    const scenariosList = document.querySelectorAll('.scenario')
 
    //Locate project
@@ -245,13 +244,12 @@ document.querySelector("input[value='Store']").addEventListener('click', () => {
    //Rewrite USERPROJECTS object
    localStorage.removeItem('userProjects')
    localStorage.setItem('userProjects', JSON.stringify(userProjects))
-})
+}
 
-//LOADING 
-document.addEventListener('DOMContentLoaded', () => {
+function loadScenarios() {
    let userProjects = JSON.parse(localStorage.getItem('userProjects'))
-   let targetProject = localStorage.getItem('targetProject')
-   let targetModule = localStorage.getItem('targetModule')
+   const targetProject = localStorage.getItem('targetProject')
+   const targetModule = localStorage.getItem('targetModule')
    
    //Update path
    document.querySelector('.path-project').textContent = targetProject
@@ -283,6 +281,37 @@ document.addEventListener('DOMContentLoaded', () => {
          }
       }
    }
+}
+
+//Click on the CLEAR ALL BUTTON to clear out CURRENT MODULE
+document.querySelector("input[value='Clear All']").addEventListener('click', () => {
+   let userProjects = JSON.parse(localStorage.getItem('userProjects'))
+   const targetProject = localStorage.getItem('targetProject')
+   const targetModule = localStorage.getItem('targetModule')
+   
+   //Locate project
+   for (let i = 0; i < userProjects.length; i++) {
+      if (userProjects[i].name == targetProject) {
+
+         //Locate module
+         if (userProjects[i].modules) {
+            for (let j = 0; j < userProjects[i].modules.length; j++) {
+               if (userProjects[i].modules[j].name == targetModule) {
+
+                  //Erase all scenarios at this destination inside USERPROJECTS object
+                  userProjects[i].modules[j].scenarios = []
+               }
+            }
+         }
+      }
+   }
+
+   //Rewrite USERPROJECTS object
+   localStorage.removeItem('userProjects')
+   localStorage.setItem('userProjects', JSON.stringify(userProjects))
+   
+   //Clean all current scenarios
+   document.querySelectorAll('.scenario').forEach(scenario => document.querySelector('.scenarios').removeChild(scenario))
 })
 
 //click on the module name to STORE DESTINATION 
@@ -292,3 +321,9 @@ document.addEventListener('click', (e) => {
       localStorage.setItem('targetScenario', e.target.textContent)
    }
 })
+
+//AUTO-SAVING
+window.addEventListener('beforeunload', saveScenarios)
+
+//AUTO-LOADING 
+document.addEventListener('DOMContentLoaded', loadScenarios)
