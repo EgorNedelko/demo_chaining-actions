@@ -59,8 +59,8 @@ function addScenario(name) {
 }
 
 function openScenarioModal() {
-   overlay.style = "display: block;"
-   newScenarioModal.style = "display: block;"
+   overlay.classList.remove('display-none')
+   newScenarioModal.classList.remove('display-none')
    newScenarioModal.querySelector('.new-scenario-name').focus()
 }
 
@@ -150,6 +150,20 @@ document.addEventListener('click', (e) => {
    if (e.target.value == "Cancel") {
       const newScenarioNameInput = document.querySelector('.new-scenario-name')
       newScenarioNameInput.value = ''
+      closeScenarioModal()
+   }
+})
+
+//press ENTER when the modal is open to create a new scenario
+window.addEventListener('keydown', (e) => {
+   if (e.key == "Enter" && !newScenarioModal.classList.contains('display-none')) {
+      const newScenarioNameInput = document.querySelector('.new-scenario-name')
+      if (newScenarioNameInput.value) {
+         addScenario(newScenarioNameInput.value)
+         newScenarioNameInput.value = ''
+      } else {
+         addScenario('new scenario')
+      }
       closeScenarioModal()
    }
 })

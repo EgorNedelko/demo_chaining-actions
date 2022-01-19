@@ -159,16 +159,24 @@ document.addEventListener('click', (e) => {
    }
 })
 
+//press ENTER when the modal is open to create a new project
+window.addEventListener('keydown', (e) => {
+   if (e.key == "Enter" && !newProjectModal.classList.contains('display-none')) {
+      const newProjectNameInput = document.querySelector('.new-project-name')
+      if (newProjectNameInput.value) {
+         addProject(newProjectNameInput.value)
+         newProjectNameInput.value = ''
+      } else {
+         addProject('new project')
+      }
+      closeProjectModal()
+   }
+})
+
 //click on the NEW BUTTON to add new project
 document.querySelectorAll("input[value='New']").forEach(btn => btn.addEventListener('click', () => {
    openProjectModal()
 }))
-
-//click on the CLEAR ALL BUTTON to clear out the localStorage and the list
-document.querySelector("input[value='Clear All']").addEventListener('click', () => {
-   localStorage.clear()
-   document.querySelectorAll('.project').forEach(pr => document.querySelector('.projects').removeChild(pr))
-})
 
 /////STORAGE FUNCTIONS
 function saveProjects() {
@@ -271,11 +279,10 @@ function loadProjects() {
    }
 }
 
-//Click on the CLEAR ALL BUTTON to clear out CURRENT MODULE
+//click on the CLEAR ALL BUTTON to clear out the localStorage and the list
 document.querySelector("input[value='Clear All']").addEventListener('click', () => {
    //Rewrite USERPROJECTS object
    localStorage.clear()
-   // localStorage.removeItem('userProjects')
    
    //Clean all current projects
    document.querySelectorAll('.project').forEach(project => document.querySelector('.projects').removeChild(project))

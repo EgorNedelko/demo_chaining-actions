@@ -59,8 +59,8 @@ function addModule(name) {
 }
 
 function openModuleModal() {
-   overlay.style = "display: block;"
-   newModuleModal.style = "display: block;"
+   overlay.classList.remove('display-none')
+   newModuleModal.classList.remove('display-none')
    newModuleModal.querySelector('.new-module-name').focus()
 }
 
@@ -150,6 +150,20 @@ document.addEventListener('click', (e) => {
    if (e.target.value == "Cancel") {
       const newModuleNameInput = document.querySelector('.new-module-name')
       newModuleNameInput.value = ''
+      closeModuleModal()
+   }
+})
+
+//press ENTER when the modal is open to create a new module
+window.addEventListener('keydown', (e) => {
+   if (e.key == "Enter" && !newModuleModal.classList.contains('display-none')) {
+      const newModuleNameInput = document.querySelector('.new-module-name')
+      if (newModuleNameInput.value) {
+         addModule(newModuleNameInput.value)
+         newModuleNameInput.value = ''
+      } else {
+         addModule('new module')
+      }
       closeModuleModal()
    }
 })
