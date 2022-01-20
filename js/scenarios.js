@@ -1,5 +1,5 @@
 const overlay = document.querySelector('.overlay')
-const newScenarioModal = document.querySelector('.new-scenario-modal')
+const newItemModal = document.querySelector('.new-item-modal')
 // const deletionModal = document.querySelector('.deletion-modal')
 let itemToDelete;
 
@@ -60,13 +60,13 @@ function addScenario(name) {
 
 function openScenarioModal() {
    overlay.classList.remove('display-none')
-   newScenarioModal.classList.remove('display-none')
-   newScenarioModal.querySelector('.new-scenario-name').focus()
+   newItemModal.classList.remove('display-none')
+   newItemModal.querySelector('.new-item-name').focus()
 }
 
 function closeScenarioModal() {
-   overlay.style = "display: none;"
-   newScenarioModal.style = "display: none;"
+   overlay.classList.add('display-none')
+   newItemModal.classList.add('display-none')
 }
 
 function handleDeletionModal() {
@@ -134,7 +134,7 @@ document.addEventListener('click', (e) => {
 //click on the SAVE BUTTON in the project modal to create a new project
 document.addEventListener('click', (e) => {
    if (e.target.value == "Save") {
-      const newScenarioNameInput = document.querySelector('.new-scenario-name')
+      const newScenarioNameInput = document.querySelector('.new-item-name')
       if (newScenarioNameInput.value) {
          addScenario(newScenarioNameInput.value)
          newScenarioNameInput.value = ''
@@ -148,7 +148,7 @@ document.addEventListener('click', (e) => {
 //click on the CANCEL BUTTON in the project modal to cancel new project creation
 document.addEventListener('click', (e) => {
    if (e.target.value == "Cancel") {
-      const newScenarioNameInput = document.querySelector('.new-scenario-name')
+      const newScenarioNameInput = document.querySelector('.new-item-name')
       newScenarioNameInput.value = ''
       closeScenarioModal()
    }
@@ -156,8 +156,8 @@ document.addEventListener('click', (e) => {
 
 //press ENTER when the modal is open to create a new scenario
 window.addEventListener('keydown', (e) => {
-   if (e.key == "Enter" && !newScenarioModal.classList.contains('display-none')) {
-      const newScenarioNameInput = document.querySelector('.new-scenario-name')
+   if (e.key == "Enter" && !newItemModal.classList.contains('display-none')) {
+      const newScenarioNameInput = document.querySelector('.new-item-name')
       if (newScenarioNameInput.value) {
          addScenario(newScenarioNameInput.value)
          newScenarioNameInput.value = ''

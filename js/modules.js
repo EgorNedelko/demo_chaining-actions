@@ -1,5 +1,5 @@
 const overlay = document.querySelector('.overlay')
-const newModuleModal = document.querySelector('.new-module-modal')
+const newItemModal = document.querySelector('.new-item-modal')
 // const deletionModal = document.querySelector('.deletion-modal')
 let itemToDelete;
 
@@ -60,13 +60,13 @@ function addModule(name) {
 
 function openModuleModal() {
    overlay.classList.remove('display-none')
-   newModuleModal.classList.remove('display-none')
-   newModuleModal.querySelector('.new-module-name').focus()
+   newItemModal.classList.remove('display-none')
+   newItemModal.querySelector('.new-item-name').focus()
 }
 
 function closeModuleModal() {
-   overlay.style = "display: none;"
-   newModuleModal.style = "display: none;"
+   overlay.classList.add('display-none')
+   newItemModal.classList.add('display-none')
 }
 
 function handleDeletionModal() {
@@ -134,7 +134,7 @@ document.addEventListener('click', (e) => {
 //click on the SAVE BUTTON in the project modal to create a new project
 document.addEventListener('click', (e) => {
    if (e.target.value == "Save") {
-      const newModuleNameInput = document.querySelector('.new-module-name')
+      const newModuleNameInput = document.querySelector('.new-item-name')
       if (newModuleNameInput.value) {
          addModule(newModuleNameInput.value)
          newModuleNameInput.value = ''
@@ -148,7 +148,7 @@ document.addEventListener('click', (e) => {
 //click on the CANCEL BUTTON in the project modal to cancel new project creation
 document.addEventListener('click', (e) => {
    if (e.target.value == "Cancel") {
-      const newModuleNameInput = document.querySelector('.new-module-name')
+      const newModuleNameInput = document.querySelector('.new-item-name')
       newModuleNameInput.value = ''
       closeModuleModal()
    }
@@ -156,8 +156,8 @@ document.addEventListener('click', (e) => {
 
 //press ENTER when the modal is open to create a new module
 window.addEventListener('keydown', (e) => {
-   if (e.key == "Enter" && !newModuleModal.classList.contains('display-none')) {
-      const newModuleNameInput = document.querySelector('.new-module-name')
+   if (e.key == "Enter" && !newItemModal.classList.contains('display-none')) {
+      const newModuleNameInput = document.querySelector('.new-item-name')
       if (newModuleNameInput.value) {
          addModule(newModuleNameInput.value)
          newModuleNameInput.value = ''

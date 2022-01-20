@@ -1,5 +1,5 @@
 const overlay = document.querySelector('.overlay')
-const newProjectModal = document.querySelector('.new-project-modal')
+const newItemModal = document.querySelector('.new-item-modal')
 // const deletionModal = document.querySelector('.deletion-modal')
 let itemToDelete;
 
@@ -65,13 +65,13 @@ function addProject(name) {
 
 function openProjectModal() {
    overlay.classList.remove('display-none')
-   newProjectModal.classList.remove('display-none')
-   newProjectModal.querySelector('.new-project-name').focus()
+   newItemModal.classList.remove('display-none')
+   newItemModal.querySelector('.new-item-name').focus()
 }
 
 function closeProjectModal() {
    overlay.classList.add('display-none')
-   newProjectModal.classList.add('display-none')
+   newItemModal.classList.add('display-none')
 }
 
 function handleDeletionModal() {
@@ -138,8 +138,9 @@ document.addEventListener('click', (e) => {
 
 //click on the SAVE BUTTON in the project modal to create a new project
 document.addEventListener('click', (e) => {
+   console.log(e.target)
    if (e.target.value == "Save") {
-      const newProjectNameInput = document.querySelector('.new-project-name')
+      const newProjectNameInput = document.querySelector('.new-item-name')
       if (newProjectNameInput.value) {
          addProject(newProjectNameInput.value)
          newProjectNameInput.value = ''
@@ -153,7 +154,7 @@ document.addEventListener('click', (e) => {
 //click on the CANCEL BUTTON in the project modal to cancel new project creation
 document.addEventListener('click', (e) => {
    if (e.target.value == "Cancel") {
-      const newProjectNameInput = document.querySelector('.new-project-name')
+      const newProjectNameInput = document.querySelector('.new-item-name')
       newProjectNameInput.value = ''
       closeProjectModal()
    }
@@ -161,8 +162,8 @@ document.addEventListener('click', (e) => {
 
 //press ENTER when the modal is open to create a new project
 window.addEventListener('keydown', (e) => {
-   if (e.key == "Enter" && !newProjectModal.classList.contains('display-none')) {
-      const newProjectNameInput = document.querySelector('.new-project-name')
+   if (e.key == "Enter" && !newItemModal.classList.contains('display-none')) {
+      const newProjectNameInput = document.querySelector('.new-item-name')
       if (newProjectNameInput.value) {
          addProject(newProjectNameInput.value)
          newProjectNameInput.value = ''
