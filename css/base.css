@@ -129,22 +129,89 @@ header {
    /* text-transform: capitalize; */
 }
 
-.path {
-   display: block;
+/* PATH */
+.path-item {
+   position: relative;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: 4px 8px;
+   border-radius: 6px;
+   background-image: linear-gradient(87deg, rgb(94, 114, 228), rgb(130, 94, 228));
+   transition: all 0.15s ease;
    cursor: pointer;
-   transition: all .2s ease;
 }
-.path:hover {
-   color: rgb(68, 68, 187);
+.path-item:hover {
+   box-shadow: 0 7px 14px rgb(50 50 93 / 10%), 0 3px 6px rgb(0 0 0 / 8%);
    transform: translateY(-1px);
 }
 
-.path-project,
-.path-module,
-.path-scenario {
+.path-item a {
+   color: rgb(255,255,255);
+   font-size: 12px;
+   line-height: 18px;
+   font-weight: 600;
+   letter-spacing: 0.5px;
    text-decoration: none;
 }
 
+.path-project-name,
+.path-module-name,
+.path-scenario-name {
+   margin-right: 80px;
+   position: relative;
+   cursor: pointer;
+   text-decoration: none;
+   user-select: none;
+}
+/* .path-project-name:hover,
+.path-module-name:hover,
+.path-scenario-name:hover {
+   transform: translateY(1px);
+} */
+
+.path-project-name::after,
+.path-module-name::after {
+   content: '';
+   position: absolute;
+   top: 50%;
+   left: 110%;
+   width: 70px;
+   height: 2px;
+   background-color: rgb(130, 94, 228);
+}
+
+.path-dropdown {
+   display: none;
+   z-index: 1;
+   position: absolute;
+   /* left: -15%; */
+   background-color: rgb(255,255,255);
+   border-radius: 6px;
+   outline: none;
+   user-select: none;
+   box-shadow: 0 7px 14px rgb(50 50 93 / 10%), 0 3px 6px rgb(0 0 0 / 8%);
+}
+
+.path-dropdown-item {
+   padding: 8px 16px;
+   color: rgb(82, 95, 127);
+   font-size: 14px;
+   line-height: 21px;
+   cursor: pointer;
+   user-select: none;
+   outline: none;
+}
+.path-dropdown-item:hover {
+   background-color: #e5ebf3;
+}
+
+.path-dropdown a {
+   display: block;
+}
+
+
+/* BTNS */
 .btns {
    padding: 20px 24px;
    display: flex;
