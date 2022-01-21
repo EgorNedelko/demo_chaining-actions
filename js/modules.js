@@ -288,7 +288,7 @@ function loadModules() {
    }
 
    //Update path, name and counter
-   document.querySelector('.path-project').textContent = targetProject
+   document.querySelector('.path-project-name').textContent = targetProject
    document.getElementById('itemName').textContent = targetProject
    refreshItemCounter()
 }
@@ -336,6 +336,7 @@ document.addEventListener('click', (e) => {
 
       localStorage.removeItem('moduleInd')
       localStorage.setItem('moduleInd', moduleInd)
+      changeCurrentLocation('scenarios')
    }
 })
 
@@ -343,4 +344,89 @@ document.addEventListener('click', (e) => {
 window.addEventListener('beforeunload', saveModules)
 
 //AUTO-LOADING 
-document.addEventListener('DOMContentLoaded', loadModules)
+document.addEventListener('DOMContentLoaded', () => {
+   loadModules()
+   updatePath()
+})
+
+//Click on the project, module or scenario name for their respective dropdown to appear (if there's one)
+document.addEventListener('click', (e) => {
+   if (e.target.classList.contains('path-project-name') ||
+      e.target.classList.contains('path-module-name') ||
+      e.target.classList.contains('path-scenario-name')) {
+         // hideDropdowns()
+         document.querySelectorAll('.path-dropdown').forEach(el => {
+            if (el != e.target.parentNode.children[1]) el.classList.remove('visible')
+         })
+         document.querySelectorAll('.dropdown').forEach(el => {
+            if (el != e.target.parentNode.children[1]) el.classList.remove('visible')
+         })
+         if (e.target.parentNode.querySelector('.path-dropdown')) {
+            e.target.parentNode.querySelector('.path-dropdown').classList.toggle('visible')
+         }
+      }
+})
+
+function updatePath() {
+   let names = []
+   let userProjects = JSON.parse(localStorage.getItem('userProjects'))
+   const targetProject = localStorage.getItem('targetProject')
+   const targetModule = localStorage.getItem('targetModule')
+   const targetScenario = localStorage.getItem('targetScenario')
+   const projectInd = localStorage.getItem('projectInd')
+   const moduleInd = localStorage.getItem('moduleInd')
+   // const scenarioInd = localStorage.getItem('scenarioInd')
+   
+   //Build project dropdown
+   if (userProjects.length > 1) {
+      names = []
+      for (let i = 0; i < userProjects.length; i++) {
+         if (userProjects[i].name != targetProject) {
+            names.push(userProjects[i].name)
+         }
+      }
+      buildPathDropdowns('.path-project', names, userProjects.length-1)
+   }
+
+   //Build modules dropdown
+   if (userProjects[projectInd].modules.length > 1) {
+      names = []
+      for (let i = 0; i < userProjects[projectInd].modules.length; i++) {
+         if (userProjects[projectInd].modules[i].name != targetModule) {
+            names.push(userProjects[projectInd].modules[i].name)
+         }
+      }
+      buildPathDropdowns('.path-module', names, userProjects[projectInd].modules.length-1)
+   }
+
+   //Build scenarios dropdown
+   if (userProjects[projectInd].modules[moduleInd].scenarios.length > 1) {
+      names = []
+      for (let i = 0; i < userProjects[projectInd].modules[moduleInd].scenarios.length; i++) {
+         if (userProjects[projectInd].modules[moduleInd].scenarios[i].name != targetScenario) {
+            names.push(userProjects[projectInd].modules[moduleInd].scenarios[i].name)
+         }
+      }
+      buildPathDropdowns('.path-scenario', names, userProjects[projectInd].modules[moduleInd].scenarios.length-1)
+   }
+}
+
+function buildPathDropdowns(destinationClass, names, length) {
+   const fragment = document.createDocumentFragment()
+   const pathDropdown = document.createElement('div')
+   pathDropdown.classList.add('path-dropdown')
+
+   for (let i = 0; i < length; i++) {
+      const pathDropdownItem = document.createElement('a')
+      pathDropdownItem.classList.add('path-dropdown-item')
+      pathDropdownItem.textContent = names[i]
+      pathDropdown.appendChild(pathDropdownItem)
+   }
+   fragment.appendChild(pathDropdown)
+   document.querySelector(destinationClass).append(fragment)
+}
+
+function changeCurrentLocation(newValue) {
+   localStorage.removeItem('currentLocation')
+   localStorage.setItem('currentLocation', newValue)
+}

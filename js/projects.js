@@ -306,9 +306,10 @@ document.addEventListener('click', (e) => {
             }
          }
       }
-      
+
       localStorage.removeItem('projectInd')
       localStorage.setItem('projectInd', projectInd)
+      changeCurrentLocation('modules')
    }
 })
 
@@ -317,3 +318,8 @@ window.addEventListener('beforeunload', saveProjects)
 
 //LOADING 
 document.addEventListener('DOMContentLoaded', loadProjects)
+
+function changeCurrentLocation(newValue) {
+   localStorage.removeItem('currentLocation')
+   localStorage.setItem('currentLocation', newValue)
+}

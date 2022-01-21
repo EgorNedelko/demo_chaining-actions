@@ -140,6 +140,7 @@ header {
    background-image: linear-gradient(87deg, rgb(94, 114, 228), rgb(130, 94, 228));
    transition: all 0.15s ease;
    cursor: pointer;
+   user-select: none;
 }
 .path-item:hover {
    box-shadow: 0 7px 14px rgb(50 50 93 / 10%), 0 3px 6px rgb(0 0 0 / 8%);
@@ -158,19 +159,20 @@ header {
 .path-project-name,
 .path-module-name,
 .path-scenario-name {
-   margin-right: 80px;
+   /* margin-right: 80px; */
    position: relative;
    cursor: pointer;
    text-decoration: none;
    user-select: none;
 }
-/* .path-project-name:hover,
-.path-module-name:hover,
-.path-scenario-name:hover {
-   transform: translateY(1px);
-} */
 
-.path-project-name::after,
+.path-line {
+   width: 70px;
+   height: 2px;
+   background-color: rgb(130, 94, 228);
+}
+
+/* .path-project-name::after,
 .path-module-name::after {
    content: '';
    position: absolute;
@@ -179,12 +181,13 @@ header {
    width: 70px;
    height: 2px;
    background-color: rgb(130, 94, 228);
-}
+} */
 
 .path-dropdown {
    display: none;
    z-index: 1;
    position: absolute;
+   margin-top: 10px;
    /* left: -15%; */
    background-color: rgb(255,255,255);
    border-radius: 6px;

@@ -326,8 +326,6 @@ document.querySelector("input[value='Add Step']").addEventListener('click', () =
    refreshCore()
 })
 
-
-
 //HELPER FUNCTIONS
 function handleClickBtnInput(selectedType, stepInput) {
    if (selectedType == "Click element") {
@@ -619,7 +617,7 @@ document.addEventListener('click', (e) => {
    if (e.target.classList.contains('path-project-name') ||
       e.target.classList.contains('path-module-name') ||
       e.target.classList.contains('path-scenario-name')) {
-         hideDropdowns()
+         // hideDropdowns()
          document.querySelectorAll('.path-dropdown').forEach(el => {
             if (el != e.target.parentNode.children[1]) el.classList.remove('visible')
          })
@@ -632,10 +630,8 @@ document.addEventListener('click', (e) => {
       }
 })
 
-
-
 function updatePath() {
-   let currentName, destinationClass, names, length;
+   let names = []
    let userProjects = JSON.parse(localStorage.getItem('userProjects'))
    const targetProject = localStorage.getItem('targetProject')
    const targetModule = localStorage.getItem('targetModule')
@@ -652,7 +648,7 @@ function updatePath() {
             names.push(userProjects[i].name)
          }
       }
-      buildDropdown(targetProject, '.path-project', names, userProjects.length-1)
+      buildPathDropdowns('.path-project', names, userProjects.length-1)
    }
 
    //Build modules dropdown
@@ -663,22 +659,22 @@ function updatePath() {
             names.push(userProjects[projectInd].modules[i].name)
          }
       }
-      buildDropdown(targetModule, '.path-module', names, userProjects[projectInd].modules.length-1)
+      buildPathDropdowns('.path-module', names, userProjects[projectInd].modules.length-1)
    }
 
    //Build scenarios dropdown
    if (userProjects[projectInd].modules[moduleInd].scenarios.length > 1) {
       names = []
       for (let i = 0; i < userProjects[projectInd].modules[moduleInd].scenarios.length; i++) {
-         if (userProjects[projectInd].modules[moduleInd].scenarios[i].name != targetModule) {
+         if (userProjects[projectInd].modules[moduleInd].scenarios[i].name != targetScenario) {
             names.push(userProjects[projectInd].modules[moduleInd].scenarios[i].name)
          }
       }
-      buildDropdown(targetScenario, '.path-scenario', names, userProjects[projectInd].modules[moduleInd].scenarios.length-1)
+      buildPathDropdowns('.path-scenario', names, userProjects[projectInd].modules[moduleInd].scenarios.length-1)
    }
 }
 
-function buildDropdown(currentName, destinationClass, names, length) {
+function buildPathDropdowns(destinationClass, names, length) {
    const fragment = document.createDocumentFragment()
    const pathDropdown = document.createElement('div')
    pathDropdown.classList.add('path-dropdown')
@@ -692,3 +688,25 @@ function buildDropdown(currentName, destinationClass, names, length) {
    fragment.appendChild(pathDropdown)
    document.querySelector(destinationClass).append(fragment)
 }
+
+function changeCurrentLocation(newValue) {
+   localStorage.removeItem('currentLocation')
+   localStorage.setItem('currentLocation', newValue)
+}
+
+//Click on the QUICK NAV ITEMS to change current location
+document.addEventListener('click', (e) => {
+   if (e.target.classList.contains('path-item-link') || e.target.classList.contains('path-item')) {
+      switch (e.target.classList[1]) {
+         case "pr-link":
+            changeCurrentLocation('projects')
+            break;
+         case "mod-link":
+            changeCurrentLocation('modules')
+            break;
+         case "scen-link":
+            changeCurrentLocation('scenarios')
+            break;
+      }
+   }
+})
