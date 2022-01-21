@@ -345,8 +345,24 @@ document.querySelector("input[value='Clear All']").addEventListener('click', () 
 //click on the module name to STORE DESTINATION 
 document.addEventListener('click', (e) => {
    if (e.target.classList.contains('scenario-name')) {
+      let userProjects = JSON.parse(localStorage.getItem('userProjects')) 
+      let projectInd = localStorage.getItem('projectInd')
+      let moduleInd = localStorage.getElementById('moduleInd')
+      let scenarioInd = 0
+
       localStorage.removeItem('targetScenario')
       localStorage.setItem('targetScenario', e.target.textContent)
+
+      if (userProjects[projectInd].modules[moduleInd].scenarios) {
+         for (let i = 0; i < userProjects[projectInd].modules[moduleInd].scenarios.length; i++) {
+            if (userProjects[projectInd].modules[moduleInd].scenarios[i].name == e.target.textContent) {
+               scenarioInd = i
+            }
+         }
+      }
+
+      localStorage.removeItem('scenarioInd')
+      localStorage.setItem('scenarioInd', scenarioInd)
    }
 })
 

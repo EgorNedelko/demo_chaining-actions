@@ -319,8 +319,23 @@ document.querySelector("input[value='Clear All']").addEventListener('click', () 
 //click on the module name to STORE DESTINATION 
 document.addEventListener('click', (e) => {
    if (e.target.classList.contains('module-name')) {
+      let userProjects = JSON.parse(localStorage.getItem('userProjects')) 
+      let projectInd = localStorage.getItem('projectInd')
+      let moduleInd = 0
+
       localStorage.removeItem('targetModule')
       localStorage.setItem('targetModule', e.target.textContent)
+
+      if (userProjects[projectInd].modules) {
+         for (let i = 0; i < userProjects[projectInd].modules.length; i++) {
+            if (userProjects[projectInd].modules[i].name == e.target.textContent) {
+               moduleInd = i
+            }
+         }
+      }
+
+      localStorage.removeItem('moduleInd')
+      localStorage.setItem('moduleInd', moduleInd)
    }
 })
 

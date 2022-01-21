@@ -293,8 +293,22 @@ document.querySelector("input[value='Clear All']").addEventListener('click', () 
 //click on the project name to STORE DESTINATION 
 document.addEventListener('click', (e) => {
    if (e.target.classList.contains('project-name')) {
+      let projectInd = 0
+
       localStorage.removeItem('targetProject')
       localStorage.setItem('targetProject', e.target.textContent)
+
+      if (localStorage.getItem('userProjects')) {
+         let userProjects = JSON.parse(localStorage.getItem('userProjects')) 
+         for (let i = 0; i < userProjects.length; i++) {
+            if (userProjects[i].name == e.target.textContent) {
+               projectInd = i
+            }
+         }
+      }
+      
+      localStorage.removeItem('projectInd')
+      localStorage.setItem('projectInd', projectInd)
    }
 })
 
