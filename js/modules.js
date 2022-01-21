@@ -1,5 +1,6 @@
-const overlay = document.querySelector('.overlay')
+const overlay = document.getElementById('overlay')
 const newItemModal = document.querySelector('.new-item-modal')
+const itemCounter = document.getElementById('itemCounter')
 // const deletionModal = document.querySelector('.deletion-modal')
 let itemToDelete;
 
@@ -59,13 +60,15 @@ function addModule(name) {
 }
 
 function openModuleModal() {
-   overlay.classList.remove('display-none')
+   // overlay.classList.remove('display-none')
+   overlay.classList.add('active')
    newItemModal.classList.remove('display-none')
    newItemModal.querySelector('.new-item-name').focus()
 }
 
 function closeModuleModal() {
-   overlay.classList.add('display-none')
+   // overlay.classList.add('display-none')
+   overlay.classList.remove('active')
    newItemModal.classList.add('display-none')
 }
 
@@ -116,6 +119,7 @@ document.addEventListener('click', (e) => {
       itemToDelete = e.target.parentNode.parentNode.parentNode
       document.querySelectorAll('.actions-dropdown').forEach(el => el.classList.remove('visible'))
       document.querySelector('.modules').removeChild(itemToDelete)
+      refreshItemCounter()
       // openDeletionModal()
       // handleDeletionModal()
    }
@@ -141,6 +145,7 @@ document.addEventListener('click', (e) => {
       } else {
          addModule('new module')
       }
+      refreshItemCounter()
       closeModuleModal()
    }
 })
@@ -164,6 +169,7 @@ window.addEventListener('keydown', (e) => {
       } else {
          addModule('new module')
       }
+      refreshItemCounter()
       closeModuleModal()
    }
 })
@@ -172,6 +178,11 @@ window.addEventListener('keydown', (e) => {
 document.querySelectorAll("input[value='Add Module']").forEach(btn => btn.addEventListener('click', () => {
    openModuleModal()
 }))
+
+//HELPER FUNCTIONS
+function refreshItemCounter() {
+   itemCounter.textContent = document.querySelectorAll('.module').length
+}
 
 /////STORAGE FUNCTIONS
 function saveModules() {
@@ -257,9 +268,6 @@ function loadModules() {
    let userProjects = JSON.parse(localStorage.getItem('userProjects'))
    const targetProject = localStorage.getItem('targetProject')
 
-   //Update path
-   document.querySelector('.path-project').textContent = targetProject
-
    //Locate project
    for (let i = 0; i < userProjects.length; i++) {
       if (userProjects[i].name == targetProject) {
@@ -278,6 +286,11 @@ function loadModules() {
          }
       }
    }
+
+   //Update path, name and counter
+   document.querySelector('.path-project').textContent = targetProject
+   document.getElementById('itemName').textContent = targetProject
+   refreshItemCounter()
 }
 
 //Click on the CLEAR ALL BUTTON to clear out CURRENT PROJECT
@@ -300,6 +313,7 @@ document.querySelector("input[value='Clear All']").addEventListener('click', () 
    
    //Clean all current module
    document.querySelectorAll('.module').forEach(module => document.querySelector('.modules').removeChild(module))
+   refreshItemCounter()
 })
 
 //click on the module name to STORE DESTINATION 

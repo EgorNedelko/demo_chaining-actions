@@ -12,7 +12,8 @@
    <link rel="stylesheet" href="../css/scenarios.css">
 </head>
 <body>
-   <div class="overlay display-none"></div>
+   <!-- <div id="overlay" class="display-none"></div> -->
+   <div id="overlay"></div>
    <div class="container">
 
       <div class="new-item-modal display-none">
@@ -72,15 +73,15 @@
             <div class="header-specs">
                <div class="specs-item">
                   <h5>name</h5>
-                  <span>chain mode</span>
+                  <span id="itemName">chain mode</span>
                </div>
                <div class="specs-item">
                   <h5>status</h5>
                   <span>Created</span>
                </div>
                <div class="specs-item">
-                  <h5>steps</h5>
-                  <span id="stepsCounter">1</span>
+                  <h5>scenarios</h5>
+                  <span id="itemCounter">0</span>
                </div>
                <div class="specs-item">
                   <h5>runs</h5>
@@ -102,8 +103,6 @@
                <span class="path path-divider">/</span>
                <a href="./modules.html" class="path path-module">demo module</a>
                <span class="path path-divider">/</span>
-               <!-- <span class="path path-scenario">chain mode</span> -->
-               <!-- <span class="path path-scenario">/</span> -->
             </div>
    
             <div class="btns-col-3">

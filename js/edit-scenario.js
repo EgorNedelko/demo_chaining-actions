@@ -1,6 +1,4 @@
-// const stepsBtns = document.querySelectorAll(".step-btns-menu > .btn")
 const addStepBtns = document.querySelectorAll(".btn[name='Add']")
-const stepsCounter = document.getElementById("stepsCounter")
 const chainModeBtn = document.querySelector('.btn-chain-mode')
 const stepTypesTextContent = {
    "Select Type" : "Select Type first",
@@ -198,9 +196,7 @@ document.addEventListener('click', (e) => {
       }
 
       //refresh core
-      stepsCounter.textContent = document.querySelector('.steps').children.length
-      assignOrderNumber()
-      checkRelations()
+      refreshCore()
    }
 })
 
@@ -265,9 +261,7 @@ document.addEventListener('click', (e) => {
       }
 
       //refresh core
-      stepsCounter.textContent = document.querySelector('.steps').children.length
-      assignOrderNumber()
-      checkRelations()
+      refreshCore()
    }
 })
 
@@ -284,13 +278,13 @@ document.addEventListener('click', (e) => {
 
       hideDropdowns()
       addStep(targetPosition)
-      stepsCounter.textContent = document.querySelector('.steps').children.length
 
       steps = [...document.querySelectorAll('.step')]
       const elemToOpen = steps[targetPosition+1]
       openStepOptions(elemToOpen)
 
-      assignOrderNumber()
+      //Refresh core
+      refreshCore()
    }
 })
 
@@ -308,9 +302,7 @@ document.addEventListener('click', (e) => {
 document.addEventListener('click', (e) => {
    if(e.target.classList.contains('trashbin-icon')) {
       e.target.parentNode.remove()
-      stepsCounter.textContent = document.querySelector('.steps').children.length
-      checkRelations()
-      assignOrderNumber()
+      refreshCore()
    }
 })
 
@@ -323,19 +315,15 @@ document.querySelector("input[value='Add Common Step'").addEventListener('click'
    const elemToOpen = steps[steps.length-1]
    openStepOptions(elemToOpen)
 
-
-   stepsCounter.textContent = document.querySelector('.steps').children.length
-   assignOrderNumber()
-   checkRelations()
+   //Refresh core
+   refreshCore()
 })
 
 //click ADD SELECT TYPE BUTTON to add select type steps
 document.querySelector("input[value='Add Step']").addEventListener('click', () => {
    hideDropdowns()
    addStep()
-   assignOrderNumber()
-   stepsCounter.textContent = document.querySelector('.steps').children.length
-   checkRelations()
+   refreshCore()
 })
 
 
@@ -453,6 +441,12 @@ function handleChainMode() {
    chainModeBtn.classList.toggle('btn-grey')
 }
 
+function refreshCore() {
+   checkRelations()
+   assignOrderNumber()
+   document.getElementById('itemCounter').textContent = document.querySelector('.steps').children.length
+}
+
 //STORAGE FUNCTIONS
 function saveSteps() {
    let userProjects = JSON.parse(localStorage.getItem('userProjects'))
@@ -500,12 +494,7 @@ function loadSteps() {
    const targetProject = localStorage.getItem('targetProject')
    const targetModule = localStorage.getItem('targetModule')
    const targetScenario = localStorage.getItem('targetScenario')
-   
-   //Update path
-   document.querySelector('.path-project').textContent = targetProject
-   document.querySelector('.path-module').textContent = targetModule
-   document.querySelector('.path-scenario').textContent = targetScenario
-   
+
    //Locate project
    for (let i = 0; i < userProjects.length; i++) {
       if (userProjects[i].name == targetProject) {
@@ -549,9 +538,7 @@ function loadSteps() {
                            }
 
                            //Refresh core
-                           checkRelations()
-                           assignOrderNumber()
-                           stepsCounter.textContent = document.querySelector('.steps').children.length
+                           refreshCore()
                         }   
                      }
                   }
@@ -560,6 +547,12 @@ function loadSteps() {
          }
       }
    }
+
+   //Update path and name (counter is updated a bit later)
+   document.querySelector('.path-project').textContent = targetProject
+   document.querySelector('.path-module').textContent = targetModule
+   document.querySelector('.path-scenario').textContent = targetScenario
+   document.getElementById('itemName').textContent = targetScenario
 }
 
 //Click on the CLEAR ALL BUTTON to clear out CURRENT SCENARIO
@@ -601,6 +594,7 @@ document.querySelector("input[value='Clear All']").addEventListener('click', () 
    //Clean all current steps and add the default 'Go to URL'
    document.querySelectorAll('.step').forEach(step => document.querySelector('.steps').removeChild(step))
    addStep()
+   refreshItemCounter()
    document.querySelector('.steps').children[0].children[2].children[0].children[0].textContent = "Go to URL"
    document.querySelector('.steps').children[0].children[2].children[0].children[0].classList.remove('no-type')
    document.querySelector('.steps').children[0].children[2].children[0].children[0].classList.add('btn-white')

@@ -1,4 +1,4 @@
-const overlay = document.querySelector('.overlay')
+const overlay = document.getElementById('overlay')
 const newItemModal = document.querySelector('.new-item-modal')
 // const deletionModal = document.querySelector('.deletion-modal')
 let itemToDelete;
@@ -64,13 +64,15 @@ function addProject(name) {
 }
 
 function openProjectModal() {
-   overlay.classList.remove('display-none')
+   // overlay.classList.remove('display-none')
+   overlay.classList.add('active')
    newItemModal.classList.remove('display-none')
    newItemModal.querySelector('.new-item-name').focus()
 }
 
 function closeProjectModal() {
-   overlay.classList.add('display-none')
+   // overlay.classList.add('display-none')
+   overlay.classList.remove('active')
    newItemModal.classList.add('display-none')
 }
 
@@ -138,7 +140,6 @@ document.addEventListener('click', (e) => {
 
 //click on the SAVE BUTTON in the project modal to create a new project
 document.addEventListener('click', (e) => {
-   console.log(e.target)
    if (e.target.value == "Save") {
       const newProjectNameInput = document.querySelector('.new-item-name')
       if (newProjectNameInput.value) {

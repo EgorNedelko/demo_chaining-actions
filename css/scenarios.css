@@ -9,6 +9,10 @@
    column-gap: 5px;
 }
 
+.btns-col-3 input {
+   margin-left: 5px;
+}
+
 .divider-scenario-name {
    margin-right: 150px;
 }
