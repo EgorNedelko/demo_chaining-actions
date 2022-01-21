@@ -682,6 +682,7 @@ function buildPathDropdowns(destinationClass, names, length) {
    for (let i = 0; i < length; i++) {
       const pathDropdownItem = document.createElement('a')
       pathDropdownItem.classList.add('path-dropdown-item')
+      pathDropdownItem.setAttribute('href', `./${destinationClass.substring(6)}s.html`)
       pathDropdownItem.textContent = names[i]
       pathDropdown.appendChild(pathDropdownItem)
    }
@@ -708,5 +709,14 @@ document.addEventListener('click', (e) => {
             changeCurrentLocation('scenarios')
             break;
       }
+   }
+})
+
+// Click on the PATH DROPDOWN ITEM to go to that item's page
+document.addEventListener('click', (e) => {
+   let target = e.target
+   if (target.classList.contains('path-dropdown-item')) {
+      let destination = `${target.parentNode.parentNode.className.substring(5)}s`
+      changeCurrentLocation(destination)
    }
 })

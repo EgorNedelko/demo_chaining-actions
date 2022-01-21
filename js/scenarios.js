@@ -448,6 +448,7 @@ function buildPathDropdowns(destinationClass, names, length) {
    for (let i = 0; i < length; i++) {
       const pathDropdownItem = document.createElement('a')
       pathDropdownItem.classList.add('path-dropdown-item')
+      pathDropdownItem.setAttribute('href', `./${destinationClass.substring(6)}s.html`)
       pathDropdownItem.textContent = names[i]
       pathDropdown.appendChild(pathDropdownItem)
    }
@@ -459,3 +460,29 @@ function changeCurrentLocation(newValue) {
    localStorage.removeItem('currentLocation')
    localStorage.setItem('currentLocation', newValue)
 }
+
+//Click on the QUICK NAV ITEMS to change current location
+document.addEventListener('click', (e) => {
+   if (e.target.classList.contains('path-item-link') || e.target.classList.contains('path-item')) {
+      switch (e.target.classList[1]) {
+         case "pr-link":
+            changeCurrentLocation('projects')
+            break;
+         case "mod-link":
+            changeCurrentLocation('modules')
+            break;
+         case "scen-link":
+            changeCurrentLocation('scenarios')
+            break;
+      }
+   }
+})
+
+// Click on the PATH DROPDOWN ITEM to go to that item's page
+document.addEventListener('click', (e) => {
+   let target = e.target
+   if (target.classList.contains('path-dropdown-item')) {
+      let destination = `${target.parentNode.parentNode.className.substring(5)}s`
+      changeCurrentLocation(destination)
+   }
+})
