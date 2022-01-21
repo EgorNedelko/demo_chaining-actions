@@ -29,7 +29,7 @@
 
 .steps {
    min-height: 60vh;
-   /* overflow: scroll; */
+   /* min-height: 45vh; */
 }
 
 .step {
@@ -193,7 +193,6 @@
 .btn-plus {
    margin-left: 35px;
    transition: all .3s ease;
-   opacity: 1;
 }
 
 .step-btns-menu > .btn-white {

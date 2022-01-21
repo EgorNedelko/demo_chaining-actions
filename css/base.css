@@ -20,10 +20,15 @@ h5 {
 
 body {
    max-width: 1920px;
+   /* min-width: fit-content; */
+   /* width: 1920px; */
+}
+
+::-webkit-scrollbar {
+   width: 0;
 }
 
 .container {
-   /* position: relative; */
    margin: 0 auto;
 }
 
@@ -89,10 +94,12 @@ body {
    /* min-height: 100vh; */
    box-shadow: 0 0 2rem 0 rgb(136 152 170 / 15%) !important;
    max-width: 60%;
+   /* max-width: 1920px; */
    background-color: rgb(255, 255, 255);
    margin-left: 450px;
    /* margin-left: 200px; */
    /* margin: 0 auto; */
+   border-radius: 6px;
 }
 
 header {
@@ -256,7 +263,7 @@ header {
 
 /* STATES */
 .visible {
-   display: block;
+   display: block !important;
 }
 
 .display-none {
@@ -369,7 +376,7 @@ header {
    display: flex;
    align-items: center;
    justify-content: space-between;
-   border-top: 1px solid #e9ecef;
+   /* border-top: 1px solid #e9ecef; */
    border-bottom-left-radius: 6px;
    border-bottom-right-radius: 6px;
 }

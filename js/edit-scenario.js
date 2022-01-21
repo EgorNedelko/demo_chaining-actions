@@ -294,7 +294,7 @@ document.addEventListener('click', (e) => {
       document.querySelectorAll('.dropdown').forEach(el => {
          if (el != e.target.parentNode.children[1]) el.classList.remove('visible')
       })
-      e.target.parentNode.children[1].classList.toggle('visible')
+      e.target.parentNode.querySelector('.dropdown').classList.toggle('visible')
    }
 })
 
@@ -343,15 +343,13 @@ function handleClickBtnInput(selectedType, stepInput) {
 
 function openStepOptions(elemToOpen) {
    const order = elemToOpen.children[0]
-   const plusBtn = elemToOpen.children[1]
+   const plusBtn = elemToOpen.querySelector('.btn-plus')
    const commonBtns = elemToOpen.children[4]
-   // const trashBin = stepToOpen.children[3]
 
    elemToOpen.classList.add('options-opened')
    commonBtns.classList.remove('invisible')
    order.classList.add('invisible')
    plusBtn.classList.add('invisible')
-   // trashBin.classList.add('invisible')
 }
 
 function closeStepOptions(elemToClose) {
@@ -594,7 +592,7 @@ document.querySelector("input[value='Clear All']").addEventListener('click', () 
    //Clean all current steps and add the default 'Go to URL'
    document.querySelectorAll('.step').forEach(step => document.querySelector('.steps').removeChild(step))
    addStep()
-   refreshItemCounter()
+   document.getElementById('itemCounter').textContent = 1
    document.querySelector('.steps').children[0].children[2].children[0].children[0].textContent = "Go to URL"
    document.querySelector('.steps').children[0].children[2].children[0].children[0].classList.remove('no-type')
    document.querySelector('.steps').children[0].children[2].children[0].children[0].classList.add('btn-white')

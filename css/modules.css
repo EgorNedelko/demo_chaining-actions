@@ -23,7 +23,7 @@
 
 .modules {
    min-height: 60vh;
-   /* overflow: scroll; */
+   /* min-height: 45vh; */
 }
 
 .module {
