@@ -347,7 +347,7 @@ document.addEventListener('click', (e) => {
    if (e.target.classList.contains('scenario-name')) {
       let userProjects = JSON.parse(localStorage.getItem('userProjects')) 
       let projectInd = localStorage.getItem('projectInd')
-      let moduleInd = localStorage.getElementById('moduleInd')
+      let moduleInd = localStorage.getItem('moduleInd')
       let scenarioInd = 0
 
       localStorage.removeItem('targetScenario')

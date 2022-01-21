@@ -373,6 +373,12 @@ function hideDropdowns() {
    document.querySelectorAll('.dropdown').forEach(el => {
       el.classList.remove('visible')
    })
+   // document.querySelectorAll('.path-dropdown').forEach(el => {
+   //    el.classList.remove('visible')
+   // })
+   // document.querySelectorAll('.actions-dropdown').forEach(el => {
+   //    el.classList.remove('visible')
+   // })
 }
 
 function checkRelations() {
@@ -605,63 +611,72 @@ window.addEventListener("beforeunload", saveSteps)
 //AUTO-LOADING 
 document.addEventListener('DOMContentLoaded', () => {
    loadSteps()
-   // updatePath()
+   updatePath()
 })
 
 //Click on the project, module or scenario name for their respective dropdown to appear (if there's one)
-// document.addEventListener('click', (e) => {
-//    if (e.target.classList.contains('path-project-name') ||
-//       e.target.classList.contains('path-module-name') ||
-//       e.target.classList.contains('path-scenario-name')) {
-//          document.querySelectorAll('.dropdown').forEach(el => {
-//             if (el != e.target.parentNode.children[1]) el.classList.remove('visible')
-//          })
-//          e.target.parentNode.querySelector('.path-dropdown').classList.toggle('visible')
-//       }
-// })
+document.addEventListener('click', (e) => {
+   if (e.target.classList.contains('path-project-name') ||
+      e.target.classList.contains('path-module-name') ||
+      e.target.classList.contains('path-scenario-name')) {
+         hideDropdowns()
+         document.querySelectorAll('.path-dropdown').forEach(el => {
+            if (el != e.target.parentNode.children[1]) el.classList.remove('visible')
+         })
+         document.querySelectorAll('.dropdown').forEach(el => {
+            if (el != e.target.parentNode.children[1]) el.classList.remove('visible')
+         })
+         if (e.target.parentNode.querySelector('.path-dropdown')) {
+            e.target.parentNode.querySelector('.path-dropdown').classList.toggle('visible')
+         }
+      }
+})
 
 
 
-// function updatePath() {
-//    let currentName, destinationClass, names, length;
-//    let userProjects = JSON.parse(localStorage.getItem('userProjects'))
-//    const targetProject = localStorage.getItem('targetProject')
-//    const targetModule = localStorage.getItem('targetModule')
-//    const targetScenario = localStorage.getItem('targetScenario')
+function updatePath() {
+   let currentName, destinationClass, names, length;
+   let userProjects = JSON.parse(localStorage.getItem('userProjects'))
+   const targetProject = localStorage.getItem('targetProject')
+   const targetModule = localStorage.getItem('targetModule')
+   const targetScenario = localStorage.getItem('targetScenario')
+   const projectInd = localStorage.getItem('projectInd')
+   const moduleInd = localStorage.getItem('moduleInd')
+   // const scenarioInd = localStorage.getItem('scenarioInd')
    
-   
+   //Build project dropdown
+   if (userProjects.length > 1) {
+      names = []
+      for (let i = 0; i < userProjects.length; i++) {
+         if (userProjects[i].name != targetProject) {
+            names.push(userProjects[i].name)
+         }
+      }
+      buildDropdown(targetProject, '.path-project', names, userProjects.length-1)
+   }
 
-//    //Locate project
-//    for (let i = 0; i < userProjects.length; i++) {
-//       if (userProjects[i].name == targetProject) {
-//          if (userProjects.length > 1) {
-//             buildDropdown()
-//          }
-         
+   //Build modules dropdown
+   if (userProjects[projectInd].modules.length > 1) {
+      names = []
+      for (let i = 0; i < userProjects[projectInd].modules.length; i++) {
+         if (userProjects[projectInd].modules[i].name != targetModule) {
+            names.push(userProjects[projectInd].modules[i].name)
+         }
+      }
+      buildDropdown(targetModule, '.path-module', names, userProjects[projectInd].modules.length-1)
+   }
 
-
-//          //Locate module
-//          if (userProjects[i].modules) {
-//             for (let j = 0; j < userProjects[i].modules.length; j++) {
-//                if (userProjects[i].modules[j].name == targetModule) {
-
-//                   //If there are more scenarios in this module, create a dropdown
-//                   if (userProjects[i].modules[j].scenarios.length > 1) {
-//                      currentName = targetScenario
-//                      destinationClass = '.path-scenario'
-//                      names = []
-//                      length = userProjects[i].modules[j].scenarios.length
-//                      for (let n = 0; n < userProjects[i].modules[j].scenarios.length; n++) {
-//                         names.push(userProjects[i].modules[j].scenarios[n].name)
-//                      }
-//                      buildDropdown(currentName, destinationClass, names, length)
-//                   }
-//                }
-//             }
-//          }
-//       }
-//    }
-// }
+   //Build scenarios dropdown
+   if (userProjects[projectInd].modules[moduleInd].scenarios.length > 1) {
+      names = []
+      for (let i = 0; i < userProjects[projectInd].modules[moduleInd].scenarios.length; i++) {
+         if (userProjects[projectInd].modules[moduleInd].scenarios[i].name != targetModule) {
+            names.push(userProjects[projectInd].modules[moduleInd].scenarios[i].name)
+         }
+      }
+      buildDropdown(targetScenario, '.path-scenario', names, userProjects[projectInd].modules[moduleInd].scenarios.length-1)
+   }
+}
 
 function buildDropdown(currentName, destinationClass, names, length) {
    const fragment = document.createDocumentFragment()
@@ -669,12 +684,10 @@ function buildDropdown(currentName, destinationClass, names, length) {
    pathDropdown.classList.add('path-dropdown')
 
    for (let i = 0; i < length; i++) {
-      if (names[i] != currentName) {
-         const pathDropdownItem = document.createElement('a')
-         pathDropdownItem.classList.add('path-dropdown-item')
-         pathDropdownItem.textContent = names[i]
-         pathDropdown.appendChild(pathDropdownItem)
-      }
+      const pathDropdownItem = document.createElement('a')
+      pathDropdownItem.classList.add('path-dropdown-item')
+      pathDropdownItem.textContent = names[i]
+      pathDropdown.appendChild(pathDropdownItem)
    }
    fragment.appendChild(pathDropdown)
    document.querySelector(destinationClass).append(fragment)
