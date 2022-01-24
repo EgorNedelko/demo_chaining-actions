@@ -145,8 +145,8 @@ header {
 
 .path-item {
    color: rgb(255,255,255);
-   font-size: 12px;
-   line-height: 18px;
+   font-size: 16px;
+   line-height: 24px;
    font-weight: 600;
    letter-spacing: 0.5px;
 
@@ -155,7 +155,7 @@ header {
    align-items: center;
    justify-content: center;
 
-   padding: 4px 8px;
+   padding: 5px 8px;
    border-radius: 6px;
 
    background-image: linear-gradient(87deg, rgb(94, 114, 228), rgb(130, 94, 228));
@@ -163,7 +163,6 @@ header {
    transition: transform 0.15s ease;
    cursor: pointer;
    user-select: none;
-
    border: none;
 }
 .path-item:hover {
@@ -180,37 +179,18 @@ header {
 }
 
 .path-item-text {
-   min-height: 26px;
+   min-height: 34px;
    min-width: 80px;
 
-   font-size: 12px;
-   line-height: 18px;
-   font-weight: 600;
+   font-size: 16px;
+   line-height: 24px;
+   /* font-weight: 600; */
    color: rgb(50, 50, 93);
-   /* font-weight: bold; */
-   padding: 3px 8px;
+   font-weight: bold;
+   padding: 4px 8px;
    border: 1px solid rgb(130, 94, 228);
    border-top-right-radius: 6px;
    border-bottom-right-radius: 6px;
-}
-
-/* .path-item a {
-   color: rgb(255,255,255);
-   font-size: 12px;
-   line-height: 18px;
-   font-weight: 600;
-   letter-spacing: 0.5px;
-   text-decoration: none;
-} */
-
-.path-project-name,
-.path-module-name,
-.path-scenario-name {
-   /* margin-right: 80px; */
-   position: relative;
-   cursor: pointer;
-   text-decoration: none;
-   user-select: none;
 }
 
 .path-line {
@@ -220,6 +200,8 @@ header {
 }
 .path-line.extended {
    width: 45px;
+}
+.path-line.colored {
    background-color: rgb(130, 94, 228);
 }
 

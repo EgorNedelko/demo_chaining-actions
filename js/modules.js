@@ -345,6 +345,7 @@ window.addEventListener('beforeunload', saveModules)
 
 //AUTO-LOADING 
 document.addEventListener('DOMContentLoaded', () => {
+   currentLocation = localStorage.getItem('currentLocation')
    loadModules()
    // updatePath()
 })
@@ -449,10 +450,10 @@ function changeCurrentLocation(newValue) {
 // })
 
 // Click on the PATH DROPDOWN ITEM to go to that item's page
-document.addEventListener('click', (e) => {
-   let target = e.target
-   if (target.classList.contains('path-dropdown-item')) {
-      let destination = `${target.parentNode.parentNode.className.substring(5)}s`
-      changeCurrentLocation(destination)
-   }
-})
+// document.addEventListener('click', (e) => {
+//    let target = e.target
+//    if (target.classList.contains('path-dropdown-item')) {
+//       let destination = `${target.parentNode.parentNode.className.substring(5)}s`
+//       changeCurrentLocation(destination)
+//    }
+// })

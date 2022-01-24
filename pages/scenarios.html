@@ -97,26 +97,20 @@
                </a>
             </div> -->
    
-            <div class="btns-col-2">
-               <div class="path-item pr-link">
-                  <a class="path-item-link pr-link" href="./projects.html">Pr</a>
+            <div class="quick-navigation">
+               <div class="path-item-container pr-container">
+                  <button class="path-item pr-link opened" type="button">Pr</button>
+                  <div class="path-item-text pr-path" class="path-item-selected"></div>
                </div>
-               <div class="path-project">
-                  <div class="path-project-name"></div>
+               <div class="path-line colored"></div>
+               <div class="path-item-container mod-container">
+                  <button class="path-item mod-link opened" type="button">Mod</button>
+                  <div class="path-item-text mod-path" class="path-item-selected"></div>
                </div>
-               <div class="path-line"></div>
-               <div class="path-item mod-link">
-                  <a class="path-item-link mod-link" href="./modules.html">Mod</a>
-               </div>
-               <div class="path-module">
-                  <div class="path-module-name"></div>
-               </div>
-               <div class="path-line"></div>
-               <div class="path-item scen-link">
-                  <a class="path-item-link scen-link" href="./scenarios.html">Scen</a>
-               </div>
-               <div class="path-scenario">
-                  <div class="path-scenario-name"></div>
+               <div class="path-line extended colored"></div>
+               <div class="path-item-container scen-container inactive">
+                  <button class="path-item scen-link" type="button">Scenarios</button>
+                  <div class="path-item-text scen-path display-none" class="path-item-selected"></div>
                </div>
             </div>
    
@@ -165,5 +159,6 @@
       </div>
    </div>
    
+   <script src="../js/quick-nav-menu.js"></script>
    <script src="../js/scenarios.js"></script>
 </body>
