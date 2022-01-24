@@ -1,4 +1,14 @@
 let currentLocation;
+const pathItemText = {
+   "Projects" : "Pr",
+   "Modules" : "Mod",
+   "Scenarios" : "Scen"
+}
+const pathItem = {
+   "Pr" : "Projects",
+   "Mod" : "Modules",
+   "Scen" : "Scenarios"
+}
 
 function updatePath() {
    let names = []
@@ -103,27 +113,66 @@ document.addEventListener('DOMContentLoaded', () => {
    updatePath()
 })
 
-//Click on the item to open the dropdown and contract the item
-const userProjects = JSON.parse(localStorage.getItem('userProjects'))
-let projectInd = localStorage.getItem('projectInd')
-let moduleInd = localStorage.getItem('moduleInd') 
-document.querySelectorAll('.path-item').forEach(item => item.addEventListener('click', (e) => {
+//Click on the PROJECTS QUICK NAV ITEM to toggle dropdown
+document.querySelector('.pr-link').addEventListener('click', (e) => {
+   const userProjects = JSON.parse(localStorage.getItem('userProjects'))
    const elem = e.target
-   const pathItemText = {
-      "Projects" : "Pr",
-      "Modules" : "Mod",
-      "Scenarios" : "Scen"
-   }
 
-   if (
-      (elem.textContent == "Projects" && userProjects.length) ||
-      (elem.textContent == "Modules" && userProjects[projectInd].modules.length) || 
-      (elem.textContent == "Scenarios" && userProjects[projectInd].modules[moduleInd].scenarios.length) 
-   ) {
-      elem.textContent = pathItemText[elem.textContent]
-      elem.classList.add('opened')
-      elem.parentNode.children[1].classList.remove('display-none')
-      elem.parentNode.children[2].classList.remove('display-none')
+   if (userProjects.length) {
+      if (!elem.classList.contains('opened')) {
+         elem.textContent = "Pr"
+         elem.classList.add('opened')
+         elem.parentNode.children[1].classList.remove('display-none')
+         elem.parentNode.children[2].classList.remove('display-none')
+      } else {
+         elem.textContent = "Projects"
+         elem.classList.remove('opened')
+         elem.parentNode.children[1].classList.add('display-none')
+         elem.parentNode.children[2].classList.add('display-none')
+      }
    }
-}))
+})
 
+
+//Click on the MODULES QUICK NAV ITEM to toggle dropdown
+document.querySelector('.mod-link').addEventListener('click', (e) => {
+   const userProjects = JSON.parse(localStorage.getItem('userProjects'))
+   let projectInd = localStorage.getItem('projectInd')
+   const elem = e.target
+
+   if (userProjects[projectInd].modules.length) {
+      if (!elem.classList.contains('opened')) {
+         elem.textContent = "Mod"
+         elem.classList.add('opened')
+         elem.parentNode.children[1].classList.remove('display-none')
+         elem.parentNode.children[2].classList.remove('display-none')
+      } else {
+         elem.textContent = "Modules"
+         elem.classList.remove('opened')
+         elem.parentNode.children[1].classList.add('display-none')
+         elem.parentNode.children[2].classList.add('display-none')
+      }
+   }
+})
+
+//Click on the SCENARIOS QUICK NAV ITEM to toggle dropdown
+document.querySelector('.scen-link').addEventListener('click', (e) => {
+   const userProjects = JSON.parse(localStorage.getItem('userProjects'))
+   let projectInd = localStorage.getItem('projectInd')
+   let moduleInd = localStorage.getItem('moduleInd') 
+   const elem = e.target
+
+   if (userProjects[projectInd].modules[moduleInd].scenarios.length) {
+      if (!elem.classList.contains('opened')) {
+         elem.textContent = "Scen"
+         elem.classList.add('opened')
+         elem.parentNode.children[1].classList.remove('display-none')
+         elem.parentNode.children[2].classList.remove('display-none')
+      } else {
+         elem.textContent = "Scenarios"
+         elem.classList.remove('opened')
+         elem.parentNode.children[1].classList.add('display-none')
+         elem.parentNode.children[2].classList.add('display-none')
+      }
+   }
+})
