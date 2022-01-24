@@ -189,6 +189,7 @@ function saveModules() {
    let userProjects = JSON.parse(localStorage.getItem('userProjects'))
    const targetProject = localStorage.getItem('targetProject')
    const modulesList = document.querySelectorAll('.module')
+   const projectInd = localStorage.getItem('projectInd')
 
    //Locate project
    for (let i = 0; i < userProjects.length; i++) {

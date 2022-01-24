@@ -104,6 +104,9 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 //Click on the item to open the dropdown and contract the item
+const userProjects = JSON.parse(localStorage.getItem('userProjects'))
+let projectInd = localStorage.getItem('projectInd')
+let moduleInd = localStorage.getItem('moduleInd') 
 document.querySelectorAll('.path-item').forEach(item => item.addEventListener('click', (e) => {
    const elem = e.target
    const pathItemText = {
@@ -112,7 +115,11 @@ document.querySelectorAll('.path-item').forEach(item => item.addEventListener('c
       "Scenarios" : "Scen"
    }
 
-   if (elem.textContent == "Projects" || elem.textContent == "Modules" || elem.textContent == "Scenarios") {
+   if (
+      (elem.textContent == "Projects" && userProjects.length) ||
+      (elem.textContent == "Modules" && userProjects[projectInd].modules.length) || 
+      (elem.textContent == "Scenarios" && userProjects[projectInd].modules[moduleInd].scenarios.length) 
+   ) {
       elem.textContent = pathItemText[elem.textContent]
       elem.classList.add('opened')
       elem.parentNode.children[1].classList.remove('display-none')
