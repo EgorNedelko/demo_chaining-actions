@@ -1,3 +1,4 @@
+let currentLocation;
 const overlay = document.getElementById('overlay')
 const newItemModal = document.querySelector('.new-item-modal')
 const itemCounter = document.getElementById('itemCounter')
@@ -14,7 +15,7 @@ function addScenario(name) {
    
    const scenarioName = document.createElement('a')
    scenarioName.classList.add('scenario-name')
-   scenarioName.setAttribute('href', "./edit-scenario.html")
+   scenarioName.setAttribute('href', "./steps.html")
    scenarioName.textContent = name
 
    const scenarioStatus = document.createElement('p')
@@ -372,6 +373,7 @@ window.addEventListener('beforeunload', saveScenarios)
 
 //AUTO-LOADING 
 document.addEventListener('DOMContentLoaded', () => {
+   currentLocation = localStorage.getItem('currentLocation')
    loadScenarios()
    updatePath()
 })

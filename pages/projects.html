@@ -91,9 +91,24 @@
          </header>
 
          <div class="btns">
-            <div class="btns-col-1">
-               <input class="btn btn-blue" type="button" value="New" name="New">
+            <div class="quick-navigation">
+               <div class="path-item-container pr-container">
+                  <button class="path-item pr-link" type="button">Projects</button>
+                  <div class="path-item-text display-none" class="path-item-selected">some text</div>
+               </div>
+               <div class="path-line"></div>
+               <div class="path-item-container mod-container">
+                  <button class="path-item mod-link inactive" type="button">Mod</button>
+                  <div class="path-item-text display-none" class="path-item-selected">some text</div>
+               </div>
+               <div class="path-line"></div>
+               <div class="path-item-container scen-container inactive">
+                  <button class="path-item scen-link inactive" type="button">Scen</button>
+                  <div class="path-item-text display-none" class="path-item-selected">some text</div>
+               </div>
             </div>
+
+            <input class="btn btn-blue" type="button" value="New" name="New">
          </div>
 
          <div class="divider">
@@ -132,5 +147,6 @@
       </div>
    </div>
    
+   <script src="../js/quick-nav-menu.js"></script>
    <script src="../js/projects.js"></script>
 </body>

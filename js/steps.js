@@ -1,3 +1,4 @@
+let currentLocation;
 const addStepBtns = document.querySelectorAll(".btn[name='Add']")
 const chainModeBtn = document.querySelector('.btn-chain-mode')
 const stepTypesTextContent = {
@@ -608,8 +609,9 @@ window.addEventListener("beforeunload", saveSteps)
 
 //AUTO-LOADING 
 document.addEventListener('DOMContentLoaded', () => {
+   currentLocation = localStorage.getItem('currentLocation')
    loadSteps()
-   updatePath()
+   // updatePath()
 })
 
 //Click on the project, module or scenario name for their respective dropdown to appear (if there's one)
@@ -629,66 +631,6 @@ document.addEventListener('click', (e) => {
          }
       }
 })
-
-function updatePath() {
-   let names = []
-   let userProjects = JSON.parse(localStorage.getItem('userProjects'))
-   const targetProject = localStorage.getItem('targetProject')
-   const targetModule = localStorage.getItem('targetModule')
-   const targetScenario = localStorage.getItem('targetScenario')
-   const projectInd = localStorage.getItem('projectInd')
-   const moduleInd = localStorage.getItem('moduleInd')
-   // const scenarioInd = localStorage.getItem('scenarioInd')
-   
-   //Build project dropdown
-   if (userProjects.length > 1) {
-      names = []
-      for (let i = 0; i < userProjects.length; i++) {
-         if (userProjects[i].name != targetProject) {
-            names.push(userProjects[i].name)
-         }
-      }
-      buildPathDropdowns('.path-project', names, userProjects.length-1)
-   }
-
-   //Build modules dropdown
-   if (userProjects[projectInd].modules.length > 1) {
-      names = []
-      for (let i = 0; i < userProjects[projectInd].modules.length; i++) {
-         if (userProjects[projectInd].modules[i].name != targetModule) {
-            names.push(userProjects[projectInd].modules[i].name)
-         }
-      }
-      buildPathDropdowns('.path-module', names, userProjects[projectInd].modules.length-1)
-   }
-
-   //Build scenarios dropdown
-   if (userProjects[projectInd].modules[moduleInd].scenarios.length > 1) {
-      names = []
-      for (let i = 0; i < userProjects[projectInd].modules[moduleInd].scenarios.length; i++) {
-         if (userProjects[projectInd].modules[moduleInd].scenarios[i].name != targetScenario) {
-            names.push(userProjects[projectInd].modules[moduleInd].scenarios[i].name)
-         }
-      }
-      buildPathDropdowns('.path-scenario', names, userProjects[projectInd].modules[moduleInd].scenarios.length-1)
-   }
-}
-
-function buildPathDropdowns(destinationClass, names, length) {
-   const fragment = document.createDocumentFragment()
-   const pathDropdown = document.createElement('div')
-   pathDropdown.classList.add('path-dropdown')
-
-   for (let i = 0; i < length; i++) {
-      const pathDropdownItem = document.createElement('a')
-      pathDropdownItem.classList.add('path-dropdown-item')
-      pathDropdownItem.setAttribute('href', `./${destinationClass.substring(6)}s.html`)
-      pathDropdownItem.textContent = names[i]
-      pathDropdown.appendChild(pathDropdownItem)
-   }
-   fragment.appendChild(pathDropdown)
-   document.querySelector(destinationClass).append(fragment)
-}
 
 function changeCurrentLocation(newValue) {
    localStorage.removeItem('currentLocation')
@@ -720,3 +662,10 @@ document.addEventListener('click', (e) => {
       changeCurrentLocation(destination)
    }
 })
+
+
+//Modify path based on current location
+// document.addEventListener("DOMContentLoaded", () => {
+//    let currentLocation = localStorage.getItem('currentLocation')
+//    console.log(currentLocation)
+// })

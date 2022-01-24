@@ -130,31 +130,75 @@ header {
 }
 
 /* PATH */
-.path-item {
-   position: relative;
+.quick-navigation {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}
+
+.path-item-container {
    display: flex;
    align-items: center;
    justify-content: center;
+   position: relative;
+}
+
+.path-item {
+   color: rgb(255,255,255);
+   font-size: 12px;
+   line-height: 18px;
+   font-weight: 600;
+   letter-spacing: 0.5px;
+
+   /* position: relative; */
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
    padding: 4px 8px;
    border-radius: 6px;
+
    background-image: linear-gradient(87deg, rgb(94, 114, 228), rgb(130, 94, 228));
-   transition: all 0.15s ease;
+   transition: box-shadow 0.15s ease;
+   transition: transform 0.15s ease;
    cursor: pointer;
    user-select: none;
+
+   border: none;
 }
 .path-item:hover {
    box-shadow: 0 7px 14px rgb(50 50 93 / 10%), 0 3px 6px rgb(0 0 0 / 8%);
    transform: translateY(-1px);
 }
+.path-item.opened {
+   border-top-right-radius: 0;
+   border-bottom-right-radius: 0;
+}
+.path-item.inactive {
+   background-image: none;
+   background-color: grey;
+}
 
-.path-item a {
+.path-item-text {
+   font-size: 12px;
+   line-height: 18px;
+   font-weight: 600;
+   color: rgb(50, 50, 93);
+   /* font-weight: bold; */
+   padding: 3px 8px;
+   border: 1px solid rgb(130, 94, 228);
+   border-top-right-radius: 6px;
+   border-bottom-right-radius: 6px;
+}
+
+/* .path-item a {
    color: rgb(255,255,255);
    font-size: 12px;
    line-height: 18px;
    font-weight: 600;
    letter-spacing: 0.5px;
    text-decoration: none;
-}
+} */
 
 .path-project-name,
 .path-module-name,
@@ -167,8 +211,12 @@ header {
 }
 
 .path-line {
-   width: 70px;
+   width: 15px;
    height: 2px;
+   background-color: grey;
+}
+.path-line.extended {
+   width: 70px;
    background-color: rgb(130, 94, 228);
 }
 
@@ -184,11 +232,11 @@ header {
 } */
 
 .path-dropdown {
-   display: none;
+   /* display: none; */
    z-index: 1;
    position: absolute;
-   margin-top: 10px;
-   /* left: -15%; */
+   top: 100%;
+   left: 25%;
    background-color: rgb(255,255,255);
    border-radius: 6px;
    outline: none;
@@ -204,6 +252,7 @@ header {
    cursor: pointer;
    user-select: none;
    outline: none;
+   text-decoration: none;
 }
 .path-dropdown-item:hover {
    background-color: #e5ebf3;

@@ -9,7 +9,8 @@
    /* margin-right: 200px; */
    display: flex;
    align-items: center;
-   column-gap: 9px;
+   /* column-gap: 9px; */
+   column-gap: 4px;
 }
 
 .btns-col-3 {
