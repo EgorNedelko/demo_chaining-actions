@@ -133,6 +133,10 @@ document.querySelector('.pr-link').addEventListener('click', (e) => {
       //Display dropdown
       elem.parentNode.children[2].classList.toggle('display-none')
    }
+
+   //Hide other QUICKNAV dropdowns
+   document.querySelector('.mod-link').parentNode.children[2].classList.add('display-none')
+   document.querySelector('.scen-link').parentNode.children[2].classList.add('display-none')
 })
 
 
@@ -141,7 +145,7 @@ document.querySelector('.mod-link').addEventListener('click', (e) => {
    const userProjects = JSON.parse(localStorage.getItem('userProjects'))
    let projectInd = localStorage.getItem('projectInd')
    const elem = e.target
-
+   
    if (userProjects[projectInd].modules.length) {
       if (elem.parentNode.children[1].textContent == "" && !elem.classList.contains('opened')) {
          elem.parentNode.children[1].classList.remove('display-none')
@@ -157,6 +161,10 @@ document.querySelector('.mod-link').addEventListener('click', (e) => {
       //Display dropdown
       elem.parentNode.children[2].classList.toggle('display-none')
    }
+
+   //Hide other QUICKNAV dropdowns
+   document.querySelector('.pr-link').parentNode.children[2].classList.add('display-none')
+   document.querySelector('.scen-link').parentNode.children[2].classList.add('display-none')
 })
 
 //Click on the SCENARIOS QUICK NAV ITEM to toggle dropdown
@@ -165,7 +173,7 @@ document.querySelector('.scen-link').addEventListener('click', (e) => {
    let projectInd = localStorage.getItem('projectInd')
    let moduleInd = localStorage.getItem('moduleInd') 
    const elem = e.target
-
+   
    if (userProjects[projectInd].modules[moduleInd].scenarios.length) {
       if (elem.parentNode.children[1].textContent == "" && !elem.classList.contains('opened')) {
          elem.parentNode.children[1].classList.remove('display-none')
@@ -181,4 +189,16 @@ document.querySelector('.scen-link').addEventListener('click', (e) => {
       //Display dropdown
       elem.parentNode.children[2].classList.toggle('display-none')
    }
+
+   //Hide other QUICKNAV dropdowns
+   document.querySelector('.pr-link').parentNode.children[2].classList.add('display-none')
+   document.querySelector('.mod-link').parentNode.children[2].classList.add('display-none')
 })
+
+//Force HOVER on adjacent text field
+document.querySelectorAll('.path-item').forEach(item => item.addEventListener('mouseover', (e) => {
+   e.target.parentNode.children[1].classList.add('hover')
+}))
+document.querySelectorAll('.path-item').forEach(item => item.addEventListener('mouseout', (e) => {
+   e.target.parentNode.children[1].classList.remove('hover')
+}))

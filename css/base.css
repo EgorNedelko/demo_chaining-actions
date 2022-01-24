@@ -188,6 +188,12 @@ header {
    border: 1px solid rgb(130, 94, 228);
    border-top-right-radius: 6px;
    border-bottom-right-radius: 6px;
+   transition: box-shadow 0.15s ease;
+   transition: transform 0.15s ease;
+}
+.path-item-text.hover {
+   box-shadow: 0 7px 14px rgb(50 50 93 / 10%), 0 3px 6px rgb(0 0 0 / 8%);
+   transform: translateY(-1px);
 }
 
 .path-line {
