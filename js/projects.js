@@ -292,29 +292,36 @@ document.querySelector("input[value='Clear All']").addEventListener('click', () 
 
 //click on the project name to STORE DESTINATION 
 document.addEventListener('click', (e) => {
-   if (e.target.classList.contains('project-name')) {
-      let projectInd = 0
-
-      localStorage.removeItem('targetProject')
-      localStorage.setItem('targetProject', e.target.textContent)
-
-      if (localStorage.getItem('userProjects')) {
-         let userProjects = JSON.parse(localStorage.getItem('userProjects')) 
-         for (let i = 0; i < userProjects.length; i++) {
-            if (userProjects[i].name == e.target.textContent) {
-               projectInd = i
-            }
-         }
-      }
-
-      localStorage.removeItem('projectInd')
-      localStorage.setItem('projectInd', projectInd)
-      changeCurrentLocation('modules')
+   if (e.target.classList.contains('project-name') || e.target.classList.contains('path-dropdown-item')) {
+      storeDestination(e.target.textContent)
    }
 })
 
+function storeDestination(target) {
+   let projectInd = 0
+
+   localStorage.removeItem('targetProject')
+   localStorage.setItem('targetProject', target)
+
+   if (localStorage.getItem('userProjects')) {
+      let userProjects = JSON.parse(localStorage.getItem('userProjects')) 
+      for (let i = 0; i < userProjects.length; i++) {
+         if (userProjects[i].name == target) {
+            projectInd = i
+         }
+      }
+   }
+
+   localStorage.removeItem('projectInd')
+   localStorage.setItem('projectInd', projectInd)
+   changeCurrentLocation('modules')
+}
+
 //AUTO-SAVING
 window.addEventListener('beforeunload', saveProjects)
+document.querySelector('.sidebar-pr-link').addEventListener('click', () => {
+   changeCurrentLocation('projects')
+})
 
 //LOADING 
 document.addEventListener('DOMContentLoaded', loadProjects)

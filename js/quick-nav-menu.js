@@ -1,3 +1,5 @@
+let currentLocation;
+
 function updatePath() {
    let names = []
    let userProjects = JSON.parse(localStorage.getItem('userProjects'))
@@ -6,33 +8,63 @@ function updatePath() {
    const targetScenario = localStorage.getItem('targetScenario')
    const projectInd = localStorage.getItem('projectInd')
    const moduleInd = localStorage.getItem('moduleInd')
-   // const scenarioInd = localStorage.getItem('scenarioInd')
-   
-   //Build project dropdown
-   if (userProjects.length > 1) {
+   const scenarioInd = localStorage.getItem('scenarioInd')
+
+   //Build projects regardless (for projects, modules, scenarios and steps)
+   if (userProjects) {
       names = []
       for (let i = 0; i < userProjects.length; i++) {
          names.push(userProjects[i].name)
       }
-      buildPathDropdowns('.pr-container', names, userProjects.length)
+      buildPathDropdowns('.projects-container', names, userProjects.length)
    }
 
-   // Build modules dropdown
-   if (userProjects[projectInd].modules.length > 1) {
+   //For modules
+   if (currentLocation == 'modules') {
+      //build modules
+      if (userProjects[projectInd].modules) {
+         names = []
+         for (let i = 0; i < userProjects[projectInd].modules.length; i++) {
+            names.push(userProjects[projectInd].modules[i].name)
+         }
+         buildPathDropdowns('.modules-container', names, userProjects[projectInd].modules.length)
+      }
+   }
+
+   //For scenarios
+   if (currentLocation == 'scenarios') {
+      //build modules
       names = []
       for (let i = 0; i < userProjects[projectInd].modules.length; i++) {
          names.push(userProjects[projectInd].modules[i].name)
       }
-      buildPathDropdowns('.mod-container', names, userProjects[projectInd].modules.length)
+      buildPathDropdowns('.modules-container', names, userProjects[projectInd].modules.length)
+
+      //build scenarios
+      if (userProjects[projectInd].modules[moduleInd].scenarios) {
+         names = []
+         for (let i = 0; i < userProjects[projectInd].modules[moduleInd].scenarios.length; i++) {
+            names.push(userProjects[projectInd].modules[moduleInd].scenarios[i].name)
+         }
+         buildPathDropdowns('.scenarios-container', names, userProjects[projectInd].modules[moduleInd].scenarios.length)
+      }
    }
 
-   //Build scenarios dropdown
-   if (userProjects[projectInd].modules[moduleInd].scenarios.length > 1) {
+   //For steps
+   if (currentLocation == 'steps') {
+       //build modules
+       names = []
+       for (let i = 0; i < userProjects[projectInd].modules.length; i++) {
+          names.push(userProjects[projectInd].modules[i].name)
+       }
+       buildPathDropdowns('.modules-container', names, userProjects[projectInd].modules.length)
+ 
+       //build scenarios
       names = []
       for (let i = 0; i < userProjects[projectInd].modules[moduleInd].scenarios.length; i++) {
          names.push(userProjects[projectInd].modules[moduleInd].scenarios[i].name)
       }
-      buildPathDropdowns('.scen-container', names, userProjects[projectInd].modules[moduleInd].scenarios.length)
+      buildPathDropdowns('.scenarios-container', names, userProjects[projectInd].modules[moduleInd].scenarios.length)
    }
 }
 
@@ -44,7 +76,20 @@ function buildPathDropdowns(destinationClass, names, length) {
    for (let i = 0; i < length; i++) {
       const pathDropdownItem = document.createElement('a')
       pathDropdownItem.classList.add('path-dropdown-item')
-      pathDropdownItem.setAttribute('href', `./${destinationClass.substring(6)}s.html`)
+      const currentLoc = destinationClass.split('-')[0].substring(1)
+      let newLoc
+      switch (currentLoc) {
+         case "projects":
+            newLoc = "modules"
+            break;
+         case "modules":
+            newLoc = "scenarios"
+            break;
+         case "scenarios":
+            newLoc = "steps"
+            break;
+      }
+      pathDropdownItem.setAttribute('href', `./${newLoc}.html`)
       pathDropdownItem.textContent = names[i]
       pathDropdown.appendChild(pathDropdownItem)
    }
@@ -54,6 +99,7 @@ function buildPathDropdowns(destinationClass, names, length) {
 
 //AUTO-LOADING
 document.addEventListener('DOMContentLoaded', () => {
+   currentLocation = localStorage.getItem('currentLocation')
    updatePath()
 })
 
@@ -73,3 +119,4 @@ document.querySelectorAll('.path-item').forEach(item => item.addEventListener('c
       elem.parentNode.children[2].classList.remove('display-none')
    }
 }))
+

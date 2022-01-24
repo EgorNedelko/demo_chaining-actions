@@ -318,142 +318,45 @@ document.querySelector("input[value='Clear All']").addEventListener('click', () 
 
 //click on the module name to STORE DESTINATION 
 document.addEventListener('click', (e) => {
-   if (e.target.classList.contains('module-name')) {
-      let userProjects = JSON.parse(localStorage.getItem('userProjects')) 
-      let projectInd = localStorage.getItem('projectInd')
-      let moduleInd = 0
-
-      localStorage.removeItem('targetModule')
-      localStorage.setItem('targetModule', e.target.textContent)
-
-      if (userProjects[projectInd].modules) {
-         for (let i = 0; i < userProjects[projectInd].modules.length; i++) {
-            if (userProjects[projectInd].modules[i].name == e.target.textContent) {
-               moduleInd = i
-            }
-         }
-      }
-
-      localStorage.removeItem('moduleInd')
-      localStorage.setItem('moduleInd', moduleInd)
-      changeCurrentLocation('scenarios')
+   if (e.target.classList.contains('module-name') || e.target.classList.contains('path-dropdown-item')) {
+      storeDestination(e.target.textContent)
    }
 })
 
+function storeDestination(target) {
+   let userProjects = JSON.parse(localStorage.getItem('userProjects')) 
+   let projectInd = localStorage.getItem('projectInd')
+   let moduleInd = 0
+
+   localStorage.removeItem('targetModule')
+   localStorage.setItem('targetModule', target)
+
+   if (userProjects[projectInd].modules) {
+      for (let i = 0; i < userProjects[projectInd].modules.length; i++) {
+         if (userProjects[projectInd].modules[i].name == target) {
+            moduleInd = i
+         }
+      }
+   }
+
+   localStorage.removeItem('moduleInd')
+   localStorage.setItem('moduleInd', moduleInd)
+   changeCurrentLocation('scenarios')
+}
+
 //AUTO-SAVING
 window.addEventListener('beforeunload', saveModules)
+document.querySelector('.sidebar-pr-link').addEventListener('click', () => {
+   changeCurrentLocation('projects')
+})
 
 //AUTO-LOADING 
 document.addEventListener('DOMContentLoaded', () => {
    currentLocation = localStorage.getItem('currentLocation')
    loadModules()
-   // updatePath()
 })
-
-//Click on the project, module or scenario name for their respective dropdown to appear (if there's one)
-// document.addEventListener('click', (e) => {
-//    if (e.target.classList.contains('path-project-name') ||
-//       e.target.classList.contains('path-module-name') ||
-//       e.target.classList.contains('path-scenario-name')) {
-//          document.querySelectorAll('.path-dropdown').forEach(el => {
-//             if (el != e.target.parentNode.children[1]) el.classList.remove('visible')
-//          })
-//          document.querySelectorAll('.dropdown').forEach(el => {
-//             if (el != e.target.parentNode.children[1]) el.classList.remove('visible')
-//          })
-//          if (e.target.parentNode.querySelector('.path-dropdown')) {
-//             e.target.parentNode.querySelector('.path-dropdown').classList.toggle('visible')
-//          }
-//       }
-// })
-
-// function updatePath() {
-//    let names = []
-//    let userProjects = JSON.parse(localStorage.getItem('userProjects'))
-//    const targetProject = localStorage.getItem('targetProject')
-//    const targetModule = localStorage.getItem('targetModule')
-//    const targetScenario = localStorage.getItem('targetScenario')
-//    const projectInd = localStorage.getItem('projectInd')
-//    const moduleInd = localStorage.getItem('moduleInd')
-//    // const scenarioInd = localStorage.getItem('scenarioInd')
-   
-//    //Build project dropdown
-//    if (userProjects.length > 1) {
-//       names = []
-//       for (let i = 0; i < userProjects.length; i++) {
-//          if (userProjects[i].name != targetProject) {
-//             names.push(userProjects[i].name)
-//          }
-//       }
-//       buildPathDropdowns('.path-project', names, userProjects.length-1)
-//    }
-
-//    //Build modules dropdown
-//    if (userProjects[projectInd].modules.length > 1) {
-//       names = []
-//       for (let i = 0; i < userProjects[projectInd].modules.length; i++) {
-//          if (userProjects[projectInd].modules[i].name != targetModule) {
-//             names.push(userProjects[projectInd].modules[i].name)
-//          }
-//       }
-//       buildPathDropdowns('.path-module', names, userProjects[projectInd].modules.length-1)
-//    }
-
-//    //Build scenarios dropdown
-//    if (userProjects[projectInd].modules[moduleInd].scenarios.length > 1) {
-//       names = []
-//       for (let i = 0; i < userProjects[projectInd].modules[moduleInd].scenarios.length; i++) {
-//          if (userProjects[projectInd].modules[moduleInd].scenarios[i].name != targetScenario) {
-//             names.push(userProjects[projectInd].modules[moduleInd].scenarios[i].name)
-//          }
-//       }
-//       buildPathDropdowns('.path-scenario', names, userProjects[projectInd].modules[moduleInd].scenarios.length-1)
-//    }
-// }
-
-// function buildPathDropdowns(destinationClass, names, length) {
-//    const fragment = document.createDocumentFragment()
-//    const pathDropdown = document.createElement('div')
-//    pathDropdown.classList.add('path-dropdown')
-
-//    for (let i = 0; i < length; i++) {
-//       const pathDropdownItem = document.createElement('a')
-//       pathDropdownItem.classList.add('path-dropdown-item')
-//       pathDropdownItem.setAttribute('href', `./${destinationClass.substring(6)}s.html`)
-//       pathDropdownItem.textContent = names[i]
-//       pathDropdown.appendChild(pathDropdownItem)
-//    }
-//    fragment.appendChild(pathDropdown)
-//    document.querySelector(destinationClass).append(fragment)
-// }
 
 function changeCurrentLocation(newValue) {
    localStorage.removeItem('currentLocation')
    localStorage.setItem('currentLocation', newValue)
 }
-
-//Click on the QUICK NAV ITEMS to change current location
-// document.addEventListener('click', (e) => {
-//    if (e.target.classList.contains('path-item-link') || e.target.classList.contains('path-item')) {
-//       switch (e.target.classList[1]) {
-//          case "pr-link":
-//             changeCurrentLocation('projects')
-//             break;
-//          case "mod-link":
-//             changeCurrentLocation('modules')
-//             break;
-//          case "scen-link":
-//             changeCurrentLocation('scenarios')
-//             break;
-//       }
-//    }
-// })
-
-// Click on the PATH DROPDOWN ITEM to go to that item's page
-// document.addEventListener('click', (e) => {
-//    let target = e.target
-//    if (target.classList.contains('path-dropdown-item')) {
-//       let destination = `${target.parentNode.parentNode.className.substring(5)}s`
-//       changeCurrentLocation(destination)
-//    }
-// })

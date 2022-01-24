@@ -1,4 +1,3 @@
-let currentLocation;
 const addStepBtns = document.querySelectorAll(".btn[name='Add']")
 const chainModeBtn = document.querySelector('.btn-chain-mode')
 const stepTypesTextContent = {
@@ -605,60 +604,18 @@ document.querySelector("input[value='Clear All']").addEventListener('click', () 
 })
 
 //AUTO-SAVING
-window.addEventListener("beforeunload", saveSteps)
+window.addEventListener('beforeunload', saveSteps)
+document.querySelector('.sidebar-pr-link').addEventListener('click', () => {
+   changeCurrentLocation('projects')
+})
 
 //AUTO-LOADING 
 document.addEventListener('DOMContentLoaded', () => {
    currentLocation = localStorage.getItem('currentLocation')
    loadSteps()
-   // updatePath()
 })
-
-//Click on the project, module or scenario name for their respective dropdown to appear (if there's one)
-// document.addEventListener('click', (e) => {
-//    if (e.target.classList.contains('path-project-name') ||
-//       e.target.classList.contains('path-module-name') ||
-//       e.target.classList.contains('path-scenario-name')) {
-//          // hideDropdowns()
-//          document.querySelectorAll('.path-dropdown').forEach(el => {
-//             if (el != e.target.parentNode.children[1]) el.classList.remove('visible')
-//          })
-//          document.querySelectorAll('.dropdown').forEach(el => {
-//             if (el != e.target.parentNode.children[1]) el.classList.remove('visible')
-//          })
-//          if (e.target.parentNode.querySelector('.path-dropdown')) {
-//             e.target.parentNode.querySelector('.path-dropdown').classList.toggle('visible')
-//          }
-//       }
-// })
 
 function changeCurrentLocation(newValue) {
    localStorage.removeItem('currentLocation')
    localStorage.setItem('currentLocation', newValue)
 }
-
-//Click on the QUICK NAV ITEMS to change current location
-// document.addEventListener('click', (e) => {
-//    if (e.target.classList.contains('path-item-link') || e.target.classList.contains('path-item')) {
-//       switch (e.target.classList[1]) {
-//          case "pr-link":
-//             changeCurrentLocation('projects')
-//             break;
-//          case "mod-link":
-//             changeCurrentLocation('modules')
-//             break;
-//          case "scen-link":
-//             changeCurrentLocation('scenarios')
-//             break;
-//       }
-//    }
-// })
-
-// // Click on the PATH DROPDOWN ITEM to go to that item's page
-// document.addEventListener('click', (e) => {
-//    let target = e.target
-//    if (target.classList.contains('path-dropdown-item')) {
-//       let destination = `${target.parentNode.parentNode.className.substring(5)}s`
-//       changeCurrentLocation(destination)
-//    }
-// })
