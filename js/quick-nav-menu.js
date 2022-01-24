@@ -12,34 +12,28 @@ function updatePath() {
    if (userProjects.length > 1) {
       names = []
       for (let i = 0; i < userProjects.length; i++) {
-         if (userProjects[i].name != targetProject) {
-            names.push(userProjects[i].name)
-         }
+         names.push(userProjects[i].name)
       }
-      buildPathDropdowns('.pr-container', names, userProjects.length-1)
+      buildPathDropdowns('.pr-container', names, userProjects.length)
    }
 
-   //Build modules dropdown
-   // if (userProjects[projectInd].modules.length > 1) {
-   //    names = []
-   //    for (let i = 0; i < userProjects[projectInd].modules.length; i++) {
-   //       if (userProjects[projectInd].modules[i].name != targetModule) {
-   //          names.push(userProjects[projectInd].modules[i].name)
-   //       }
-   //    }
-   //    buildPathDropdowns('.path-module', names, userProjects[projectInd].modules.length-1)
-   // }
+   // Build modules dropdown
+   if (userProjects[projectInd].modules.length > 1) {
+      names = []
+      for (let i = 0; i < userProjects[projectInd].modules.length; i++) {
+         names.push(userProjects[projectInd].modules[i].name)
+      }
+      buildPathDropdowns('.mod-container', names, userProjects[projectInd].modules.length)
+   }
 
    //Build scenarios dropdown
-   // if (userProjects[projectInd].modules[moduleInd].scenarios.length > 1) {
-   //    names = []
-   //    for (let i = 0; i < userProjects[projectInd].modules[moduleInd].scenarios.length; i++) {
-   //       if (userProjects[projectInd].modules[moduleInd].scenarios[i].name != targetScenario) {
-   //          names.push(userProjects[projectInd].modules[moduleInd].scenarios[i].name)
-   //       }
-   //    }
-   //    buildPathDropdowns('.path-scenario', names, userProjects[projectInd].modules[moduleInd].scenarios.length-1)
-   // }
+   if (userProjects[projectInd].modules[moduleInd].scenarios.length > 1) {
+      names = []
+      for (let i = 0; i < userProjects[projectInd].modules[moduleInd].scenarios.length; i++) {
+         names.push(userProjects[projectInd].modules[moduleInd].scenarios[i].name)
+      }
+      buildPathDropdowns('.scen-container', names, userProjects[projectInd].modules[moduleInd].scenarios.length)
+   }
 }
 
 function buildPathDropdowns(destinationClass, names, length) {
@@ -64,13 +58,13 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 //Click on the item to open the dropdown and contract the item
-document.querySelector('.path-item').addEventListener('click', (e) => {
+document.querySelectorAll('.path-item').forEach(item => item.addEventListener('click', (e) => {
+   const elem = e.target
    const pathItemText = {
       "Projects" : "Pr",
       "Modules" : "Mod",
       "Scenarios" : "Scen"
    }
-   const elem = e.target
 
    if (elem.textContent == "Projects" || elem.textContent == "Modules" || elem.textContent == "Scenarios") {
       elem.textContent = pathItemText[elem.textContent]
@@ -78,4 +72,4 @@ document.querySelector('.path-item').addEventListener('click', (e) => {
       elem.parentNode.children[1].classList.remove('display-none')
       elem.parentNode.children[2].classList.remove('display-none')
    }
-})
+}))

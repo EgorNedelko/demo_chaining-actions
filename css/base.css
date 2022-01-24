@@ -180,6 +180,9 @@ header {
 }
 
 .path-item-text {
+   min-height: 26px;
+   min-width: 80px;
+
    font-size: 12px;
    line-height: 18px;
    font-weight: 600;
@@ -216,7 +219,7 @@ header {
    background-color: grey;
 }
 .path-line.extended {
-   width: 70px;
+   width: 45px;
    background-color: rgb(130, 94, 228);
 }
 
