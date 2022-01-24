@@ -117,19 +117,21 @@ document.addEventListener('DOMContentLoaded', () => {
 document.querySelector('.pr-link').addEventListener('click', (e) => {
    const userProjects = JSON.parse(localStorage.getItem('userProjects'))
    const elem = e.target
-
+   
    if (userProjects.length) {
-      if (!elem.classList.contains('opened')) {
-         elem.textContent = "Pr"
-         elem.classList.add('opened')
+      if (elem.parentNode.children[1].textContent == "" && !elem.classList.contains('opened')) {
          elem.parentNode.children[1].classList.remove('display-none')
-         elem.parentNode.children[2].classList.remove('display-none')
-      } else {
-         elem.textContent = "Projects"
-         elem.classList.remove('opened')
-         elem.parentNode.children[1].classList.add('display-none')
-         elem.parentNode.children[2].classList.add('display-none')
+         elem.classList.add('opened')
+         elem.textContent = "Pr"
       }
+      else if (elem.parentNode.children[1].textContent == "" && elem.classList.contains('opened')) {
+         elem.parentNode.children[1].classList.add('display-none')
+         elem.classList.remove('opened')
+         elem.textContent = "Projects"
+      }
+
+      //Display dropdown
+      elem.parentNode.children[2].classList.toggle('display-none')
    }
 })
 
@@ -141,17 +143,19 @@ document.querySelector('.mod-link').addEventListener('click', (e) => {
    const elem = e.target
 
    if (userProjects[projectInd].modules.length) {
-      if (!elem.classList.contains('opened')) {
-         elem.textContent = "Mod"
-         elem.classList.add('opened')
+      if (elem.parentNode.children[1].textContent == "" && !elem.classList.contains('opened')) {
          elem.parentNode.children[1].classList.remove('display-none')
-         elem.parentNode.children[2].classList.remove('display-none')
-      } else {
-         elem.textContent = "Modules"
-         elem.classList.remove('opened')
-         elem.parentNode.children[1].classList.add('display-none')
-         elem.parentNode.children[2].classList.add('display-none')
+         elem.classList.add('opened')
+         elem.textContent = "Mod"
       }
+      else if (elem.parentNode.children[1].textContent == "" && elem.classList.contains('opened')) {
+         elem.parentNode.children[1].classList.add('display-none')
+         elem.classList.remove('opened')
+         elem.textContent = "Modules"
+      }
+
+      //Display dropdown
+      elem.parentNode.children[2].classList.toggle('display-none')
    }
 })
 
@@ -163,16 +167,18 @@ document.querySelector('.scen-link').addEventListener('click', (e) => {
    const elem = e.target
 
    if (userProjects[projectInd].modules[moduleInd].scenarios.length) {
-      if (!elem.classList.contains('opened')) {
-         elem.textContent = "Scen"
-         elem.classList.add('opened')
+      if (elem.parentNode.children[1].textContent == "" && !elem.classList.contains('opened')) {
          elem.parentNode.children[1].classList.remove('display-none')
-         elem.parentNode.children[2].classList.remove('display-none')
-      } else {
-         elem.textContent = "Scenarios"
-         elem.classList.remove('opened')
-         elem.parentNode.children[1].classList.add('display-none')
-         elem.parentNode.children[2].classList.add('display-none')
+         elem.classList.add('opened')
+         elem.textContent = "Scen"
       }
+      else if (elem.parentNode.children[1].textContent == "" && elem.classList.contains('opened')) {
+         elem.parentNode.children[1].classList.add('display-none')
+         elem.classList.remove('opened')
+         elem.textContent = "Scenarios"
+      }
+
+      //Display dropdown
+      elem.parentNode.children[2].classList.toggle('display-none')
    }
 })
