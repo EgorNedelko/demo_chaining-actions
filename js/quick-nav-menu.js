@@ -145,6 +145,7 @@ document.querySelector('.pr-link').addEventListener('click', (e) => {
 
 //Click on the MODULES QUICK NAV ITEM to toggle dropdown
 document.querySelector('.mod-link').addEventListener('click', (e) => {
+   if (currentLocation == 'projects') return
    const userProjects = JSON.parse(localStorage.getItem('userProjects'))
    let projectInd = localStorage.getItem('projectInd')
    const elem = e.target
@@ -176,6 +177,7 @@ document.querySelector('.mod-link').addEventListener('click', (e) => {
 
 //Click on the SCENARIOS QUICK NAV ITEM to toggle dropdown
 document.querySelector('.scen-link').addEventListener('click', (e) => {
+   if (currentLocation == 'projects' || currentLocation == 'modules') return
    const userProjects = JSON.parse(localStorage.getItem('userProjects'))
    let projectInd = localStorage.getItem('projectInd')
    let moduleInd = localStorage.getItem('moduleInd') 
@@ -215,14 +217,17 @@ document.querySelectorAll('.path-item').forEach(item => item.addEventListener('m
 }))
 
 document.querySelector('.pr-link').addEventListener('dblclick', () => {
+   if (currentLocation == 'projects') return
    changeCurrentLocation('projects')
    window.location = "./projects.html"
 })
 document.querySelector('.mod-link').addEventListener('dblclick', () => {
+   if (currentLocation == 'projects' || currentLocation == 'modules') return
    changeCurrentLocation('modules')
    window.location = "./modules.html"
 })
 document.querySelector('.scen-link').addEventListener('dblclick', () => {
+   if (currentLocation == 'projects' || currentLocation == 'modules'|| currentLocation == 'scenarios') return
    changeCurrentLocation('scenarios')
    window.location = "./scenarios.html"
 })
