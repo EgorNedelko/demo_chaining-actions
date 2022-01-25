@@ -139,7 +139,6 @@ document.querySelector('.pr-link').addEventListener('click', (e) => {
    document.querySelector('.scen-link').parentNode.children[2].classList.add('display-none')
 })
 
-
 //Click on the MODULES QUICK NAV ITEM to toggle dropdown
 document.querySelector('.mod-link').addEventListener('click', (e) => {
    const userProjects = JSON.parse(localStorage.getItem('userProjects'))
@@ -202,3 +201,18 @@ document.querySelectorAll('.path-item').forEach(item => item.addEventListener('m
 document.querySelectorAll('.path-item').forEach(item => item.addEventListener('mouseout', (e) => {
    e.target.parentNode.children[1].classList.remove('hover')
 }))
+
+document.querySelector('.pr-link').addEventListener('dblclick', () => {
+   // storeDestination('projects')
+   window.location = "./projects.html"
+})
+document.querySelector('.mod-link').addEventListener('dblclick', () => {
+   // storeDestination('modules')
+   window.location = "./modules.html"
+})
+document.querySelector('.scen-link').addEventListener('dblclick', () => {
+   // storeDestination('scenarios')
+   window.location = "./scenarios.html"
+})
+
+

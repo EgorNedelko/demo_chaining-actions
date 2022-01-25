@@ -342,34 +342,64 @@ document.querySelector("input[value='Clear All']").addEventListener('click', () 
    refreshItemCounter()
 })
 
-//click on the module name to STORE DESTINATION 
+//click on the scenario name to STORE DESTINATION 
 document.addEventListener('click', (e) => {
-   if (e.target.classList.contains('scenario-name')) {
-      let userProjects = JSON.parse(localStorage.getItem('userProjects')) 
-      let projectInd = localStorage.getItem('projectInd')
-      let moduleInd = localStorage.getItem('moduleInd')
-      let scenarioInd = 0
-
-      localStorage.removeItem('targetScenario')
-      localStorage.setItem('targetScenario', e.target.textContent)
-
-      if (userProjects[projectInd].modules[moduleInd].scenarios) {
-         for (let i = 0; i < userProjects[projectInd].modules[moduleInd].scenarios.length; i++) {
-            if (userProjects[projectInd].modules[moduleInd].scenarios[i].name == e.target.textContent) {
-               scenarioInd = i
-            }
-         }
-      }
-
-      localStorage.removeItem('scenarioInd')
-      localStorage.setItem('scenarioInd', scenarioInd)
-      changeCurrentLocation('steps')
+   if (e.target.classList.contains('scenario-name') || e.target.classList.contains('path-dropdown-item')) {
+      storeDestination(e.target)
    }
 })
 
+function storeDestination(targetElem) {
+   let userProjects = JSON.parse(localStorage.getItem('userProjects')) 
+   let projectInd = localStorage.getItem('projectInd')
+   let moduleInd = localStorage.getItem('moduleInd')
+   let scenarioInd = 0
+
+   //if it's a project
+   if (targetElem.parentNode.parentNode.classList.contains('projects-container')) {
+      for (let i = 0; i < userProjects.length; i++) {
+         if (userProjects[i].name == targetElem.textContent) {
+            projectInd = i
+         }
+      }
+      changeCurrentLocation('modules')
+      localStorage.removeItem('projectInd')
+      localStorage.setItem('projectInd', projectInd)
+      localStorage.removeItem('targetProject')
+      localStorage.setItem('targetProject', targetElem.textContent)
+
+   //if it's a module
+   } else if (targetElem.parentNode.parentNode.classList.contains('modules-container')) {
+      for (let i = 0; i < userProjects[projectInd].modules.length; i++) {
+         if (userProjects[projectInd].modules[i].name == targetElem.textContent) {
+            moduleInd = i
+         }
+      }
+      changeCurrentLocation('scenarios')
+      localStorage.removeItem('moduleInd')
+      localStorage.setItem('moduleInd', moduleInd)
+      localStorage.removeItem('targetModule')
+      localStorage.setItem('targetModule', targetElem.textContent)
+
+   //if it's a scenario
+   } else if (targetElem.parentNode.parentNode.classList.contains('scenarios-container') ||
+               targetElem.classList.contains('scenario-name')) {
+      for (let i = 0; i < userProjects[projectInd].modules[moduleInd].scenarios.length; i++) {
+         if (userProjects[projectInd].modules[moduleInd].scenarios[i].name == targetElem.textContent) {
+            scenarioInd = i
+         }
+      }
+      changeCurrentLocation('steps')
+      localStorage.removeItem('scenarioInd')
+      localStorage.setItem('scenarioInd', scenarioInd)
+      localStorage.removeItem('targetScenario')
+      localStorage.setItem('targetScenario', targetElem.textContent)
+   }
+}
+
 //AUTO-SAVING
 window.addEventListener('beforeunload', saveScenarios)
-document.querySelector(".sidebar-pr-link").addEventListener('click', () => {
+document.querySelector('.sidebar-pr-link').addEventListener('click', () => {
    changeCurrentLocation('projects')
 })
 

@@ -320,29 +320,42 @@ document.querySelector("input[value='Clear All']").addEventListener('click', () 
 //click on the module name to STORE DESTINATION 
 document.addEventListener('click', (e) => {
    if (e.target.classList.contains('module-name') || e.target.classList.contains('path-dropdown-item')) {
-      storeDestination(e.target.textContent)
+      storeDestination(e.target)
    }
 })
 
-function storeDestination(target) {
+function storeDestination(targetElem) {
    let userProjects = JSON.parse(localStorage.getItem('userProjects')) 
    let projectInd = localStorage.getItem('projectInd')
    let moduleInd = 0
 
-   localStorage.removeItem('targetModule')
-   localStorage.setItem('targetModule', target)
+   //if it's a project
+   if (targetElem.parentNode.parentNode.classList.contains('projects-container')) {
+      for (let i = 0; i < userProjects.length; i++) {
+         if (userProjects[i].name == targetElem.textContent) {
+            projectInd = i
+         }
+      }
+      changeCurrentLocation('modules')
+      localStorage.removeItem('projectInd')
+      localStorage.setItem('projectInd', projectInd)
+      localStorage.removeItem('targetProject')
+      localStorage.setItem('targetProject', targetElem.textContent)
 
-   if (userProjects[projectInd].modules) {
+   //if it's a module
+   } else if (targetElem.parentNode.parentNode.classList.contains('modules-container') ||
+               targetElem.classList.contains('module-name')) {
       for (let i = 0; i < userProjects[projectInd].modules.length; i++) {
-         if (userProjects[projectInd].modules[i].name == target) {
+         if (userProjects[projectInd].modules[i].name == targetElem.textContent) {
             moduleInd = i
          }
       }
+      changeCurrentLocation('scenarios')
+      localStorage.removeItem('moduleInd')
+      localStorage.setItem('moduleInd', moduleInd)
+      localStorage.removeItem('targetModule')
+      localStorage.setItem('targetModule', targetElem.textContent)
    }
-
-   localStorage.removeItem('moduleInd')
-   localStorage.setItem('moduleInd', moduleInd)
-   changeCurrentLocation('scenarios')
 }
 
 //AUTO-SAVING
