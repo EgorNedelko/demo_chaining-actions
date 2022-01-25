@@ -166,6 +166,10 @@ header {
    box-shadow: 0 7px 14px rgb(50 50 93 / 10%), 0 3px 6px rgb(0 0 0 / 8%);
    transform: translateY(-1px);
 }
+.path-item.hover {
+   box-shadow: 0 7px 14px rgb(50 50 93 / 10%), 0 3px 6px rgb(0 0 0 / 8%);
+   transform: translateY(-1px);
+}
 
 .path-item.square-borders {
    border-top-right-radius: 0;
@@ -215,6 +219,10 @@ header {
    border-bottom-right-radius: 6px;
    transition: all 0.4s ease;
    transform-origin: left;
+}
+.path-item-text:hover {
+   box-shadow: 0 7px 14px rgb(50 50 93 / 10%), 0 3px 6px rgb(0 0 0 / 8%);
+   transform: translateY(-1px);
 }
 .path-item-text.hover {
    box-shadow: 0 7px 14px rgb(50 50 93 / 10%), 0 3px 6px rgb(0 0 0 / 8%);

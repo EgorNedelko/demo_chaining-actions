@@ -290,6 +290,13 @@ document.querySelectorAll('.path-item').forEach(item => item.addEventListener('m
    e.target.parentNode.children[1].classList.remove('hover')
 }))
 
+document.querySelectorAll('.path-item-text').forEach(item => item.addEventListener('mouseover', (e) => {
+   e.target.parentNode.children[0].classList.add('hover')
+}))
+document.querySelectorAll('.path-item-text').forEach(item => item.addEventListener('mouseout', (e) => {
+   e.target.parentNode.children[0].classList.remove('hover')
+}))
+
 document.querySelector('.pr-link').addEventListener('dblclick', () => {
    if (currentLocation == 'projects') return
    changeCurrentLocation('projects')
