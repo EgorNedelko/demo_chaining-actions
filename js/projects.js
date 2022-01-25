@@ -293,20 +293,40 @@ document.querySelector("input[value='Clear All']").addEventListener('click', () 
 //click on the project name to STORE DESTINATION 
 document.addEventListener('click', (e) => {
    if (e.target.classList.contains('project-name') || e.target.classList.contains('path-dropdown-item')) {
-      storeDestination(e.target.textContent)
+      // storeDestination(e.target.textContent)
+      storeDestination(e.target)
    }
 })
 
-function storeDestination(target) {
+// function storeDestination(target) {
+//    let projectInd = 0
+
+//    localStorage.removeItem('targetProject')
+//    localStorage.setItem('targetProject', target)
+
+//    if (localStorage.getItem('userProjects')) {
+//       let userProjects = JSON.parse(localStorage.getItem('userProjects')) 
+//       for (let i = 0; i < userProjects.length; i++) {
+//          if (userProjects[i].name == target) {
+//             projectInd = i
+//          }
+//       }
+//    }
+
+//    localStorage.removeItem('projectInd')
+//    localStorage.setItem('projectInd', projectInd)
+//    changeCurrentLocation('modules')
+// }
+function storeDestination(targetElem) {
    let projectInd = 0
 
    localStorage.removeItem('targetProject')
-   localStorage.setItem('targetProject', target)
+   localStorage.setItem('targetProject', targetElem.textContent)
 
    if (localStorage.getItem('userProjects')) {
       let userProjects = JSON.parse(localStorage.getItem('userProjects')) 
       for (let i = 0; i < userProjects.length; i++) {
-         if (userProjects[i].name == target) {
+         if (userProjects[i].name == targetElem.textContent) {
             projectInd = i
          }
       }

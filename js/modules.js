@@ -187,13 +187,14 @@ function refreshItemCounter() {
 /////STORAGE FUNCTIONS
 function saveModules() {
    let userProjects = JSON.parse(localStorage.getItem('userProjects'))
-   const targetProject = localStorage.getItem('targetProject')
+   let targetProject = localStorage.getItem('targetProject')
+   let saveProject = localStorage.getItem('saveProject') ? localStorage.getItem('saveProject') : targetProject
+
    const modulesList = document.querySelectorAll('.module')
-   const projectInd = localStorage.getItem('projectInd')
 
    //Locate project
    for (let i = 0; i < userProjects.length; i++) {
-      if (userProjects[i].name == targetProject) {
+      if (userProjects[i].name == saveProject) {
 
          //Get stored and current modules
          const storedModules = []
@@ -326,6 +327,8 @@ document.addEventListener('click', (e) => {
 
 function storeDestination(targetElem) {
    let userProjects = JSON.parse(localStorage.getItem('userProjects')) 
+   let targetProject = localStorage.getItem('targetProject')
+   let saveProject = targetProject
    let projectInd = localStorage.getItem('projectInd')
    let moduleInd = 0
 
@@ -341,6 +344,8 @@ function storeDestination(targetElem) {
       localStorage.setItem('projectInd', projectInd)
       localStorage.removeItem('targetProject')
       localStorage.setItem('targetProject', targetElem.textContent)
+      localStorage.removeItem('saveProject')
+      localStorage.setItem('saveProject', saveProject)
 
    //if it's a module
    } else if (targetElem.parentNode.parentNode.classList.contains('modules-container') ||
@@ -366,6 +371,8 @@ document.querySelector('.sidebar-pr-link').addEventListener('click', () => {
 
 //AUTO-LOADING 
 document.addEventListener('DOMContentLoaded', () => {
+   //Remove save project upon pageLoad so the refreshPage check can work
+   localStorage.removeItem('saveProject')
    currentLocation = localStorage.getItem('currentLocation')
    loadModules()
 })

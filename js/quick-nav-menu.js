@@ -135,8 +135,12 @@ document.querySelector('.pr-link').addEventListener('click', (e) => {
    }
 
    //Hide other QUICKNAV dropdowns
-   document.querySelector('.mod-link').parentNode.children[2].classList.add('display-none')
-   document.querySelector('.scen-link').parentNode.children[2].classList.add('display-none')
+   if (document.querySelector('.mod-link').parentNode.children[2]) {
+      document.querySelector('.mod-link').parentNode.children[2].classList.add('display-none')
+   }
+   if (document.querySelector('.scen-link').parentNode.children[2]) {
+      document.querySelector('.scen-link').parentNode.children[2].classList.add('display-none')
+   }
 })
 
 //Click on the MODULES QUICK NAV ITEM to toggle dropdown
@@ -162,8 +166,12 @@ document.querySelector('.mod-link').addEventListener('click', (e) => {
    }
 
    //Hide other QUICKNAV dropdowns
-   document.querySelector('.pr-link').parentNode.children[2].classList.add('display-none')
-   document.querySelector('.scen-link').parentNode.children[2].classList.add('display-none')
+   if (document.querySelector('.pr-link').parentNode.children[2]) {
+      document.querySelector('.pr-link').parentNode.children[2].classList.add('display-none')
+   }
+   if (document.querySelector('.scen-link').parentNode.children[2]) {
+      document.querySelector('.scen-link').parentNode.children[2].classList.add('display-none')
+   }
 })
 
 //Click on the SCENARIOS QUICK NAV ITEM to toggle dropdown
@@ -173,7 +181,7 @@ document.querySelector('.scen-link').addEventListener('click', (e) => {
    let moduleInd = localStorage.getItem('moduleInd') 
    const elem = e.target
    
-   if (userProjects[projectInd].modules[moduleInd].scenarios.length) {
+   if (userProjects[projectInd].modules[moduleInd].scenarios) {
       if (elem.parentNode.children[1].textContent == "" && !elem.classList.contains('opened')) {
          elem.parentNode.children[1].classList.remove('display-none')
          elem.classList.add('opened')
@@ -190,8 +198,12 @@ document.querySelector('.scen-link').addEventListener('click', (e) => {
    }
 
    //Hide other QUICKNAV dropdowns
-   document.querySelector('.pr-link').parentNode.children[2].classList.add('display-none')
-   document.querySelector('.mod-link').parentNode.children[2].classList.add('display-none')
+   if (document.querySelector('.pr-link').parentNode.children[2]) {
+      document.querySelector('.pr-link').parentNode.children[2].classList.add('display-none')
+   }
+   if (document.querySelector('.mod-link').parentNode.children[2]) {
+      document.querySelector('.mod-link').parentNode.children[2].classList.add('display-none')
+   }
 })
 
 //Force HOVER on adjacent text field

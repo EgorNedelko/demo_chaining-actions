@@ -187,17 +187,20 @@ function refreshItemCounter() {
 /////STORAGE FUNCTIONS
 function saveScenarios() {
    let userProjects = JSON.parse(localStorage.getItem('userProjects'))
-   const targetProject = localStorage.getItem('targetProject')
-   const targetModule = localStorage.getItem('targetModule')
+   let targetProject = localStorage.getItem('targetProject')
+   let targetModule = localStorage.getItem('targetModule')
+   let saveProject = localStorage.getItem('saveProject') ? localStorage.getItem('saveProject') : targetProject
+   let saveModule = localStorage.getItem('saveModule') ? localStorage.getItem('saveModule') : targetModule
+
    const scenariosList = document.querySelectorAll('.scenario')
 
    //Locate project
    for (let i = 0; i < userProjects.length; i++) {
-      if (userProjects[i].name == targetProject) {
+      if (userProjects[i].name == saveProject) {
 
          //Locate module
          for (let j = 0; j < userProjects[i].modules.length; j++) {
-            if (userProjects[i].modules[j].name == targetModule) {
+            if (userProjects[i].modules[j].name == saveModule) {
 
                //Get stored and current modules
                const storedScenarios = []
@@ -350,7 +353,13 @@ document.addEventListener('click', (e) => {
 })
 
 function storeDestination(targetElem) {
-   let userProjects = JSON.parse(localStorage.getItem('userProjects')) 
+   let userProjects = JSON.parse(localStorage.getItem('userProjects'))
+
+   let targetProject = localStorage.getItem('targetProject')
+   let saveProject = targetProject
+   let targetModule = localStorage.getItem('targetModule')
+   let saveModule = targetModule
+
    let projectInd = localStorage.getItem('projectInd')
    let moduleInd = localStorage.getItem('moduleInd')
    let scenarioInd = 0
@@ -367,6 +376,8 @@ function storeDestination(targetElem) {
       localStorage.setItem('projectInd', projectInd)
       localStorage.removeItem('targetProject')
       localStorage.setItem('targetProject', targetElem.textContent)
+      localStorage.removeItem('saveProject')
+      localStorage.setItem('saveProject', saveProject)
 
    //if it's a module
    } else if (targetElem.parentNode.parentNode.classList.contains('modules-container')) {
@@ -380,6 +391,8 @@ function storeDestination(targetElem) {
       localStorage.setItem('moduleInd', moduleInd)
       localStorage.removeItem('targetModule')
       localStorage.setItem('targetModule', targetElem.textContent)
+      localStorage.removeItem('saveModule')
+      localStorage.setItem('saveModule', saveModule)
 
    //if it's a scenario
    } else if (targetElem.parentNode.parentNode.classList.contains('scenarios-container') ||
@@ -405,6 +418,9 @@ document.querySelector('.sidebar-pr-link').addEventListener('click', () => {
 
 //AUTO-LOADING 
 document.addEventListener('DOMContentLoaded', () => {
+   //Remove saveProj & saveMod upon pageLoad so the refreshPage check can work
+   localStorage.removeItem('saveProject')
+   localStorage.removeItem('saveModule')
    currentLocation = localStorage.getItem('currentLocation')
    loadScenarios()
 })
