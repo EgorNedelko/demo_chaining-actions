@@ -117,22 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
 document.querySelector('.pr-link').addEventListener('click', (e) => {
    const userProjects = JSON.parse(localStorage.getItem('userProjects'))
    const elem = e.target
-   
-   if (userProjects.length) {
-      if (elem.parentNode.children[1].textContent == "" && !elem.classList.contains('opened')) {
-         elem.parentNode.children[1].classList.remove('display-none')
-         elem.classList.add('opened')
-         elem.textContent = "Pr"
-      }
-      else if (elem.parentNode.children[1].textContent == "" && elem.classList.contains('opened')) {
-         elem.parentNode.children[1].classList.add('display-none')
-         elem.classList.remove('opened')
-         elem.textContent = "Projects"
-      }
-
-      //Display dropdown
-      elem.parentNode.children[2].classList.toggle('display-none')
-   }
 
    //Hide other QUICKNAV dropdowns
    if (document.querySelector('.mod-link').parentNode.children[2]) {
@@ -140,31 +124,54 @@ document.querySelector('.pr-link').addEventListener('click', (e) => {
    }
    if (document.querySelector('.scen-link').parentNode.children[2]) {
       document.querySelector('.scen-link').parentNode.children[2].classList.add('display-none')
+   }
+   
+   if (userProjects.length) {
+      if (elem.parentNode.children[1].textContent == "" && !elem.classList.contains('opened')) {
+         //maximize text field
+         elem.parentNode.children[1].classList.remove('contracted')
+         //reveal the border
+         elem.parentNode.children[1].classList.remove('borderless')
+         //square off button right borders
+         elem.classList.add('square-borders')
+         //minimize button width
+         elem.classList.add('opened')
+         
+         //minimize text 
+         setTimeout(()=>{elem.textContent = "Project"},100)
+         setTimeout(()=>{elem.textContent = "Proje"},150)
+         setTimeout(()=>{elem.textContent = "Proj"},200)
+         setTimeout(()=>{elem.textContent = "Pro"},250)
+         setTimeout(()=>{elem.textContent = "Pr"},300)
+
+      } else if (elem.parentNode.children[1].textContent == "" && elem.classList.contains('opened')) {
+         //minimize text field
+         elem.parentNode.children[1].classList.add('contracted')
+         //hide the border 
+         setTimeout(()=>{elem.parentNode.children[1].classList.add('borderless')},365)
+         //round off button right borders
+         setTimeout(()=>{elem.classList.remove('square-borders')},250)
+         //maximize button width
+         elem.classList.remove('opened')
+
+         //maximize text
+         setTimeout(()=>{elem.textContent = "Pro"},100)
+         setTimeout(()=>{elem.textContent = "Proj"},150)
+         setTimeout(()=>{elem.textContent = "Proje"},200)
+         setTimeout(()=>{elem.textContent = "Projec"},250)
+         setTimeout(()=>{elem.textContent = "Projects"},300)
+      }
+
+      //Display dropdown
+      elem.parentNode.children[2].classList.toggle('display-none')
    }
 })
 
 //Click on the MODULES QUICK NAV ITEM to toggle dropdown
 document.querySelector('.mod-link').addEventListener('click', (e) => {
-   if (currentLocation == 'projects') return
    const userProjects = JSON.parse(localStorage.getItem('userProjects'))
    let projectInd = localStorage.getItem('projectInd')
    const elem = e.target
-   
-   if (userProjects[projectInd].modules.length) {
-      if (elem.parentNode.children[1].textContent == "" && !elem.classList.contains('opened')) {
-         elem.parentNode.children[1].classList.remove('display-none')
-         elem.classList.add('opened')
-         elem.textContent = "Mod"
-      }
-      else if (elem.parentNode.children[1].textContent == "" && elem.classList.contains('opened')) {
-         elem.parentNode.children[1].classList.add('display-none')
-         elem.classList.remove('opened')
-         elem.textContent = "Modules"
-      }
-
-      //Display dropdown
-      elem.parentNode.children[2].classList.toggle('display-none')
-   }
 
    //Hide other QUICKNAV dropdowns
    if (document.querySelector('.pr-link').parentNode.children[2]) {
@@ -173,31 +180,55 @@ document.querySelector('.mod-link').addEventListener('click', (e) => {
    if (document.querySelector('.scen-link').parentNode.children[2]) {
       document.querySelector('.scen-link').parentNode.children[2].classList.add('display-none')
    }
-})
 
-//Click on the SCENARIOS QUICK NAV ITEM to toggle dropdown
-document.querySelector('.scen-link').addEventListener('click', (e) => {
-   if (currentLocation == 'projects' || currentLocation == 'modules') return
-   const userProjects = JSON.parse(localStorage.getItem('userProjects'))
-   let projectInd = localStorage.getItem('projectInd')
-   let moduleInd = localStorage.getItem('moduleInd') 
-   const elem = e.target
+   //Navigation logic
+   if (currentLocation == 'projects') return
    
-   if (userProjects[projectInd].modules[moduleInd].scenarios) {
+   if (userProjects[projectInd].modules.length) {
       if (elem.parentNode.children[1].textContent == "" && !elem.classList.contains('opened')) {
-         elem.parentNode.children[1].classList.remove('display-none')
+         //maximize text field
+         elem.parentNode.children[1].classList.remove('contracted')
+         //reveal the border
+         elem.parentNode.children[1].classList.remove('borderless')
+         //square off button right borders
+         elem.classList.add('square-borders')
+         //minimize button width
          elem.classList.add('opened')
-         elem.textContent = "Scen"
-      }
-      else if (elem.parentNode.children[1].textContent == "" && elem.classList.contains('opened')) {
-         elem.parentNode.children[1].classList.add('display-none')
+
+         //minimize text 
+         setTimeout(()=>{elem.textContent = "Module"},100)
+         setTimeout(()=>{elem.textContent = "Modul"},150)
+         setTimeout(()=>{elem.textContent = "Modu"},200)
+         setTimeout(()=>{elem.textContent = "Mod"},250)
+
+      } else if (elem.parentNode.children[1].textContent == "" && elem.classList.contains('opened')) {
+         //minimize text field
+         elem.parentNode.children[1].classList.add('contracted')
+         //hide the border 
+         setTimeout(()=>{elem.parentNode.children[1].classList.add('borderless')},365)
+         //round off button right borders
+         setTimeout(()=>{elem.classList.remove('square-borders')},250)
+         //maximize button width
          elem.classList.remove('opened')
-         elem.textContent = "Scenarios"
+
+         //maximize text
+         setTimeout(()=>{elem.textContent = "Modu"},100)
+         setTimeout(()=>{elem.textContent = "Modul"},150)
+         setTimeout(()=>{elem.textContent = "Module"},200)
+         setTimeout(()=>{elem.textContent = "Modules"},250)
       }
 
       //Display dropdown
       elem.parentNode.children[2].classList.toggle('display-none')
    }
+})
+
+//Click on the SCENARIOS QUICK NAV ITEM to toggle dropdown
+document.querySelector('.scen-link').addEventListener('click', (e) => {
+   const userProjects = JSON.parse(localStorage.getItem('userProjects'))
+   let projectInd = localStorage.getItem('projectInd')
+   let moduleInd = localStorage.getItem('moduleInd') 
+   const elem = e.target
 
    //Hide other QUICKNAV dropdowns
    if (document.querySelector('.pr-link').parentNode.children[2]) {
@@ -205,6 +236,49 @@ document.querySelector('.scen-link').addEventListener('click', (e) => {
    }
    if (document.querySelector('.mod-link').parentNode.children[2]) {
       document.querySelector('.mod-link').parentNode.children[2].classList.add('display-none')
+   }
+
+   //Navigation logic
+   if (currentLocation == 'projects' || currentLocation == 'modules') return
+   
+   if (userProjects[projectInd].modules[moduleInd].scenarios) {
+      if (elem.parentNode.children[1].textContent == "" && !elem.classList.contains('opened')) {
+         //maximize text field
+         elem.parentNode.children[1].classList.remove('contracted')
+         //reveal the border
+         elem.parentNode.children[1].classList.remove('borderless')
+         //square off button right borders
+         elem.classList.add('square-borders')
+         //minimize button width
+         elem.classList.add('opened')
+         
+         //minimize text 
+         setTimeout(()=>{elem.textContent = "Scenario"},100)
+         setTimeout(()=>{elem.textContent = "Scenari"},150)
+         setTimeout(()=>{elem.textContent = "Scenar"},200)
+         setTimeout(()=>{elem.textContent = "Scena"},250)
+         setTimeout(()=>{elem.textContent = "Scen"},300)
+
+      } else if (elem.parentNode.children[1].textContent == "" && elem.classList.contains('opened')) {
+         //minimize text field
+         elem.parentNode.children[1].classList.add('contracted')
+         //hide the border 
+         setTimeout(()=>{elem.parentNode.children[1].classList.add('borderless')},365)
+         //round off button right borders
+         setTimeout(()=>{elem.classList.remove('square-borders')},250)
+         //maximize button width
+         elem.classList.remove('opened')
+
+         //maximize text
+         setTimeout(()=>{elem.textContent = "Scena"},100)
+         setTimeout(()=>{elem.textContent = "Scenar"},150)
+         setTimeout(()=>{elem.textContent = "Scenari"},200)
+         setTimeout(()=>{elem.textContent = "Scenario"},250)
+         setTimeout(()=>{elem.textContent = "Scenarios"},300)
+      }
+
+      //Display dropdown
+      elem.parentNode.children[2].classList.toggle('display-none')
    }
 })
 

@@ -147,7 +147,6 @@ header {
    line-height: 24px;
    font-weight: 600;
    letter-spacing: 0.5px;
-   /* width: 100px; */
 
    display: flex;
    align-items: center;
@@ -157,18 +156,18 @@ header {
    border-radius: 6px;
 
    background-image: linear-gradient(87deg, rgb(94, 114, 228), rgb(130, 94, 228));
-   transition: box-shadow 0.15s ease;
-   transition: transform 0.15s ease;
-   transition: width 0.15s ease;
    cursor: pointer;
    user-select: none;
    border: none;
+   transition: all 0.4s ease;
+   transform-origin: left;
 }
 .path-item:hover {
    box-shadow: 0 7px 14px rgb(50 50 93 / 10%), 0 3px 6px rgb(0 0 0 / 8%);
    transform: translateY(-1px);
 }
-.path-item.opened {
+
+.path-item.square-borders {
    border-top-right-radius: 0;
    border-bottom-right-radius: 0;
 }
@@ -201,6 +200,7 @@ header {
 .path-item-text {
    min-height: 34px;
    min-width: 80px;
+   /* width: 120px; */
 
    font-size: 16px;
    line-height: 24px;
@@ -211,13 +211,20 @@ header {
    border: 1px solid rgb(130, 94, 228);
    border-top-right-radius: 6px;
    border-bottom-right-radius: 6px;
-   transition: box-shadow 0.15s ease;
-   transition: transform 0.15s ease;
-   transition: min-width 1s ease;
+   transition: all 0.4s ease;
+   transform-origin: left;
 }
 .path-item-text.hover {
    box-shadow: 0 7px 14px rgb(50 50 93 / 10%), 0 3px 6px rgb(0 0 0 / 8%);
    transform: translateY(-1px);
+}
+.path-item-text.contracted {
+   /* width: 0; */
+   min-width: 0;
+   padding: 0px;
+}
+.path-item-text.borderless {
+   border: none;
 }
 
 .path-line {
@@ -232,20 +239,10 @@ header {
    background-color: rgb(130, 94, 228);
 }
 
-/* .path-project-name::after,
-.path-module-name::after {
-   content: '';
-   position: absolute;
-   top: 50%;
-   left: 110%;
-   width: 70px;
-   height: 2px;
-   background-color: rgb(130, 94, 228);
-} */
-
 .path-dropdown {
    /* display: none; */
    z-index: 1;
+   min-width: 110px;
    position: absolute;
    top: 100%;
    /* left: 25%; */
