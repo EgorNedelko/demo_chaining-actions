@@ -696,3 +696,14 @@ function changeCurrentLocation(newValue) {
    localStorage.removeItem('currentLocation')
    localStorage.setItem('currentLocation', newValue)
 }
+//Force HOVER on adjacent text field
+document.addEventListener('mouseover', (e) => {
+   if (e.target.classList.contains('dropdown-btn')) {
+      e.target.parentNode.parentNode.children[1].classList.add('hover')
+   }  
+})
+document.addEventListener('mouseout', (e) => {
+   if (e.target.classList.contains('dropdown-btn')) {
+      e.target.parentNode.parentNode.children[1].classList.remove('hover')
+   }  
+})
