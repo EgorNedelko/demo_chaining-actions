@@ -203,16 +203,14 @@ document.querySelectorAll('.path-item').forEach(item => item.addEventListener('m
 }))
 
 document.querySelector('.pr-link').addEventListener('dblclick', () => {
-   // storeDestination('projects')
+   changeCurrentLocation('projects')
    window.location = "./projects.html"
 })
 document.querySelector('.mod-link').addEventListener('dblclick', () => {
-   // storeDestination('modules')
+   changeCurrentLocation('modules')
    window.location = "./modules.html"
 })
 document.querySelector('.scen-link').addEventListener('dblclick', () => {
-   // storeDestination('scenarios')
+   changeCurrentLocation('scenarios')
    window.location = "./scenarios.html"
 })
-
-
