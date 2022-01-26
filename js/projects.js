@@ -64,14 +64,12 @@ function addProject(name) {
 }
 
 function openProjectModal() {
-   // overlay.classList.remove('display-none')
    overlay.classList.add('active')
    newItemModal.classList.remove('display-none')
    newItemModal.querySelector('.new-item-name').focus()
 }
 
 function closeProjectModal() {
-   // overlay.classList.add('display-none')
    overlay.classList.remove('active')
    newItemModal.classList.add('display-none')
 }
@@ -123,6 +121,7 @@ document.addEventListener('click', (e) => {
       itemToDelete = e.target.parentNode.parentNode.parentNode
       document.querySelectorAll('.actions-dropdown').forEach(el => el.classList.remove('visible'))
       document.querySelector('.projects').removeChild(itemToDelete)
+      saveProjects()
       // openDeletionModal()
       // handleDeletionModal()
    }
@@ -148,6 +147,7 @@ document.addEventListener('click', (e) => {
       } else {
          addProject('new project')
       }
+      saveProjects()
       closeProjectModal()
    }
 })
@@ -171,6 +171,7 @@ window.addEventListener('keydown', (e) => {
       } else {
          addProject('new project')
       }
+      saveProjects()
       closeProjectModal()
    }
 })
@@ -330,3 +331,4 @@ function changeCurrentLocation(newValue) {
    localStorage.removeItem('currentLocation')
    localStorage.setItem('currentLocation', newValue)
 }
+

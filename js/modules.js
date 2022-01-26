@@ -60,14 +60,12 @@ function addModule(name) {
 }
 
 function openModuleModal() {
-   // overlay.classList.remove('display-none')
    overlay.classList.add('active')
    newItemModal.classList.remove('display-none')
    newItemModal.querySelector('.new-item-name').focus()
 }
 
 function closeModuleModal() {
-   // overlay.classList.add('display-none')
    overlay.classList.remove('active')
    newItemModal.classList.add('display-none')
 }
@@ -120,6 +118,7 @@ document.addEventListener('click', (e) => {
       document.querySelectorAll('.actions-dropdown').forEach(el => el.classList.remove('visible'))
       document.querySelector('.modules').removeChild(itemToDelete)
       refreshItemCounter()
+      saveModules()
       // openDeletionModal()
       // handleDeletionModal()
    }
@@ -145,6 +144,7 @@ document.addEventListener('click', (e) => {
       } else {
          addModule('new module')
       }
+      saveModules()
       refreshItemCounter()
       closeModuleModal()
    }
@@ -169,6 +169,7 @@ window.addEventListener('keydown', (e) => {
       } else {
          addModule('new module')
       }
+      saveModules()
       refreshItemCounter()
       closeModuleModal()
    }
