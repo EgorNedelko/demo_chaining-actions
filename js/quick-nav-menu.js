@@ -16,7 +16,6 @@ function removeDropdown(targetContainer) {
 }
 
 function updatePath() {
-   console.log('updating path')
    let names = []
    let userProjects = JSON.parse(localStorage.getItem('userProjects'))
    const targetProject = localStorage.getItem('targetProject')
@@ -182,16 +181,18 @@ document.querySelector('.pr-link').addEventListener('click', (e) => {
       document.querySelector('.scen-link').parentNode.children[2].classList.add('display-none')
    }
    
-   if (userProjects.length) {
-      if (elem.parentNode.children[1].textContent == "" && !elem.classList.contains('opened')) {
-         openQuickNavItem(elem, 'Projects')
-
-      } else if (elem.parentNode.children[1].textContent == "" && elem.classList.contains('opened')) {
-         closeQuickNavItem(elem, 'Projects')
+   if (userProjects) {
+      if (userProjects.length) {
+         if (elem.parentNode.children[1].textContent == "" && !elem.classList.contains('opened')) {
+            openQuickNavItem(elem, 'Projects')
+   
+         } else if (elem.parentNode.children[1].textContent == "" && elem.classList.contains('opened')) {
+            closeQuickNavItem(elem, 'Projects')
+         }
+   
+         //Display dropdown
+         elem.parentNode.children[2].classList.toggle('display-none')
       }
-
-      //Display dropdown
-      elem.parentNode.children[2].classList.toggle('display-none')
    }
 })
 
@@ -211,17 +212,19 @@ document.querySelector('.mod-link').addEventListener('click', (e) => {
 
    //Navigation logic
    if (currentLocation == 'projects') return
+
+   if (userProjects[projectInd].modules) {
+      if (userProjects[projectInd].modules.length) {
+         if (elem.parentNode.children[1].textContent == "" && !elem.classList.contains('opened')) {
+            openQuickNavItem(elem, 'Modules')
    
-   if (userProjects[projectInd].modules.length) {
-      if (elem.parentNode.children[1].textContent == "" && !elem.classList.contains('opened')) {
-         openQuickNavItem(elem, 'Modules')
-
-      } else if (elem.parentNode.children[1].textContent == "" && elem.classList.contains('opened')) {
-         closeQuickNavItem(elem, 'Modules')
+         } else if (elem.parentNode.children[1].textContent == "" && elem.classList.contains('opened')) {
+            closeQuickNavItem(elem, 'Modules')
+         }
+   
+         //Display dropdown
+         elem.parentNode.children[2].classList.toggle('display-none')
       }
-
-      //Display dropdown
-      elem.parentNode.children[2].classList.toggle('display-none')
    }
 })
 
@@ -244,15 +247,17 @@ document.querySelector('.scen-link').addEventListener('click', (e) => {
    if (currentLocation == 'projects' || currentLocation == 'modules') return
    
    if (userProjects[projectInd].modules[moduleInd].scenarios) {
-      if (elem.parentNode.children[1].textContent == "" && !elem.classList.contains('opened')) {
-         openQuickNavItem(elem, 'Scenarios')
-
-      } else if (elem.parentNode.children[1].textContent == "" && elem.classList.contains('opened')) {
-         closeQuickNavItem(elem, 'Scenarios')
+      if (userProjects[projectInd].modules[moduleInd].scenarios.length) {
+         if (elem.parentNode.children[1].textContent == "" && !elem.classList.contains('opened')) {
+            openQuickNavItem(elem, 'Scenarios')
+   
+         } else if (elem.parentNode.children[1].textContent == "" && elem.classList.contains('opened')) {
+            closeQuickNavItem(elem, 'Scenarios')
+         }
+   
+         //Display dropdown
+         elem.parentNode.children[2].classList.toggle('display-none')
       }
-
-      //Display dropdown
-      elem.parentNode.children[2].classList.toggle('display-none')
    }
 })
 
