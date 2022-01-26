@@ -148,6 +148,7 @@ document.addEventListener('click', (e) => {
          addProject('new project')
       }
       saveProjects()
+      // updatePath()
       closeProjectModal()
    }
 })
@@ -172,6 +173,7 @@ window.addEventListener('keydown', (e) => {
          addProject('new project')
       }
       saveProjects()
+      // updatePath()
       closeProjectModal()
    }
 })

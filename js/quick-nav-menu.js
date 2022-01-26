@@ -11,6 +11,7 @@ const pathItem = {
 }
 
 function updatePath() {
+   console.log('updating path')
    let names = []
    let userProjects = JSON.parse(localStorage.getItem('userProjects'))
    const targetProject = localStorage.getItem('targetProject')
@@ -288,4 +289,57 @@ document.querySelector('.scen-link').addEventListener('dblclick', () => {
    if (currentLocation == 'projects' || currentLocation == 'modules'|| currentLocation == 'scenarios') return
    changeCurrentLocation('scenarios')
    window.location = "./scenarios.html"
+})
+
+//Click anywhere besides quick nav items for them to close (if they're open)
+document.addEventListener('click', (e) => {
+   if (currentLocation == 'projects') {
+      if (e.target != document.querySelector('.pr-link')) {
+         if (document.querySelector('.pr-link').classList.contains('opened') && document.querySelector('.pr-link').parentNode.children[1].textContent == '') {
+            closeQuickNavItem(document.querySelector('.pr-link'), 'Projects')
+            // this check should redundant since the item should be opened if there's no data for dropdown
+            if (document.querySelector('.pr-link').parentNode.children[2]) {
+               document.querySelector('.pr-link').parentNode.children[2].classList.add('display-none')
+            }
+         }
+      }
+   } else if (currentLocation == 'modules') {
+      if (e.target != document.querySelector('.pr-link') && e.target != document.querySelector('.pr-path')) {
+         if (document.querySelector('.pr-link').parentNode.children[2]) {
+            document.querySelector('.pr-link').parentNode.children[2].classList.add('display-none')
+         }
+      }
+
+      if (e.target != document.querySelector('.mod-link')) {
+         if (document.querySelector('.mod-link').classList.contains('opened') && document.querySelector('.mod-link').parentNode.children[1].textContent == '') {
+            closeQuickNavItem(document.querySelector('.mod-link'), 'Modules')
+            // this check should redundant since the item should be opened if there's no data for dropdown
+            if (document.querySelector('.mod-link').parentNode.children[2]) {
+               document.querySelector('.mod-link').parentNode.children[2].classList.add('display-none')
+            }
+         }
+      }
+   } else if (currentLocation == 'scenarios') {
+      if (e.target != document.querySelector('.pr-link') && e.target != document.querySelector('.pr-path')) {
+         if (document.querySelector('.pr-link').parentNode.children[2]) {
+            document.querySelector('.pr-link').parentNode.children[2].classList.add('display-none')
+         }
+      }
+
+      if (e.target != document.querySelector('.mod-link') && e.target != document.querySelector('.mod-path')) {
+         if (document.querySelector('.mod-link').parentNode.children[2]) {
+            document.querySelector('.mod-link').parentNode.children[2].classList.add('display-none')
+         }
+      }
+
+      if (e.target != document.querySelector('.scen-link')) {
+         if (document.querySelector('.scen-link').classList.contains('opened') && document.querySelector('.scen-link').parentNode.children[1].textContent == '') {
+            closeQuickNavItem(document.querySelector('.scen-link'), 'Scenarios')
+            // this check should redundant since the item should be opened if there's no data for dropdown
+            if (document.querySelector('.scen-link').parentNode.children[2]) {
+               document.querySelector('.scen-link').parentNode.children[2].classList.add('display-none')
+            }
+         }
+      }
+   }
 })
