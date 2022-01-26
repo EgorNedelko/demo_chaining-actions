@@ -1,3 +1,7 @@
+.scen-link {
+   width: fit-content;
+}
+
 .btns-col-3 {
    max-width: fit-content;
    display: flex;

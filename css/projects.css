@@ -2,9 +2,10 @@
    margin-right: 150px;
 }
 
-/* .btns {
-   justify-content: flex-end;
-} */
+.mod-link,
+.scen-link {
+   width: fit-content;
+}
 
 .projects {
    min-height: 60vh;

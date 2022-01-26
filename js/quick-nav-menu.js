@@ -250,6 +250,15 @@ document.querySelector('.scen-link').addEventListener('click', (e) => {
    }
 })
 
+//Click on the QUICK NAV TEXT to toggle dropdown
+document.querySelectorAll('.path-item-text').forEach(item => item.addEventListener('click', (e) => {
+   let elem = e.target
+   if (e.target.parentNode.children[2]) {
+      //Display dropdown
+      elem.parentNode.children[2].classList.toggle('display-none')
+   }
+}))
+
 //Force HOVER on adjacent text field
 document.querySelectorAll('.path-item').forEach(item => item.addEventListener('mouseover', (e) => {
    e.target.parentNode.children[1].classList.add('hover')
