@@ -107,12 +107,62 @@ function buildPathDropdowns(destinationClass, names, length) {
    document.querySelector(destinationClass).append(fragment)
 }
 
+function openQuickNavItem(elem, textValue) {
+   elem.parentNode.children[1].classList.remove('contracted') //maximize text field
+   elem.parentNode.children[1].classList.remove('borderless') //reveal the border
+   elem.classList.add('square-borders') //square off button right borders
+   elem.classList.add('opened') //minimize button width
+
+   let start, end
+   if (textValue == 'Projects') {
+      start = 7
+      end = 1
+   } else if (textValue == 'Modules') {
+      start = 6
+      end = 2
+   } else if (textValue == 'Scenarios') {
+      start = 8
+      end = 3
+   }
+
+   //minimize text 
+   for (let i = start, timer = 100; i > end; i--, timer += 35) {
+      setTimeout(()=>{elem.textContent = textValue.substring(0, i)}, timer)
+   }
+}
+
+function closeQuickNavItem(elem, textValue) {
+   elem.parentNode.children[1].classList.add('contracted') //minimize text field
+   setTimeout(()=>{elem.parentNode.children[1].classList.add('borderless')},365) //hide the border 
+   setTimeout(()=>{elem.classList.remove('square-borders')},250) //round off button right borders
+   elem.classList.remove('opened') //maximize button width
+
+   let start, end
+   if (textValue == 'Projects') {
+      start = 2
+      end = 8
+   } else if (textValue == 'Modules') {
+      start = 3
+      end = 7
+   } else if (textValue == 'Scenarios') {
+      start = 4
+      end = 9
+   }
+
+   //minimize text 
+   for (let i = start, timer = 100; i <= end; i++, timer += 35) {
+      setTimeout(()=>{elem.textContent = textValue.substring(0, i)}, timer)
+   }
+}
+
 //AUTO-LOADING
 document.addEventListener('DOMContentLoaded', () => {
    currentLocation = localStorage.getItem('currentLocation')
    updatePath()
 })
 
+
+//EVENTS
 //Click on the PROJECTS QUICK NAV ITEM to toggle dropdown
 document.querySelector('.pr-link').addEventListener('click', (e) => {
    const userProjects = JSON.parse(localStorage.getItem('userProjects'))
@@ -128,38 +178,10 @@ document.querySelector('.pr-link').addEventListener('click', (e) => {
    
    if (userProjects.length) {
       if (elem.parentNode.children[1].textContent == "" && !elem.classList.contains('opened')) {
-         //maximize text field
-         elem.parentNode.children[1].classList.remove('contracted')
-         //reveal the border
-         elem.parentNode.children[1].classList.remove('borderless')
-         //square off button right borders
-         elem.classList.add('square-borders')
-         //minimize button width
-         elem.classList.add('opened')
-         
-         //minimize text 
-         setTimeout(()=>{elem.textContent = "Project"},100)
-         setTimeout(()=>{elem.textContent = "Proje"},150)
-         setTimeout(()=>{elem.textContent = "Proj"},200)
-         setTimeout(()=>{elem.textContent = "Pro"},250)
-         setTimeout(()=>{elem.textContent = "Pr"},300)
+         openQuickNavItem(elem, 'Projects')
 
       } else if (elem.parentNode.children[1].textContent == "" && elem.classList.contains('opened')) {
-         //minimize text field
-         elem.parentNode.children[1].classList.add('contracted')
-         //hide the border 
-         setTimeout(()=>{elem.parentNode.children[1].classList.add('borderless')},365)
-         //round off button right borders
-         setTimeout(()=>{elem.classList.remove('square-borders')},250)
-         //maximize button width
-         elem.classList.remove('opened')
-
-         //maximize text
-         setTimeout(()=>{elem.textContent = "Pro"},100)
-         setTimeout(()=>{elem.textContent = "Proj"},150)
-         setTimeout(()=>{elem.textContent = "Proje"},200)
-         setTimeout(()=>{elem.textContent = "Projec"},250)
-         setTimeout(()=>{elem.textContent = "Projects"},300)
+         closeQuickNavItem(elem, 'Projects')
       }
 
       //Display dropdown
@@ -186,36 +208,10 @@ document.querySelector('.mod-link').addEventListener('click', (e) => {
    
    if (userProjects[projectInd].modules.length) {
       if (elem.parentNode.children[1].textContent == "" && !elem.classList.contains('opened')) {
-         //maximize text field
-         elem.parentNode.children[1].classList.remove('contracted')
-         //reveal the border
-         elem.parentNode.children[1].classList.remove('borderless')
-         //square off button right borders
-         elem.classList.add('square-borders')
-         //minimize button width
-         elem.classList.add('opened')
-
-         //minimize text 
-         setTimeout(()=>{elem.textContent = "Module"},100)
-         setTimeout(()=>{elem.textContent = "Modul"},150)
-         setTimeout(()=>{elem.textContent = "Modu"},200)
-         setTimeout(()=>{elem.textContent = "Mod"},250)
+         openQuickNavItem(elem, 'Modules')
 
       } else if (elem.parentNode.children[1].textContent == "" && elem.classList.contains('opened')) {
-         //minimize text field
-         elem.parentNode.children[1].classList.add('contracted')
-         //hide the border 
-         setTimeout(()=>{elem.parentNode.children[1].classList.add('borderless')},365)
-         //round off button right borders
-         setTimeout(()=>{elem.classList.remove('square-borders')},250)
-         //maximize button width
-         elem.classList.remove('opened')
-
-         //maximize text
-         setTimeout(()=>{elem.textContent = "Modu"},100)
-         setTimeout(()=>{elem.textContent = "Modul"},150)
-         setTimeout(()=>{elem.textContent = "Module"},200)
-         setTimeout(()=>{elem.textContent = "Modules"},250)
+         closeQuickNavItem(elem, 'Modules')
       }
 
       //Display dropdown
@@ -243,38 +239,10 @@ document.querySelector('.scen-link').addEventListener('click', (e) => {
    
    if (userProjects[projectInd].modules[moduleInd].scenarios) {
       if (elem.parentNode.children[1].textContent == "" && !elem.classList.contains('opened')) {
-         //maximize text field
-         elem.parentNode.children[1].classList.remove('contracted')
-         //reveal the border
-         elem.parentNode.children[1].classList.remove('borderless')
-         //square off button right borders
-         elem.classList.add('square-borders')
-         //minimize button width
-         elem.classList.add('opened')
-         
-         //minimize text 
-         setTimeout(()=>{elem.textContent = "Scenario"},100)
-         setTimeout(()=>{elem.textContent = "Scenari"},150)
-         setTimeout(()=>{elem.textContent = "Scenar"},200)
-         setTimeout(()=>{elem.textContent = "Scena"},250)
-         setTimeout(()=>{elem.textContent = "Scen"},300)
+         openQuickNavItem(elem, 'Scenarios')
 
       } else if (elem.parentNode.children[1].textContent == "" && elem.classList.contains('opened')) {
-         //minimize text field
-         elem.parentNode.children[1].classList.add('contracted')
-         //hide the border 
-         setTimeout(()=>{elem.parentNode.children[1].classList.add('borderless')},365)
-         //round off button right borders
-         setTimeout(()=>{elem.classList.remove('square-borders')},250)
-         //maximize button width
-         elem.classList.remove('opened')
-
-         //maximize text
-         setTimeout(()=>{elem.textContent = "Scena"},100)
-         setTimeout(()=>{elem.textContent = "Scenar"},150)
-         setTimeout(()=>{elem.textContent = "Scenari"},200)
-         setTimeout(()=>{elem.textContent = "Scenario"},250)
-         setTimeout(()=>{elem.textContent = "Scenarios"},300)
+         closeQuickNavItem(elem, 'Scenarios')
       }
 
       //Display dropdown
