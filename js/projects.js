@@ -122,6 +122,8 @@ document.addEventListener('click', (e) => {
       document.querySelectorAll('.actions-dropdown').forEach(el => el.classList.remove('visible'))
       document.querySelector('.projects').removeChild(itemToDelete)
       saveProjects()
+      removeDropdown(document.querySelector('.projects-container'))
+      updatePath()
       // openDeletionModal()
       // handleDeletionModal()
    }
@@ -148,7 +150,8 @@ document.addEventListener('click', (e) => {
          addProject('new project')
       }
       saveProjects()
-      // updatePath()
+      removeDropdown(document.querySelector('.projects-container'))
+      updatePath()
       closeProjectModal()
    }
 })
@@ -173,7 +176,8 @@ window.addEventListener('keydown', (e) => {
          addProject('new project')
       }
       saveProjects()
-      // updatePath()
+      removeDropdown(document.querySelector('.projects-container'))
+      updatePath()
       closeProjectModal()
    }
 })

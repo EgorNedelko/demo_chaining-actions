@@ -119,6 +119,8 @@ document.addEventListener('click', (e) => {
       document.querySelector('.scenarios').removeChild(itemToDelete)
       refreshItemCounter()
       saveScenarios()
+      removeDropdown(document.querySelector('.scenarios-container'))
+      updatePath()
       // openDeletionModal()
       // handleDeletionModal()
    }
@@ -145,6 +147,8 @@ document.addEventListener('click', (e) => {
          addScenario('new scenario')
       }
       saveScenarios()
+      removeDropdown(document.querySelector('.scenarios-container'))
+      updatePath()
       refreshItemCounter()
       closeScenarioModal()
    }
@@ -170,6 +174,8 @@ window.addEventListener('keydown', (e) => {
          addScenario('new scenario')
       }
       saveScenarios()
+      removeDropdown(document.querySelector('.scenarios-container'))
+      updatePath()
       refreshItemCounter()
       closeScenarioModal()
    }

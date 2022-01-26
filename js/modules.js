@@ -119,6 +119,8 @@ document.addEventListener('click', (e) => {
       document.querySelector('.modules').removeChild(itemToDelete)
       refreshItemCounter()
       saveModules()
+      removeDropdown(document.querySelector('.modules-container'))
+      updatePath()
       // openDeletionModal()
       // handleDeletionModal()
    }
@@ -145,6 +147,8 @@ document.addEventListener('click', (e) => {
          addModule('new module')
       }
       saveModules()
+      removeDropdown(document.querySelector('.modules-container'))
+      updatePath()
       refreshItemCounter()
       closeModuleModal()
    }
@@ -170,6 +174,8 @@ window.addEventListener('keydown', (e) => {
          addModule('new module')
       }
       saveModules()
+      removeDropdown(document.querySelector('.modules-container'))
+      updatePath()
       refreshItemCounter()
       closeModuleModal()
    }

@@ -10,6 +10,11 @@ const pathItem = {
    "Scen" : "Scenarios"
 }
 
+function removeDropdown(targetContainer) {
+   const dropdownToRemove = targetContainer.children[2]
+   targetContainer.removeChild(dropdownToRemove)
+}
+
 function updatePath() {
    console.log('updating path')
    let names = []
