@@ -351,5 +351,23 @@ document.addEventListener('click', (e) => {
             }
          }
       }
+   } else if (currentLocation == 'steps') {
+      if (e.target != document.querySelector('.pr-link') && e.target != document.querySelector('.pr-path')) {
+         if (document.querySelector('.pr-link').parentNode.children[2]) {
+            document.querySelector('.pr-link').parentNode.children[2].classList.add('display-none')
+         }
+      }
+
+      if (e.target != document.querySelector('.mod-link') && e.target != document.querySelector('.mod-path')) {
+         if (document.querySelector('.mod-link').parentNode.children[2]) {
+            document.querySelector('.mod-link').parentNode.children[2].classList.add('display-none')
+         }
+      }
+
+      if (e.target != document.querySelector('.scen-link') && e.target != document.querySelector('.scen-path')) {
+         if (document.querySelector('.scen-link').parentNode.children[2]) {
+            document.querySelector('.scen-link').parentNode.children[2].classList.add('display-none')
+         }
+      }
    }
 })
