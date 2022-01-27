@@ -1,0 +1,124 @@
+html {
+   background-color: rgb(245, 246, 250);
+}
+
+body {
+   background-color: rgb(245, 246, 250);
+   font-family: 'Mulish', sans-serif;
+   /* display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center; */
+}
+
+
+.create-account-title {
+   max-width: 445px;
+   margin: 75px auto 25px;
+   color: rgb(68, 64, 73);
+   font-size: 60px;
+   line-height: 65px;
+   text-align: center;
+}
+
+.register-wrapper {
+   color: rgb(82, 95, 127);
+   border-radius: 5px;
+   width: fit-content;
+   margin: 0 auto;
+}
+
+.register-form-container {
+   border-radius: 5px;
+   background-color: rgb(247, 250, 252);
+   box-shadow: 0 4px 24px rgb(50 50 93 / 2%), 0 3px 6px rgb(0 0 0 / 4%);
+}
+
+.register-container-header {
+   padding: 20px 24px 48px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   border-bottom: 1px solid #d0d7df;
+}
+
+.github-text {
+   margin-bottom: 24px;
+   color: rgb(136, 152, 170);
+   font-size: 12.8px;
+   line-height: 19.2px;
+   font-weight: 400;
+   text-align: center;
+}
+
+.github-btn {
+   padding: 10px 20px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   border: none;
+   box-shadow: 0 0 2rem 0 rgb(136 152 170 / 15%) !important;
+}
+
+.github-btn-text {
+   color: #5e72e4;
+   margin-left: 6px;
+   font-size: 14px;
+   line-height: 21px;
+   font-weight: 600;
+}
+
+.register-container-body {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: space-between;
+   column-gap: 10px;
+   padding: 48px;
+}
+
+.credintials-text {
+   color: rgb(136, 152, 170);
+   font-size: 12px;
+   margin-bottom: 16px;
+}
+
+.register-input {
+   font-size: 14px;
+   line-height: 21px;
+   min-width: 320px;
+   padding: 10px 12px;
+   border-radius: 6px;
+   border: none;
+   background-color: rgb(255, 255, 255);
+   margin-bottom: 10px;
+}
+.register-input::placeholder {
+   color: #8898aa;
+   font-size: 14px;
+   padding-left: 12px;
+}
+
+.termsOS-checkbox-label {
+   max-width: 290px;
+   margin: 8px auto 26px;
+   font-size: 14px;
+   color: rgb(136, 152, 170);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.termsOS-checkbox {
+   margin-right: 10px;
+}
+
+.create-acc-btn {
+   min-width: 145px;
+   font-family: 'Mulish', sans-serif;
+   font-size: 14px;
+   line-height: 21px;
+   font-weight: 600;
+   padding: 10px 20px;
+}
