@@ -11,8 +11,10 @@ const pathItem = {
 }
 
 function removeDropdown(targetContainer) {
-   const dropdownToRemove = targetContainer.children[2]
-   targetContainer.removeChild(dropdownToRemove)
+   if (targetContainer.children[2]) {
+      const dropdownToRemove = targetContainer.children[2]
+      targetContainer.removeChild(dropdownToRemove)
+   }
 }
 
 function updatePath() {

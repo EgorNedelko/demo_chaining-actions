@@ -30,7 +30,7 @@ function addStep(targetPosition) {
    const step = document.createElement('div')
    step.classList.add('step')
    // step.setAttribute('draggable', true)
-   step.setAttribute('data-type', 'Go to URL')
+   step.setAttribute('data-type', 'Select Type')
 
    // create plus button
    const plusBtn = document.createElement('input')
@@ -699,10 +699,11 @@ document.querySelector("input[value='Clear All']").addEventListener('click', () 
    document.querySelectorAll('.step').forEach(step => document.querySelector('.steps').removeChild(step))
    addStep()
    document.getElementById('itemCounter').textContent = 1
-   document.querySelector('.steps').children[0].children[2].children[0].children[0].textContent = "Go to URL"
-   document.querySelector('.steps').children[0].children[2].children[0].children[0].classList.remove('no-type')
-   document.querySelector('.steps').children[0].children[2].children[0].children[0].classList.add('btn-white')
-   document.querySelector('.steps').children[0].children[2].children[1].setAttribute('placeholder', "Provide the URL to go to: https://example.com/")
+   document.querySelectorAll('.step')[0].dataset.type = "Go to URL"
+   document.querySelectorAll('.step')[0].querySelector('.dropdown-btn').textContent = "Go to URL"
+   document.querySelectorAll('.step')[0].querySelector('.dropdown-btn').classList.remove('no-type')
+   document.querySelectorAll('.step')[0].querySelector('.dropdown-btn').classList.add('btn-white')
+   document.querySelectorAll('.step')[0].querySelector('.step-input').setAttribute('placeholder', "Provide the URL to go to: https://example.com/")
 })
 
 //AUTO-SAVING
