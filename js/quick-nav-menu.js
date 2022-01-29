@@ -373,3 +373,15 @@ document.addEventListener('click', (e) => {
       }
    }
 })
+
+//ACTIONS DROPDOWNS
+window.addEventListener('click', (e) => {
+   if (!e.target.classList.contains('actions-icon')) {
+      const dropdowns = document.querySelectorAll('.actions-dropdown')
+      dropdowns.forEach(menu => {
+         if (menu.classList.contains('visible')) {
+            menu.classList.remove('visible')
+         }
+      })
+   }
+})

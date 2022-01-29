@@ -788,8 +788,7 @@ document.addEventListener('mouseout', (e) => {
    }  
 })
 
-
-/////STEP TYPE
+//Highlight the selected type in the dropdown list
 document.addEventListener('click', (e) => {
    if (e.target.classList.contains('dropdown-item')) {
       for (let i = 0; i < e.target.parentNode.children.length; i++) {
@@ -799,6 +798,7 @@ document.addEventListener('click', (e) => {
    }
 })
 
+//Edit STEP CUSTOM NAME for it to be displayed in the dropdown button
 document.addEventListener('click', (e) => {
    if (e.target.classList.contains('step-custom-name')) {
       const currentStepType = e.target.parentNode.parentNode.parentNode.parentNode.dataset.type
@@ -811,6 +811,21 @@ document.addEventListener('click', (e) => {
                e.target.parentNode.parentNode.children[0].classList.add('custom-name')
             }
             e.target.parentNode.parentNode.children[0].textContent = e.target.value
+         }
+      })
+   }
+})
+
+
+//DROPDOWNS 
+window.addEventListener('click', (e) => {
+   if (!e.target.classList.contains('dropdown-btn')) {
+      const dropdowns = document.querySelectorAll('.dropdown')
+      dropdowns.forEach(menu => {
+         if (menu.classList.contains('visible')) {
+            if (!e.target.classList.contains('step-custom-name')) {
+               menu.classList.remove('visible')
+            }
          }
       })
    }
