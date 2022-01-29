@@ -749,14 +749,15 @@ document.addEventListener('click', (e) => {
    }
 })
 
-// document.addEventListener('click', (e) => {
-//    if (e.target.classList.contains('step-custom-name')) {
-//       e.target.addEventListener('input', (e) => {
-//          if (!e.target.value) {
-//             e.target.parentNode.parentNode.children[0].textContent = 'default'
-//          } else {
-//             e.target.parentNode.parentNode.children[0].textContent = e.target.value
-//          }
-//       })
-//    }
-// })
+document.addEventListener('click', (e) => {
+   if (e.target.classList.contains('step-custom-name')) {
+      const currentStepType = e.target.parentNode.parentNode.parentNode.parentNode.dataset.type
+      e.target.addEventListener('input', (e) => {
+         if (!e.target.value) {
+            e.target.parentNode.parentNode.children[0].textContent = currentStepType
+         } else {
+            e.target.parentNode.parentNode.children[0].textContent = e.target.value
+         }
+      })
+   }
+})
