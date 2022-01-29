@@ -29,7 +29,8 @@ function addStep(targetPosition) {
    //create step container
    const step = document.createElement('div')
    step.classList.add('step')
-   step.setAttribute('draggable', true)
+   // step.setAttribute('draggable', true)
+   step.setAttribute('data-type', 'Go to URL')
 
    // create plus button
    const plusBtn = document.createElement('input')
@@ -72,6 +73,15 @@ function addStep(targetPosition) {
       a.textContent = Object.keys(stepTypesTextContent)[i]
       dropdown.appendChild(a)
    }
+   const divider = document.createElement('hr')
+   divider.classList.add('dropdown-divider')
+   dropdown.appendChild(divider)
+
+   const stepCustomName = document.createElement('input')
+   stepCustomName.classList.add('step-custom-name')
+   stepCustomName.setAttribute('type', 'text')
+   stepCustomName.setAttribute('placeholder', 'Custom name')
+   dropdown.appendChild(stepCustomName)
 
    const stepInput = document.createElement('input')
    stepInput.classList.add('step-input', 'no-input')
@@ -152,13 +162,14 @@ document.addEventListener('click', (e) => {
 
       //find and modify new step
       let selectedType = e.target.textContent
-      const dropdownBtn = e.target.parentNode.parentNode.children[0]
-      const stepInput = e.target.parentNode.parentNode.parentNode.children[1]
+      const dropdownBtn = elemToClose.querySelector('.dropdown-btn')
+      const stepInput = elemToClose.querySelector('.step-input')
+      elemToClose.dataset.type = selectedType
       dropdownBtn.textContent = e.target.textContent
       stepInput.setAttribute('placeholder', stepTypesTextContent[selectedType])
 
       //Highlighting the click input grey and making it non-editable
-      handleClickBtnInput(selectedType, stepInput)
+      handleClickBtnInput(selectedType, elemToClose.querySelector('.step-input'))
       
       let targetPosition;
       if ((isChainMode && selectedType == "Find element") || (isChainMode && selectedType == "Find input")) {
@@ -184,11 +195,13 @@ document.addEventListener('click', (e) => {
                //Find and modify chain step
                steps = [...document.querySelectorAll('.step')]
                const chainStepElem = steps[i+1]
-               let chainStepDropdownBtn = chainStepElem.children[2].children[0].children[0]
-               const chainStepInput = chainStepElem.children[2].children[1]
+               const chainStepDropdownBtn = chainStepElem.querySelector('.dropdown-btn')
+               const chainStepInput = chainStepElem.querySelector('.step-input')
                chainStepDropdownBtn.textContent = selectedType == "Find element" ? "Click element" : "Type in"
                chainStepInput.setAttribute('placeholder', stepTypesTextContent[chainStepDropdownBtn.textContent])
+               
                selectedType = chainStepDropdownBtn.textContent
+               chainStepElem.dataset.type = selectedType
                closeStepOptions(chainStepElem)
                handleClickBtnInput(selectedType, chainStepInput)
             }
@@ -216,11 +229,12 @@ document.addEventListener('click', (e) => {
       hideDropdowns()
 
       //find and modify new step
-      const dropdownBtn = e.target.parentNode.parentNode.children[2].children[0].children[0]
-      const stepInput = e.target.parentNode.parentNode.children[2].children[1]
+      const dropdownBtn = elemToClose.querySelector('.dropdown-btn')
+      const stepInput = elemToClose.querySelector('.step-input')
       dropdownBtn.textContent = commonTypesArr[e.target.classList[3]]
       stepInput.setAttribute('placeholder', stepTypesTextContent[dropdownBtn.textContent])
-      let selectedType = dropdownBtn.textContent
+      let selectedType = elemToClose.querySelector('.dropdown-btn').textContent
+      elemToClose.dataset.type = selectedType
 
       //Highlighting the click input grey and making it non-editable
       handleClickBtnInput(selectedType, stepInput)
@@ -249,11 +263,13 @@ document.addEventListener('click', (e) => {
                //Find and modify chain step
                steps = [...document.querySelectorAll('.step')]
                const chainStepElem = steps[i+1]
-               let chainStepDropdownBtn = chainStepElem.children[2].children[0].children[0]
-               const chainStepInput = chainStepElem.children[2].children[1]
+               const chainStepDropdownBtn = chainStepElem.querySelector('.dropdown-btn')
+               const chainStepInput = chainStepElem.querySelector('.step-input')
                chainStepDropdownBtn.textContent = selectedType == "Find element" ? "Click element" : "Type in"
                chainStepInput.setAttribute('placeholder', stepTypesTextContent[chainStepDropdownBtn.textContent])
+               
                selectedType = chainStepDropdownBtn.textContent
+               chainStepElem.dataset.type = selectedType
                closeStepOptions(chainStepElem)
                handleClickBtnInput(selectedType, chainStepInput)
             }
@@ -383,20 +399,24 @@ function checkRelations() {
    const steps = [...document.querySelectorAll('.step')]
 
    for (let i = 0; i < steps.length; i++) {
-      if (steps[i-1]) prevStepType = steps[i-1].children[2].children[0].children[0].textContent
-      currentStepType = steps[i].children[2].children[0].children[0].textContent
-      currentStepInput = steps[i].children[2].children[1]
+      if (steps[i-1]) {
+         prevStepDropdownBtn = steps[i-1].querySelector('.dropdown-btn').textContent
+         prevStepType = steps[i-1].dataset.type
+      }
+      currentStepDropdownBtn = steps[i].querySelector('.dropdown-btn').textContent
+      currentStepType = steps[i].dataset.type
+      currentStepInput = steps[i].querySelector('.step-input')
       if (i == 0) {
          if (currentStepType != "Go to URL") {
          steps.forEach(step => {
-            step.children[2].children[1].classList.add('error')
-            step.children[2].children[1].setAttribute('placeholder', "Go to URL first.")
+            step.querySelector('.step-input').classList.add('error')
+            step.querySelector('.step-input').setAttribute('placeholder', "Go to URL first.")
          })
          return
          } else {
             steps.forEach(step => {
-               step.children[2].children[1].classList.remove('error')
-               step.children[2].children[1].setAttribute('placeholder', stepTypesTextContent[step.children[2].children[0].children[0].textContent])
+               step.querySelector('.step-input').classList.remove('error')
+               step.querySelector('.step-input').setAttribute('placeholder', stepTypesTextContent[step.querySelector('.dropdown-btn').textContent])
             })
          }
       }
@@ -408,7 +428,7 @@ function checkRelations() {
                currentStepInput.setAttribute('placeholder', 'Find element first')
             } else {
                if (currentStepInput.classList.contains('error')) {
-                  currentStepInput.classList.error('error')
+                  currentStepInput.classList.remove('error')
                }
                currentStepInput.setAttribute('placeholder', stepTypesTextContent[currentStepType])
             }
@@ -420,7 +440,7 @@ function checkRelations() {
                currentStepInput.setAttribute('placeholder', 'Find input first')
             } else {
                if (currentStepInput.classList.contains('error')) {
-                  currentStepInput.classList.error('error')
+                  currentStepInput.classList.remove('error')
                }
                currentStepInput.setAttribute('placeholder', stepTypesTextContent[currentStepType])
             }
@@ -547,8 +567,9 @@ function saveSteps() {
                      for (let s = 0; s < stepsList.length; s++) {
                         stylesList = stepsList[s].className.split(' ')
                         userProjects[i].modules[j].scenarios[y].steps[s] = {
-                           type: stepsList[s].querySelector('.dropdown-btn').textContent,
+                           type: stepsList[s].dataset.type,
                            value: stepsList[s].querySelector('.step-input').value,
+                           name: stepsList[s].querySelector('.step-custom-name').value,
                            styles: stylesList
                         }
                      }
@@ -593,8 +614,16 @@ function loadSteps() {
                               for (let s = 0; s < userProjects[i].modules[j].scenarios[y].steps.length; s++) {
                                  addStep()
                                  let stepToModify = document.querySelectorAll('.step')[s]
-                                 stepToModify.querySelector('.dropdown-btn').textContent = userProjects[i].modules[j].scenarios[y].steps[s].type
+                                 stepToModify.dataset.type = userProjects[i].modules[j].scenarios[y].steps[s].type
+                                 stepToModify.querySelector('.step-custom-name').value = userProjects[i].modules[j].scenarios[y].steps[s].name
                                  stepToModify.querySelector('.step-input').value = userProjects[i].modules[j].scenarios[y].steps[s].value
+
+                                 //Change step's name
+                                 if (userProjects[i].modules[j].scenarios[y].steps[s].name) {
+                                    stepToModify.querySelector('.dropdown-btn').textContent = userProjects[i].modules[j].scenarios[y].steps[s].name
+                                 } else {
+                                    stepToModify.querySelector('.dropdown-btn').textContent = userProjects[i].modules[j].scenarios[y].steps[s].type
+                                 }
                                  
                                  //Add styles to steps, btns and inputs
                                  let stepStyles = []
@@ -707,3 +736,26 @@ document.addEventListener('mouseout', (e) => {
       e.target.parentNode.parentNode.children[1].classList.remove('hover')
    }  
 })
+
+
+/////STEP TYPE
+document.addEventListener('click', (e) => {
+   if (e.target.classList.contains('dropdown-item')) {
+      for (let i = 0; i < e.target.parentNode.children.length; i++) {
+         e.target.parentNode.children[i].classList.remove('selected-type')
+      }
+      e.target.classList.add('selected-type')
+   }
+})
+
+// document.addEventListener('click', (e) => {
+//    if (e.target.classList.contains('step-custom-name')) {
+//       e.target.addEventListener('input', (e) => {
+//          if (!e.target.value) {
+//             e.target.parentNode.parentNode.children[0].textContent = 'default'
+//          } else {
+//             e.target.parentNode.parentNode.children[0].textContent = e.target.value
+//          }
+//       })
+//    }
+// })

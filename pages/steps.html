@@ -102,7 +102,7 @@
    
          <div class="steps">
             
-            <div class="step" draggable="true">
+            <div data-type="Go To URL" class="step">
                <div class="order">
                   <span class="order-num">1</span>
                   <!-- <img class="order-icon" src="https://img.icons8.com/ios-glyphs/30/000000/resize-vertical.png"> -->
@@ -112,7 +112,7 @@
                   <div class="dropdown-container">
                      <button class="btn btn-white dropdown-btn" type="button">Go to URL</button>
                      <div class="dropdown">
-                        <a class="dropdown-item">Go to URL</a>
+                        <a class="dropdown-item selected-type">Go to URL</a>
                         <a class="dropdown-item">Check URL</a>
                         <a class="dropdown-item">Check path</a>
                         <a class="dropdown-item">Find element</a>
@@ -121,6 +121,8 @@
                         <a class="dropdown-item">Type in</a>
                         <a class="dropdown-item">Find text</a>
                         <a class="dropdown-item">Element doesn't exist</a>
+                        <hr class="dropdown-divider">
+                        <input type="text" placeholder="Custom name" class="step-custom-name">
                      </div>
                   </div>
                   <input class="step-input no-input" type="text" placeholder="Provide the URL to go to: https://example.com/">
