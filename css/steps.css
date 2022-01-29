@@ -82,6 +82,9 @@
    border-top-right-radius: 0;
    border-bottom-right-radius: 0;
 }
+.dropdown-btn.custom-name {
+   color: rgb(65, 91, 158);
+}
 
 .dropdown {
    display: none;

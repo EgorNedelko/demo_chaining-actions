@@ -168,6 +168,10 @@ document.addEventListener('click', (e) => {
       dropdownBtn.textContent = e.target.textContent
       stepInput.setAttribute('placeholder', stepTypesTextContent[selectedType])
 
+      //remove custom name + style
+      elemToClose.querySelector('.step-custom-name').value = ''
+      dropdownBtn.classList.remove('custom-name')
+
       //Highlighting the click input grey and making it non-editable
       handleClickBtnInput(selectedType, elemToClose.querySelector('.step-input'))
       
@@ -626,12 +630,21 @@ function loadSteps() {
                                  }
                                  stepToModify.querySelector('.step-input').setAttribute('placeholder', stepTypesTextContent[stepToModify.dataset.type])
                                  
-                                 //Add styles to steps, btns and inputs
+                                 //Add styles to steps, dropdown item, btns and inputs
                                  let stepStyles = []
                                  for (let style = 0; style < userProjects[i].modules[j].scenarios[y].steps[s].styles.length; style++) {
                                     stepStyles.push(userProjects[i].modules[j].scenarios[y].steps[s].styles[style])
                                  }
                                  stepStyles.forEach(style => stepToModify.classList.add(style))
+                                 const dropdownItems = stepToModify.querySelectorAll('.dropdown-item')
+                                 dropdownItems.forEach(item => {
+                                    if (item.textContent == userProjects[i].modules[j].scenarios[y].steps[s].type) {
+                                       item.classList.add('selected-type')
+                                    }
+                                 })
+                                 if (userProjects[i].modules[j].scenarios[y].steps[s].name) {
+                                    stepToModify.querySelector('.dropdown-btn').classList.add('custom-name')
+                                 }
                                  if (stepStyles.includes('options-opened')) {
                                     openStepOptions(stepToModify)
                                  }
@@ -756,7 +769,11 @@ document.addEventListener('click', (e) => {
       e.target.addEventListener('input', (e) => {
          if (!e.target.value) {
             e.target.parentNode.parentNode.children[0].textContent = currentStepType
+            e.target.parentNode.parentNode.children[0].classList.remove('custom-name')
          } else {
+            if (!e.target.parentNode.parentNode.children[0].classList.contains('custom-name')) {
+               e.target.parentNode.parentNode.children[0].classList.add('custom-name')
+            }
             e.target.parentNode.parentNode.children[0].textContent = e.target.value
          }
       })
