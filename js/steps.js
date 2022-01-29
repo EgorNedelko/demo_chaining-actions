@@ -416,7 +416,7 @@ function checkRelations() {
          } else {
             steps.forEach(step => {
                step.querySelector('.step-input').classList.remove('error')
-               step.querySelector('.step-input').setAttribute('placeholder', stepTypesTextContent[step.querySelector('.dropdown-btn').textContent])
+               step.querySelector('.step-input').setAttribute('placeholder', stepTypesTextContent[step.dataset.type])
             })
          }
       }
@@ -624,6 +624,7 @@ function loadSteps() {
                                  } else {
                                     stepToModify.querySelector('.dropdown-btn').textContent = userProjects[i].modules[j].scenarios[y].steps[s].type
                                  }
+                                 stepToModify.querySelector('.step-input').setAttribute('placeholder', stepTypesTextContent[stepToModify.dataset.type])
                                  
                                  //Add styles to steps, btns and inputs
                                  let stepStyles = []
