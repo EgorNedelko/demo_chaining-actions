@@ -131,6 +131,9 @@
 .step-custom-name {
    cursor: text;
 }
+.readonly {
+   cursor: auto;
+}
 
 .step-input {
    outline: none;

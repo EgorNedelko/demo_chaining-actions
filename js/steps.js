@@ -79,8 +79,10 @@ function addStep(targetPosition) {
 
    const stepCustomName = document.createElement('input')
    stepCustomName.classList.add('step-custom-name')
+   stepCustomName.classList.add('readonly')
    stepCustomName.setAttribute('type', 'text')
-   stepCustomName.setAttribute('placeholder', 'Custom name')
+   stepCustomName.setAttribute('placeholder', 'Select Type first')
+   stepCustomName.setAttribute('readonly', true)
    dropdown.appendChild(stepCustomName)
 
    const stepInput = document.createElement('input')
@@ -170,7 +172,10 @@ document.addEventListener('click', (e) => {
 
       //remove custom name + style
       elemToClose.querySelector('.step-custom-name').value = ''
+      elemToClose.querySelector('.step-custom-name').setAttribute('placeholder', 'Edit custom name')
+      elemToClose.querySelector('.step-custom-name').removeAttribute('readonly')
       dropdownBtn.classList.remove('custom-name')
+      dropdownBtn.classList.remove('readonly')
 
       //Highlighting the click input grey and making it non-editable
       handleClickBtnInput(selectedType, elemToClose.querySelector('.step-input'))
@@ -203,6 +208,13 @@ document.addEventListener('click', (e) => {
                const chainStepInput = chainStepElem.querySelector('.step-input')
                chainStepDropdownBtn.textContent = selectedType == "Find element" ? "Click element" : "Type in"
                chainStepInput.setAttribute('placeholder', stepTypesTextContent[chainStepDropdownBtn.textContent])
+
+               //remove custom name + style
+               chainStepElem.querySelector('.step-custom-name').value = ''
+               chainStepElem.querySelector('.step-custom-name').setAttribute('placeholder', 'Edit custom name')
+               chainStepElem.querySelector('.step-custom-name').removeAttribute('readonly')
+               chainStepDropdownBtn.classList.remove('custom-name')
+               chainStepDropdownBtn.classList.remove('readonly')
                
                selectedType = chainStepDropdownBtn.textContent
                chainStepElem.dataset.type = selectedType
@@ -240,6 +252,13 @@ document.addEventListener('click', (e) => {
       let selectedType = elemToClose.querySelector('.dropdown-btn').textContent
       elemToClose.dataset.type = selectedType
 
+      //remove custom name + style
+      elemToClose.querySelector('.step-custom-name').value = ''
+      elemToClose.querySelector('.step-custom-name').setAttribute('placeholder', 'Edit custom name')
+      elemToClose.querySelector('.step-custom-name').removeAttribute('readonly')
+      dropdownBtn.classList.remove('custom-name')
+      dropdownBtn.classList.remove('readonly')
+
       //Highlighting the click input grey and making it non-editable
       handleClickBtnInput(selectedType, stepInput)
 
@@ -271,6 +290,13 @@ document.addEventListener('click', (e) => {
                const chainStepInput = chainStepElem.querySelector('.step-input')
                chainStepDropdownBtn.textContent = selectedType == "Find element" ? "Click element" : "Type in"
                chainStepInput.setAttribute('placeholder', stepTypesTextContent[chainStepDropdownBtn.textContent])
+
+               //remove custom name + style
+               chainStepElem.querySelector('.step-custom-name').value = ''
+               chainStepElem.querySelector('.step-custom-name').setAttribute('placeholder', 'Edit custom name')
+               chainStepElem.querySelector('.step-custom-name').removeAttribute('readonly')
+               chainStepDropdownBtn.classList.remove('custom-name')
+               chainStepDropdownBtn.classList.remove('readonly')
                
                selectedType = chainStepDropdownBtn.textContent
                chainStepElem.dataset.type = selectedType
@@ -622,6 +648,13 @@ function loadSteps() {
                                  stepToModify.querySelector('.step-custom-name').value = userProjects[i].modules[j].scenarios[y].steps[s].name
                                  stepToModify.querySelector('.step-input').value = userProjects[i].modules[j].scenarios[y].steps[s].value
 
+                                 //Making custom name editable if a step has a type 
+                                 if (userProjects[i].modules[j].scenarios[y].steps[s].type != "Select Type") {
+                                    stepToModify.querySelector('.step-custom-name').removeAttribute('readonly')
+                                    stepToModify.querySelector('.step-custom-name').classList.remove('readonly')
+                                    stepToModify.querySelector('.step-custom-name').setAttribute('placeholder', 'Edit custom name')
+                                 }
+
                                  //Change step's name
                                  if (userProjects[i].modules[j].scenarios[y].steps[s].name) {
                                     stepToModify.querySelector('.dropdown-btn').textContent = userProjects[i].modules[j].scenarios[y].steps[s].name
@@ -718,6 +751,9 @@ document.querySelector("input[value='Clear All']").addEventListener('click', () 
    document.querySelectorAll('.step')[0].querySelector('.dropdown-btn').classList.remove('no-type')
    document.querySelectorAll('.step')[0].querySelector('.dropdown-btn').classList.add('btn-white')
    document.querySelectorAll('.step')[0].querySelector('.step-input').setAttribute('placeholder', "Provide the URL to go to: https://example.com/")
+   document.querySelectorAll('.step')[0].querySelector('.step-custom-name').removeAttribute('readonly')
+   document.querySelectorAll('.step')[0].querySelector('.step-custom-name').classList.remove('readonly')
+   document.querySelectorAll('.step')[0].querySelector('.step-custom-name').setAttribute('placeholder', 'Edit custom name')
 })
 
 //AUTO-SAVING
