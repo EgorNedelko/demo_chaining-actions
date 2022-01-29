@@ -391,6 +391,17 @@ function loadSteps() {
                                     stepToModify.querySelector('.dropdown-btn').classList.add('btn-white')
                                  }
                               }
+                           } else {
+                              addStep()
+                              document.getElementById('itemCounter').textContent = 1
+                              document.querySelectorAll('.step')[0].dataset.type = "Go to URL"
+                              document.querySelectorAll('.step')[0].querySelector('.dropdown-btn').textContent = "Go to URL"
+                              document.querySelectorAll('.step')[0].querySelector('.dropdown-btn').classList.remove('no-type')
+                              document.querySelectorAll('.step')[0].querySelector('.dropdown-btn').classList.add('btn-white')
+                              document.querySelectorAll('.step')[0].querySelector('.step-input').setAttribute('placeholder', "Provide the URL to go to: https://example.com/")
+                              document.querySelectorAll('.step')[0].querySelector('.step-custom-name').removeAttribute('readonly')
+                              document.querySelectorAll('.step')[0].querySelector('.step-custom-name').classList.remove('readonly')
+                              document.querySelectorAll('.step')[0].querySelector('.step-custom-name').setAttribute('placeholder', 'Edit custom name')
                            }
 
                            //Refresh core
