@@ -111,6 +111,7 @@
    border: none;
    background-color: rgb(255,255,255);
 }
+
 .step-custom-name::placeholder {
    padding: 0;
 }
@@ -121,12 +122,12 @@
 .dropdown-item.selected-type {
    background-color: #dbe3ee;
 }
-/* .dropdown-item.selected-type::after {
+.dropdown-item.selected-type::after {
    content: '✓';
    position: absolute;
    top: 5;
-   left: 15;
-} */
+   right: 10%;
+}
 .step-custom-name {
    cursor: text;
 }

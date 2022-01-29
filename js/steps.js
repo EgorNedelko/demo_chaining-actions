@@ -648,7 +648,7 @@ function loadSteps() {
                                  if (stepStyles.includes('options-opened')) {
                                     openStepOptions(stepToModify)
                                  }
-                                 if (stepToModify.querySelector('.dropdown-btn').textContent != 'Select Type') {
+                                 if (stepToModify.dataset.type != 'Select Type') {
                                     stepToModify.querySelector('.dropdown-btn').classList.remove('no-type')
                                     stepToModify.querySelector('.dropdown-btn').classList.add('btn-white')
                                  }
