@@ -97,15 +97,23 @@
 .dropdown a {
    display: block;
 }
+/* 
+.dropdown::after {
+   content: url("https://img.icons8.com/material-outlined/50/000000/visible--v1.png");
+   position: absolute;
+   transform: scale(0.5);
+   filter: contrast(0.6);
+   bottom: -2.2%;
+   right: 1%;
+   cursor: pointer;
+} */
 
 .dropdown > .dropdown-item:first-child {
    border-top-left-radius: 6px;
    border-top-right-radius: 6px;
 }
 
-.dropdown-item,
-.step-custom-name,
-.step-custom-name::placeholder {
+.dropdown-item {
    padding: 8px 16px;
    color: rgb(82, 95, 127);
    font-size: 14px;
@@ -116,9 +124,6 @@
    background-color: rgb(255,255,255);
 }
 
-.step-custom-name::placeholder {
-   padding: 0;
-}
 .dropdown-item:hover {
    background-color: #e5ebf3;
 }
@@ -132,13 +137,45 @@
    top: 5;
    right: 10%;
 }
-.step-custom-name {
+
+.custom-name-container {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   padding: 8px 16px;
+}
+
+.step-custom-name,
+.step-custom-name::placeholder {
+   /* padding: 8px 16px; */
+   color: rgb(82, 95, 127);
+   font-size: 14px;
+   line-height: 21px;
+   cursor: pointer;
+   position: relative;
+   border: none;
+   background-color: rgb(255,255,255);
    cursor: text;
    border-bottom-left-radius: 6px;
    border-bottom-right-radius: 6px;
 }
+/* .step-custom-name {
+   cursor: text;
+   border-bottom-left-radius: 6px;
+   border-bottom-right-radius: 6px;
+} */
+/* .step-custom-name::placeholder {
+   padding: 0;
+} */
 .readonly {
    cursor: auto;
+}
+
+.custom-name-visibility-icon {
+   width: 24px;
+   height: 24px;
+   opacity: 0.8;
+   cursor: pointer;
 }
 
 .step-input {

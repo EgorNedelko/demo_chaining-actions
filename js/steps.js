@@ -76,13 +76,22 @@ function addStep(targetPosition) {
    divider.classList.add('dropdown-divider')
    dropdown.appendChild(divider)
 
+   const stepCustomNameContainer = document.createElement('div')
+   stepCustomNameContainer.classList.add('custom-name-container')
+   const customNameVisibilityIcon = document.createElement('img')
+   customNameVisibilityIcon.classList.add('custom-name-visibility-icon', 'name-visible')
+   customNameVisibilityIcon.setAttribute('src', "https://img.icons8.com/material-outlined/50/000000/visible--v1.png")
+
    const stepCustomName = document.createElement('input')
    stepCustomName.classList.add('step-custom-name')
    stepCustomName.classList.add('readonly')
    stepCustomName.setAttribute('type', 'text')
    stepCustomName.setAttribute('placeholder', 'Select Type first')
    stepCustomName.setAttribute('readonly', true)
-   dropdown.appendChild(stepCustomName)
+   // dropdown.appendChild(stepCustomName)
+   stepCustomNameContainer.appendChild(stepCustomName)
+   stepCustomNameContainer.appendChild(customNameVisibilityIcon)
+   dropdown.appendChild(stepCustomNameContainer)
 
    const stepInput = document.createElement('input')
    stepInput.classList.add('step-input', 'no-input')
@@ -826,31 +835,21 @@ document.addEventListener('mouseout', (e) => {
    }  
 })
 
-//Highlight the selected type in the dropdown list
-// document.addEventListener('click', (e) => {
-//    if (e.target.classList.contains('dropdown-item')) {
-//       for (let i = 0; i < e.target.parentNode.children.length; i++) {
-//          e.target.parentNode.children[i].classList.remove('selected-type')
-//       }
-//       e.target.classList.add('selected-type')
-//    }
-// })
-
 //Edit STEP CUSTOM NAME for it to be displayed in the dropdown button
 document.addEventListener('click', (e) => {
    if (e.target.classList.contains('step-custom-name')) {
-      const currentStepType = e.target.parentNode.parentNode.parentNode.parentNode.dataset.type
+      const currentStepType = e.target.parentNode.parentNode.parentNode.parentNode.parentNode.dataset.type
       e.target.addEventListener('input', (e) => {
          if (!e.target.value) {
-            e.target.parentNode.parentNode.children[0].textContent = currentStepType
-            e.target.parentNode.parentNode.children[0].classList.remove('custom-name')
-            e.target.parentNode.parentNode.children[0].removeAttribute('title')
+            e.target.parentNode.parentNode.parentNode.children[0].textContent = currentStepType
+            e.target.parentNode.parentNode.parentNode.children[0].classList.remove('custom-name')
+            e.target.parentNode.parentNode.parentNode.children[0].removeAttribute('title')
          } else {
-            if (!e.target.parentNode.parentNode.children[0].classList.contains('custom-name')) {
-               e.target.parentNode.parentNode.children[0].classList.add('custom-name')
+            if (!e.target.parentNode.parentNode.parentNode.children[0].classList.contains('custom-name')) {
+               e.target.parentNode.parentNode.parentNode.children[0].classList.add('custom-name')
             }
-            e.target.parentNode.parentNode.children[0].textContent = e.target.value
-            e.target.parentNode.parentNode.children[0].setAttribute('title', e.target.value)
+            e.target.parentNode.parentNode.parentNode.children[0].textContent = e.target.value
+            e.target.parentNode.parentNode.parentNode.children[0].setAttribute('title', e.target.value)
          }
       })
    }
@@ -862,10 +861,37 @@ window.addEventListener('click', (e) => {
       const dropdowns = document.querySelectorAll('.dropdown')
       dropdowns.forEach(menu => {
          if (menu.classList.contains('visible')) {
-            if (!e.target.classList.contains('step-custom-name')) {
+            if (!e.target.classList.contains('step-custom-name') && !e.target.classList.contains('custom-name-visibility-icon')) {
                menu.classList.remove('visible')
             }
          }
       })
+   }
+})
+
+
+//CUSTOM NAME VISIBILITY ICON
+document.addEventListener('click', (e) => {
+   if (e.target.classList.contains('custom-name-visibility-icon')) {
+      const visibilityIcon = e.target
+      const dropdownBtn = visibilityIcon.parentNode.parentNode.parentNode.children[0]
+      const targetStep = visibilityIcon.parentNode.parentNode.parentNode.parentNode.parentNode
+      const stepCustomName = visibilityIcon.parentNode.children[0]
+
+      //display type
+      if (visibilityIcon.classList.contains('name-visible')) {
+         visibilityIcon.setAttribute('src', "https://img.icons8.com/material-outlined/50/000000/invisible.png")
+         visibilityIcon.classList.remove('name-visible')
+         visibilityIcon.classList.add('name-invisible')
+         dropdownBtn.textContent = targetStep.dataset.type
+      
+      //display name
+      } else if (visibilityIcon.classList.contains('name-invisible')) {
+         visibilityIcon.setAttribute('src', "https://img.icons8.com/material-outlined/50/000000/visible--v1.png")
+         visibilityIcon.classList.remove('name-invisible')
+         visibilityIcon.classList.add('name-visible')
+         dropdownBtn.textContent = stepCustomName.value
+      }
+      dropdownBtn.classList.toggle('custom-name')
    }
 })
