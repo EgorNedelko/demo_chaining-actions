@@ -256,6 +256,17 @@ function assignOrderNumber() {
    }
 }
 
+function highlightSelected(step) {
+   const dropdownItems = step.querySelectorAll('.dropdown-item')
+   dropdownItems.forEach(item => {
+      if (item.textContent == step.dataset.type) {
+         item.classList.add('selected-type')
+      } else {
+         item.classList.remove('selected-type')
+      }
+   })
+}
+
 function handleChainMode() {
    isChainMode = isChainMode == false ? true : false
    chainModeBtn.setAttribute('src', isChainMode ? "https://img.icons8.com/material-sharp/24/ffffff/link--v1.png" : "https://img.icons8.com/material-sharp/24/ffffff/broken-link.png")
@@ -371,12 +382,16 @@ function loadSteps() {
                                     stepStyles.push(userProjects[i].modules[j].scenarios[y].steps[s].styles[style])
                                  }
                                  stepStyles.forEach(style => stepToModify.classList.add(style))
-                                 const dropdownItems = stepToModify.querySelectorAll('.dropdown-item')
-                                 dropdownItems.forEach(item => {
-                                    if (item.textContent == userProjects[i].modules[j].scenarios[y].steps[s].type) {
-                                       item.classList.add('selected-type')
-                                    }
-                                 })
+
+                                 highlightSelected(stepToModify)
+
+                                 // const dropdownItems = stepToModify.querySelectorAll('.dropdown-item')
+                                 // dropdownItems.forEach(item => {
+                                 //    if (item.textContent == userProjects[i].modules[j].scenarios[y].steps[s].type) {
+                                 //       item.classList.add('selected-type')
+                                 //    }
+                                 // })
+
                                  if (userProjects[i].modules[j].scenarios[y].steps[s].value) {
                                     stepToModify.querySelector('.step-input').classList.remove('no-input')
                                  }
@@ -395,6 +410,7 @@ function loadSteps() {
                               addStep()
                               document.getElementById('itemCounter').textContent = 1
                               document.querySelectorAll('.step')[0].dataset.type = "Go to URL"
+                              highlightSelected(document.querySelectorAll('.step')[0])
                               document.querySelectorAll('.step')[0].querySelector('.dropdown-btn').textContent = "Go to URL"
                               document.querySelectorAll('.step')[0].querySelector('.dropdown-btn').classList.remove('no-type')
                               document.querySelectorAll('.step')[0].querySelector('.dropdown-btn').classList.add('btn-white')
@@ -553,6 +569,7 @@ document.querySelector("input[value='Clear All']").addEventListener('click', () 
    addStep()
    document.getElementById('itemCounter').textContent = 1
    document.querySelectorAll('.step')[0].dataset.type = "Go to URL"
+   highlightSelected(document.querySelectorAll('.step')[0])
    document.querySelectorAll('.step')[0].querySelector('.dropdown-btn').textContent = "Go to URL"
    document.querySelectorAll('.step')[0].querySelector('.dropdown-btn').classList.remove('no-type')
    document.querySelectorAll('.step')[0].querySelector('.dropdown-btn').classList.add('btn-white')
@@ -578,6 +595,7 @@ document.addEventListener('click', (e) => {
       const dropdownBtn = elemToClose.querySelector('.dropdown-btn')
       const stepInput = elemToClose.querySelector('.step-input')
       elemToClose.dataset.type = selectedType
+      highlightSelected(elemToClose)
       dropdownBtn.textContent = e.target.textContent
       stepInput.setAttribute('placeholder', stepTypesTextContent[selectedType])
 
@@ -629,6 +647,7 @@ document.addEventListener('click', (e) => {
                
                selectedType = chainStepDropdownBtn.textContent
                chainStepElem.dataset.type = selectedType
+               highlightSelected(chainStepElem)
                closeStepOptions(chainStepElem)
                handleClickBtnInput(selectedType, chainStepInput)
             }
@@ -662,6 +681,7 @@ document.addEventListener('click', (e) => {
       stepInput.setAttribute('placeholder', stepTypesTextContent[dropdownBtn.textContent])
       let selectedType = elemToClose.querySelector('.dropdown-btn').textContent
       elemToClose.dataset.type = selectedType
+      highlightSelected(elemToClose)
 
       //remove custom name + style
       elemToClose.querySelector('.step-custom-name').value = ''
@@ -711,6 +731,7 @@ document.addEventListener('click', (e) => {
                
                selectedType = chainStepDropdownBtn.textContent
                chainStepElem.dataset.type = selectedType
+               highlightSelected(chainStepElem)
                closeStepOptions(chainStepElem)
                handleClickBtnInput(selectedType, chainStepInput)
             }
@@ -806,14 +827,14 @@ document.addEventListener('mouseout', (e) => {
 })
 
 //Highlight the selected type in the dropdown list
-document.addEventListener('click', (e) => {
-   if (e.target.classList.contains('dropdown-item')) {
-      for (let i = 0; i < e.target.parentNode.children.length; i++) {
-         e.target.parentNode.children[i].classList.remove('selected-type')
-      }
-      e.target.classList.add('selected-type')
-   }
-})
+// document.addEventListener('click', (e) => {
+//    if (e.target.classList.contains('dropdown-item')) {
+//       for (let i = 0; i < e.target.parentNode.children.length; i++) {
+//          e.target.parentNode.children[i].classList.remove('selected-type')
+//       }
+//       e.target.classList.add('selected-type')
+//    }
+// })
 
 //Edit STEP CUSTOM NAME for it to be displayed in the dropdown button
 document.addEventListener('click', (e) => {
@@ -823,11 +844,13 @@ document.addEventListener('click', (e) => {
          if (!e.target.value) {
             e.target.parentNode.parentNode.children[0].textContent = currentStepType
             e.target.parentNode.parentNode.children[0].classList.remove('custom-name')
+            e.target.parentNode.parentNode.children[0].removeAttribute('title')
          } else {
             if (!e.target.parentNode.parentNode.children[0].classList.contains('custom-name')) {
                e.target.parentNode.parentNode.children[0].classList.add('custom-name')
             }
             e.target.parentNode.parentNode.children[0].textContent = e.target.value
+            e.target.parentNode.parentNode.children[0].setAttribute('title', e.target.value)
          }
       })
    }
