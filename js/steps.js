@@ -846,14 +846,12 @@ document.addEventListener('click', (e) => {
          if (!e.target.value) {
             e.target.parentNode.parentNode.parentNode.children[0].textContent = currentStepType
             e.target.parentNode.parentNode.parentNode.children[0].classList.remove('custom-name')
-            e.target.parentNode.parentNode.parentNode.children[0].removeAttribute('title')
          } else {
             if (targetStep.dataset.name == 'visible') {
                if (!e.target.parentNode.parentNode.parentNode.children[0].classList.contains('custom-name')) {
                   e.target.parentNode.parentNode.parentNode.children[0].classList.add('custom-name')
                }
                e.target.parentNode.parentNode.parentNode.children[0].textContent = e.target.value
-               e.target.parentNode.parentNode.parentNode.children[0].setAttribute('title', e.target.value)
             }
          }
       })
