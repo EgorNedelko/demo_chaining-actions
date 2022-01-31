@@ -30,6 +30,7 @@ function addStep(targetPosition) {
    step.classList.add('step')
    // step.setAttribute('draggable', true)
    step.setAttribute('data-type', 'Select Type')
+   step.setAttribute('data-name', 'visible')
 
    // create plus button
    const plusBtn = document.createElement('input')
@@ -322,6 +323,7 @@ function saveSteps() {
                            type: stepsList[s].dataset.type,
                            value: stepsList[s].querySelector('.step-input').value,
                            name: stepsList[s].querySelector('.step-custom-name').value,
+                           nameVisibility: stepsList[s].dataset.name,
                            styles: stylesList
                         }
                      }
@@ -358,7 +360,7 @@ function loadSteps() {
                         if (userProjects[i].modules[j].scenarios[y].name == targetScenario) {
 
                            //Load steps
-                           if (userProjects[i].modules[j].scenarios[y].steps) {
+                           if (userProjects[i].modules[j].scenarios[y].steps && userProjects[i].modules[j].scenarios[y].steps.length) {
                               
                               //Clean the slate if there're custom steps
                               document.querySelectorAll('.step').forEach(step => document.querySelector('.steps').removeChild(step))
@@ -366,24 +368,31 @@ function loadSteps() {
                               for (let s = 0; s < userProjects[i].modules[j].scenarios[y].steps.length; s++) {
                                  addStep()
                                  let stepToModify = document.querySelectorAll('.step')[s]
-                                 stepToModify.dataset.type = userProjects[i].modules[j].scenarios[y].steps[s].type
-                                 stepToModify.querySelector('.step-custom-name').value = userProjects[i].modules[j].scenarios[y].steps[s].name
-                                 stepToModify.querySelector('.step-input').value = userProjects[i].modules[j].scenarios[y].steps[s].value
 
-                                 //Making custom name editable if a step has a type 
-                                 if (userProjects[i].modules[j].scenarios[y].steps[s].type != "Select Type") {
+                                 //Load type, value, placeholder, custom name and name visibility
+                                 stepToModify.dataset.type = userProjects[i].modules[j].scenarios[y].steps[s].type
+                                 stepToModify.querySelector('.dropdown-btn').textContent = stepToModify.dataset.type
+                                 stepToModify.dataset.name = userProjects[i].modules[j].scenarios[y].steps[s].nameVisibility
+                                 stepToModify.querySelector('.step-input').value = userProjects[i].modules[j].scenarios[y].steps[s].value
+                                 stepToModify.querySelector('.step-custom-name').value = userProjects[i].modules[j].scenarios[y].steps[s].name
+                                 stepToModify.querySelector('.step-input').setAttribute('placeholder', stepTypesTextContent[stepToModify.dataset.type])
+
+                                 //Make custom name editable if a step has a type 
+                                 if (stepToModify.dataset.type != "Select Type") {
                                     stepToModify.querySelector('.step-custom-name').removeAttribute('readonly')
                                     stepToModify.querySelector('.step-custom-name').classList.remove('readonly')
                                     stepToModify.querySelector('.step-custom-name').setAttribute('placeholder', 'Edit custom name')
                                  }
 
-                                 //Change step's name
-                                 if (userProjects[i].modules[j].scenarios[y].steps[s].name) {
-                                    stepToModify.querySelector('.dropdown-btn').textContent = userProjects[i].modules[j].scenarios[y].steps[s].name
-                                 } else {
-                                    stepToModify.querySelector('.dropdown-btn').textContent = userProjects[i].modules[j].scenarios[y].steps[s].type
+                                 //Change step name
+                                 if (stepToModify.querySelector('.step-custom-name').value) {
+                                    if (stepToModify.dataset.name == 'visible') {
+                                       stepToModify.querySelector('.dropdown-btn').textContent = stepToModify.querySelector('.step-custom-name').value
+                                       stepToModify.querySelector('.dropdown-btn').classList.add('custom-name')
+                                    } else {
+                                       stepToModify.querySelector('.custom-name-visibility-icon').setAttribute('src', "https://img.icons8.com/material-outlined/50/000000/invisible.png")
+                                    }
                                  }
-                                 stepToModify.querySelector('.step-input').setAttribute('placeholder', stepTypesTextContent[stepToModify.dataset.type])
                                  
                                  //Add styles to steps, dropdown item, btns and inputs
                                  let stepStyles = []
@@ -394,19 +403,10 @@ function loadSteps() {
 
                                  highlightSelected(stepToModify)
 
-                                 // const dropdownItems = stepToModify.querySelectorAll('.dropdown-item')
-                                 // dropdownItems.forEach(item => {
-                                 //    if (item.textContent == userProjects[i].modules[j].scenarios[y].steps[s].type) {
-                                 //       item.classList.add('selected-type')
-                                 //    }
-                                 // })
-
                                  if (userProjects[i].modules[j].scenarios[y].steps[s].value) {
                                     stepToModify.querySelector('.step-input').classList.remove('no-input')
                                  }
-                                 if (userProjects[i].modules[j].scenarios[y].steps[s].name) {
-                                    stepToModify.querySelector('.dropdown-btn').classList.add('custom-name')
-                                 }
+                                 
                                  if (stepStyles.includes('options-opened')) {
                                     openStepOptions(stepToModify)
                                  }
@@ -415,6 +415,8 @@ function loadSteps() {
                                     stepToModify.querySelector('.dropdown-btn').classList.add('btn-white')
                                  }
                               }
+
+                           //In case there're no steps, create a default one
                            } else {
                               addStep()
                               document.getElementById('itemCounter').textContent = 1
@@ -879,19 +881,22 @@ document.addEventListener('click', (e) => {
       const stepCustomName = visibilityIcon.parentNode.children[0]
 
       //display type
-      if (visibilityIcon.classList.contains('name-visible')) {
+      if (visibilityIcon.classList.contains('name-visible') && stepCustomName.value) {
          visibilityIcon.setAttribute('src', "https://img.icons8.com/material-outlined/50/000000/invisible.png")
          visibilityIcon.classList.remove('name-visible')
          visibilityIcon.classList.add('name-invisible')
+         targetStep.dataset.name = 'invisible'
          dropdownBtn.textContent = targetStep.dataset.type
+         dropdownBtn.classList.toggle('custom-name')
       
       //display name
       } else if (visibilityIcon.classList.contains('name-invisible')) {
          visibilityIcon.setAttribute('src', "https://img.icons8.com/material-outlined/50/000000/visible--v1.png")
          visibilityIcon.classList.remove('name-invisible')
          visibilityIcon.classList.add('name-visible')
+         targetStep.dataset.name = 'visible'
          dropdownBtn.textContent = stepCustomName.value
+         dropdownBtn.classList.toggle('custom-name')
       }
-      dropdownBtn.classList.toggle('custom-name')
    }
 })
