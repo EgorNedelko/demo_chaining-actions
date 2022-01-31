@@ -840,6 +840,7 @@ document.addEventListener('mouseout', (e) => {
 //Edit STEP CUSTOM NAME for it to be displayed in the dropdown button
 document.addEventListener('click', (e) => {
    if (e.target.classList.contains('step-custom-name')) {
+      const targetStep = e.target.parentNode.parentNode.parentNode.parentNode.parentNode
       const currentStepType = e.target.parentNode.parentNode.parentNode.parentNode.parentNode.dataset.type
       e.target.addEventListener('input', (e) => {
          if (!e.target.value) {
@@ -847,11 +848,13 @@ document.addEventListener('click', (e) => {
             e.target.parentNode.parentNode.parentNode.children[0].classList.remove('custom-name')
             e.target.parentNode.parentNode.parentNode.children[0].removeAttribute('title')
          } else {
-            if (!e.target.parentNode.parentNode.parentNode.children[0].classList.contains('custom-name')) {
-               e.target.parentNode.parentNode.parentNode.children[0].classList.add('custom-name')
+            if (targetStep.dataset.name == 'visible') {
+               if (!e.target.parentNode.parentNode.parentNode.children[0].classList.contains('custom-name')) {
+                  e.target.parentNode.parentNode.parentNode.children[0].classList.add('custom-name')
+               }
+               e.target.parentNode.parentNode.parentNode.children[0].textContent = e.target.value
+               e.target.parentNode.parentNode.parentNode.children[0].setAttribute('title', e.target.value)
             }
-            e.target.parentNode.parentNode.parentNode.children[0].textContent = e.target.value
-            e.target.parentNode.parentNode.parentNode.children[0].setAttribute('title', e.target.value)
          }
       })
    }
@@ -871,7 +874,6 @@ window.addEventListener('click', (e) => {
    }
 })
 
-
 //CUSTOM NAME VISIBILITY ICON
 document.addEventListener('click', (e) => {
    if (e.target.classList.contains('custom-name-visibility-icon')) {
@@ -881,7 +883,7 @@ document.addEventListener('click', (e) => {
       const stepCustomName = visibilityIcon.parentNode.children[0]
 
       //display type
-      if (visibilityIcon.classList.contains('name-visible') && stepCustomName.value) {
+      if (targetStep.dataset.name == 'visible' && stepCustomName.value) {
          visibilityIcon.setAttribute('src', "https://img.icons8.com/material-outlined/50/000000/invisible.png")
          visibilityIcon.classList.remove('name-visible')
          visibilityIcon.classList.add('name-invisible')
@@ -890,7 +892,7 @@ document.addEventListener('click', (e) => {
          dropdownBtn.classList.toggle('custom-name')
       
       //display name
-      } else if (visibilityIcon.classList.contains('name-invisible')) {
+      } else if (targetStep.dataset.name == 'invisible') {
          visibilityIcon.setAttribute('src', "https://img.icons8.com/material-outlined/50/000000/visible--v1.png")
          visibilityIcon.classList.remove('name-invisible')
          visibilityIcon.classList.add('name-visible')
