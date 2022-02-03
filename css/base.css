@@ -456,12 +456,14 @@ header {
    background-color: rgba(0,0,0,0.5);
    opacity: 0;
    pointer-events: none;
+   transition: opacity 1s ease;
 }
 
 #overlay.active {
    opacity: 1;
    pointer-events: all;
 }
+
 
 /* NEW ITEM MODAL */
 .new-item-modal {
@@ -577,4 +579,48 @@ header {
    border-radius: 6px;
    padding: 10px 20px;
    cursor: pointer;
+}
+
+/* PRODUCT TOUR MODALS */
+.modal {
+   width: 225px;
+   height: 104.5px;
+   position: absolute;
+   left: 50%;
+   top: 50%;
+   z-index: 999;
+   background-color: rgb(255,255,255);
+   border-radius: 6px;
+   user-select: none;
+   box-shadow: 0 4px 8px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19);
+   transition: all 0.3s ease, width 0.8s ease, height 0.8s ease;
+   transform: translate(-50%, -50%) scale(0);
+}
+.modal.active {
+   transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-header {
+   text-align: right;
+   padding: 10px 12px;
+}
+
+.close-modal-btn {
+   cursor: pointer;
+   font-size: 14px;
+   font-weight: 600;
+   color: rgb(50, 50, 93);
+}
+
+.modal-body {
+   font-size: 17px;
+   line-height: 25.5px;
+   font-weight: 600;
+   color: rgb(50, 50, 93);
+   padding: 10px 24px 30px;
+}
+
+.modal-content {
+   text-align: center;
+   transition: opacity 0.8s ease;
 }
