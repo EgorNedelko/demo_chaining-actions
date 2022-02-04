@@ -32,22 +32,30 @@ function buildModal(header, body) {
    modalContent.classList.add('modal-content', 'invisible')
    modalContent.textContent = body
 
+   const modalFooter = document.createElement('div')
+   modalFooter.classList.add('modal-footer')
+   
+   const modalNextBtn = document.createElement('div')
+   modalNextBtn.classList.add('modal-next-btn')
+   modalNextBtn.textContent = "NEXT"
+
+   const modalNextBtnIcon = document.createElement('img')
+   modalNextBtnIcon.classList.add('modal-next-btn-icon')
+   modalNextBtnIcon.setAttribute('src', "https://img.icons8.com/material-rounded/24/ffffff/long-arrow-right.png")
+
    modalHeader.appendChild(modalHeaderContent)
    modalHeader.appendChild(closeModalBtn)
    modalBody.appendChild(modalContent)
+   modalNextBtn.appendChild(modalNextBtnIcon)
+   modalFooter.appendChild(modalNextBtn)
 
    modal.appendChild(modalHeader)
    modal.appendChild(modalBody)
+   modal.appendChild(modalFooter)
 
    fragment.append(modal)
    return fragment
 }
-
-//Helper funcitons
-// function changeCurrentLocation(newValue) {
-//    localStorage.removeItem('currentLocation')
-//    localStorage.setItem('currentLocation', newValue)
-// }
 
 function openTourModal(content) {
    overlay.classList.add('active')
