@@ -10,7 +10,7 @@ const stepTypesTextContent = {
    "Find input" : "Provide xpath, css selector or label of the input",
    "Type in" : "Provide data for the input found at the previous step",
    "Find text" : "Provide a string to search",
-   "Element does't exist" : "Provide xpath, css selector or label of the element that is not present on the page"
+   "Element doesn't exist" : "Provide xpath, css selector or label of the element that is not present on the page"
 }
 const chainModeIconsUrls = [ "https://img.icons8.com/material-sharp/24/ffffff/broken-link.png",
                              "https://img.icons8.com/material-sharp/24/ffffff/link--v1.png" ]

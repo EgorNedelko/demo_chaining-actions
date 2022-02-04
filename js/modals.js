@@ -64,7 +64,7 @@ function closeTourModal() {
 document.addEventListener('DOMContentLoaded', () => {
    if (localStorage.getItem('currentLocation') == 'projects') {
       if (!localStorage.getItem('userProjects') || localStorage.getItem('userProjects').length == 2) {
-         setTimeout(openTourModal(modalsTextContent["Welcome!"]), 750)
+         setTimeout(openTourModal(modalsTextContent["Welcome!"]), 850)
          setTimeout(() => {
             document.querySelector('.modal-content').classList.add('invisible')
          }, 3000)
