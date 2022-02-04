@@ -112,6 +112,7 @@ body {
 
 .termsOS-checkbox {
    margin-right: 10px;
+   cursor: pointer;
 }
 
 .create-acc-btn {

@@ -583,8 +583,8 @@ header {
 
 /* PRODUCT TOUR MODALS */
 .modal {
-   width: 225px;
-   height: 104.5px;
+   /* width: 690px;
+   height: 130px; */
    position: absolute;
    left: 50%;
    top: 50%;
@@ -595,32 +595,50 @@ header {
    box-shadow: 0 4px 8px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19);
    transition: all 0.3s ease, width 0.8s ease, height 0.8s ease;
    transform: translate(-50%, -50%) scale(0);
+
+   font-size: 17px;
+   line-height: 25.5px;
+   font-weight: 600;
+   color: rgb(50, 50, 93);
 }
 .modal.active {
    transform: translate(-50%, -50%) scale(1);
 }
 
 .modal-header {
-   text-align: right;
-   padding: 10px 12px;
+   display: flex;
+   align-items: flex-start;
+   justify-content: flex-end;
+   column-gap: 250px;
+   padding: 20px 12px;
+}
+
+.modal-header-content {
+   font-size: 18px;
 }
 
 .close-modal-btn {
    cursor: pointer;
    font-size: 14px;
    font-weight: 600;
-   color: rgb(50, 50, 93);
+   border: none;
+   border-radius: 50%;
+   transition: all 0.15s ease;
+   color: rgb(255,255,255);
+   background-color: rgb(94, 114, 228);
+   padding: 0 8px;
+}
+.close-modal-btn:hover {
+   box-shadow: 0 7px 14px rgb(50 50 93 / 10%), 0 3px 6px rgb(0 0 0 / 8%);
+   transform: translateY(-1px);
 }
 
 .modal-body {
-   font-size: 17px;
-   line-height: 25.5px;
-   font-weight: 600;
-   color: rgb(50, 50, 93);
    padding: 10px 24px 30px;
 }
 
 .modal-content {
    text-align: center;
    transition: opacity 0.8s ease;
+   max-width: 640px;
 }
