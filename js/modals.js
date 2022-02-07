@@ -41,7 +41,7 @@ function buildModal(header, body) {
 
    const modalNextBtnIcon = document.createElement('img')
    modalNextBtnIcon.classList.add('modal-next-btn-icon')
-   modalNextBtnIcon.setAttribute('src', "https://img.icons8.com/material-rounded/24/ffffff/long-arrow-right.png")
+   modalNextBtnIcon.setAttribute('src', "https://img.icons8.com/windows/32/ffffff/circled-chevron-right.png")
 
    modalHeader.appendChild(modalHeaderContent)
    modalHeader.appendChild(closeModalBtn)
@@ -95,5 +95,42 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('click', (e) => {
    if (e.target.classList.contains('close-modal-btn')) {
       closeTourModal()
+   }
+})
+
+document.addEventListener('click', (e) => {
+   if (e.target.classList.contains('modal-next-btn') || e.target.classList.contains('modal-next-btn-icon')) {
+      closeTourModal()
+      let timeout = setTimeout(() => {
+         document.getElementById('overlay-cutout').classList.add('active')
+         
+         const elem = document.querySelector(".btn[value='New']")
+         let rect = elem.getBoundingClientRect()
+
+         // document.getElementById('cutout-top').style.bottom = `${window.innerHeight - rect.y + 10}px`
+         // document.getElementById('cutout-right').style.left = `${rect.x + elem.offsetWidth + 10}px`
+         // document.getElementById('cutout-bottom').style.top = `${rect.y + elem.offsetHeight + 10}px`
+         // document.getElementById('cutout-left').style.right = `${window.innerWidth - rect.x + 10}px`
+         
+         //left
+         document.getElementById('cutout-left').style.right = `${window.innerWidth - rect.x + 10}px`
+         
+         //right
+         document.getElementById('cutout-right').style.left = `${rect.x + elem.offsetWidth + 10}px`
+         
+         //top
+         document.getElementById('cutout-top').style.bottom = `${window.innerHeight - rect.y + 10}px`
+         //top-left-trim
+         document.getElementById('cutout-top').style.left = `${rect.x - 10}px`
+         //top-right-trim
+         document.getElementById('cutout-top').style.right = `${window.innerWidth - rect.x - elem.offsetWidth - 10}px`
+         
+         //bottom 
+         document.getElementById('cutout-bottom').style.top = `${rect.y + elem.offsetHeight + 10}px`
+         //bottom-left-trim
+         document.getElementById('cutout-bottom').style.left = `${rect.x - 10}px`
+         //bottom-right-trim
+         document.getElementById('cutout-bottom').style.right = `${window.innerWidth - rect.x - elem.offsetWidth - 10}px`
+      }, 250)
    }
 })

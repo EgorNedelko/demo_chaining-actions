@@ -30,6 +30,7 @@ body {
 
 .container {
    margin: 0 auto;
+   overflow: hidden;
 }
 
 .sidebar {
@@ -458,10 +459,34 @@ header {
    pointer-events: none;
    transition: opacity 1s ease;
 }
-
 #overlay.active {
    opacity: 1;
    pointer-events: all;
+}
+
+#overlay-cutout {
+   opacity: 0;
+   /* transition: opacity 1s ease; */
+}
+#overlay-cutout.active {
+   opacity: 1;
+}
+
+#cutout-top,
+#cutout-right,
+#cutout-bottom,
+#cutout-left {
+   z-index: 998;
+   position: fixed;
+   top: 0;
+   right: 0;
+   bottom: 0;
+   left: 0;
+   background-color: rgba(0,0,0,0.5);
+   /* opacity: 0; */
+   pointer-events: all;
+   transition: opacity 1s ease;
+   /* box-shadow: 0 0 8px 8px white inset; */
 }
 
 
@@ -626,7 +651,7 @@ header {
    transition: all 0.15s ease;
    color: rgb(255,255,255);
    background-color: rgb(245, 54, 92);
-   padding: 0 8px;
+   padding: 4px 12px;
 }
 .close-modal-btn:hover {
    box-shadow: 0 7px 14px rgb(50 50 93 / 10%), 0 3px 6px rgb(0 0 0 / 8%);
