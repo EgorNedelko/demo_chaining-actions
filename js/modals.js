@@ -1,14 +1,17 @@
 const modalsHeaderContent = {
    "Welcome!" : "Welcome to DogQ!",
    "Step2" : "Project created!",
-   "Step3" : "Modules list"
+   "Step3" : "Modules list",
+   "Step4" : "Create a module...",
+   "Step5" : "Quick Navigation Panel"
 }
 
 const modalsBodyContent = {
    "Welcome!" : "The power of zero-code testing automation lies ahead, in test scenarios. But first we need to create a project we are going to be testing.",
    "Step2" : "Great! To view a project's content just click on it.",
-   "Step3" : "We are now looking at how our project is structured. ",
-   "Step4" : "Now we need a module - a part of the project we are focusing on."
+   "Step3" : "If you look at the navigation panel above, you can see that we are now inside the selected project.",
+   "Step4" : "Now we need a module - a part of the project we will be focusing on.",
+   "Step5" : "Using the navigation panel above, we can instantly go to any part of the selected project."
 }
 
 //Constructor function
@@ -98,10 +101,15 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelector('.modal-content').classList.remove('invisible')
          }, 1000)
       }
-   } else if (localStorage.get('currentLocation') == 'modules') {
-      if (document.querySelectorAll('.module').length == 0) {
+   } else if (localStorage.getItem('currentLocation') == 'modules') {
+      if (!localStorage.getItem('userProjects')[localStorage.getItem('projectInd')].modules || document.querySelectorAll('.module').length == 0) {
          //Modal #3
-         // document.querySelector('.container').append(buildModal(modalsHeaderContent))
+         document.querySelector('.container').append(buildModal(modalsHeaderContent["Step3"], modalsBodyContent["Step3"]))
+         let timeout = setTimeout(()=>{
+            overlay.classList.add('active')
+            document.querySelector('.modal').classList.add('active')
+            document.querySelector('.modal-content').classList.remove('invisible')
+         }, 1000)
       }
    }
 })
@@ -110,6 +118,8 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('click', (e) => {
    if (e.target.classList.contains('modal-next-btn') || e.target.classList.contains('modal-next-btn-icon')) {
       let doggy = document.querySelector('.doggy')
+
+      //PROJECTS PAGE
       if (localStorage.getItem('currentLocation') == 'projects') {
          //Doggy #1
          if (document.querySelector('.modal-header-content').textContent  == "Welcome to DogQ!") {
@@ -137,6 +147,22 @@ document.addEventListener('click', (e) => {
             //make doggy appear
             setTimeout(() => { doggy.querySelector('svg').setAttribute('opacity', '1') }, 400)
          } 
+
+      //MODULES PAGE
+      } else if (localStorage.getItem('currentLocation') == 'modules') {
+         //Doggy #3
+         if (document.querySelector('.modal-header-content').textContent == "Modules list") {
+            closeTourModal()
+   
+            //position doggy on the target element
+            let targetElem = document.querySelector(".pr-path")
+            let targetElemPos = targetElem.getBoundingClientRect()
+            doggy.style.left = `${targetElemPos.x - targetElem.offsetWidth + 50}px`;
+            doggy.style.top = `${targetElemPos.y - targetElem.offsetHeight - 48}px`;
+   
+            //make doggy appear
+            setTimeout(() => { doggy.querySelector('svg').setAttribute('opacity', '1') }, 400)
+         }
       }
    }
 })
