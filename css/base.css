@@ -88,6 +88,11 @@ body {
    color: #000;
 }
 
+.fas {
+   color: #5e72e4;
+   min-width: 26px;
+}
+
 .sidebar-divider {
    background-color: rgba(0, 0, 0, 0.5);
    min-width: 100%;
