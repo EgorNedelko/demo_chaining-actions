@@ -708,3 +708,9 @@ header {
    z-index: 10001;
    box-shadow: 0 0 3px 150px rgba(130, 138, 255, 0.6);
 }
+
+.project:hover,
+.module:hover,
+.scenario:hover {
+   background-color: rgba(0,0,0,0.03);
+}
