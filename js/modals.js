@@ -1,10 +1,12 @@
 const modalsHeaderContent = {
-   "Welcome!" : "Welcome to DogQ!"
+   "Welcome!" : "Welcome to DogQ!",
+   "Step2" : "Project created!"
 }
 
 const modalsBodyContent = {
    "Welcome!" : "The power of zero-code testing automation lies ahead, in test scenarios. But first we need to create a project we are going to be testing.",
-   "ExplainMod" : "Great! We are one step closer to automating zero-code tests. Now we need a module - a part of the project we're focusing on."
+   "Step2" : "Great! To view a project's content just click on it.",
+   "Step3" : "Now we need a module - a part of the project we're focusing on."
 }
 
 //Constructor function
@@ -100,37 +102,55 @@ document.addEventListener('click', (e) => {
 
 document.addEventListener('click', (e) => {
    if (e.target.classList.contains('modal-next-btn') || e.target.classList.contains('modal-next-btn-icon')) {
-      closeTourModal()
-      let timeout = setTimeout(() => {
-         document.getElementById('overlay-cutout').classList.add('active')
-         
-         const elem = document.querySelector(".btn[value='New']")
-         let rect = elem.getBoundingClientRect()
-
-         // document.getElementById('cutout-top').style.bottom = `${window.innerHeight - rect.y + 10}px`
-         // document.getElementById('cutout-right').style.left = `${rect.x + elem.offsetWidth + 10}px`
-         // document.getElementById('cutout-bottom').style.top = `${rect.y + elem.offsetHeight + 10}px`
-         // document.getElementById('cutout-left').style.right = `${window.innerWidth - rect.x + 10}px`
-         
-         //left
-         document.getElementById('cutout-left').style.right = `${window.innerWidth - rect.x + 10}px`
-         
-         //right
-         document.getElementById('cutout-right').style.left = `${rect.x + elem.offsetWidth + 10}px`
-         
-         //top
-         document.getElementById('cutout-top').style.bottom = `${window.innerHeight - rect.y + 10}px`
-         //top-left-trim
-         document.getElementById('cutout-top').style.left = `${rect.x - 10}px`
-         //top-right-trim
-         document.getElementById('cutout-top').style.right = `${window.innerWidth - rect.x - elem.offsetWidth - 10}px`
-         
-         //bottom 
-         document.getElementById('cutout-bottom').style.top = `${rect.y + elem.offsetHeight + 10}px`
-         //bottom-left-trim
-         document.getElementById('cutout-bottom').style.left = `${rect.x - 10}px`
-         //bottom-right-trim
-         document.getElementById('cutout-bottom').style.right = `${window.innerWidth - rect.x - elem.offsetWidth - 10}px`
-      }, 250)
+      if (document.querySelector('.modal-header-content').textContent  == "Welcome to DogQ!") {
+         closeTourModal()
+         let timeout = setTimeout(() => {
+            document.querySelector(".btn[value='New']").classList.add('onboarding-focus')
+         }, 700)
+      } else if (document.querySelector('.modal-header-content').textContent  == "Project created!") {
+         closeTourModal()
+         // let timeout = setTimeout(() => {
+         //    document.querySelector(".project-name").classList.add('onboarding-focus')
+         // }, 700)
+      }
    }
 })
+
+document.addEventListener('click', (e) => {
+   const items = document.querySelectorAll('.project')
+   if (e.target.value == "Save" && items.length == 1) {
+      //Modal #2
+      document.querySelector('.container').append(buildModal(modalsHeaderContent["Step2"], modalsBodyContent["Step2"]))
+      let timeout = setTimeout(()=>{
+         overlay.classList.add('active')
+         document.querySelector('.modal').classList.add('active')
+         document.querySelector('.modal-content').classList.remove('invisible')
+      }, 1000)
+   }
+})
+
+// function cutout() {
+   // const elem = document.querySelector(".btn[value='New']")
+   // let rect = elem.getBoundingClientRect()
+   
+   // document.getElementById('overlay-cutout').classList.add('active')
+   //left
+   // document.getElementById('cutout-left').style.right = `${window.innerWidth - rect.x + 10}px`
+   
+   // //right
+   // document.getElementById('cutout-right').style.left = `${rect.x + elem.offsetWidth + 10}px`
+   
+   // //top
+   // document.getElementById('cutout-top').style.bottom = `${window.innerHeight - rect.y + 10}px`
+   // //top-left-trim
+   // document.getElementById('cutout-top').style.left = `${rect.x - 10}px`
+   // //top-right-trim
+   // document.getElementById('cutout-top').style.right = `${window.innerWidth - rect.x - elem.offsetWidth - 10}px`
+   
+   // //bottom 
+   // document.getElementById('cutout-bottom').style.top = `${rect.y + elem.offsetHeight + 10}px`
+   // //bottom-left-trim
+   // document.getElementById('cutout-bottom').style.left = `${rect.x - 10}px`
+   // //bottom-right-trim
+   // document.getElementById('cutout-bottom').style.right = `${window.innerWidth - rect.x - elem.offsetWidth - 10}px`
+// }
