@@ -33,6 +33,12 @@ body {
    overflow: hidden;
 }
 
+.project:hover,
+.module:hover,
+.scenario:hover {
+   background-color: rgba(0,0,0,0.03);
+}
+
 .sidebar {
    margin-left: 250px;
    display: block;
@@ -709,8 +715,75 @@ header {
    box-shadow: 0 0 3px 150px rgba(130, 138, 255, 0.6);
 }
 
-.project:hover,
-.module:hover,
-.scenario:hover {
-   background-color: rgba(0,0,0,0.03);
+
+/* DOGGY ANIMATION */
+.doggy {
+   position: absolute;
+   pointer-events: none;
+   z-index: 2;
+}
+.doggy > svg {
+   /* pointer-events: none; */
+   transition: all 3s ease;
+}
+
+#doggyHair {
+   animation: hair 8s ease infinite;
+   transform-origin: bottom right;
+   transform-box: fill-box;
+}
+
+#doggyTail {
+   animation: tail 3s ease infinite;
+   transform-origin: bottom left;
+   transform-box: fill-box;
+}
+
+#doggyLeftEye,
+#doggyRightEye {
+   animation: blink 14s ease infinite;
+   transform-origin: bottom center;
+   transform-box: fill-box;
+}
+
+@keyframes blink {
+   0% {
+      transform: scale(1);
+   }
+   90% {
+      transform: scale(1);
+   }
+   95% {
+      transform: scale(0.5);
+   }
+   100% {
+      transform: scale(1);
+   }
+}
+
+@keyframes tail {
+   0% {
+      transform: rotateZ(0deg);
+   }
+   50% {
+      transform: rotateZ(40deg);
+   }
+   100% {
+      transform: rotateZ(0deg);
+   }
+}
+
+@keyframes hair {
+   0% {
+      transform: rotateZ(0deg);
+   }
+   80% {
+      transform: rotateZ(0deg);
+   }
+   90% {
+      transform: rotateZ(55deg);
+   }
+   100% {
+      transform: rotateZ(0deg);
+   }
 }

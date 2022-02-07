@@ -76,8 +76,14 @@ function closeTourModal() {
    document.querySelector('.container').removeChild(document.querySelector('.modal'))
 }
 
-
 //EVENTS
+//Close Modal
+document.addEventListener('click', (e) => {
+   if (e.target.classList.contains('close-modal-btn')) {
+      closeTourModal()
+   }
+})
+
 //Start the tour
 document.addEventListener('DOMContentLoaded', () => {
    if (localStorage.getItem('currentLocation') == 'projects') {
@@ -93,20 +99,23 @@ document.addEventListener('DOMContentLoaded', () => {
    } 
 })
 
-//Close Modal
-document.addEventListener('click', (e) => {
-   if (e.target.classList.contains('close-modal-btn')) {
-      closeTourModal()
-   }
-})
-
 document.addEventListener('click', (e) => {
    if (e.target.classList.contains('modal-next-btn') || e.target.classList.contains('modal-next-btn-icon')) {
       if (document.querySelector('.modal-header-content').textContent  == "Welcome to DogQ!") {
          closeTourModal()
+
+         let doggy = document.querySelector('.doggy')
+         let targetElem = document.querySelector(".btn[value='New']")
+         let targetElemPos = targetElem.getBoundingClientRect()
+
          let timeout = setTimeout(() => {
-            document.querySelector(".btn[value='New']").classList.add('onboarding-focus')
+            doggy.querySelector('svg').setAttribute('opacity', '1')
+            doggy.style.left = `${targetElemPos.x - targetElem.offsetWidth + 5}px`;
+            doggy.style.top = `${targetElemPos.y - targetElem.offsetHeight - 55}px`;
          }, 700)
+         // let timeout = setTimeout(() => {
+         //    document.querySelector(".btn[value='New']").classList.add('onboarding-focus')
+         // }, 700)
       } else if (document.querySelector('.modal-header-content').textContent  == "Project created!") {
          closeTourModal()
          // let timeout = setTimeout(() => {
