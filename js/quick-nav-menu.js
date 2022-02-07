@@ -385,3 +385,22 @@ window.addEventListener('click', (e) => {
       })
    }
 })
+
+document.addEventListener('mouseover', (e) => {
+   if (e.target.classList.contains('actions-btn')) {
+      const targetItem = e.target.parentNode
+      targetItem.classList.add('hover')
+   } else if (e.target.classList.contains('actions-icon')) {
+      const targetItem = e.target.parentNode.parentNode
+      targetItem.classList.add('hover')
+   }
+})
+document.addEventListener('mouseout', (e) => {
+   if (e.target.classList.contains('actions-btn')) {
+      const targetItem = e.target.parentNode
+      targetItem.classList.remove('hover')
+   } else if (e.target.classList.contains('actions-icon')) {
+      const targetItem = e.target.parentNode.parentNode
+      targetItem.classList.remove('hover')
+   }
+}) 

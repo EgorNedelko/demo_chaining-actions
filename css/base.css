@@ -33,9 +33,9 @@ body {
    overflow: hidden;
 }
 
-.project:hover,
-.module:hover,
-.scenario:hover {
+.project.hover,
+.module.hover,
+.scenario.hover {
    background-color: rgba(0,0,0,0.03);
 }
 
@@ -724,7 +724,7 @@ header {
 }
 .doggy > svg {
    /* pointer-events: none; */
-   transition: all 3s ease;
+   transition: all 2s ease;
 }
 
 #doggyHair {
