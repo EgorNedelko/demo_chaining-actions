@@ -88,7 +88,7 @@
 
 .dropdown {
    display: none;
-   z-index: 1;
+   z-index: 3;
    position: absolute;
    background-color: rgb(255,255,255);
    box-shadow: 0 7px 14px rgb(50 50 93 / 10%), 0 3px 6px rgb(0 0 0 / 8%);
@@ -97,16 +97,6 @@
 .dropdown a {
    display: block;
 }
-/* 
-.dropdown::after {
-   content: url("https://img.icons8.com/material-outlined/50/000000/visible--v1.png");
-   position: absolute;
-   transform: scale(0.5);
-   filter: contrast(0.6);
-   bottom: -2.2%;
-   right: 1%;
-   cursor: pointer;
-} */
 
 .dropdown > .dropdown-item:first-child {
    border-top-left-radius: 6px;
@@ -159,14 +149,7 @@
    border-bottom-left-radius: 6px;
    border-bottom-right-radius: 6px;
 }
-/* .step-custom-name {
-   cursor: text;
-   border-bottom-left-radius: 6px;
-   border-bottom-right-radius: 6px;
-} */
-/* .step-custom-name::placeholder {
-   padding: 0;
-} */
+
 .readonly {
    cursor: auto;
 }

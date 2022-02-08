@@ -95,6 +95,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (document.querySelectorAll('.project').length == 0) {
          //Modal #1
          document.querySelector('.container').append(buildModal(modalsHeaderContent["Welcome!"], modalsBodyContent["Welcome!"]))
+         document.querySelector('.modal-next-btn').childNodes[0].textContent = "START QUICK TOUR"   
+         
          let timeout = setTimeout(()=>{
             overlay.classList.add('active')
             document.querySelector('.modal').classList.add('active')

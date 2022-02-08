@@ -84,14 +84,14 @@ body {
    transition: color .3s ease;
 }
 .sidebar-item:hover {
-   color: #000;
+   color: rgba(0,0,0,0.7);
 }
 .sidebar-item a {
    color: rgba(0, 0, 0, 0.5);
    text-decoration: none;
 }
 .sidebar-item a:hover {
-   color: #000;
+   color: rgba(0,0,0,0.7);
 }
 
 .fas {
