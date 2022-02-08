@@ -647,13 +647,12 @@ header {
 
 .modal-header {
    display: flex;
-   align-items: flex-start;
-   justify-content: flex-end;
-   column-gap: 235px;
+   align-items: center;
    padding: 20px 12px;
 }
 
 .modal-header-content {
+   margin: 0 auto;
    font-size: 18px;
 }
 

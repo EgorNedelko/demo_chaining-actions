@@ -1,5 +1,6 @@
 const modalsHeaderContent = {
    "Welcome!" : "Welcome to DogQ!",
+   "Step1" : "Structure your testing flow!",
    "Step2" : "Project created!",
    "Step3" : "Modules list",
    "Step4" : "Create a module...",
@@ -7,7 +8,8 @@ const modalsHeaderContent = {
 }
 
 const modalsBodyContent = {
-   "Welcome!" : "The power of zero-code testing automation lies ahead, in test scenarios. But first we need to create a project we are going to be testing.",
+   "Welcome!" : "We would love to show you how it all works - it won't take long.",
+   "Step1" : "The power of zero-code testing automation lies ahead, in test scenarios. But first we need to create a project we are going to be testing.", 
    "Step2" : "Great! To view a project's content just click on it.",
    "Step3" : "If you look at the navigation panel above, you can see that we are now inside the selected project.",
    "Step4" : "Now we need a module - a part of the project we will be focusing on.",
@@ -36,8 +38,7 @@ function buildModal(header, body) {
    modalBody.classList.add('modal-body')
    
    const modalContent = document.createElement('div')
-   modalContent.classList.add('modal-content')
-   // modalContent.classList.add('modal-content', 'invisible')
+   modalContent.classList.add('modal-content', 'invisible')
    modalContent.textContent = body
 
    const modalFooter = document.createElement('div')
@@ -65,13 +66,12 @@ function buildModal(header, body) {
    return fragment
 }
 
-function openTourModal(content) {
-   overlay.classList.add('active')
-   document.querySelector('.container').append(buildModal(content))
-   setTimeout(() => {
+function openTourModal() {
+   setTimeout(()=>{
+      overlay.classList.add('active')
       document.querySelector('.modal').classList.add('active')
       document.querySelector('.modal-content').classList.remove('invisible')
-   }, 500)
+   }, 1000)
 }
 
 function closeTourModal() {
@@ -94,36 +94,33 @@ document.addEventListener('click', (e) => {
 document.addEventListener('DOMContentLoaded', () => {
    if (localStorage.getItem('currentLocation') == 'projects') {
       if (document.querySelectorAll('.project').length == 0) {
-         //Modal #1
+         //Welcome Modal + DoggyHead
          document.querySelector('.container').append(buildModal(modalsHeaderContent["Welcome!"], modalsBodyContent["Welcome!"]))
          document.querySelector('.modal-next-btn').childNodes[0].textContent = "START QUICK TOUR"
+         openTourModal()
 
          //position doggy on the target element
          let doggyHead = document.querySelector('.doggy-head')
          let targetElem = document.querySelector(".modal")
          let targetElemPos = targetElem.getBoundingClientRect()
          doggyHead.style.left = `${targetElemPos.x-195}px`;
-         doggyHead.style.top = `${targetElemPos.y-151}px`;
+         doggyHead.style.top = `${targetElemPos.y-140}px`;
 
-         let timeout = setTimeout(()=>{
-            overlay.classList.add('active')
-            document.querySelector('.modal').classList.add('active')
-            // document.querySelector('.modal-content').classList.remove('invisible')
-         }, 1000)
          //make doggy appear
-         setTimeout(() => { doggyHead.querySelector('svg').setAttribute('opacity', '1') }, 1200)
+         setTimeout(() => { doggyHead.querySelector('svg').setAttribute('opacity', '1') }, 1250)
       }
-   } else if (localStorage.getItem('currentLocation') == 'modules') {
-      if (!localStorage.getItem('userProjects')[localStorage.getItem('projectInd')].modules || document.querySelectorAll('.module').length == 0) {
-         //Modal #3
-         document.querySelector('.container').append(buildModal(modalsHeaderContent["Step3"], modalsBodyContent["Step3"]))
-         let timeout = setTimeout(()=>{
-            overlay.classList.add('active')
-            document.querySelector('.modal').classList.add('active')
-            document.querySelector('.modal-content').classList.remove('invisible')
-         }, 1000)
-      }
-   }
+   } 
+   // else if (localStorage.getItem('currentLocation') == 'modules') {
+   //    if (!localStorage.getItem('userProjects')[localStorage.getItem('projectInd')].modules || document.querySelectorAll('.module').length == 0) {
+   //       //Modal #3
+   //       document.querySelector('.container').append(buildModal(modalsHeaderContent["Step3"], modalsBodyContent["Step3"]))
+   //       let timeout = setTimeout(()=>{
+   //          overlay.classList.add('active')
+   //          document.querySelector('.modal').classList.add('active')
+   //          document.querySelector('.modal-content').classList.remove('invisible')
+   //       }, 1000)
+   //    }
+   // }
 })
 
 //Click on NEXT button on the onboarding modal
@@ -209,69 +206,3 @@ document.addEventListener('click', (e) => {
       }, 1000)
    }
 })
-
-// function cutout() {
-   // const elem = document.querySelector(".btn[value='New']")
-   // let rect = elem.getBoundingClientRect()
-   
-   // document.getElementById('overlay-cutout').classList.add('active')
-   //left
-   // document.getElementById('cutout-left').style.right = `${window.innerWidth - rect.x + 10}px`
-   
-   // //right
-   // document.getElementById('cutout-right').style.left = `${rect.x + elem.offsetWidth + 10}px`
-   
-   // //top
-   // document.getElementById('cutout-top').style.bottom = `${window.innerHeight - rect.y + 10}px`
-   // //top-left-trim
-   // document.getElementById('cutout-top').style.left = `${rect.x - 10}px`
-   // //top-right-trim
-   // document.getElementById('cutout-top').style.right = `${window.innerWidth - rect.x - elem.offsetWidth - 10}px`
-   
-   // //bottom 
-   // document.getElementById('cutout-bottom').style.top = `${rect.y + elem.offsetHeight + 10}px`
-   // //bottom-left-trim
-   // document.getElementById('cutout-bottom').style.left = `${rect.x - 10}px`
-   // //bottom-right-trim
-   // document.getElementById('cutout-bottom').style.right = `${window.innerWidth - rect.x - elem.offsetWidth - 10}px`
-// }
-
-
-//SHEPHERD 
-// const tour = new Shepherd.Tour({
-//    defaultStepOptions: {
-//      cancelIcon: {
-//        enabled: true
-//      },
-//      classes: 'class-1 class-2',
-//      scrollTo: { behavior: 'smooth', block: 'center' }
-//    }
-//  });
- 
-//  tour.addStep({
-//    title: 'Creating a Shepherd Tour',
-//    text: `Creating a Shepherd tour is easy. too!\
-//    Just create a \`Tour\` instance, and add as many steps as you want.`,
-//    attachTo: {
-//      element: '.sidebar',
-//      on: 'bottom'
-//    },
-//    buttons: [
-//      {
-//        action() {
-//          return this.back();
-//        },
-//        classes: 'shepherd-button-secondary',
-//        text: 'Back'
-//      },
-//      {
-//        action() {
-//          return this.next();
-//        },
-//        text: 'Next'
-//      }
-//    ],
-//    id: 'creating'
-//  });
- 
-//  tour.start();
