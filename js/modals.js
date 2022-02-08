@@ -217,27 +217,32 @@ document.addEventListener('click', (e) => {
       //Modal #2
       document.querySelector('.doggy svg').setAttribute('opacity', '0')
       document.querySelector('.container').append(buildModal(modalsHeaderContent["Step2"], modalsBodyContent["Step2"]))
-
-      //position doggy on the target element
+      
       let doggy = document.querySelector('.doggy')
       let targetElem = document.querySelector(".project-name")
       let targetElemPos = targetElem.getBoundingClientRect()
-      doggy.style.left = `${targetElemPos.x - targetElem.offsetWidth + 110}px`
-      doggy.style.top = `${targetElemPos.y - targetElem.offsetHeight - 60}px`
+      setTimeout(() => { targetElem.parentNode.classList.add('onboarding-focus') }, 1000)
+      setTimeout(() => {
+         //position doggy on the target element
+         doggy.style.left = `${targetElemPos.x - targetElem.offsetWidth + 110}px`
+         doggy.style.top = `${targetElemPos.y - targetElem.offsetHeight - 60}px`
+      }, 2000)
+      //position doggy on the target element
+      // doggy.style.left = `${targetElemPos.x - targetElem.offsetWidth + 110}px`
+      // doggy.style.top = `${targetElemPos.y - targetElem.offsetHeight - 60}px`
 
       //position Step2 Modal
       setTimeout(() => {
-         targetElem.parentNode.classList.add('onboarding-focus')
          let modal = document.querySelector('.modal')
          document.querySelector('.container').append(buildModal(modalsHeaderContent["Step1"], modalsBodyContent["Step1"]))
          document.querySelector('.modal').style.left = `${targetElemPos.x + document.querySelector('.modal').offsetWidth/2}px`
-         document.querySelector('.modal').style.top = `${targetElemPos.y + targetElem.offsetHeight*8}px`
+         document.querySelector('.modal').style.top = `${targetElemPos.y + targetElem.offsetHeight*6}px`
          document.querySelector('.modal').removeChild(document.querySelector('.modal-footer'))
       }, 600)
 
       //make doggy and modal visible
       openTourModal()
-      setTimeout(() => { doggy.querySelector('svg').setAttribute('opacity', '1') }, 400)
+      setTimeout(() => { doggy.querySelector('svg').setAttribute('opacity', '1') }, 2000)
    }
 })
 

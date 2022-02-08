@@ -485,32 +485,6 @@ header {
    pointer-events: all;
 }
 
-#overlay-cutout {
-   opacity: 0;
-   /* transition: opacity 1s ease; */
-}
-#overlay-cutout.active {
-   opacity: 1;
-}
-
-#cutout-top,
-#cutout-right,
-#cutout-bottom,
-#cutout-left {
-   z-index: 998;
-   position: fixed;
-   top: 0;
-   right: 0;
-   bottom: 0;
-   left: 0;
-   background-color: rgba(0,0,0,0.5);
-   /* opacity: 0; */
-   pointer-events: all;
-   transition: opacity 1s ease;
-   /* box-shadow: 0 0 8px 8px white inset; */
-}
-
-
 /* NEW ITEM MODAL */
 .new-item-modal {
    z-index: 999;
