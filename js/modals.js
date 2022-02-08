@@ -36,7 +36,8 @@ function buildModal(header, body) {
    modalBody.classList.add('modal-body')
    
    const modalContent = document.createElement('div')
-   modalContent.classList.add('modal-content', 'invisible')
+   modalContent.classList.add('modal-content')
+   // modalContent.classList.add('modal-content', 'invisible')
    modalContent.textContent = body
 
    const modalFooter = document.createElement('div')
@@ -95,13 +96,22 @@ document.addEventListener('DOMContentLoaded', () => {
       if (document.querySelectorAll('.project').length == 0) {
          //Modal #1
          document.querySelector('.container').append(buildModal(modalsHeaderContent["Welcome!"], modalsBodyContent["Welcome!"]))
-         document.querySelector('.modal-next-btn').childNodes[0].textContent = "START QUICK TOUR"   
-         
+         document.querySelector('.modal-next-btn').childNodes[0].textContent = "START QUICK TOUR"
+
+         //position doggy on the target element
+         let doggyHead = document.querySelector('.doggy-head')
+         let targetElem = document.querySelector(".modal")
+         let targetElemPos = targetElem.getBoundingClientRect()
+         doggyHead.style.left = `${targetElemPos.x-195}px`;
+         doggyHead.style.top = `${targetElemPos.y-151}px`;
+
          let timeout = setTimeout(()=>{
             overlay.classList.add('active')
             document.querySelector('.modal').classList.add('active')
-            document.querySelector('.modal-content').classList.remove('invisible')
+            // document.querySelector('.modal-content').classList.remove('invisible')
          }, 1000)
+         //make doggy appear
+         setTimeout(() => { doggyHead.querySelector('svg').setAttribute('opacity', '1') }, 1200)
       }
    } else if (localStorage.getItem('currentLocation') == 'modules') {
       if (!localStorage.getItem('userProjects')[localStorage.getItem('projectInd')].modules || document.querySelectorAll('.module').length == 0) {
@@ -126,6 +136,7 @@ document.addEventListener('click', (e) => {
          //Doggy #1
          if (document.querySelector('.modal-header-content').textContent  == "Welcome to DogQ!") {
             closeTourModal()
+            document.querySelector('.doggy-head > svg').setAttribute('opacity', '0')
    
             //position doggy on the target element
             let targetElem = document.querySelector(".btn[value='New']")
@@ -224,3 +235,43 @@ document.addEventListener('click', (e) => {
    // //bottom-right-trim
    // document.getElementById('cutout-bottom').style.right = `${window.innerWidth - rect.x - elem.offsetWidth - 10}px`
 // }
+
+
+//SHEPHERD 
+// const tour = new Shepherd.Tour({
+//    defaultStepOptions: {
+//      cancelIcon: {
+//        enabled: true
+//      },
+//      classes: 'class-1 class-2',
+//      scrollTo: { behavior: 'smooth', block: 'center' }
+//    }
+//  });
+ 
+//  tour.addStep({
+//    title: 'Creating a Shepherd Tour',
+//    text: `Creating a Shepherd tour is easy. too!\
+//    Just create a \`Tour\` instance, and add as many steps as you want.`,
+//    attachTo: {
+//      element: '.sidebar',
+//      on: 'bottom'
+//    },
+//    buttons: [
+//      {
+//        action() {
+//          return this.back();
+//        },
+//        classes: 'shepherd-button-secondary',
+//        text: 'Back'
+//      },
+//      {
+//        action() {
+//          return this.next();
+//        },
+//        text: 'Next'
+//      }
+//    ],
+//    id: 'creating'
+//  });
+ 
+//  tour.start();

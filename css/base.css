@@ -723,13 +723,26 @@ header {
    z-index: 2;
 }
 .doggy > svg {
-   /* pointer-events: none; */
    transition: all 2s ease;
+}
+
+.doggy-head {
+   position: absolute;
+   pointer-events: none;
+   z-index: 100002;
+}
+.doggy-head > svg {
+   transition: all 0.5s ease;
 }
 
 #doggyHair {
    animation: hair 8s ease infinite;
    transform-origin: bottom right;
+   transform-box: fill-box;
+}
+#doggyHeadHair {
+   animation: hair 8s ease infinite;
+   transform-origin: bottom left;
    transform-box: fill-box;
 }
 
@@ -741,7 +754,13 @@ header {
 
 #doggyLeftEye,
 #doggyRightEye {
-   animation: blink 14s ease infinite;
+   animation: blink 12s ease infinite;
+   transform-origin: bottom center;
+   transform-box: fill-box;
+}
+#doggyHeadLeftEye,
+#doggyHeadRightEye {
+   animation: blink 5s ease infinite;
    transform-origin: bottom center;
    transform-box: fill-box;
 }
