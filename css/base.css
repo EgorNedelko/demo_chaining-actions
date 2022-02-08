@@ -709,17 +709,19 @@ header {
    margin-left: 10px;
 }
 
-.onboarding-focus {
+/* .onboarding-focus {
    z-index: 10001;
    box-shadow: 0 0 3px 150px rgba(130, 138, 255, 0.6);
+} */
+.onboarding-focus {
+   z-index: 999;
 }
-
 
 /* DOGGY ANIMATION */
 .doggy {
    position: absolute;
    pointer-events: none;
-   z-index: 2;
+   z-index: 1000;
 }
 .doggy > svg {
    transition: all 2s ease;
@@ -728,7 +730,7 @@ header {
 .doggy-head {
    position: absolute;
    pointer-events: none;
-   z-index: 100002;
+   z-index: 1000;
 }
 .doggy-head > svg {
    transition: all 0.5s ease;
