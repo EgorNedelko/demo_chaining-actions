@@ -33,6 +33,12 @@ body {
    overflow: hidden;
 }
 
+.project,
+.module,
+.scenario {
+   background-color: rgb(248, 249, 254);
+}
+
 .project.hover,
 .module.hover,
 .scenario.hover {
@@ -648,7 +654,7 @@ header {
 .modal-header {
    display: flex;
    align-items: center;
-   padding: 20px 12px;
+   padding: 20px 12px 10px;
 }
 
 .modal-header-content {
