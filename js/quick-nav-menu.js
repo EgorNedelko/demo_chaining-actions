@@ -418,7 +418,8 @@ window.addEventListener('click', (e) => {
    }
 })
 
-document.addEventListener('mouseover', (e) => {
+//actions-btn hover change color function
+function darkenUponHover(e) {
    if (e.target.classList.contains('actions-btn')) {
       const targetItem = e.target.parentNode
       targetItem.classList.add('hover')
@@ -426,7 +427,11 @@ document.addEventListener('mouseover', (e) => {
       const targetItem = e.target.parentNode.parentNode
       targetItem.classList.add('hover')
    }
-})
+}
+
+// document.addEventListener('mouseover', (e) => {
+//    darkenUponHover(e)
+// })
 document.addEventListener('mouseout', (e) => {
    if (e.target.classList.contains('actions-btn')) {
       const targetItem = e.target.parentNode

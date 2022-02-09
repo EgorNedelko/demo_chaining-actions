@@ -12,8 +12,8 @@ const modalsBodyContent = {
    "Navbar" : "If you look at the navigation panel above, you can see that we are now inside the selected project where its modules are.",
    "Seg1Step3" : "Now we need a module - a part of the project we will be focusing on.",
    "Seg1Step4" : "Another way to navigate your project is to click on the navigation menu level you're currently on and select an item you want to go to.",
-   "Seg1Step5" : "Using the navigation panel above, we can instantly go to any part of the selected project.",
-   "Seg1Step6" : "Using the navigation panel above, we can instantly go to any part of the selected project.",
+   "Seg1Step5" : "Almost there! Now we need an actual test scenario where all the fun stuff happens.",
+   "Seg1Step6" : "Lastly, a third way you can access the content of an item is to click on its menu icon and select 'View'.",
    "Seg1Step7" : "Using the navigation panel above, we can instantly go to any part of the selected project."
 }
 
@@ -174,6 +174,24 @@ document.addEventListener('DOMContentLoaded', () => {
       openTourModal()
       setTimeout(() => { document.querySelector('.doggy-flipped svg').setAttribute('opacity', '1') }, 1250)
    }
+
+   //SCENARIOS PAGE
+   if (localStorage.getItem('currentLocation') == 'scenarios') {
+      positionDoggy(false, 'doggy', 61, 11.5)
+      document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Header"], modalsBodyContent["Seg1Step5"]))
+      trimModal('5/7')
+      positionModal(false, 40, 23)
+      openTourModal()
+      setTimeout(() => { document.querySelector(".btn[value='Add Scenario']").classList.add('onboarding-focus') }, 1000)
+      setTimeout(() => { document.querySelector('.doggy svg').setAttribute('opacity', '1') }, 1200)
+   }
+
+   //STEPS PAGE
+   // if (localStorage.getItem('currentLocation') == 'steps') {
+   //    document.addEventListener('mouseover', (e) => {
+   //       darkenUponHover(e)
+   //    })
+   // }
 })
 
 //NEXT BUTTON
@@ -280,7 +298,7 @@ document.addEventListener('click', (e) => {
 
    //MODULES PAGE
    if (localStorage.getItem('currentLocation') == 'modules') {
-      const items = document.querySelectorAll('.modules')
+      const items = document.querySelectorAll('.module')
       if (e.target.value == "Save" && items.length == 1) {
          //Remove doggy
          document.querySelector('.doggy svg').setAttribute('opacity', '0')
@@ -306,6 +324,39 @@ document.addEventListener('click', (e) => {
          //make doggy and modal visible
          openTourModal()
          setTimeout(() => { document.querySelector('.doggy-flipped svg').setAttribute('opacity', '1') }, 1200)
+      }
+   }
+
+   //SCENARIOS PAGE
+   if (localStorage.getItem('currentLocation') == 'scenarios') {
+      // const items = document.querySelectorAll('.scenario')
+      // if (e.target.value == "Save" && items.length == 1) {
+      if (e.target.value == "Save") {
+         // document.removeEventListener('mouseover', darkenUponHover, false)
+         //Remove doggy
+         document.querySelector('.doggy svg').setAttribute('opacity', '0')
+         // setTimeout(() => { document.querySelector('.doggy').removeAttribute('style') }, 1000)
+
+         positionDoggy(true, 'doggy', 79, 21.5)
+
+         //Apply onboarding-focus
+         setTimeout(() => { document.querySelector('.quick-navigation').classList.add('onboarding-focus') }, 1000)
+         setTimeout(() => { document.querySelector('.path-item-container').classList.add('onboarding-focus') }, 1000)
+         setTimeout(() => { document.querySelector('.path-item-text').classList.add('onboarding-focus') }, 1000)
+         // setTimeout(() => { document.querySelector('.scen-link').style.color = "grey" }, 1000)
+         setTimeout(() => { document.querySelector('.path-line').classList.add('onboarding-focus') }, 1000)
+         setTimeout(() => { document.querySelector('.scenario').classList.add('onboarding-focus') }, 1000)
+
+         //Create Segment1-Step2 Modal
+         setTimeout(() => {
+            document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Header"], modalsBodyContent["Seg1Step6"]))
+            trimModal('6/7')
+         }, 600)
+         // positionModal(true, 45, 41)
+   
+         //make doggy and modal visible
+         openTourModal()
+         setTimeout(() => { document.querySelector('.doggy svg').setAttribute('opacity', '1') }, 2000)
       }
    }
 })

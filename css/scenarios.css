@@ -1,6 +1,9 @@
 .btns-col-3 input {
    margin-left: 5px;
 }
+/* .btns-col-3 {
+   z-index: 999;
+} */
 
 .divider-scenario-name {
    margin-right: 150px;
