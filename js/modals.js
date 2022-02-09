@@ -101,27 +101,17 @@ function closeTourModal(isTimed) {
    }
 }
 
-function positionDoggy(isTimed, doggyClass, targetElem, leftPosition, topPosition) {
+function positionDoggy(isTimed, doggyClass, leftPosition, topPosition) {
    let doggy = document.querySelector(`.${doggyClass}`)
-   let targetElemPos = targetElem.getBoundingClientRect()
-   let left, top
-
-   if (doggyClass == 'doggy-head') {
-      left = targetElemPos.x - leftPosition
-      top = targetElemPos.y - topPosition
-   } else {
-      left = targetElemPos.x - targetElem.offsetWidth + leftPosition
-      top = targetElemPos.y - targetElem.offsetHeight - topPosition
-   }
 
    if (isTimed) {
       setTimeout(() => {
-         doggy.style.left = `${left}px`
-         doggy.style.top = `${top}px`
+         doggy.style.left = `${leftPosition}%`
+         doggy.style.top = `${topPosition}%`
       }, 2000)
    } else {
-      doggy.style.left = `${left}px`
-      doggy.style.top = `${top}px`
+      doggy.style.left = `${leftPosition}%`
+      doggy.style.top = `${topPosition}%`
    }
 }
 
@@ -131,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
    //PROJECTS PAGE
    if (localStorage.getItem('currentLocation') == 'projects') {
       if (document.querySelectorAll('.project').length == 0) {
-         //Create Welcome Modal + doggyHead
+         //Create Welcome Modal 
          document.querySelector('.container').append(buildModal(modalsHeaderContent["Welcome!"], modalsBodyContent["Welcome!"]))
          document.querySelector('.modal-next-btn').childNodes[0].textContent = "START QUICK TOUR"
          document.querySelector('.modal-header').removeChild(document.querySelector('.close-modal-btn'))
@@ -145,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
          
          //Position doggy on the target element
          const targetElem = document.querySelector('.modal')
-         positionDoggy(false, 'doggy-head', targetElem, 195, 130)
+         positionDoggy(false, 'doggy-head', 40, 37)
 
          //Make doggy and modal visible
          openTourModal()
@@ -158,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
       //Position doggy on the target element
       const targetElem = document.querySelector('.pr-path')
       const targetElemPos = targetElem.getBoundingClientRect()
-      positionDoggy(false, 'doggy-flipped', targetElem, 40, 47)
+      positionDoggy(false, 'doggy-flipped', 26, 16.5)
 
       //Create Navbar Modal
       document.querySelector('.container').append(buildModal(modalsHeaderContent["Navbar"], modalsBodyContent["Navbar"]))
@@ -187,13 +177,14 @@ document.addEventListener('click', (e) => {
          if (document.querySelector('.modal-header-content').textContent  == "Welcome to DogQ!") {
             //Remove Welcome Modal and doggy
             document.querySelector('.doggy-head > svg').setAttribute('opacity', '0')
-            setTimeout(() => { document.querySelector('.doggy-head').removeAttribute('style') }, 500)
+            // setTimeout(() => { document.querySelector('.doggy-head').removeAttribute('style') }, 500)
             closeTourModal(true)
 
             //Create Segment1 Modal 
             document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Header"], modalsBodyContent["Seg1Modal"]))
             openTourModal()
          } 
+
          //Closing Segment1 Modal 
          if (document.querySelector('.modal-header-content').textContent  == "Structure your testing flow") {
             //Remove Segment1 Modal
@@ -202,7 +193,7 @@ document.addEventListener('click', (e) => {
             //Position doggy on the target element
             const targetElem = document.querySelector(".btn[value='New']")
             let targetElemPos = targetElem.getBoundingClientRect()
-            positionDoggy(false, 'doggy', targetElem, 5, 55)
+            positionDoggy(false, 'doggy', 78, 11.5)
 
             //Create Segment1-Step1 Modal
             setTimeout(() => {
@@ -223,7 +214,7 @@ document.addEventListener('click', (e) => {
       if (localStorage.getItem('currentLocation') == 'modules') {
          //Remove Welcome Modal and doggy
          document.querySelector('.doggy-flipped > svg').setAttribute('opacity', '0')
-         setTimeout(() => { document.querySelector('.doggy-flipped').removeAttribute('style') }, 1000)
+         // setTimeout(() => { document.querySelector('.doggy-flipped').removeAttribute('style') }, 1000)
          closeTourModal(true)
 
          //Remove onboarding focus
@@ -236,7 +227,7 @@ document.addEventListener('click', (e) => {
          //Position doggy on the target element
          const targetElem = document.querySelector(".btn[value='Add Module']")
          let targetElemPos = targetElem.getBoundingClientRect()
-         positionDoggy(false, 'doggy', targetElem, 70, 55)
+         positionDoggy(false, 'doggy', 64, 11.5)
 
          //Apply onboarding-focus
          setTimeout(() => { targetElem.classList.add('onboarding-focus') }, 1000)
@@ -264,12 +255,12 @@ document.addEventListener('click', (e) => {
       if (e.target.value == "Save" && items.length == 1) {
          //Remove doggy
          document.querySelector('.doggy svg').setAttribute('opacity', '0')
-         setTimeout(() => { document.querySelector('.doggy').removeAttribute('style') }, 1000)
+         // setTimeout(() => { document.querySelector('.doggy').removeAttribute('style') }, 1000)
 
          //Position doggy on the target element
          let targetElem = document.querySelector(".project-name")
          let targetElemPos = targetElem.getBoundingClientRect()
-         positionDoggy(false, 'doggy-flipped', targetElem, 110, 60)
+         positionDoggy(false, 'doggy-flipped', 26, 27.3)
 
          //Apply onboarding-focus
          setTimeout(() => { targetElem.parentNode.classList.add('onboarding-focus') }, 1000)
@@ -294,12 +285,12 @@ document.addEventListener('click', (e) => {
       if (e.target.value == "Save" && items.length == 1) {
          //Remove doggy
          document.querySelector('.doggy svg').setAttribute('opacity', '0')
-         setTimeout(() => { document.querySelector('.doggy').removeAttribute('style') }, 1000)
+         // setTimeout(() => { document.querySelector('.doggy').removeAttribute('style') }, 1000)
 
          //Position doggy on the target element
          const targetElem = document.querySelector('.pr-path')
          const targetElemPos = targetElem.getBoundingClientRect()
-         positionDoggy(false, 'doggy-flipped', targetElem, 180, 47)
+         positionDoggy(false, 'doggy-flipped', 36, 16.5)
 
          //Apply onboarding-focus
          setTimeout(() => { document.querySelector('.quick-navigation').classList.add('onboarding-focus') }, 1000)
@@ -330,6 +321,9 @@ document.addEventListener('click', (e) => {
 document.addEventListener('click', (e) => {
    if (e.target.classList.contains('close-modal-btn')) {
       closeTourModal(true)
+      if (localStorage.getItem('currentLocation') == 'modules') {
+         document.querySelector('.scen-link').removeAttribute('style')
+      }
    }
 })
 

@@ -750,6 +750,8 @@ header {
    position: absolute;
    pointer-events: none;
    z-index: 1000;
+   
+   transform: translate(-50%, -50%);
 }
 .doggy-flipped > svg {
    transition: all 2s ease;
