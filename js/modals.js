@@ -107,8 +107,14 @@ document.addEventListener('DOMContentLoaded', () => {
          //Welcome Modal + DoggyHead
          document.querySelector('.container').append(buildModal(modalsHeaderContent["Welcome!"], modalsBodyContent["Welcome!"]))
          document.querySelector('.modal-next-btn').childNodes[0].textContent = "START QUICK TOUR"
-         openTourModal()
-
+         
+         //Add "NO,THANKS" btn
+         const noThanksBtn = document.createElement('div')
+         noThanksBtn.classList.add('modal-nothanks-btn')
+         noThanksBtn.textContent = "NO, THANKS"
+         document.querySelector('.modal-footer').insertBefore(noThanksBtn, document.querySelector('.modal-next-btn'))
+         // document.querySelector('.steps').insertBefore(step, stepsArr[targetPosition].nextSibling)
+         
          //position doggy on the target element
          let doggyHead = document.querySelector('.doggy-head')
          let targetElem = document.querySelector(".modal")
@@ -116,21 +122,21 @@ document.addEventListener('DOMContentLoaded', () => {
          doggyHead.style.left = `${targetElemPos.x-195}px`
          doggyHead.style.top = `${targetElemPos.y-136}px`
 
-         //make doggy appear
+         //Make doggy and modal visible
+         openTourModal()
          setTimeout(() => { doggyHead.querySelector('svg').setAttribute('opacity', '1') }, 1250)
       }
-   } 
-   // else if (localStorage.getItem('currentLocation') == 'modules') {
-   //    if (!localStorage.getItem('userProjects')[localStorage.getItem('projectInd')].modules || document.querySelectorAll('.module').length == 0) {
-   //       //Modal #3
-   //       document.querySelector('.container').append(buildModal(modalsHeaderContent["Step3"], modalsBodyContent["Step3"]))
-   //       let timeout = setTimeout(()=>{
-   //          overlay.classList.add('active')
-   //          document.querySelector('.modal').classList.add('active')
-   //          document.querySelector('.modal-content').classList.remove('invisible')
-   //       }, 1000)
-   //    }
-   // }
+   } else if (localStorage.getItem('currentLocation') == 'modules') {
+      if (!localStorage.getItem('userProjects')[localStorage.getItem('projectInd')].modules || document.querySelectorAll('.module').length == 0) {
+         //Modal #3
+         document.querySelector('.container').append(buildModal(modalsHeaderContent["Step3"], modalsBodyContent["Step3"]))
+         let timeout = setTimeout(()=>{
+            overlay.classList.add('active')
+            document.querySelector('.modal').classList.add('active')
+            document.querySelector('.modal-content').classList.remove('invisible')
+         }, 1000)
+      }
+   }
 })
 
 //Click on NEXT button on the onboarding modal
@@ -154,7 +160,7 @@ document.addEventListener('click', (e) => {
 
             //position Step1 Modal
             setTimeout(() => {
-               targetElem.classList.add('onboarding-focus')
+               // targetElem.classList.add('onboarding-focus')
                let modal = document.querySelector('.modal')
                document.querySelector('.container').append(buildModal(modalsHeaderContent["Step1"], modalsBodyContent["Step1"]))
                document.querySelector('.modal').style.left = `${targetElemPos.x - document.querySelector('.modal').offsetWidth/1.5}px`
@@ -163,6 +169,7 @@ document.addEventListener('click', (e) => {
             }, 600)
             //Make doggy and modal visible
             openTourModal()
+            setTimeout(() => { targetElem.classList.add('onboarding-focus') }, 1000)
             setTimeout(() => { doggy.querySelector('svg').setAttribute('opacity', '1') }, 1200)
          
          //Doggy #2
@@ -205,31 +212,16 @@ window.addEventListener('keydown', (e) => {
       //Modal #2
       document.querySelector('.doggy svg').setAttribute('opacity', '0')
       document.querySelector('.container').append(buildModal(modalsHeaderContent["Step2"], modalsBodyContent["Step2"]))
-      document.querySelector('.modal').removeChild(document.querySelector('.modal-footer'))
-      openTourModal()
-   }
-})
-
-//Click SAVE to create the 1st project and continue Onboarding
-document.addEventListener('click', (e) => {
-   const items = document.querySelectorAll('.project')
-   if (e.target.value == "Save" && items.length == 1) {
-      //Modal #2
-      document.querySelector('.doggy svg').setAttribute('opacity', '0')
-      document.querySelector('.container').append(buildModal(modalsHeaderContent["Step2"], modalsBodyContent["Step2"]))
       
-      let doggy = document.querySelector('.doggy')
+      let doggyFlipped = document.querySelector('.doggy-flipped')
       let targetElem = document.querySelector(".project-name")
       let targetElemPos = targetElem.getBoundingClientRect()
       setTimeout(() => { targetElem.parentNode.classList.add('onboarding-focus') }, 1000)
       setTimeout(() => {
          //position doggy on the target element
-         doggy.style.left = `${targetElemPos.x - targetElem.offsetWidth + 110}px`
-         doggy.style.top = `${targetElemPos.y - targetElem.offsetHeight - 60}px`
+         doggyFlipped.style.left = `${targetElemPos.x - targetElem.offsetWidth + 110}px`
+         doggyFlipped.style.top = `${targetElemPos.y - targetElem.offsetHeight - 60}px`
       }, 2000)
-      //position doggy on the target element
-      // doggy.style.left = `${targetElemPos.x - targetElem.offsetWidth + 110}px`
-      // doggy.style.top = `${targetElemPos.y - targetElem.offsetHeight - 60}px`
 
       //position Step2 Modal
       setTimeout(() => {
@@ -242,10 +234,42 @@ document.addEventListener('click', (e) => {
 
       //make doggy and modal visible
       openTourModal()
-      setTimeout(() => { doggy.querySelector('svg').setAttribute('opacity', '1') }, 2000)
+      setTimeout(() => { doggyFlipped.querySelector('svg').setAttribute('opacity', '1') }, 2000)
    }
 })
 
+//Click SAVE to create the 1st project and continue Onboarding
+document.addEventListener('click', (e) => {
+   const items = document.querySelectorAll('.project')
+   if (e.target.value == "Save" && items.length == 1) {
+      //Modal #2
+      document.querySelector('.doggy svg').setAttribute('opacity', '0')
+      document.querySelector('.container').append(buildModal(modalsHeaderContent["Step2"], modalsBodyContent["Step2"]))
+      
+      let doggyFlipped = document.querySelector('.doggy-flipped')
+      let targetElem = document.querySelector(".project-name")
+      let targetElemPos = targetElem.getBoundingClientRect()
+      setTimeout(() => { targetElem.parentNode.classList.add('onboarding-focus') }, 1000)
+      setTimeout(() => {
+         //position doggy on the target element
+         doggyFlipped.style.left = `${targetElemPos.x - targetElem.offsetWidth + 110}px`
+         doggyFlipped.style.top = `${targetElemPos.y - targetElem.offsetHeight - 60}px`
+      }, 2000)
+
+      //position Step2 Modal
+      setTimeout(() => {
+         let modal = document.querySelector('.modal')
+         document.querySelector('.container').append(buildModal(modalsHeaderContent["Step1"], modalsBodyContent["Step1"]))
+         document.querySelector('.modal').style.left = `${targetElemPos.x + document.querySelector('.modal').offsetWidth/2}px`
+         document.querySelector('.modal').style.top = `${targetElemPos.y + targetElem.offsetHeight*6}px`
+         document.querySelector('.modal').removeChild(document.querySelector('.modal-footer'))
+      }, 600)
+
+      //make doggy and modal visible
+      openTourModal()
+      setTimeout(() => { doggyFlipped.querySelector('svg').setAttribute('opacity', '1') }, 2000)
+   }
+})
 
 //TOUR ELEMENTS EVENTS
 document.querySelector("input[value='New']").addEventListener('click', () => {
