@@ -193,7 +193,15 @@ document.querySelector('.pr-link').addEventListener('click', (e) => {
          }
    
          //Display dropdown
-         elem.parentNode.children[2].classList.toggle('display-none')
+         if (!elem.parentNode.children[1].textContent == "") {
+            elem.parentNode.children[2].classList.toggle('display-none')
+         } else {
+            if (elem.parentNode.children[2].classList.contains('display-none')) {
+               setTimeout(()=>{ elem.parentNode.children[2].classList.remove('display-none') }, 150)
+            } else if (!elem.parentNode.children[2].classList.contains('display-none')) {
+               elem.parentNode.children[2].classList.add('display-none')
+            }
+         }
       }
    }
 })
@@ -225,7 +233,15 @@ document.querySelector('.mod-link').addEventListener('click', (e) => {
          }
    
          //Display dropdown
-         elem.parentNode.children[2].classList.toggle('display-none')
+         if (!elem.parentNode.children[1].textContent == "") {
+            elem.parentNode.children[2].classList.toggle('display-none')
+         } else {
+            if (elem.parentNode.children[2].classList.contains('display-none')) {
+               setTimeout(()=>{ elem.parentNode.children[2].classList.remove('display-none') }, 150)
+            } else if (!elem.parentNode.children[2].classList.contains('display-none')) {
+               elem.parentNode.children[2].classList.add('display-none')
+            }
+         }
       }
    }
 })
@@ -258,7 +274,15 @@ document.querySelector('.scen-link').addEventListener('click', (e) => {
          }
    
          //Display dropdown
-         elem.parentNode.children[2].classList.toggle('display-none')
+         if (!elem.parentNode.children[1].textContent == "") {
+            elem.parentNode.children[2].classList.toggle('display-none')
+         } else {
+            if (elem.parentNode.children[2].classList.contains('display-none')) {
+               setTimeout(()=>{ elem.parentNode.children[2].classList.remove('display-none') }, 150)
+            } else if (!elem.parentNode.children[2].classList.contains('display-none')) {
+               elem.parentNode.children[2].classList.add('display-none')
+            }
+         }
       }
    }
 })
@@ -268,7 +292,15 @@ document.querySelectorAll('.path-item-text').forEach(item => item.addEventListen
    let elem = e.target
    if (e.target.parentNode.children[2]) {
       //Display dropdown
-      elem.parentNode.children[2].classList.toggle('display-none')
+      if (!elem.parentNode.children[1].textContent == "") {
+         elem.parentNode.children[2].classList.toggle('display-none')
+      } else {
+         if (elem.parentNode.children[2].classList.contains('display-none')) {
+            setTimeout(()=>{ elem.parentNode.children[2].classList.remove('display-none') }, 150)
+         } else if (!elem.parentNode.children[2].classList.contains('display-none')) {
+            elem.parentNode.children[2].classList.add('display-none')
+         }
+      }
    }
 }))
 
