@@ -115,6 +115,18 @@ function positionDoggy(isTimed, doggyClass, leftPosition, topPosition) {
    }
 }
 
+function positionModal(isTimed, leftPosition, topPosition) {
+   if (isTimed) {
+      setTimeout(() => {
+         document.querySelector('.modal').style.left = `${leftPosition}%`
+         document.querySelector('.modal').style.top = `${topPosition}%`
+      }, 600)
+   } else {
+      document.querySelector('.modal').style.left = `${leftPosition}%`
+      document.querySelector('.modal').style.top = `${topPosition}%`
+   }
+}
+
 //////////////EVENTS
 //PAGE LOADED
 document.addEventListener('DOMContentLoaded', () => {
@@ -134,7 +146,6 @@ document.addEventListener('DOMContentLoaded', () => {
          document.querySelector('.modal-footer').style.justifyContent = "center"
          
          //Position doggy on the target element
-         const targetElem = document.querySelector('.modal')
          positionDoggy(false, 'doggy-head', 40, 37)
 
          //Make doggy and modal visible
@@ -146,14 +157,11 @@ document.addEventListener('DOMContentLoaded', () => {
    //MODULES PAGE
    if (localStorage.getItem('currentLocation') == 'modules') {
       //Position doggy on the target element
-      const targetElem = document.querySelector('.pr-path')
-      const targetElemPos = targetElem.getBoundingClientRect()
       positionDoggy(false, 'doggy-flipped', 26, 16.5)
 
       //Create Navbar Modal
       document.querySelector('.container').append(buildModal(modalsHeaderContent["Navbar"], modalsBodyContent["Navbar"]))
-      document.querySelector('.modal').style.left = `${targetElemPos.x + document.querySelector('.modal').offsetWidth/3}px`
-      document.querySelector('.modal').style.top = `${targetElemPos.y + targetElem.offsetHeight*5}px`
+      positionModal(false, 35, 38)
 
       //Apply onboarding-focus
       setTimeout(() => { document.querySelector('.quick-navigation').classList.add('onboarding-focus') }, 1000)
@@ -191,18 +199,15 @@ document.addEventListener('click', (e) => {
             closeTourModal(true)
    
             //Position doggy on the target element
-            const targetElem = document.querySelector(".btn[value='New']")
-            let targetElemPos = targetElem.getBoundingClientRect()
             positionDoggy(false, 'doggy', 78, 11.5)
 
             //Create Segment1-Step1 Modal
             setTimeout(() => {
                document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Header"], modalsBodyContent["Seg1Step1"]))
                trimModal('1/7')
-               document.querySelector('.modal').style.left = `${targetElemPos.x - document.querySelector('.modal').offsetWidth/1.5}px`
-               document.querySelector('.modal').style.top = `${targetElemPos.y - targetElem.offsetHeight}px`
             }, 600)
-
+            positionModal(true, 62, 20)
+            
             //Make doggy and modal visible
             openTourModal()
             setTimeout(() => { document.querySelector(".btn[value='New']").classList.add('onboarding-focus') }, 1000)
@@ -225,20 +230,17 @@ document.addEventListener('click', (e) => {
          setTimeout(() => { document.querySelector('.scen-link').removeAttribute('style') }, 500)
 
          //Position doggy on the target element
-         const targetElem = document.querySelector(".btn[value='Add Module']")
-         let targetElemPos = targetElem.getBoundingClientRect()
          positionDoggy(false, 'doggy', 64, 11.5)
 
          //Apply onboarding-focus
-         setTimeout(() => { targetElem.classList.add('onboarding-focus') }, 1000)
+         setTimeout(() => { document.querySelector(".btn[value='Add Module']").classList.add('onboarding-focus') }, 1000)
 
          //Create Segment1-Step1 Modal
          setTimeout(() => {
             document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Header"], modalsBodyContent["Seg1Step3"]))
             trimModal('3/7')
-            document.querySelector('.modal').style.left = `${targetElemPos.x - document.querySelector('.modal').offsetWidth/1.5}px`
-            document.querySelector('.modal').style.top = `${targetElemPos.y - targetElem.offsetHeight}px`
          }, 600)
+         positionModal(true, 46, 22)
 
          //Make doggy and modal visible
          openTourModal()
@@ -258,20 +260,17 @@ document.addEventListener('click', (e) => {
          // setTimeout(() => { document.querySelector('.doggy').removeAttribute('style') }, 1000)
 
          //Position doggy on the target element
-         let targetElem = document.querySelector(".project-name")
-         let targetElemPos = targetElem.getBoundingClientRect()
          positionDoggy(false, 'doggy-flipped', 26, 27.3)
 
          //Apply onboarding-focus
-         setTimeout(() => { targetElem.parentNode.classList.add('onboarding-focus') }, 1000)
+         setTimeout(() => { document.querySelector(".project-name").parentNode.classList.add('onboarding-focus') }, 1000)
          
          //Create Segment1-Step2 Modal
          setTimeout(() => {
             document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Header"], modalsBodyContent["Seg1Step2"]))
             trimModal('2/7')
-            document.querySelector('.modal').style.left = `${targetElemPos.x + document.querySelector('.modal').offsetWidth/2}px`
-            document.querySelector('.modal').style.top = `${targetElemPos.y + targetElem.offsetHeight*8}px`
          }, 600)
+         positionModal(true, 30, 46)
    
          //make doggy and modal visible
          openTourModal()
@@ -288,8 +287,6 @@ document.addEventListener('click', (e) => {
          // setTimeout(() => { document.querySelector('.doggy').removeAttribute('style') }, 1000)
 
          //Position doggy on the target element
-         const targetElem = document.querySelector('.pr-path')
-         const targetElemPos = targetElem.getBoundingClientRect()
          positionDoggy(false, 'doggy-flipped', 36, 16.5)
 
          //Apply onboarding-focus
@@ -303,9 +300,8 @@ document.addEventListener('click', (e) => {
          setTimeout(() => {
             document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Header"], modalsBodyContent["Seg1Step4"]))
             trimModal('4/7')
-            document.querySelector('.modal').style.left = `${targetElemPos.x + document.querySelector('.modal').offsetWidth}px`
-            document.querySelector('.modal').style.top = `${targetElemPos.y + targetElem.offsetHeight}px`
          }, 600)
+         positionModal(true, 45, 41)
    
          //make doggy and modal visible
          openTourModal()
