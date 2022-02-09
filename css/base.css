@@ -603,8 +603,6 @@ header {
 
 /* PRODUCT TOUR MODALS & DIALOGS*/
 .modal {
-   /* width: 690px;
-   height: 130px; */
    position: absolute;
    left: 50%;
    top: 50%;
@@ -653,7 +651,7 @@ header {
 }
 
 .modal-body {
-   padding: 10px 24px 20px;
+   padding: 10px 24px;
 }
 
 .modal-content {
@@ -663,10 +661,10 @@ header {
 }
 
 .modal-footer {
-   padding: 10px 40px 20px;
+   padding: 10px 24px 20px;
    display: flex;
    align-items: center;
-   justify-content: center;
+   justify-content: flex-end;
    column-gap: 25px;
 }
 .modal-next-btn {
@@ -692,8 +690,15 @@ header {
    margin-left: 10px;
 }
 
+.modal-order-num {
+   font-size: 14px;
+   padding: 5px 7px;
+   border: 1px solid rgba(0, 0, 0, 0.3);
+   border-radius: 6px;
+   color: rgba(0, 0, 0, 0.5);
+}
+
 .modal-skip-btn {
-   /* max-width: fit-content; */
    max-height: 42px;
    padding: 8.5px 16px;
    border-radius: 20px;
