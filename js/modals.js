@@ -1,6 +1,6 @@
 const modalsHeaderContent = {
    "Welcome!" : "Welcome to DogQ!",
-   "Step1" : "Structure your testing flow!",
+   "Seg1Modal" : "Structure your testing flow!",
    "Step2" : "Project created!",
    "Step3" : "Modules list",
    "Step4" : "Create a module...",
@@ -9,14 +9,14 @@ const modalsHeaderContent = {
 
 const modalsBodyContent = {
    "Welcome!" : "We would love to show you around - it won't take long.",
-   "Step1" : "The power of zero-code testing automation lies ahead, in test scenarios. But first we need to create a project we are going to be testing.", 
+   "Seg1Modal" : "The power of zero-code testing automation lies ahead, in test scenarios. But first we need to create a project we are going to be testing.", 
    "Step2" : "Great! To view a project's content just click on it.",
    "Step3" : "If you look at the navigation panel above, you can see that we are now inside the selected project.",
    "Step4" : "Now we need a module - a part of the project we will be focusing on.",
    "Step5" : "Using the navigation panel above, we can instantly go to any part of the selected project."
 }
 
-//Constructor function
+//Constructor functions
 function buildModal(header, body) {
    let fragment = document.createDocumentFragment()
 
@@ -66,6 +66,45 @@ function buildModal(header, body) {
    return fragment
 }
 
+function buildDialog(header, body) {
+   let fragment = document.createDocumentFragment()
+
+   const dialog = document.createElement('div')
+   dialog.classList.add('dialog')
+
+   const dialogHeader = document.createElement('div')
+   dialogHeader.classList.add('dialog-header')
+
+   const dialogHeaderContent = document.createElement('div')
+   dialogHeaderContent.classList.add('dialog-header-content')
+   dialogHeaderContent.textContent = header
+
+   const closeDialogBtn = document.createElement('div')
+   closeDialogBtn.classList.add('close-dialog-btn')
+   closeDialogBtn.textContent = 'X'
+
+   const dialogBody = document.createElement('div')
+   dialogBody.classList.add('dialog-body')
+   
+   const dialogContent = document.createElement('div')
+   dialogContent.classList.add('dialog-content', 'invisible')
+   dialogContent.textContent = body
+
+   const dialogFooter = document.createElement('div')
+   dialogFooter.classList.add('dialog-footer')
+
+   dialogHeader.appendChild(dialogHeaderContent)
+   dialogHeader.appendChild(closeDialogBtn)
+   dialogBody.appendChild(dialogContent)
+
+   dialog.appendChild(dialogHeader)
+   dialog.appendChild(dialogBody)
+   dialog.appendChild(dialogFooter)
+
+   fragment.append(dialog)
+   return fragment
+}
+
 function openTourModal() {
    setTimeout(()=>{
       overlay.classList.add('active')
@@ -102,30 +141,32 @@ document.addEventListener('click', (e) => {
 
 //Initiate modal on every empty pageload
 document.addEventListener('DOMContentLoaded', () => {
+   //PROJECTS PAGE
    if (localStorage.getItem('currentLocation') == 'projects') {
       if (document.querySelectorAll('.project').length == 0) {
          //Welcome Modal + DoggyHead
          document.querySelector('.container').append(buildModal(modalsHeaderContent["Welcome!"], modalsBodyContent["Welcome!"]))
          document.querySelector('.modal-next-btn').childNodes[0].textContent = "START QUICK TOUR"
+         document.querySelector('.modal-header').removeChild(document.querySelector('.close-modal-btn'))
          
          //Add "NO,THANKS" btn
          const noThanksBtn = document.createElement('div')
-         noThanksBtn.classList.add('modal-nothanks-btn')
-         noThanksBtn.textContent = "NO, THANKS"
+         noThanksBtn.classList.add('modal-skip-btn')
+         noThanksBtn.textContent = "SKIP TOUR"
          document.querySelector('.modal-footer').insertBefore(noThanksBtn, document.querySelector('.modal-next-btn'))
-         // document.querySelector('.steps').insertBefore(step, stepsArr[targetPosition].nextSibling)
          
          //position doggy on the target element
          let doggyHead = document.querySelector('.doggy-head')
          let targetElem = document.querySelector(".modal")
          let targetElemPos = targetElem.getBoundingClientRect()
          doggyHead.style.left = `${targetElemPos.x-195}px`
-         doggyHead.style.top = `${targetElemPos.y-136}px`
+         doggyHead.style.top = `${targetElemPos.y-130}px`
 
          //Make doggy and modal visible
          openTourModal()
          setTimeout(() => { doggyHead.querySelector('svg').setAttribute('opacity', '1') }, 1250)
       }
+   //MODULES PAGE
    } else if (localStorage.getItem('currentLocation') == 'modules') {
       if (!localStorage.getItem('userProjects')[localStorage.getItem('projectInd')].modules || document.querySelectorAll('.module').length == 0) {
          //Modal #3
@@ -146,7 +187,7 @@ document.addEventListener('click', (e) => {
 
       //PROJECTS PAGE
       if (localStorage.getItem('currentLocation') == 'projects') {
-         //Step1 Modal
+         //Seg1Modal Modal
          if (document.querySelector('.modal-header-content').textContent  == "Welcome to DogQ!") {
             //Close prev Modal and doggyHead
             document.querySelector('.doggy-head > svg').setAttribute('opacity', '0')
@@ -158,15 +199,16 @@ document.addEventListener('click', (e) => {
             doggy.style.left = `${targetElemPos.x - targetElem.offsetWidth + 5}px`
             doggy.style.top = `${targetElemPos.y - targetElem.offsetHeight - 55}px`
 
-            //position Step1 Modal
+            //position Seg1Modal Modal
             setTimeout(() => {
                // targetElem.classList.add('onboarding-focus')
                let modal = document.querySelector('.modal')
-               document.querySelector('.container').append(buildModal(modalsHeaderContent["Step1"], modalsBodyContent["Step1"]))
+               document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Modal"], modalsBodyContent["Seg1Modal"]))
                document.querySelector('.modal').style.left = `${targetElemPos.x - document.querySelector('.modal').offsetWidth/1.5}px`
                document.querySelector('.modal').style.top = `${targetElemPos.y - targetElem.offsetHeight}px`
                document.querySelector('.modal').removeChild(document.querySelector('.modal-footer'))
             }, 600)
+
             //Make doggy and modal visible
             openTourModal()
             setTimeout(() => { targetElem.classList.add('onboarding-focus') }, 1000)
@@ -226,7 +268,7 @@ window.addEventListener('keydown', (e) => {
       //position Step2 Modal
       setTimeout(() => {
          let modal = document.querySelector('.modal')
-         document.querySelector('.container').append(buildModal(modalsHeaderContent["Step1"], modalsBodyContent["Step1"]))
+         document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Modal"], modalsBodyContent["Seg1Modal"]))
          document.querySelector('.modal').style.left = `${targetElemPos.x + document.querySelector('.modal').offsetWidth/2}px`
          document.querySelector('.modal').style.top = `${targetElemPos.y + targetElem.offsetHeight*6}px`
          document.querySelector('.modal').removeChild(document.querySelector('.modal-footer'))
@@ -259,7 +301,7 @@ document.addEventListener('click', (e) => {
       //position Step2 Modal
       setTimeout(() => {
          let modal = document.querySelector('.modal')
-         document.querySelector('.container').append(buildModal(modalsHeaderContent["Step1"], modalsBodyContent["Step1"]))
+         document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Modal"], modalsBodyContent["Seg1Modal"]))
          document.querySelector('.modal').style.left = `${targetElemPos.x + document.querySelector('.modal').offsetWidth/2}px`
          document.querySelector('.modal').style.top = `${targetElemPos.y + targetElem.offsetHeight*6}px`
          document.querySelector('.modal').removeChild(document.querySelector('.modal-footer'))
