@@ -184,9 +184,6 @@ window.addEventListener('keydown', (e) => {
 
 //click on the NEW BUTTON to add new project
 document.querySelectorAll("input[value='New']").forEach(btn => btn.addEventListener('click', () => {
-   if (btn.classList.contains('onboarding-focus')) {
-      btn.classList.remove('onboarding-focus')
-   }
    openProjectModal()
 }))
 
