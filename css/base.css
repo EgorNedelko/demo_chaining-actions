@@ -641,7 +641,7 @@ header {
    border-radius: 6px;
    user-select: none;
    box-shadow: 0 4px 8px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19);
-   transition: all 0.3s ease, width 0.8s ease, height 0.8s ease;
+   transition: all 0.3s ease, width 0.8s ease, height 0.8s ease, scale 0.4s ease, top 0.5s ease, left 0.5s ease;
    transform: translate(-50%, -50%) scale(0);
 
    font-size: 17px;
@@ -763,10 +763,6 @@ header {
    transform: translateY(-1px);
 }
 
-/* .onboarding-focus {
-   z-index: 10001;
-   box-shadow: 0 0 3px 150px rgba(130, 138, 255, 0.6);
-} */
 .onboarding-focus {
    z-index: 999 !important;
 }
@@ -902,18 +898,9 @@ header {
    pointer-events: none;
    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
    opacity: 0;
-   transition: opacity 0.8s ease;
+   /* transition: opacity 0.8s ease; */
+   transition: all 0.3s ease, opacity 0.8s ease, width 0.4s ease, height 0.4s ease, scale 0.4s ease, top 0.4s ease, left 0.4s ease;
 }
-/* #focusbox:after {
-   content:'';
-   position: absolute;
-   bottom: 10%;
-   left: 10%;
-   z-index: 10000;
-   width: 25px;
-   width: 25px;
-   background-color: red;
-} */
 #focusbox.active {
    opacity: 1;
 }

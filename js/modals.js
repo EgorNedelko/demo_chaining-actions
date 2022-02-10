@@ -16,7 +16,8 @@ const modalsBodyContent = {
    "Seg1Step7" : "Almost there! Now we need an actual test scenario where all the fun stuff happens.",
    "Seg1Step8" : "Lastly, a third way you can access the content of an item is to click on its menu button and select 'Show'.",
    "Seg2Step1" : "Finally! Before us is a test scenario. Each step stands for one action, be it finding an element, clicking on it or providing user input for a form.",
-   "Seg2Step2" : "Having added a step, we need to select what type it's going to be."
+   "Seg2Step2" : "Having added a step, we need to select what type it's going to be.",
+   "Seg2Step3" : "These are all the actions you can automate with DogQ. Actions like 'Click element' require that an element must be found first."
 }
 
 //Constructor functions
@@ -159,11 +160,28 @@ function positionModal(isTimed, leftPosition, topPosition) {
    }
 }
 
+function changeModalContent(newContent, newOrderNum) {
+   document.querySelector('.modal-content').classList.add('invisible')
+   document.querySelector('.modal-content').textContent = newContent
+   setTimeout(() => { document.querySelector('.modal-content').classList.remove('invisible') }, 350)
+   if (newOrderNum) {
+      document.querySelector('.modal-order-num').textContent = newOrderNum
+   }
+}
+
 function positionFocusbox(width, height, left, top) {
-   document.getElementById('focusbox').style.width = `${width}px`
-   document.getElementById('focusbox').style.height = `${height}px`
-   document.getElementById('focusbox').style.left = `${left}%`
-   document.getElementById('focusbox').style.top = `${top}%`
+   if (width) {
+      document.getElementById('focusbox').style.width = `${width}px`
+   } 
+   if (height) {
+      document.getElementById('focusbox').style.height = `${height}px`
+   }
+   if (left) {
+      document.getElementById('focusbox').style.left = `${left}%`
+   }
+   if (top) {
+      document.getElementById('focusbox').style.top = `${top}%`
+   }
 }
 
 //////////////EVENTS
@@ -321,7 +339,7 @@ document.addEventListener('click', (e) => {
             document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg2Header"], modalsBodyContent["Seg2Step2"]))
             modifyModal('trim', '2/10')
          }, 600)
-         positionFocusbox(185, 38, 36.5, 32)
+         positionFocusbox(195, 48, 36.5, 32)
          positionDoggy(false, 'doggy', 64, 11.5)
          positionModal(true, 20, 33)
          openTourModal('nooverlay', 'pointed', true)
@@ -426,35 +444,45 @@ document.addEventListener('click', (e) => {
 })
 
 //TOUR ELEMENTS EVENTS
-if (document.querySelector("input[value='New']")) {
-   document.querySelector("input[value='New']").addEventListener('click', () => {
-      if (document.querySelector('.modal').classList.contains('active')) {
-         closeTourModal(false)
-      }
-      if (document.querySelector("input[value='New']").classList.contains('onboarding-focus')) {
-         document.querySelector("input[value='New']").classList.remove('onboarding-focus')
-      }
-   })
-}
-
-if (document.querySelector("input[value='Add Module']")) {
-   document.querySelector("input[value='Add Module']").addEventListener('click', () => {
-      if (document.querySelector('.modal').classList.contains('active')) {
-         closeTourModal(false)
-      }
-      if (document.querySelector("input[value='Add Module']").classList.contains('onboarding-focus')) {
-         document.querySelector("input[value='Add Module']").classList.remove('onboarding-focus')
-      }
-   })
-}
-
-if (document.querySelector("input[value='Add Scenario']")) {
-   document.querySelector("input[value='Add Scenario']").addEventListener('click', () => {
-      if (document.querySelector('.modal').classList.contains('active')) {
-         closeTourModal(false)
-      }
-      if (document.querySelector("input[value='Add Scenario']").classList.contains('onboarding-focus')) {
-         document.querySelector("input[value='Add Scenario']").classList.remove('onboarding-focus')
+if (localStorage.getItem('tourEnabled') == 'true') {
+   if (document.querySelector("input[value='New']")) {
+      document.querySelector("input[value='New']").addEventListener('click', () => {
+         if (document.querySelector('.modal').classList.contains('active')) {
+            closeTourModal(false)
+         }
+         if (document.querySelector("input[value='New']").classList.contains('onboarding-focus')) {
+            document.querySelector("input[value='New']").classList.remove('onboarding-focus')
+         }
+      })
+   }
+   
+   if (document.querySelector("input[value='Add Module']")) {
+      document.querySelector("input[value='Add Module']").addEventListener('click', () => {
+         if (document.querySelector('.modal').classList.contains('active')) {
+            closeTourModal(false)
+         }
+         if (document.querySelector("input[value='Add Module']").classList.contains('onboarding-focus')) {
+            document.querySelector("input[value='Add Module']").classList.remove('onboarding-focus')
+         }
+      })
+   }
+   
+   if (document.querySelector("input[value='Add Scenario']")) {
+      document.querySelector("input[value='Add Scenario']").addEventListener('click', () => {
+         if (document.querySelector('.modal').classList.contains('active')) {
+            closeTourModal(false)
+         }
+         if (document.querySelector("input[value='Add Scenario']").classList.contains('onboarding-focus')) {
+            document.querySelector("input[value='Add Scenario']").classList.remove('onboarding-focus')
+         }
+      })
+   }
+   
+   document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('dropdown-btn')) {
+         positionFocusbox(245, 428, 37.9, 51.5)
+         positionModal(false, 20, 52)
+         changeModalContent(modalsBodyContent["Seg2Step3"], '3/10')
       }
    })
 }
