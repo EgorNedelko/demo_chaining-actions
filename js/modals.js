@@ -1,3 +1,5 @@
+let tourEnabled_dropdownBtn = true
+
 const modalsHeaderContent = {
    "Welcome!" : "Welcome to DogQ!",
    "Seg1Step1" : "Structure your testing flow!",
@@ -480,9 +482,12 @@ if (localStorage.getItem('tourEnabled') == 'true') {
    
    document.addEventListener('click', (e) => {
       if (e.target.classList.contains('dropdown-btn')) {
-         positionFocusbox(245, 428, 37.9, 51.5)
-         positionModal(false, 20, 52)
-         changeModalContent(modalsBodyContent["Seg2Step3"], '3/10')
+         if (tourEnabled_dropdownBtn) {
+            positionFocusbox(245, 428, 37.9, 51.5)
+            positionModal(false, 20, 52)
+            changeModalContent(modalsBodyContent["Seg2Step3"], '3/10')
+            tourEnabled_dropdownBtn = false
+         }
       }
    })
 }
