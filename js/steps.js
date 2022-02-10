@@ -846,6 +846,10 @@ document.addEventListener('click', (e) => {
          if (!e.target.value) {
             e.target.parentNode.parentNode.parentNode.children[0].textContent = currentStepType
             e.target.parentNode.parentNode.parentNode.children[0].classList.remove('custom-name')
+            e.target.parentNode.children[1].setAttribute('src', "https://img.icons8.com/material-outlined/50/000000/visible--v1.png")
+            e.target.parentNode.children[1].classList.remove('name-invisible')
+            e.target.parentNode.children[1].classList.add('name-visible')
+            e.target.parentNode.parentNode.parentNode.parentNode.parentNode.dataset.name = 'visible'
          } else {
             if (targetStep.dataset.name == 'visible') {
                if (!e.target.parentNode.parentNode.parentNode.children[0].classList.contains('custom-name')) {
