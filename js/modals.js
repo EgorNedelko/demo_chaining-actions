@@ -1,20 +1,20 @@
 const modalsHeaderContent = {
    "Welcome!" : "Welcome to DogQ!",
-   "Seg1Header" : "Structure your testing flow",
-   "Navbar" : "Navigation panel"
+   "Seg1Step1" : "Structure your testing flow!",
+   "Seg1Header" : "Structure and Navigation"
 }
 
 const modalsBodyContent = {
    "Welcome!" : "We would love to show you around - it won't take long.",
-   "Seg1Modal" : "The power of zero-code testing automation lies ahead, in test scenarios. But to get there we need to create a project we will be testing and a module that our scenario will be focusing on.", 
-   "Seg1Step1" : "At the top of the chain, there's a project. So let's make one.",
-   "Seg1Step2" : "Project created! To view its content just click on the project name.",
-   "Navbar" : "If you look at the navigation panel above, you can see that we are now inside the selected project where its modules are.",
-   "Seg1Step3" : "Now we need a module - a part of the project we will be focusing on.",
-   "Seg1Step4" : "Another way to navigate your project is to click on the navigation menu level you're currently on and select an item you want to go to.",
-   "Seg1Step5" : "Almost there! Now we need an actual test scenario where all the fun stuff happens.",
-   "Seg1Step6" : "Lastly, a third way you can access the content of an item is to click on its menu button and select 'Show'.",
-   "Seg1Step7" : "Using the navigation panel above, we can instantly go to any part of the selected project."
+   "Seg1Step1" : "The power of zero-code testing automation lies ahead, in test scenarios. But to get there we need to create a project we will be testing and a module that our scenario will be focusing on.", 
+   "Seg1Step2" : "At the top of the chain, there's a project. So let's make one.",
+   "Seg1Step3" : "Project created! To view its content just click on the project name.",
+   "Seg1Step4" : "If you look at the navigation panel above, you can see that we are now inside the selected project where its modules are.",
+   "Seg1Step5" : "Now we need a module - a part of the project we will be focusing on.",
+   "Seg1Step6" : "Another way to navigate your project is to click on the navigation menu level you're currently on and select an item you want to go to.",
+   "Seg1Step7" : "Almost there! Now we need an actual test scenario where all the fun stuff happens.",
+   "Seg1Step8" : "Lastly, a third way you can access the content of an item is to click on its menu button and select 'Show'."
+   // "Seg1End" : "Using the navigation panel above, we can instantly go to any part of the selected project."
 }
 
 //Constructor functions
@@ -67,12 +67,16 @@ function buildModal(header, body) {
    return fragment
 }
 
-function trimModal(orderNum) {
-   document.querySelector('.modal-footer').removeChild(document.querySelector('.modal-next-btn'))
+function modifyModal(mode, orderNum) {
    const modalOrderNum = document.createElement('div')
    modalOrderNum.classList.add('modal-order-num')
    modalOrderNum.textContent = orderNum
-   document.querySelector('.modal-footer').append(modalOrderNum)
+   if (mode == "trim") {
+      document.querySelector('.modal-footer').removeChild(document.querySelector('.modal-next-btn'))
+      document.querySelector('.modal-footer').append(modalOrderNum)
+   } else {
+      document.querySelector('.modal-footer').insertBefore(modalOrderNum, document.querySelector('.modal-next-btn'))
+   }
 }
 
 function openTourModal() {
@@ -155,7 +159,8 @@ document.addEventListener('DOMContentLoaded', () => {
    if (localStorage.getItem('tourEnabled') == 'true') {
       //MODULES PAGE
       if (localStorage.getItem('currentLocation') == 'modules') {
-         document.querySelector('.container').append(buildModal(modalsHeaderContent["Navbar"], modalsBodyContent["Navbar"]))
+         document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Header"], modalsBodyContent["Seg1Step4"]))
+         modifyModal('modify', '4/8')
          positionModal(false, 35, 38)
          positionDoggy(false, 'doggy-flipped', 26, 16.5)
    
@@ -173,10 +178,10 @@ document.addEventListener('DOMContentLoaded', () => {
    
       //SCENARIOS PAGE
       if (localStorage.getItem('currentLocation') == 'scenarios') {
-         document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Header"], modalsBodyContent["Seg1Step5"]))
+         document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Header"], modalsBodyContent["Seg1Step7"]))
          positionModal(false, 40, 23)
          positionDoggy(false, 'doggy', 61, 11.5)
-         trimModal('5/7')
+         modifyModal('trim', '7/8')
          
          //Apply Onboarding focus
          setTimeout(() => { document.querySelector(".btn[value='Add Scenario']").classList.add('onboarding-focus') }, 1000)
@@ -186,13 +191,6 @@ document.addEventListener('DOMContentLoaded', () => {
          setTimeout(() => { document.querySelector('.doggy svg').setAttribute('opacity', '1') }, 1200)
       }
    }
-
-   //STEPS PAGE
-   // if (localStorage.getItem('currentLocation') == 'steps') {
-   //    document.addEventListener('mouseover', (e) => {
-   //       darkenUponHover(e)
-   //    })
-   // }
 })
 
 //NEXT BUTTON
@@ -208,19 +206,22 @@ document.addEventListener('click', (e) => {
             localStorage.setItem('tourEnabled', 'true')
 
             //Create next 
-            document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Header"], modalsBodyContent["Seg1Modal"]))
+            setTimeout(() => {
+               document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Step1"], modalsBodyContent["Seg1Step1"]))
+               modifyModal('modify', '1/8')
+            }, 600)
             openTourModal()
          } 
 
-         //In the Segment1 Modal 
-         if (document.querySelector('.modal-header-content').textContent  == "Structure your testing flow") {
+         //In the "Structure your testing flow!"
+         if (document.querySelector('.modal-header-content').textContent  == "Structure your testing flow!") {
             //Close prev
             closeTourModal(true)
    
             //Create next
             setTimeout(() => {
-               document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Header"], modalsBodyContent["Seg1Step1"]))
-               trimModal('1/7')
+               document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Header"], modalsBodyContent["Seg1Step2"]))
+               modifyModal('trim', '2/8')
             }, 600)
             positionModal(true, 62, 20)
             positionDoggy(false, 'doggy', 78, 11.5)
@@ -249,8 +250,8 @@ document.addEventListener('click', (e) => {
 
          //Create next
          setTimeout(() => {
-            document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Header"], modalsBodyContent["Seg1Step3"]))
-            trimModal('3/7')
+            document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Header"], modalsBodyContent["Seg1Step5"]))
+            modifyModal('trim', '5/8')
          }, 600)
          positionModal(true, 46, 22)
          positionDoggy(false, 'doggy', 64, 11.5)
@@ -275,8 +276,8 @@ document.addEventListener('click', (e) => {
 
          //Create next
          setTimeout(() => {
-            document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Header"], modalsBodyContent["Seg1Step2"]))
-            trimModal('2/7')
+            document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Header"], modalsBodyContent["Seg1Step3"]))
+            modifyModal('trim', '3/8')
          }, 600)
          positionModal(true, 30, 46)
          positionDoggy(false, 'doggy-flipped', 26, 27.3)
@@ -296,8 +297,8 @@ document.addEventListener('click', (e) => {
    
          //Create new
          setTimeout(() => {
-            document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Header"], modalsBodyContent["Seg1Step4"]))
-            trimModal('4/7')
+            document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Header"], modalsBodyContent["Seg1Step6"]))
+            modifyModal('trim', '6/8')
          }, 600)
          positionModal(true, 45, 41)
          positionDoggy(false, 'doggy-flipped', 36, 16.5)
@@ -322,8 +323,8 @@ document.addEventListener('click', (e) => {
    
          //Create next
          setTimeout(() => {
-            document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Header"], modalsBodyContent["Seg1Step6"]))
-            trimModal('6/7')
+            document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Header"], modalsBodyContent["Seg1Step8"]))
+            modifyModal('trim', '8/8')
          }, 600)
          positionModal(true, 58, 49)
          positionDoggy(true, 'doggy', 79, 21.5)
