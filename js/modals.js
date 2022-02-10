@@ -81,10 +81,16 @@ function modifyModal(mode, orderNum) {
    }
 }
 
-function openTourModal(mode = 'overlay', sized = false) {
+function openTourModal(mode = 'overlay', pointed = 'notpointed', sized = false) {
    if (sized) {
       setTimeout(()=>{
          document.querySelector('.modal').style.maxWidth = "400px"
+      }, 1000)
+   }
+   if (pointed == 'pointed') {
+      // const modalPointer = window.getComputedStyle(modal, "::after")
+      setTimeout(()=>{
+         document.querySelector('.modal').style.setProperty('--pseudoElemOpacity', '1')
       }, 1000)
    }
    if (mode == 'nooverlay') {
@@ -317,8 +323,8 @@ document.addEventListener('click', (e) => {
          }, 600)
          positionFocusbox(185, 38, 36.5, 32)
          positionDoggy(false, 'doggy', 64, 11.5)
-         positionModal(true, 20, 34)
-         openTourModal('nooverlay', true)
+         positionModal(true, 20, 33)
+         openTourModal('nooverlay', 'pointed', true)
          openFocusbox(true)
       }
    }

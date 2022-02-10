@@ -5,6 +5,10 @@
    outline: none;
 }
 
+:root {
+   --pseudoElemOpacity: 0;
+}
+
 html {
    font-size: 10px;
    font-family: 'Open Sans', sans-serif;
@@ -650,27 +654,22 @@ header {
 }
 
 .modal::after {
-   /* content: ''; */
+   content: "";
    position: absolute;
    top: 40%;
    left: 100%;
-   width: 25px;
-   height: 25px;
-   /* background-color: rgb(255, 255, 255); */
    z-index: 999;
-
-   margin-left: -20px;
+   height: 25px;
    width: 0;
+   
+   margin-left: -20px;
    border-top: 20px solid white;
-   /* border-top: 20px solid #000; */
-   /* border-top: 20px solid hsla(0, 0%, 20%, 0.9); */
    border-top: 20px solid white;
    border-right: 20x solid transparent;
    border-left: 20px solid transparent;
    transform: rotateZ(45deg);
-   content: " ";
-   /* font-size: 0;
-   line-height: 0; */
+   
+   opacity: var(--pseudoElemOpacity);
 }
 
 .modal-header {
