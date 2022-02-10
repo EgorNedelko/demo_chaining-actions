@@ -2,7 +2,7 @@ const modalsHeaderContent = {
    "Welcome!" : "Welcome to DogQ!",
    "Seg1Step1" : "Structure your testing flow!",
    "Seg1Header" : "Structure and Navigation",
-   "Seg2Step1" : "Test scenarios"
+   "Seg2Header" : "Test scenarios"
 }
 
 const modalsBodyContent = {
@@ -15,7 +15,8 @@ const modalsBodyContent = {
    "Seg1Step6" : "Another way to navigate your project is to click on the navigation menu level you're currently on and select an item you want to go to.",
    "Seg1Step7" : "Almost there! Now we need an actual test scenario where all the fun stuff happens.",
    "Seg1Step8" : "Lastly, a third way you can access the content of an item is to click on its menu button and select 'Show'.",
-   "Seg2Step1" : "Finally! Before us is a test scenario. Each step stands for one action, be it finding an element, clicking on it or providing some user input for a form."
+   "Seg2Step1" : "Finally! Before us is a test scenario. Each step stands for one action, be it finding an element, clicking on it or providing user input for a form.",
+   "Seg2Step2" : "Having added a step, we need to select what type it's going to be."
 }
 
 //Constructor functions
@@ -80,12 +81,24 @@ function modifyModal(mode, orderNum) {
    }
 }
 
-function openTourModal() {
-   setTimeout(()=>{
-      overlay.classList.add('active')
-      document.querySelector('.modal').classList.add('active')
-      document.querySelector('.modal-content').classList.remove('invisible')
-   }, 1000)
+function openTourModal(mode = 'overlay', sized = false) {
+   if (sized) {
+      setTimeout(()=>{
+         document.querySelector('.modal').style.maxWidth = "400px"
+      }, 1000)
+   }
+   if (mode == 'nooverlay') {
+      setTimeout(()=>{
+         document.querySelector('.modal').classList.add('active')
+         document.querySelector('.modal-content').classList.remove('invisible')
+      }, 1000)
+   } else if (mode == 'overlay') {
+      setTimeout(()=>{
+         overlay.classList.add('active')
+         document.querySelector('.modal').classList.add('active')
+         document.querySelector('.modal-content').classList.remove('invisible')
+      }, 1000)
+   }
 }
 
 function closeTourModal(isTimed) {
@@ -103,6 +116,14 @@ function closeTourModal(isTimed) {
       // overlay.classList.remove('active')
       document.querySelector('.modal').classList.remove('active')
       setTimeout(() => { document.querySelector('.container').removeChild(document.querySelector('.modal')) }, 200)
+   }
+}
+
+function openFocusbox(isTimed) {
+   if (isTimed) {
+      setTimeout(() => { document.getElementById('focusbox').classList.add('active') }, 400)
+   } else {
+      document.getElementById('focusbox').classList.add('active')
    }
 }
 
@@ -130,6 +151,13 @@ function positionModal(isTimed, leftPosition, topPosition) {
       document.querySelector('.modal').style.left = `${leftPosition}%`
       document.querySelector('.modal').style.top = `${topPosition}%`
    }
+}
+
+function positionFocusbox(width, height, left, top) {
+   document.getElementById('focusbox').style.width = `${width}px`
+   document.getElementById('focusbox').style.height = `${height}px`
+   document.getElementById('focusbox').style.left = `${left}%`
+   document.getElementById('focusbox').style.top = `${top}%`
 }
 
 //////////////EVENTS
@@ -194,7 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       //STEPS PAGE
       if (localStorage.getItem('currentLocation') == 'steps') {
-         document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg2Step1"], modalsBodyContent["Seg2Step1"]))
+         document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg2Header"], modalsBodyContent["Seg2Step1"]))
          positionDoggy(false, 'doggy-head', 40, 35.5)
          modifyModal('modify', '1/10')
 
@@ -278,7 +306,20 @@ document.addEventListener('click', (e) => {
 
       //STEPS PAGE
       if (localStorage.getItem('currentLocation') == 'steps') {
-
+         //Close prev
+         document.querySelector('.doggy-head > svg').setAttribute('opacity', '0')
+         closeTourModal(true)
+         
+         //Create next
+         setTimeout(() => {
+            document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg2Header"], modalsBodyContent["Seg2Step2"]))
+            modifyModal('trim', '2/10')
+         }, 600)
+         positionFocusbox(185, 38, 36.5, 32)
+         positionDoggy(false, 'doggy', 64, 11.5)
+         positionModal(true, 20, 34)
+         openTourModal('nooverlay', true)
+         openFocusbox(true)
       }
    }
 })
