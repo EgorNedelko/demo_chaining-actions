@@ -1,7 +1,8 @@
 const modalsHeaderContent = {
    "Welcome!" : "Welcome to DogQ!",
    "Seg1Step1" : "Structure your testing flow!",
-   "Seg1Header" : "Structure and Navigation"
+   "Seg1Header" : "Structure and Navigation",
+   "Seg2Step1" : "Test scenarios"
 }
 
 const modalsBodyContent = {
@@ -13,8 +14,8 @@ const modalsBodyContent = {
    "Seg1Step5" : "Now we need a module - a part of the project we will be focusing on.",
    "Seg1Step6" : "Another way to navigate your project is to click on the navigation menu level you're currently on and select an item you want to go to.",
    "Seg1Step7" : "Almost there! Now we need an actual test scenario where all the fun stuff happens.",
-   "Seg1Step8" : "Lastly, a third way you can access the content of an item is to click on its menu button and select 'Show'."
-   // "Seg1End" : "Using the navigation panel above, we can instantly go to any part of the selected project."
+   "Seg1Step8" : "Lastly, a third way you can access the content of an item is to click on its menu button and select 'Show'.",
+   "Seg2Step1" : "Finally! Before us is a test scenario. Each step stands for one action, be it finding an element, clicking on it or providing some user input for a form."
 }
 
 //Constructor functions
@@ -190,6 +191,17 @@ document.addEventListener('DOMContentLoaded', () => {
          openTourModal()
          setTimeout(() => { document.querySelector('.doggy svg').setAttribute('opacity', '1') }, 1200)
       }
+
+      //STEPS PAGE
+      if (localStorage.getItem('currentLocation') == 'steps') {
+         document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg2Step1"], modalsBodyContent["Seg2Step1"]))
+         positionDoggy(false, 'doggy-head', 40, 35.5)
+         modifyModal('modify', '1/10')
+
+         //Make doggy and modal visible
+         openTourModal()
+         setTimeout(() => { document.querySelector('.doggy-head svg').setAttribute('opacity', '1') }, 1250)
+      }
    }
 })
 
@@ -262,6 +274,11 @@ document.addEventListener('click', (e) => {
          //Make doggy and modal visible
          openTourModal()
          setTimeout(() => { document.querySelector('.doggy svg').setAttribute('opacity', '1') }, 1200)
+      }
+
+      //STEPS PAGE
+      if (localStorage.getItem('currentLocation') == 'steps') {
+
       }
    }
 })
