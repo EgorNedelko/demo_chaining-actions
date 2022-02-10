@@ -13,7 +13,7 @@ const modalsBodyContent = {
    "Seg1Step3" : "Now we need a module - a part of the project we will be focusing on.",
    "Seg1Step4" : "Another way to navigate your project is to click on the navigation menu level you're currently on and select an item you want to go to.",
    "Seg1Step5" : "Almost there! Now we need an actual test scenario where all the fun stuff happens.",
-   "Seg1Step6" : "Lastly, a third way you can access the content of an item is to click on its menu icon and select 'View'.",
+   "Seg1Step6" : "Lastly, a third way you can access the content of an item is to click on its menu button and select 'Show'.",
    "Seg1Step7" : "Using the navigation panel above, we can instantly go to any part of the selected project."
 }
 
@@ -340,11 +340,11 @@ document.addEventListener('click', (e) => {
          positionDoggy(true, 'doggy', 79, 21.5)
 
          //Apply onboarding-focus
-         setTimeout(() => { document.querySelector('.quick-navigation').classList.add('onboarding-focus') }, 1000)
-         setTimeout(() => { document.querySelector('.path-item-container').classList.add('onboarding-focus') }, 1000)
-         setTimeout(() => { document.querySelector('.path-item-text').classList.add('onboarding-focus') }, 1000)
+         // setTimeout(() => { document.querySelector('.quick-navigation').classList.add('onboarding-focus') }, 1000)
+         // setTimeout(() => { document.querySelector('.path-item-container').classList.add('onboarding-focus') }, 1000)
+         // setTimeout(() => { document.querySelector('.path-item-text').classList.add('onboarding-focus') }, 1000)
          // setTimeout(() => { document.querySelector('.scen-link').style.color = "grey" }, 1000)
-         setTimeout(() => { document.querySelector('.path-line').classList.add('onboarding-focus') }, 1000)
+         // setTimeout(() => { document.querySelector('.path-line').classList.add('onboarding-focus') }, 1000)
          setTimeout(() => { document.querySelector('.scenario').classList.add('onboarding-focus') }, 1000)
 
          //Create Segment1-Step2 Modal
@@ -352,7 +352,7 @@ document.addEventListener('click', (e) => {
             document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Header"], modalsBodyContent["Seg1Step6"]))
             trimModal('6/7')
          }, 600)
-         // positionModal(true, 45, 41)
+         positionModal(true, 58, 49)
    
          //make doggy and modal visible
          openTourModal()
