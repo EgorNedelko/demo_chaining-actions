@@ -1,6 +1,3 @@
-//Global variable for controlling the tour
-let tourEnabled = false;
-
 const modalsHeaderContent = {
    "Welcome!" : "Welcome to DogQ!",
    "Seg1Header" : "Structure your testing flow",
@@ -155,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
    }
 
-   if (tourEnabled) {
+   if (localStorage.getItem('tourEnabled') == 'true') {
       //MODULES PAGE
       if (localStorage.getItem('currentLocation') == 'modules') {
          document.querySelector('.container').append(buildModal(modalsHeaderContent["Navbar"], modalsBodyContent["Navbar"]))
@@ -208,7 +205,7 @@ document.addEventListener('click', (e) => {
             //Close prev
             document.querySelector('.doggy-head > svg').setAttribute('opacity', '0')
             closeTourModal(true)
-            tourEnabled = true
+            localStorage.setItem('tourEnabled', 'true')
 
             //Create next 
             document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Header"], modalsBodyContent["Seg1Modal"]))
@@ -270,7 +267,7 @@ document.addEventListener('click', (e) => {
 
 //SAVE BUTTON
 document.addEventListener('click', (e) => {
-   if (e.target.value == "Save" && tourEnabled) {
+   if (e.target.value == 'Save' && localStorage.getItem('tourEnabled') == 'true') {
       //PROJECTS PAGE
       if (localStorage.getItem('currentLocation') == 'projects') {
          //Close prev
@@ -357,7 +354,7 @@ document.addEventListener('click', (e) => {
 //SKIP TOUR button
 document.addEventListener('click', (e) => {
    if (e.target.classList.contains('modal-skip-btn')) {
-      tourEnabled = false
+      localStorage.setItem('tourEnabled','false')
       closeTourModal(true)
       document.querySelector('.doggy-head svg').setAttribute('opacity', '0')
    }
