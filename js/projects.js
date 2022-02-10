@@ -47,6 +47,9 @@ function addProject(name) {
       const actionsItem = document.createElement('a')
       actionsItem.classList.add('actions-dropdown-item')
       actionsItem.textContent = actionsArr[i]
+      if (actionsItem.textContent == "Show") {
+         actionsItem.setAttribute('href', './modules.html')
+      }
       actionsDropdown.appendChild(actionsItem)
    }
 
@@ -297,10 +300,18 @@ document.querySelector("input[value='Clear All']").addEventListener('click', () 
    document.querySelectorAll('.project').forEach(project => document.querySelector('.projects').removeChild(project))
 })
 
-//click on the project name to STORE DESTINATION 
+//Сlick on the PROJECT NAME to store destination 
 document.addEventListener('click', (e) => {
    if (e.target.classList.contains('project-name') || e.target.classList.contains('path-dropdown-item')) {
       storeDestination(e.target)
+   }
+})
+
+//Click on the SHOW action button to store destination
+document.addEventListener('click', (e) => {
+   if (e.target.textContent == 'Show') {
+      const targetElem = e.target.parentNode.parentNode.parentNode.querySelector('.project-name')
+      storeDestination(targetElem)
    }
 })
 

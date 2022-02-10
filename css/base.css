@@ -403,6 +403,7 @@ header {
    color: rgb(82, 95, 127);
    font-size: 14px;
    line-height: 21px;
+   text-decoration: none;
    cursor: pointer;
    user-select: none;
    outline: none;

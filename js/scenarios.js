@@ -44,6 +44,9 @@ function addScenario(name) {
       const actionsItem = document.createElement('a')
       actionsItem.classList.add('actions-dropdown-item')
       actionsItem.textContent = actionsArr[i]
+      if (actionsItem.textContent == "Show") {
+         actionsItem.setAttribute('href', './steps.html')
+      }
       actionsDropdown.appendChild(actionsItem)
    }
 
@@ -352,10 +355,18 @@ document.querySelector("input[value='Clear All']").addEventListener('click', () 
    refreshItemCounter()
 })
 
-//click on the scenario name to STORE DESTINATION 
+//Сlick on the SCENARIO NAME to store destination 
 document.addEventListener('click', (e) => {
    if (e.target.classList.contains('scenario-name') || e.target.classList.contains('path-dropdown-item')) {
       storeDestination(e.target)
+   }
+})
+
+//Click on the SHOW action button to store destination
+document.addEventListener('click', (e) => {
+   if (e.target.textContent == 'Show') {
+      const targetElem = e.target.parentNode.parentNode.parentNode.querySelector('.scenario-name')
+      storeDestination(targetElem)
    }
 })
 

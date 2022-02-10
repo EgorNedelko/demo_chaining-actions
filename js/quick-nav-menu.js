@@ -441,3 +441,11 @@ document.addEventListener('mouseout', (e) => {
       targetItem.classList.remove('hover')
    }
 }) 
+
+
+//Click SHOW action button to store destination
+document.addEventListener('click', (e) => {
+   if (e.target.textContent == 'Show') {
+      
+   }
+})

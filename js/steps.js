@@ -532,7 +532,7 @@ document.addEventListener('DOMContentLoaded', () => {
    loadSteps()
 })
 
-//click on the scenario name to STORE DESTINATION 
+//Click QUICK NAV DROPDOWN ITEM to store destination 
 document.addEventListener('click', (e) => {
    if (e.target.classList.contains('path-dropdown-item')) {
       storeDestination(e.target)
