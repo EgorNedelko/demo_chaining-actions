@@ -77,10 +77,10 @@ function modifyModal(mode, orderNum) {
    modalOrderNum.classList.add('modal-order-num')
    modalOrderNum.textContent = orderNum
    if (mode == "trim") {
-      document.querySelector('.modal-footer').removeChild(document.querySelector('.modal-next-btn'))
-      document.querySelector('.modal-footer').append(modalOrderNum)
+      document.querySelector('.modal').removeChild(document.querySelector('.modal-footer'))
+      document.querySelector('.modal-header').insertBefore(modalOrderNum, document.querySelector('.modal-close-btn'))
    } else {
-      document.querySelector('.modal-footer').insertBefore(modalOrderNum, document.querySelector('.modal-next-btn'))
+      document.querySelector('.modal-header').insertBefore(modalOrderNum, document.querySelector('.modal-close-btn'))
    }
 }
 
@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
          document.querySelector('.container').append(buildModal(modalsHeaderContent["Welcome!"], modalsBodyContent["Welcome!"]))
          document.querySelector('.modal-next-btn').childNodes[0].textContent = "START QUICK TOUR"
          document.querySelector('.modal-header').removeChild(document.querySelector('.close-modal-btn'))
-         positionDoggy(false, 'doggy-head', 40, 37)
+         positionDoggy(false, 'doggy-head', 40, 38)
          
          //Add SKIP TOUR button
          const skipTourBtn = document.createElement('div')
