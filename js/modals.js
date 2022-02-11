@@ -84,7 +84,19 @@ function modifyModal(mode, orderNum) {
    }
 }
 
-function openTourModal(mode = 'overlay', pointed = 'notpointed', sized = false) {
+function openTourModal(mode = 'overlay', sized = false, pointed = 'notpointed', top = 40, left = 100, rotation = 45) {
+   if (mode == 'nooverlay') {
+      setTimeout(()=>{
+         document.querySelector('.modal').classList.add('active')
+         document.querySelector('.modal-content').classList.remove('invisible')
+      }, 1000)
+   } else if (mode == 'overlay') {
+      setTimeout(()=>{
+         overlay.classList.add('active')
+         document.querySelector('.modal').classList.add('active')
+         document.querySelector('.modal-content').classList.remove('invisible')
+      }, 1000)
+   }
    if (sized) {
       setTimeout(()=>{
          document.querySelector('.modal').style.maxWidth = "400px"
@@ -96,16 +108,19 @@ function openTourModal(mode = 'overlay', pointed = 'notpointed', sized = false) 
          document.querySelector('.modal').style.setProperty('--pseudoElemOpacity', '1')
       }, 1000)
    }
-   if (mode == 'nooverlay') {
+   if (top) {
       setTimeout(()=>{
-         document.querySelector('.modal').classList.add('active')
-         document.querySelector('.modal-content').classList.remove('invisible')
+         document.querySelector('.modal').style.setProperty('--pseudoElemTop', `${top}%`)
       }, 1000)
-   } else if (mode == 'overlay') {
+   }
+   if (left) {
       setTimeout(()=>{
-         overlay.classList.add('active')
-         document.querySelector('.modal').classList.add('active')
-         document.querySelector('.modal-content').classList.remove('invisible')
+         document.querySelector('.modal').style.setProperty('--pseudoElemLeft', `${left}%`)
+      }, 1000)
+   }
+   if (rotation) {
+      setTimeout(()=>{
+         document.querySelector('.modal').style.setProperty('--pseudoElemRotation', `${rotation}deg`)
       }, 1000)
    }
 }
@@ -289,14 +304,14 @@ document.addEventListener('click', (e) => {
                document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Header"], modalsBodyContent["Seg1Step2"]))
                modifyModal('trim', '2/8')
             }, 600)
-            positionModal(true, 62, 20)
+            positionModal(true, 67, 13)
             positionDoggy(false, 'doggy', 78, 11.5)
 
             //Apply Onboarding focus
             setTimeout(() => { document.querySelector(".btn[value='New']").classList.add('onboarding-focus') }, 1000)
             
             //Make doggy and modal visible
-            openTourModal('overlay', 'pointed', true)
+            openTourModal('overlay', true, 'pointed', 60)
             setTimeout(() => { document.querySelector('.doggy svg').setAttribute('opacity', '1') }, 1200)
          }
       }
@@ -344,7 +359,7 @@ document.addEventListener('click', (e) => {
          positionFocusbox(195, 48, 36.5, 32)
          positionDoggy(false, 'doggy', 64, 11.5)
          positionModal(true, 20, 33)
-         openTourModal('nooverlay', 'pointed', true)
+         openTourModal('nooverlay', true, 'pointed')
          openFocusbox(true)
       }
    }

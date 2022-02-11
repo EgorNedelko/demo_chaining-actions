@@ -6,7 +6,10 @@
 }
 
 :root {
+   --pseudoElemTop: 40%;
+   --pseudoElemLeft: 100%;
    --pseudoElemOpacity: 0;
+   --pseudoElemRotation: 45deg;
 }
 
 html {
@@ -656,8 +659,6 @@ header {
 .modal::after {
    content: "";
    position: absolute;
-   top: 40%;
-   left: 100%;
    z-index: 999;
    height: 25px;
    width: 0;
@@ -667,9 +668,11 @@ header {
    border-top: 20px solid white;
    border-right: 20x solid transparent;
    border-left: 20px solid transparent;
-   transform: rotateZ(45deg);
    
+   top: var(--pseudoElemTop);
+   left: var(--pseudoElemLeft);
    opacity: var(--pseudoElemOpacity);
+   transform: rotatez(var(--pseudoElemRotation));
 }
 
 .modal-header {
@@ -762,15 +765,12 @@ header {
    padding: 8.5px 16px;
    border-radius: 20px;
    font-size: 15px;
-   /* color: rgb(255,255,255); */
-   /* background-color: rgb(202, 202, 202); */
    border: 1px solid rgba(0, 0, 0, 0.7);
    color: rgba(0, 0, 0, 0.7);
    transition: all 0.15s ease;
    cursor: pointer;
 }
 .modal-skip-btn:hover {
-   /* text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.1);; */
    box-shadow: 0 7px 14px rgb(50 50 93 / 10%), 0 3px 6px rgb(0 0 0 / 8%);
    transform: translateY(-1px);
 }
