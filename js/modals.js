@@ -296,7 +296,7 @@ document.addEventListener('click', (e) => {
             setTimeout(() => { document.querySelector(".btn[value='New']").classList.add('onboarding-focus') }, 1000)
             
             //Make doggy and modal visible
-            openTourModal()
+            openTourModal('overlay', 'pointed', true)
             setTimeout(() => { document.querySelector('.doggy svg').setAttribute('opacity', '1') }, 1200)
          }
       }

@@ -505,7 +505,7 @@ header {
    right: 0;
    bottom: 0;
    left: 0;
-   background-color: rgba(0,0,0,0.5);
+   background-color: rgba(0,0,0,0.3);
    opacity: 0;
    pointer-events: none;
    transition: opacity 1s ease;
@@ -899,7 +899,7 @@ header {
    transform: translate(-50%, -50%);
    background-color: none;
    pointer-events: none;
-   box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
+   box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.3);
    opacity: 0;
    /* transition: opacity 0.8s ease; */
    transition: all 0.3s ease, opacity 0.8s ease, width 0.4s ease, height 0.4s ease, scale 0.4s ease, top 0.4s ease, left 0.4s ease;
