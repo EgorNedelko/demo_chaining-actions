@@ -274,7 +274,7 @@ document.addEventListener('DOMContentLoaded', () => {
       //STEPS PAGE
       if (localStorage.getItem('currentLocation') == 'steps') {
          document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg2Header"], modalsBodyContent["Seg2Step1"]))
-         positionDoggy(false, 'doggy-head', 40, 35.5)
+         positionDoggy(false, 'doggy-head', 40, 36.5)
          modifyModal('modify', '1/10')
 
          //Make doggy and modal visible

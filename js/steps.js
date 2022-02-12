@@ -107,18 +107,26 @@ function addStep(targetPosition) {
    //create specific step buttons
    const specificStepButtons = document.createElement('div')
    specificStepButtons.classList.add('specific-step-buttons', 'invisible')
+   // let stepIconsSrc = [
+   //    "https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/ffffff/external-magnifying-glass-interface-kiranshastry-lineal-kiranshastry.png",
+   //    "https://img.icons8.com/pastel-glyph/64/ffffff/click-and-collect--v2.png",
+   //    "https://img.icons8.com/ios/50/ffffff/text-input-form.png",
+   //    "https://img.icons8.com/material-outlined/24/ffffff/text.png"
+   // ]
    let stepIconsSrc = [
-      "https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/ffffff/external-magnifying-glass-interface-kiranshastry-lineal-kiranshastry.png",
-      "https://img.icons8.com/pastel-glyph/64/ffffff/click-and-collect--v2.png",
-      "https://img.icons8.com/ios/50/ffffff/text-input-form.png",
-      "https://img.icons8.com/material-outlined/24/ffffff/text.png"
+      "https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/4a90e2/external-magnifying-glass-interface-kiranshastry-lineal-kiranshastry.png",
+      "https://img.icons8.com/pastel-glyph/64/4a90e2/click-and-collect--v2.png",
+      "https://img.icons8.com/ios/50/4a90e2/text-input-form.png",
+      "https://img.icons8.com/material-outlined/24/4a90e2/text.png"
    ]
+
    let stepIconsClass = [
       "btn-find-el", "btn-click", "btn-find-input", "btn-typein"
    ]
    for (let i = 0; i < stepIconsSrc.length; i++) {
       const img = document.createElement('img')
-      img.classList.add('btn', 'btn-options', 'btn-blue', stepIconsClass[i])
+      // img.classList.add('btn', 'btn-options', 'btn-blue', stepIconsClass[i])
+      img.classList.add('btn', 'btn-options', 'btn-white', stepIconsClass[i])
       img.setAttribute('src', stepIconsSrc[i])
       specificStepButtons.append(img)
    }
