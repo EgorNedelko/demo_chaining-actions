@@ -15,7 +15,7 @@ const modalsBodyContent = {
    "Seg1Step4" : "If you look at the navigation panel above, you can see that we are now inside the selected project where its modules are.",
    "Seg1Step5" : "Now we need a module - a part of the project we will be focusing on.",
    "Seg1Step6" : "Another way to navigate your project is to click on the navigation menu level you're currently on and select an item you want to go to.",
-   "Seg1Step7" : "Almost there! Now we need an actual test scenario where all the fun stuff happens.",
+   "Seg1Step7" : "Almost there! Now create an actual test scenario where all the fun stuff happens.",
    "Seg1Step8" : "Lastly, a third way you can access the content of an item is to click on its menu button and select 'Show'.",
    "Seg2Step1" : "Finally! Before us is a test scenario. Each step stands for one action, be it finding an element, clicking on it or providing user input for a form.",
    "Seg2Step2" : "Having added a step, we need to select what type it's going to be.",
@@ -259,7 +259,7 @@ document.addEventListener('DOMContentLoaded', () => {
       //SCENARIOS PAGE
       if (localStorage.getItem('currentLocation') == 'scenarios') {
          document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Header"], modalsBodyContent["Seg1Step7"]))
-         positionModal(false, 40, 23)
+         positionModal(false, 50.5, 11.5)
          positionDoggy(false, 'doggy', 61, 11.5)
          modifyModal('trim', '7/8')
          
@@ -267,7 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
          setTimeout(() => { document.querySelector(".btn[value='Add Scenario']").classList.add('onboarding-focus') }, 1000)
          
          //Make doggy and modal visible
-         openTourModal()
+         openTourModal('overlay', true, 'pointed', 60, 100, 45)
          setTimeout(() => { document.querySelector('.doggy svg').setAttribute('opacity', '1') }, 1200)
       }
 
@@ -437,15 +437,17 @@ document.addEventListener('click', (e) => {
             document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Header"], modalsBodyContent["Seg1Step8"]))
             modifyModal('trim', '8/8')
          }, 600)
-         positionModal(true, 58, 49)
-         positionDoggy(true, 'doggy', 79, 21.5)
+         positionModal(true, 72.8, 19)
+         // positionDoggy(true, 'doggy', 79, 21.5)
+         // positionFocusbox(50, 50, 80, 50)
+         // openFocusbox(true)
    
          //Apply onboarding-focus
          setTimeout(() => { document.querySelector('.scenario').classList.add('onboarding-focus') }, 1000)
    
          //Make doggy and modal visible
-         openTourModal()
-         setTimeout(() => { document.querySelector('.doggy svg').setAttribute('opacity', '1') }, 2000)
+         openTourModal('overlay', true, 'pointed', 78, 90, 135)
+         // setTimeout(() => { document.querySelector('.doggy svg').setAttribute('opacity', '1') }, 2000)
       }
    }
 })
