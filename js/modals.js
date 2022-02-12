@@ -140,7 +140,14 @@ function closeTourModal(isTimed) {
       // overlay.classList.remove('active')
       document.querySelector('.modal').classList.remove('active')
       setTimeout(() => { document.querySelector('.container').removeChild(document.querySelector('.modal')) }, 200)
-      // document.querySelector('.container').removeChild(document.querySelector('.modal'))
+   }
+}
+
+function closeFocusbox(isTimed) {
+   if (isTimed) {
+      setTimeout(() => { document.getElementById('focusbox').classList.remove('active') }, 400)
+   } else {
+      document.getElementById('focusbox').classList.remove('active')
    }
 }
 
@@ -324,27 +331,28 @@ document.addEventListener('click', (e) => {
          //Close prev
          document.querySelector('.doggy-flipped > svg').setAttribute('opacity', '0')
          closeTourModal(true)
+         closeFocusbox(true)
 
          //Remove Onboarding focus
-         setTimeout(() => { document.querySelector('.quick-navigation').classList.remove('onboarding-focus') }, 1000)
-         setTimeout(() => { document.querySelector('.path-item-container').classList.remove('onboarding-focus') }, 1000)
-         setTimeout(() => { document.querySelector('.path-item-text').classList.remove('onboarding-focus') }, 1000)
-         setTimeout(() => { document.querySelector('.path-line').classList.remove('onboarding-focus') }, 1000)
-         setTimeout(() => { document.querySelector('.scen-link').removeAttribute('style') }, 500)
+         // setTimeout(() => { document.querySelector('.quick-navigation').classList.remove('onboarding-focus') }, 1000)
+         // setTimeout(() => { document.querySelector('.path-item-container').classList.remove('onboarding-focus') }, 1000)
+         // setTimeout(() => { document.querySelector('.path-item-text').classList.remove('onboarding-focus') }, 1000)
+         // setTimeout(() => { document.querySelector('.path-line').classList.remove('onboarding-focus') }, 1000)
+         // setTimeout(() => { document.querySelector('.scen-link').removeAttribute('style') }, 500)
 
          //Create next
          setTimeout(() => {
             document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Header"], modalsBodyContent["Seg1Step5"]))
             modifyModal('trim', '5/8')
          }, 600)
-         positionModal(true, 46, 22)
-         positionDoggy(false, 'doggy', 64, 11.5)
+         positionModal(true, 55, 12)
+         positionDoggy(false, 'doggy', 65, 11.5)
 
          //Apply onboarding-focus
          setTimeout(() => { document.querySelector(".btn[value='Add Module']").classList.add('onboarding-focus') }, 1000)
 
          //Make doggy and modal visible
-         openTourModal()
+         openTourModal('overlay', true, 'pointed', 60)
          setTimeout(() => { document.querySelector('.doggy svg').setAttribute('opacity', '1') }, 1200)
       }
 
@@ -401,19 +409,20 @@ document.addEventListener('click', (e) => {
          setTimeout(() => {
             document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Header"], modalsBodyContent["Seg1Step6"]))
             modifyModal('trim', '6/8')
+            document.querySelector('.modal').style.maxWidth = "475px"
          }, 600)
-         positionModal(true, 45, 41)
+         positionModal(true, 57, 18)
          positionDoggy(false, 'doggy-flipped', 36, 16.5)
    
          //Apply onboarding-focus
          setTimeout(() => { document.querySelector('.quick-navigation').classList.add('onboarding-focus') }, 1000)
          setTimeout(() => { document.querySelector('.path-item-container').classList.add('onboarding-focus') }, 1000)
          setTimeout(() => { document.querySelector('.path-item-text').classList.add('onboarding-focus') }, 1000)
-         setTimeout(() => { document.querySelector('.scen-link').style.color = "grey" }, 1000)
+         // setTimeout(() => { document.querySelector('.scen-link').style.color = "grey" }, 1000)
          setTimeout(() => { document.querySelector('.path-line').classList.add('onboarding-focus') }, 1000)
    
          //Make doggy and modal visible
-         openTourModal()
+         openTourModal('overlay', false, 'pointed', 10, 5, -135)
          setTimeout(() => { document.querySelector('.doggy-flipped svg').setAttribute('opacity', '1') }, 1200)
       }
 
