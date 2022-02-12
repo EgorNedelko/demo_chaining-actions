@@ -76,7 +76,7 @@ function modifyModal(mode, orderNum) {
    const modalOrderNum = document.createElement('div')
    modalOrderNum.classList.add('modal-order-num')
    modalOrderNum.textContent = orderNum
-   if (mode == "trim") {
+   if (mode == 'trim') {
       document.querySelector('.modal').removeChild(document.querySelector('.modal-footer'))
       document.querySelector('.modal-header').insertBefore(modalOrderNum, document.querySelector('.modal-close-btn'))
    } else {
@@ -140,6 +140,7 @@ function closeTourModal(isTimed) {
       // overlay.classList.remove('active')
       document.querySelector('.modal').classList.remove('active')
       setTimeout(() => { document.querySelector('.container').removeChild(document.querySelector('.modal')) }, 200)
+      // document.querySelector('.container').removeChild(document.querySelector('.modal'))
    }
 }
 
@@ -231,19 +232,21 @@ document.addEventListener('DOMContentLoaded', () => {
       if (localStorage.getItem('currentLocation') == 'modules') {
          document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Header"], modalsBodyContent["Seg1Step4"]))
          modifyModal('modify', '4/8')
-         positionModal(false, 35, 38)
-         positionDoggy(false, 'doggy-flipped', 26, 16.5)
+         // positionModal(false, 35, 38)
+         // positionDoggy(false, 'doggy-flipped', 26, 16.5)
+         positionFocusbox(370, 50, 33.8, 21)
+         openFocusbox(true)
    
          //Apply onboarding-focus
-         setTimeout(() => { document.querySelector('.quick-navigation').classList.add('onboarding-focus') }, 1000)
-         setTimeout(() => { document.querySelector('.path-item-container').classList.add('onboarding-focus') }, 1000)
-         setTimeout(() => { document.querySelector('.path-item-text').classList.add('onboarding-focus') }, 1000)
-         setTimeout(() => { document.querySelector('.scen-link').style.color = "grey" }, 1000)
-         setTimeout(() => { document.querySelector('.path-line').classList.add('onboarding-focus') }, 1000)
+         // setTimeout(() => { document.querySelector('.quick-navigation').classList.add('onboarding-focus') }, 1000)
+         // setTimeout(() => { document.querySelector('.path-item-container').classList.add('onboarding-focus') }, 1000)
+         // setTimeout(() => { document.querySelector('.path-item-text').classList.add('onboarding-focus') }, 1000)
+         // setTimeout(() => { document.querySelector('.path-line').classList.add('onboarding-focus') }, 1000)
+         // setTimeout(() => { document.querySelector('.scen-link').style.color = "grey" }, 1000)
    
          //Make doggy and modal visible
-         openTourModal()
-         setTimeout(() => { document.querySelector('.doggy-flipped svg').setAttribute('opacity', '1') }, 1250)
+         openTourModal('nooverlay')
+         // setTimeout(() => { document.querySelector('.doggy-flipped svg').setAttribute('opacity', '1') }, 1250)
       }
    
       //SCENARIOS PAGE
@@ -304,7 +307,7 @@ document.addEventListener('click', (e) => {
                document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Header"], modalsBodyContent["Seg1Step2"]))
                modifyModal('trim', '2/8')
             }, 600)
-            positionModal(true, 67, 13)
+            positionModal(true, 68, 13)
             positionDoggy(false, 'doggy', 78, 11.5)
 
             //Apply Onboarding focus
@@ -378,15 +381,15 @@ document.addEventListener('click', (e) => {
             document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Header"], modalsBodyContent["Seg1Step3"]))
             modifyModal('trim', '3/8')
          }, 600)
-         positionModal(true, 30, 46)
-         positionDoggy(false, 'doggy-flipped', 26, 27.3)
+         positionModal(true, 30, 43)
+         // positionDoggy(false, 'doggy-flipped', 26, 27.3)
 
          //Apply onboarding-focus
          setTimeout(() => { document.querySelector(".project-name").parentNode.classList.add('onboarding-focus') }, 1000)
          
          //Make doggy and modal visible
-         openTourModal()
-         setTimeout(() => { document.querySelector('.doggy-flipped svg').setAttribute('opacity', '1') }, 1200)
+         openTourModal('overlay', true, 'pointed', -10, 40, -45)
+         // setTimeout(() => { document.querySelector('.doggy-flipped svg').setAttribute('opacity', '1') }, 1200)
       }
 
       //MODULES PAGE
@@ -445,57 +448,51 @@ document.addEventListener('click', (e) => {
 document.addEventListener('click', (e) => {
    if (e.target.classList.contains('close-modal-btn')) {
       closeTourModal(true)
-      if (localStorage.getItem('currentLocation') == 'modules') {
-         document.querySelector('.scen-link').removeAttribute('style')
-      }
+      // if (localStorage.getItem('currentLocation') == 'modules') {
+      //    document.querySelector('.scen-link').removeAttribute('style')
+      // }
    }
 })
 
 //SKIP TOUR button
 document.addEventListener('click', (e) => {
    if (e.target.classList.contains('modal-skip-btn')) {
-      localStorage.setItem('tourEnabled','false')
+      localStorage.setItem('tourEnabled', 'false')
       closeTourModal(true)
       document.querySelector('.doggy-head svg').setAttribute('opacity', '0')
    }
 })
 
 //TOUR ELEMENTS EVENTS
-if (localStorage.getItem('tourEnabled') == 'true') {
-   if (document.querySelector("input[value='New']")) {
-      document.querySelector("input[value='New']").addEventListener('click', () => {
+document.addEventListener('click', (e) => {
+   if (localStorage.getItem('tourEnabled') == 'true') {
+      if (e.target.value == 'New') {
          if (document.querySelector('.modal').classList.contains('active')) {
             closeTourModal(false)
          }
          if (document.querySelector("input[value='New']").classList.contains('onboarding-focus')) {
             document.querySelector("input[value='New']").classList.remove('onboarding-focus')
          }
-      })
-   }
-   
-   if (document.querySelector("input[value='Add Module']")) {
-      document.querySelector("input[value='Add Module']").addEventListener('click', () => {
+      }
+
+      if (e.target.value == 'Add Module') {
          if (document.querySelector('.modal').classList.contains('active')) {
             closeTourModal(false)
          }
          if (document.querySelector("input[value='Add Module']").classList.contains('onboarding-focus')) {
             document.querySelector("input[value='Add Module']").classList.remove('onboarding-focus')
          }
-      })
-   }
-   
-   if (document.querySelector("input[value='Add Scenario']")) {
-      document.querySelector("input[value='Add Scenario']").addEventListener('click', () => {
+      }
+
+      if (e.target.value == 'Add Scenario') {
          if (document.querySelector('.modal').classList.contains('active')) {
             closeTourModal(false)
          }
          if (document.querySelector("input[value='Add Scenario']").classList.contains('onboarding-focus')) {
             document.querySelector("input[value='Add Scenario']").classList.remove('onboarding-focus')
          }
-      })
-   }
-   
-   document.addEventListener('click', (e) => {
+      }
+
       if (e.target.classList.contains('dropdown-btn')) {
          if (tourEnabled_dropdownBtn) {
             positionFocusbox(245, 428, 37.9, 51.5)
@@ -504,5 +501,5 @@ if (localStorage.getItem('tourEnabled') == 'true') {
             tourEnabled_dropdownBtn = false
          }
       }
-   })
-}
+   }
+})
