@@ -17,9 +17,13 @@ const modalsBodyContent = {
    "Seg1Step6" : "Another way to navigate your project is to click on the navigation menu level you're currently on and select an item you want to go to.",
    "Seg1Step7" : "Almost there! Now create an actual test scenario where all the fun stuff happens.",
    "Seg1Step8" : "Lastly, a third way you can access the content of an item is to click on its menu button and select 'Show'.",
-   "Seg2Step1" : "Finally! Before us is a test scenario. Each step stands for one action, be it finding an element, clicking on it or providing user input for a form.",
-   "Seg2Step2" : "Having added a step, we need to select what type it's going to be.",
-   "Seg2Step3" : "These are all the actions you can automate with DogQ. Actions like 'Click element' require that an element must be found first."
+   "Seg2Step1" : "Finally! Before us is a test scenario editor. Each step stands for one action, be it finding an element, clicking on it or providing user input for a form.",
+   "Seg2Step2" : "DogQ creates a 'Go to URL' step for you. It's present in every test scenario, all you need to do is provide the URL to go to.",
+   "Seg2Step3" : "Let's start creating our first automated test!",
+   "Seg2Step4" : "Each step has two important features. Type and Input.",
+   "Seg2Step5" : "Having added a step, we need to select what type it's going to be.",
+   "Seg2Step5" : "Having added a step, we need to select what type it's going to be.",
+   "Seg2Step5" : "These are all the actions you can automate with DogQ. Actions like 'Click element' require that an element must be found first."
 }
 
 //Constructor functions
@@ -85,7 +89,7 @@ function getFocusboxLeftPos(elem) {
 
 function getFocusboxTopPos(elem) {
    const topPosition = elem.getBoundingClientRect().y
-   return (((topPosition / window.innerHeight) * 100 ) + (((getFocusboxHeight(elem) / window.innerHeight) * 100) / 2)) - 0.4
+   return (((topPosition / window.innerHeight) * 100 ) + (((getFocusboxHeight(elem) / window.innerHeight) * 100) / 2)) - 1
 }
 
 function modifyModal(mode, orderNum) {
@@ -203,8 +207,8 @@ function positionModal(isTimed, leftPosition, topPosition) {
 
 function changeModalContent(newContent, newOrderNum) {
    document.querySelector('.modal-content').classList.add('invisible')
-   document.querySelector('.modal-content').textContent = newContent
-   setTimeout(() => { document.querySelector('.modal-content').classList.remove('invisible') }, 350)
+   setTimeout(() => { document.querySelector('.modal-content').textContent = newContent }, 800)
+   setTimeout(() => { document.querySelector('.modal-content').classList.remove('invisible') }, 850)
    if (newOrderNum) {
       document.querySelector('.modal-order-num').textContent = newOrderNum
    }
@@ -256,7 +260,6 @@ document.addEventListener('DOMContentLoaded', () => {
          document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Header"], modalsBodyContent["Seg1Step4"]))
          modifyModal('modify', '4/8')
          const targetElem = document.querySelector('.quick-navigation')
-         console.log(getFocusboxWidth(targetElem))
          positionFocusbox(getFocusboxWidth(targetElem), getFocusboxHeight(targetElem), getFocusboxLeftPos(targetElem), getFocusboxTopPos(targetElem))
          
          //Show current tour elements
@@ -282,12 +285,10 @@ document.addEventListener('DOMContentLoaded', () => {
       //STEPS PAGE
       if (localStorage.getItem('currentLocation') == 'steps') {
          document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg2Header"], modalsBodyContent["Seg2Step1"]))
-         positionDoggy(false, 'doggy-head', 40, 36.5)
          modifyModal('modify', '1/10')
 
-         //Make doggy and modal visible
+         //Activate tour elements
          openTourModal()
-         setTimeout(() => { document.querySelector('.doggy-head svg').setAttribute('opacity', '1') }, 1250)
       }
    }
 })
@@ -359,20 +360,46 @@ document.addEventListener('click', (e) => {
 
       //STEPS PAGE
       if (localStorage.getItem('currentLocation') == 'steps') {
-         //Close prev
-         document.querySelector('.doggy-head > svg').setAttribute('opacity', '0')
-         closeTourModal(true)
-         
-         //Create next
-         setTimeout(() => {
-            document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg2Header"], modalsBodyContent["Seg2Step2"]))
-            modifyModal('trim', '2/10')
-         }, 600)
-         positionFocusbox(195, 48, 36.5, 32)
-         positionDoggy(false, 'doggy', 64, 11.5)
-         positionModal(true, 20, 33)
-         openTourModal('nooverlay', true, 'pointed')
-         openFocusbox(true)
+         if (document.querySelector('.modal-order-num').textContent == '1/10') {
+            //Close prev
+            closeTourModal(true)
+            
+            //Create next
+            const targetElem = document.querySelector('.step')
+            positionFocusbox(getFocusboxWidth(targetElem), getFocusboxHeight(targetElem), getFocusboxLeftPos(targetElem), getFocusboxTopPos(targetElem))
+
+            setTimeout(() => {
+               document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg2Header"], modalsBodyContent["Seg2Step2"]))
+               positionModal(false, 40, 50)
+               document.querySelector('.modal-next-btn').childNodes[0].textContent = "NEXT"
+               modifyModal('modify', '2/10')
+            }, 600)
+            
+            //Activate tour elements
+            openFocusbox(true)
+            openTourModal('nooverlay', true, 'pointed', -5, 35, -45)
+         }
+
+         if (document.querySelector('.modal-order-num').textContent == '2/10') {
+            //Close prev
+            closeTourModal(true)
+            closeFocusbox(true)
+
+            //Create next
+            setTimeout(() => {
+               document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg2Header"], modalsBodyContent["Seg2Step3"]))
+               positionModal(false, 48, 85)
+               modifyModal('trim', '3/10')
+            }, 600)
+            positionDoggy(false, 'doggy-flipped', getElemLeftPosition(document.querySelector(".btn[value='Add Step']")), getElemTopPosition(document.querySelector(".btn[value='Add Step']"))-0.8)
+
+            //Apply onboarding-focus
+            setTimeout(() => { document.querySelector(".btn[value='Add Step']").classList.add('onboarding-focus') }, 1000)
+            
+            //Activate tour elements
+            openTourModal('overlay', false, 'pointed', 45, 5, 225)
+            setTimeout(() => { document.querySelector('.doggy-flipped svg').setAttribute('opacity', '1') }, 1200)
+         }
       }
    }
 })
@@ -410,7 +437,7 @@ document.addEventListener('click', (e) => {
             modifyModal('trim', '6/8')
             document.querySelector('.modal').style.maxWidth = "525px"
          }, 600)
-         positionModal(true, 52, 10)
+         positionModal(true, 54, 10)
 
          positionDoggy(false, 'doggy-flipped', getElemLeftPosition(document.querySelector('.mod-link')), 16.5)
    
@@ -499,9 +526,21 @@ document.addEventListener('click', (e) => {
          }
       }
 
+      if (e.target.value == 'Add Step') {
+         if (document.querySelector('.modal').classList.contains('active')) {
+            closeTourModal(false)
+            setTimeout(() => { overlay.classList.remove('active') }, 400)
+            document.querySelector('.doggy-flipped svg').setAttribute('opacity', '0')
+         }
+         if (document.querySelector("input[value='Add Step']").classList.contains('onboarding-focus')) {
+            document.querySelector("input[value='Add Step']").classList.remove('onboarding-focus')
+         }
+      }
+
       if (e.target.classList.contains('dropdown-btn')) {
          if (tourEnabled_dropdownBtn) {
-            positionFocusbox(245, 428, 37.9, 51.5)
+            const targetElem = document.querySelector('.dropdown')
+            positionFocusbox(getFocusboxWidth(targetElem), getFocusboxHeight(targetElem), getFocusboxLeftPos(targetElem), getFocusboxTopPos(targetElem))
             positionModal(false, 20, 52)
             changeModalContent(modalsBodyContent["Seg2Step3"], '3/10')
             tourEnabled_dropdownBtn = false

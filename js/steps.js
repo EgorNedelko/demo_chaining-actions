@@ -326,7 +326,7 @@ function saveSteps() {
                      //Store steps
                      userProjects[i].modules[j].scenarios[y].steps = []
                      for (let s = 0; s < stepsList.length; s++) {
-                        stylesList = stepsList[s].className.split(' ')
+                        stylesList = stepsList[s].className.split(' ').filter(x => x != 'onboarding-focus')
                         userProjects[i].modules[j].scenarios[y].steps[s] = {
                            type: stepsList[s].dataset.type,
                            value: stepsList[s].querySelector('.step-input').value,
