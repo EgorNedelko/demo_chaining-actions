@@ -72,17 +72,20 @@ function buildModal(header, body) {
    return fragment
 }
 
-const getLeftPosition = targetElem => Math.ceil((targetElem.getBoundingClientRect().x / window.innerWidth) * 100) + 1.5
-const getTopPosition = targetElem => Math.ceil((targetElem.getBoundingClientRect().y / window.innerHeight) * 100) - 2.5
+const getElemLeftPosition = targetElem => Math.ceil((targetElem.getBoundingClientRect().x / window.innerWidth) * 100) + 1.5
+const getElemTopPosition = targetElem => Math.ceil((targetElem.getBoundingClientRect().y / window.innerHeight) * 100) - 2.5
 
-function getFocusboxWidth() {
-   const prWidth = document.querySelector('.projects-container').getBoundingClientRect().width
-   return prWidth + 85 + 56 + 60 + 20
+const getFocusboxWidth = targetElem => Math.ceil(targetElem.getBoundingClientRect().width) + 20
+const getFocusboxHeight = targetElem => Math.ceil(targetElem.getBoundingClientRect().height) + 20
+
+function getFocusboxLeftPos(elem) {
+   const leftPosition = elem.getBoundingClientRect().x
+   return (((leftPosition / window.innerWidth) * 100 ) + (((getFocusboxWidth(elem) / window.innerWidth) * 100) / 2)) - 0.5
 }
 
-function getFocusboxLeftPosition() {
-   const prLeft = document.querySelector('.projects-container').getBoundingClientRect().x
-   return (((prLeft / window.innerWidth) * 100 ) + (((getFocusboxWidth() / window.innerWidth) * 100) / 2)) - 0.5
+function getFocusboxTopPos(elem) {
+   const topPosition = elem.getBoundingClientRect().y
+   return (((topPosition / window.innerHeight) * 100 ) + (((getFocusboxHeight(elem) / window.innerHeight) * 100) / 2)) - 0.4
 }
 
 function modifyModal(mode, orderNum) {
@@ -252,10 +255,12 @@ document.addEventListener('DOMContentLoaded', () => {
       if (localStorage.getItem('currentLocation') == 'modules') {
          document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Header"], modalsBodyContent["Seg1Step4"]))
          modifyModal('modify', '4/8')
-         positionFocusbox(getFocusboxWidth(), 50, getFocusboxLeftPosition(), 21)
+         const targetElem = document.querySelector('.quick-navigation')
+         console.log(getFocusboxWidth(targetElem))
+         positionFocusbox(getFocusboxWidth(targetElem), getFocusboxHeight(targetElem), getFocusboxLeftPos(targetElem), getFocusboxTopPos(targetElem))
+         
+         //Show current tour elements
          openFocusbox(true)
-   
-         //Make doggy and modal visible
          openTourModal('nooverlay')
       }
    
@@ -407,7 +412,7 @@ document.addEventListener('click', (e) => {
          }, 600)
          positionModal(true, 52, 10)
 
-         positionDoggy(false, 'doggy-flipped', getLeftPosition(document.querySelector('.mod-link')), 16.5)
+         positionDoggy(false, 'doggy-flipped', getElemLeftPosition(document.querySelector('.mod-link')), 16.5)
    
          //Apply onboarding-focus
          setTimeout(() => { document.querySelector('.quick-navigation').classList.add('onboarding-focus') }, 1000)
