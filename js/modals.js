@@ -72,6 +72,9 @@ function buildModal(header, body) {
    return fragment
 }
 
+const getLeftPosition = targetElem => Math.ceil((targetElem.getBoundingClientRect().x / window.innerWidth) * 100) + 1.5
+const getTopPosition = targetElem => Math.ceil((targetElem.getBoundingClientRect().y / window.innerHeight) * 100) - 2.5
+
 function modifyModal(mode, orderNum) {
    const modalOrderNum = document.createElement('div')
    modalOrderNum.classList.add('modal-order-num')
@@ -396,7 +399,7 @@ document.addEventListener('click', (e) => {
          setTimeout(() => { document.querySelector(".project-name").parentNode.classList.add('onboarding-focus') }, 1000)
          
          //Make doggy and modal visible
-         openTourModal('overlay', true, 'pointed', -10, 40, -45)
+         openTourModal('overlay', true, 'pointed', -10, 35, -45)
          // setTimeout(() => { document.querySelector('.doggy-flipped svg').setAttribute('opacity', '1') }, 1200)
       }
 
@@ -412,7 +415,8 @@ document.addEventListener('click', (e) => {
             document.querySelector('.modal').style.maxWidth = "475px"
          }, 600)
          positionModal(true, 57, 18)
-         positionDoggy(false, 'doggy-flipped', 36, 16.5)
+
+         positionDoggy(false, 'doggy-flipped', getLeftPosition(document.querySelector('.mod-link')), getTopPosition(document.querySelector('.mod-link')))
    
          //Apply onboarding-focus
          setTimeout(() => { document.querySelector('.quick-navigation').classList.add('onboarding-focus') }, 1000)
