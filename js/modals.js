@@ -1,4 +1,6 @@
 let tourEnabled_dropdownBtn = true
+let tourEnabled_clickElement =  true
+let tourEnabled_btnPlus = true
 
 const modalsHeaderContent = {
    "Welcome!" : "Welcome to DogQ!",
@@ -19,11 +21,12 @@ const modalsBodyContent = {
    "Seg1Step8" : "Lastly, a third way you can access the content of an item is to click on its menu button and select 'Show'.",
    "Seg2Step1" : "Finally! Before us is a test scenario editor. Each step stands for one action, be it finding an element, clicking on it or providing user input for a form.",
    "Seg2Step2" : "DogQ creates a 'Go to URL' step for you. It's present in every test scenario, all you need to do is provide the URL to go to.",
-   "Seg2Step3" : "Let's start creating our first automated test!",
-   "Seg2Step4" : "Each step has two important features. Type and Input.",
-   "Seg2Step5" : "Having added a step, we need to select what type it's going to be.",
-   "Seg2Step5" : "Having added a step, we need to select what type it's going to be.",
-   "Seg2Step5" : "These are all the actions you can automate with DogQ. Actions like 'Click element' require that an element must be found first."
+   "Seg2Step3" : "We can start creating our first automated test!",
+   "Seg2Step4" : "Each step has two important features - Type and Input. Let's take a look at the types first.",
+   "Seg2Step5" : "These are all the actions you can automate with DogQ. Let's set this step to 'Click element'.",
+   "Seg2Step6" : "Red-colored input indicates there's a misstep in the scenario. Actions like 'Click element' don't have a real input and require that an element must be found first.",
+   "Seg2Step7" : "We can easily fix this by adding a 'Find element' step right before it.",
+   "Seg2Step8" : "These four buttons represent the most common step types. To set the newly created step to 'Find element', click on the magnifying glass icon."
 }
 
 //Constructor functions
@@ -165,7 +168,7 @@ function closeTourModal(isTimed) {
 
 function closeFocusbox(isTimed) {
    if (isTimed) {
-      setTimeout(() => { document.getElementById('focusbox').classList.remove('active') }, 400)
+      setTimeout(() => { document.getElementById('focusbox').classList.remove('active') }, 600)
    } else {
       document.getElementById('focusbox').classList.remove('active')
    }
@@ -173,7 +176,7 @@ function closeFocusbox(isTimed) {
 
 function openFocusbox(isTimed) {
    if (isTimed) {
-      setTimeout(() => { document.getElementById('focusbox').classList.add('active') }, 400)
+      setTimeout(() => { document.getElementById('focusbox').classList.add('active') }, 1000)
    } else {
       document.getElementById('focusbox').classList.add('active')
    }
@@ -207,8 +210,8 @@ function positionModal(isTimed, leftPosition, topPosition) {
 
 function changeModalContent(newContent, newOrderNum) {
    document.querySelector('.modal-content').classList.add('invisible')
-   setTimeout(() => { document.querySelector('.modal-content').textContent = newContent }, 800)
-   setTimeout(() => { document.querySelector('.modal-content').classList.remove('invisible') }, 850)
+   setTimeout(() => { document.querySelector('.modal-content').textContent = newContent }, 400)
+   setTimeout(() => { document.querySelector('.modal-content').classList.remove('invisible') }, 425)
    if (newOrderNum) {
       document.querySelector('.modal-order-num').textContent = newOrderNum
    }
@@ -377,7 +380,7 @@ document.addEventListener('click', (e) => {
             
             //Activate tour elements
             openFocusbox(true)
-            openTourModal('nooverlay', true, 'pointed', -5, 35, -45)
+            openTourModal('nooverlay', true, 'pointed', -5, 38, -45)
          }
 
          if (document.querySelector('.modal-order-num').textContent == '2/10') {
@@ -398,6 +401,27 @@ document.addEventListener('click', (e) => {
             
             //Activate tour elements
             openTourModal('overlay', false, 'pointed', 45, 5, 225)
+            setTimeout(() => { document.querySelector('.doggy-flipped svg').setAttribute('opacity', '1') }, 1200)
+         }
+
+         if (document.querySelector('.modal-order-num').textContent == '6/10') {
+            //Close prev
+            closeTourModal(false)
+            closeFocusbox(false)
+
+            //Create next
+            setTimeout(() => {
+               document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg2Header"], modalsBodyContent["Seg2Step7"]))
+               positionModal(false, 42, 23)
+               modifyModal('trim', '7/10')
+            }, 600)
+            positionDoggy(false, 'doggy-flipped', getElemLeftPosition(document.querySelector('.btn-plus'))-1.2, getElemTopPosition(document.querySelector('.btn-plus'))-0.8)
+
+            //Apply onboarding-focus
+            setTimeout(() => { document.querySelector('.btn-plus').classList.add('onboarding-focus') }, 800)
+
+            //Activate tour elements
+            openTourModal('overlay', true, 'pointed', 45, 5, 225)
             setTimeout(() => { document.querySelector('.doggy-flipped svg').setAttribute('opacity', '1') }, 1200)
          }
       }
@@ -528,9 +552,23 @@ document.addEventListener('click', (e) => {
 
       if (e.target.value == 'Add Step') {
          if (document.querySelector('.modal').classList.contains('active')) {
-            closeTourModal(false)
-            setTimeout(() => { overlay.classList.remove('active') }, 400)
+            //Close prev
             document.querySelector('.doggy-flipped svg').setAttribute('opacity', '0')
+            closeTourModal(true)
+
+            //Create next
+            setTimeout(() => {
+               document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg2Header"], modalsBodyContent["Seg2Step4"]))
+               positionModal(false, 19, 38)
+               modifyModal('trim', '4/10')
+            }, 600)
+
+            const targetElem = document.querySelectorAll('.dropdown-btn')[1]
+            positionFocusbox(getFocusboxWidth(targetElem), getFocusboxHeight(targetElem), getFocusboxLeftPos(targetElem), getFocusboxTopPos(targetElem))
+
+            //Activate tour elements
+            openFocusbox(true)
+            openTourModal('nooverlay', true, 'pointed', 40, 100, 45)
          }
          if (document.querySelector("input[value='Add Step']").classList.contains('onboarding-focus')) {
             document.querySelector("input[value='Add Step']").classList.remove('onboarding-focus')
@@ -539,11 +577,59 @@ document.addEventListener('click', (e) => {
 
       if (e.target.classList.contains('dropdown-btn')) {
          if (tourEnabled_dropdownBtn) {
-            const targetElem = document.querySelector('.dropdown')
+            const targetElem = document.querySelectorAll('.dropdown')[1]
             positionFocusbox(getFocusboxWidth(targetElem), getFocusboxHeight(targetElem), getFocusboxLeftPos(targetElem), getFocusboxTopPos(targetElem))
-            positionModal(false, 20, 52)
-            changeModalContent(modalsBodyContent["Seg2Step3"], '3/10')
+            positionModal(false, 20, 57.4)
+            changeModalContent(modalsBodyContent["Seg2Step5"], '5/10')
             tourEnabled_dropdownBtn = false
+         }
+      }
+
+      if (e.target.textContent == 'Click element') {
+         if (tourEnabled_clickElement) {
+            //Close prev
+            closeFocusbox(false)
+            closeTourModal(false)
+
+            //Create next
+            setTimeout(() => {
+               document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg2Header"], modalsBodyContent["Seg2Step6"]))
+               positionModal(false, 57, 55)
+               modifyModal('modify', '6/10')
+            }, 600)
+            setTimeout(() => {
+               const targetElem = document.querySelectorAll('.step-input')[1]
+               positionFocusbox(getFocusboxWidth(targetElem), getFocusboxHeight(targetElem), getFocusboxLeftPos(targetElem), getFocusboxTopPos(targetElem))
+            }, 700)
+            openFocusbox(true)
+            openTourModal('nooverlay', false, 'pointed', -6, 52, -45)
+
+            tourEnabled_clickElement = false
+         }            
+      }
+
+      if (e.target.classList.contains('btn-plus')) {
+         if (tourEnabled_btnPlus) {
+            //Close prev
+            document.querySelector('.doggy-flipped svg').setAttribute('opacity', '0')
+            closeTourModal(true)
+            document.querySelector('.btn-plus').classList.remove('onboarding-focus')
+
+            //Create next
+            setTimeout(() => {
+               document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg2Header"], modalsBodyContent["Seg2Step8"]))
+               positionModal(false, 27, 26.5)
+               modifyModal('trim', '8/10')
+            }, 600)
+            setTimeout(() => {
+               const targetElem = document.querySelectorAll('.specific-step-buttons')[1]
+               // positionFocusbox(getFocusboxWidth(targetElem), getFocusboxHeight(targetElem), getFocusboxLeftPos(targetElem), getFocusboxTopPos(targetElem))
+               positionFocusbox(172, 46, getFocusboxLeftPos(targetElem)+0.8, getFocusboxTopPos(targetElem))
+            }, 700)
+            openFocusbox(true)
+            openTourModal('nooverlay', false, 'pointed', 72, 45, 135)
+
+            tourEnabled_btnPlus = false
          }
       }
    }

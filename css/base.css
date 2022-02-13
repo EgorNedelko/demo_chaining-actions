@@ -713,7 +713,7 @@ header {
 
 .modal-content {
    text-align: center;
-   transition: opacity 0.8s ease;
+   transition: opacity 0.4s ease;
    max-width: 640px;
 }
 
@@ -911,7 +911,7 @@ header {
    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.3);
    opacity: 0;
    /* transition: opacity 0.8s ease; */
-   transition: all 0.3s ease, opacity 0.8s ease, width 0.4s ease, height 0.4s ease, scale 0.4s ease, top 0.4s ease, left 0.4s ease;
+   transition: all 0.3s ease, opacity 1s ease, width 0.4s ease, height 0.4s ease, scale 0.4s ease, top 0.4s ease, left 0.4s ease;
 }
 #focusbox.active {
    opacity: 1;
