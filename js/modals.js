@@ -75,6 +75,16 @@ function buildModal(header, body) {
 const getLeftPosition = targetElem => Math.ceil((targetElem.getBoundingClientRect().x / window.innerWidth) * 100) + 1.5
 const getTopPosition = targetElem => Math.ceil((targetElem.getBoundingClientRect().y / window.innerHeight) * 100) - 2.5
 
+function getFocusboxWidth() {
+   const prWidth = document.querySelector('.projects-container').getBoundingClientRect().width
+   return prWidth + 85 + 56 + 60 + 20
+}
+
+function getFocusboxLeftPosition() {
+   const prLeft = document.querySelector('.projects-container').getBoundingClientRect().x
+   return (((prLeft / window.innerWidth) * 100 ) + (((getFocusboxWidth() / window.innerWidth) * 100) / 2)) - 0.5
+}
+
 function modifyModal(mode, orderNum) {
    const modalOrderNum = document.createElement('div')
    modalOrderNum.classList.add('modal-order-num')
@@ -242,21 +252,11 @@ document.addEventListener('DOMContentLoaded', () => {
       if (localStorage.getItem('currentLocation') == 'modules') {
          document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Header"], modalsBodyContent["Seg1Step4"]))
          modifyModal('modify', '4/8')
-         // positionModal(false, 35, 38)
-         // positionDoggy(false, 'doggy-flipped', 26, 16.5)
-         positionFocusbox(370, 50, 33.8, 21)
+         positionFocusbox(getFocusboxWidth(), 50, getFocusboxLeftPosition(), 21)
          openFocusbox(true)
-   
-         //Apply onboarding-focus
-         // setTimeout(() => { document.querySelector('.quick-navigation').classList.add('onboarding-focus') }, 1000)
-         // setTimeout(() => { document.querySelector('.path-item-container').classList.add('onboarding-focus') }, 1000)
-         // setTimeout(() => { document.querySelector('.path-item-text').classList.add('onboarding-focus') }, 1000)
-         // setTimeout(() => { document.querySelector('.path-line').classList.add('onboarding-focus') }, 1000)
-         // setTimeout(() => { document.querySelector('.scen-link').style.color = "grey" }, 1000)
    
          //Make doggy and modal visible
          openTourModal('nooverlay')
-         // setTimeout(() => { document.querySelector('.doggy-flipped svg').setAttribute('opacity', '1') }, 1250)
       }
    
       //SCENARIOS PAGE
@@ -336,13 +336,6 @@ document.addEventListener('click', (e) => {
          closeTourModal(true)
          closeFocusbox(true)
 
-         //Remove Onboarding focus
-         // setTimeout(() => { document.querySelector('.quick-navigation').classList.remove('onboarding-focus') }, 1000)
-         // setTimeout(() => { document.querySelector('.path-item-container').classList.remove('onboarding-focus') }, 1000)
-         // setTimeout(() => { document.querySelector('.path-item-text').classList.remove('onboarding-focus') }, 1000)
-         // setTimeout(() => { document.querySelector('.path-line').classList.remove('onboarding-focus') }, 1000)
-         // setTimeout(() => { document.querySelector('.scen-link').removeAttribute('style') }, 500)
-
          //Create next
          setTimeout(() => {
             document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Header"], modalsBodyContent["Seg1Step5"]))
@@ -393,14 +386,12 @@ document.addEventListener('click', (e) => {
             modifyModal('trim', '3/8')
          }, 600)
          positionModal(true, 30, 43)
-         // positionDoggy(false, 'doggy-flipped', 26, 27.3)
 
          //Apply onboarding-focus
          setTimeout(() => { document.querySelector(".project-name").parentNode.classList.add('onboarding-focus') }, 1000)
          
          //Make doggy and modal visible
          openTourModal('overlay', true, 'pointed', -10, 35, -45)
-         // setTimeout(() => { document.querySelector('.doggy-flipped svg').setAttribute('opacity', '1') }, 1200)
       }
 
       //MODULES PAGE
@@ -412,21 +403,20 @@ document.addEventListener('click', (e) => {
          setTimeout(() => {
             document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Header"], modalsBodyContent["Seg1Step6"]))
             modifyModal('trim', '6/8')
-            document.querySelector('.modal').style.maxWidth = "475px"
+            document.querySelector('.modal').style.maxWidth = "525px"
          }, 600)
-         positionModal(true, 57, 18)
+         positionModal(true, 52, 10)
 
-         positionDoggy(false, 'doggy-flipped', getLeftPosition(document.querySelector('.mod-link')), getTopPosition(document.querySelector('.mod-link')))
+         positionDoggy(false, 'doggy-flipped', getLeftPosition(document.querySelector('.mod-link')), 16.5)
    
          //Apply onboarding-focus
          setTimeout(() => { document.querySelector('.quick-navigation').classList.add('onboarding-focus') }, 1000)
          setTimeout(() => { document.querySelector('.path-item-container').classList.add('onboarding-focus') }, 1000)
          setTimeout(() => { document.querySelector('.path-item-text').classList.add('onboarding-focus') }, 1000)
-         // setTimeout(() => { document.querySelector('.scen-link').style.color = "grey" }, 1000)
          setTimeout(() => { document.querySelector('.path-line').classList.add('onboarding-focus') }, 1000)
    
          //Make doggy and modal visible
-         openTourModal('overlay', false, 'pointed', 10, 5, -135)
+         openTourModal('overlay', false, 'pointed', 60, 4, -135)
          setTimeout(() => { document.querySelector('.doggy-flipped svg').setAttribute('opacity', '1') }, 1200)
       }
 
@@ -442,16 +432,12 @@ document.addEventListener('click', (e) => {
             modifyModal('trim', '8/8')
          }, 600)
          positionModal(true, 72.8, 19)
-         // positionDoggy(true, 'doggy', 79, 21.5)
-         // positionFocusbox(50, 50, 80, 50)
-         // openFocusbox(true)
    
          //Apply onboarding-focus
          setTimeout(() => { document.querySelector('.scenario').classList.add('onboarding-focus') }, 1000)
    
          //Make doggy and modal visible
          openTourModal('overlay', true, 'pointed', 78, 90, 135)
-         // setTimeout(() => { document.querySelector('.doggy svg').setAttribute('opacity', '1') }, 2000)
       }
    }
 })
