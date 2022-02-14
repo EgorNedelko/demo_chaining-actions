@@ -786,3 +786,12 @@ document.addEventListener('click', (e) => {
       }
    }
 })
+
+//RESTART TOUR BUTTON
+document.addEventListener('click', (e) => {
+   if (e.target.value == 'Restart tour') {
+      changeCurrentLocation('projects')
+      localStorage.clear()
+      window.location = "/"
+   }
+})
