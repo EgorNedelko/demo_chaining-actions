@@ -315,6 +315,15 @@ document.addEventListener('click', (e) => {
             setTimeout(() => {
                document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg1Step1"], modalsBodyContent["Seg1Step1"]))
                modifyModal('modify', '1/8')
+
+               //Add folders svg animation
+               fetch('../svg/foldersGroup.svg').then(response => response.text()).then(data => {
+                  // console.log(data)
+                  const foldersContainer = document.createElement('div')
+                  foldersContainer.classList.add('folders-container')
+                  foldersContainer.innerHTML = data
+                  document.querySelector('.modal-content').insertBefore(foldersContainer, document.querySelector('.modal-content').childNodes[0])
+               })
             }, 600)
             openTourModal()
          } 
@@ -527,7 +536,7 @@ document.addEventListener('click', (e) => {
    }
 })
 
-//Press ENTER to create the 1st project and continue Onboarding 
+//ENTER KEY on new pr, mod, scen modals 
 window.addEventListener('keydown', (e) => {
    if (e.key == "Enter" && localStorage.getItem('tourEnabled') == 'true') {
       //PROJECTS PAGE

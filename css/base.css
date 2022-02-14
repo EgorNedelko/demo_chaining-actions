@@ -916,3 +916,25 @@ header {
 #focusbox.active {
    opacity: 1;
 }
+
+/* FOLDERS SVG ANIMATION */
+#bigFolderBack {
+   z-index: 1;
+}
+#bigFolderFront {
+   z-index: 7;
+}
+
+#midFolderBack {
+   z-index: 3;
+}
+#midFolderFront {
+   z-index: 6;
+}
+
+#smallFolderBack {
+   z-index: 4;
+}
+#smallFolderFront {
+   z-index: 5;
+}
