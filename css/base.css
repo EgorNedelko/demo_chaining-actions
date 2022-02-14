@@ -940,21 +940,25 @@ header {
 }
 
 #bigFolder {
-   animation: bigFly linear 4s infinite alternate;
+   animation: bigFly ease-in-out 4s infinite alternate;
+   transform: translate(80%, 0%);
+   animation-delay: .6s;
    transform-origin: center;
    transform-box: fill-box;
 }
 
 #midFolder {
-   animation: midFly linear 4s infinite alternate;
-   /* transform: translate(-165%, -10%); */
+   animation: midFly ease-in-out 4s infinite alternate;
+   transform: translate(-165%, -10%);
+   animation-delay: .6s;
    transform-origin: center;
    transform-box: fill-box;
 }
 
 #smallFolder {
-   animation: smallFly linear 4s infinite alternate;
-   /* transform: translate(-180%, -10%); */
+   animation: smallFly ease-in-out 4s infinite alternate;
+   transform: translate(-180%, -10%);
+   animation-delay: .6s;
    transform-origin: center;
    transform-box: fill-box;
 }
