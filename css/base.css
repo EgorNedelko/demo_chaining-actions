@@ -728,12 +728,14 @@ header {
    width: fit-content;
    padding: 5px 16px;
    display: flex;
-   border-radius: 20px;
    align-items: center;
    justify-content: center;
    font-size: 15px;
    color: rgb(255,255,255);
-   background-color: rgb(45, 206, 137);
+   border-radius: 6px;
+   /* border-radius: 20px; */
+   /* background-color: rgb(45, 206, 137); */
+   background-color: rgb(94, 114, 228);
    transition: all 0.15s ease;
    cursor: pointer;
 }
@@ -763,16 +765,20 @@ header {
 .modal-skip-btn {
    max-height: 42px;
    padding: 8.5px 16px;
-   border-radius: 20px;
+   /* border-radius: 20px; */
+   /* border: 1px solid rgba(0, 0, 0, 0.7); */
+   /* color: rgba(0, 0, 0, 0.7); */
+   /* border-radius: 60px; */
+   color: rgb(94, 114, 228);
    font-size: 15px;
-   border: 1px solid rgba(0, 0, 0, 0.7);
-   color: rgba(0, 0, 0, 0.7);
    transition: all 0.15s ease;
    cursor: pointer;
 }
 .modal-skip-btn:hover {
-   box-shadow: 0 7px 14px rgb(50 50 93 / 10%), 0 3px 6px rgb(0 0 0 / 8%);
-   transform: translateY(-1px);
+   /* box-shadow: 0 7px 14px rgb(50 50 93 / 10%), 0 3px 6px rgb(0 0 0 / 8%); */
+   /* text-shadow: 0 7px 14px rgb(50 50 93 / 10%), 0 3px 6px rgb(0 0 0 / 8%); */
+   /* transform: translateY(-0.5px); */
+   color: rgb(73, 91, 192);
 }
 
 .onboarding-focus {
