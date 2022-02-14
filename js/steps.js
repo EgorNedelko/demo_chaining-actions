@@ -123,11 +123,15 @@ function addStep(targetPosition) {
    let stepIconsClass = [
       "btn-find-el", "btn-click", "btn-find-input", "btn-typein"
    ]
+   let stepIconsTooltips = [
+      "Find element", "Click element", "Find input", "Type in"
+   ]
    for (let i = 0; i < stepIconsSrc.length; i++) {
       const img = document.createElement('img')
       // img.classList.add('btn', 'btn-options', 'btn-blue', stepIconsClass[i])
       img.classList.add('btn', 'btn-options', 'btn-white', stepIconsClass[i])
       img.setAttribute('src', stepIconsSrc[i])
+      img.setAttribute('title', stepIconsTooltips[i])
       specificStepButtons.append(img)
    }
 

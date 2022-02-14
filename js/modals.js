@@ -1,6 +1,7 @@
 let tourEnabled_dropdownBtn = true
 let tourEnabled_clickElement =  true
 let tourEnabled_btnPlus = true
+let tourEnabled_btnFindEl = true
 
 const modalsHeaderContent = {
    "Welcome!" : "Welcome to DogQ!",
@@ -26,7 +27,9 @@ const modalsBodyContent = {
    "Seg2Step5" : "These are all the actions you can automate with DogQ. Let's set this step to 'Click element'.",
    "Seg2Step6" : "Red-colored input indicates there's a misstep in the scenario. Actions like 'Click element' don't have a real input and require that an element must be found first.",
    "Seg2Step7" : "We can easily fix this by adding a 'Find element' step right before it.",
-   "Seg2Step8" : "These four buttons represent the most common step types. To set the newly created step to 'Find element', click on the magnifying glass icon."
+   "Seg2Step8" : "These four buttons represent the most common step types. To set the newly created step to 'Find element', click on the magnifying glass icon.",
+   "Seg2Step9" : "To find an element on a page, you need to give DogQ the element's tagname, CSS class, ID or xpath. Once all the inputs have been filled, their color will become neutral white, indicating the test is ready to go.",
+   "Seg2Step10" : "Run your first test when you're ready!"
 }
 
 //Constructor functions
@@ -424,6 +427,32 @@ document.addEventListener('click', (e) => {
             openTourModal('overlay', true, 'pointed', 45, 5, 225)
             setTimeout(() => { document.querySelector('.doggy-flipped svg').setAttribute('opacity', '1') }, 1200)
          }
+
+         if (document.querySelector('.modal-order-num').textContent == '9/10') {
+            //Close prev
+            closeTourModal(false)
+            closeFocusbox(false)
+
+            //Create next
+            setTimeout(() => {
+               document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg2Header"], modalsBodyContent["Seg2Step10"]))
+               positionModal(false, 61, 13.2)
+               modifyModal('trim', '10/10')
+            }, 600)
+            positionDoggy(false, 'doggy', getElemLeftPosition(document.querySelector(".btn[value='Execute']"))-3, getElemTopPosition(document.querySelector(".btn[value='Execute']"))-5.9)
+            setTimeout(() => {
+               const targetElem = document.querySelector('.steps')
+               positionFocusbox(getFocusboxWidth(targetElem), getFocusboxHeight(targetElem), getFocusboxLeftPos(targetElem), getFocusboxTopPos(targetElem))
+            }, 700)
+
+            //Apply onboarding-focus
+            setTimeout(() => { document.querySelector(".btn[value='Execute']").classList.add('onboarding-focus') }, 800)
+
+            //Activate tour elements
+            openTourModal('nooverlay', false, 'pointed', 60, 100, 45)
+            openFocusbox(true)
+            setTimeout(() => { document.querySelector('.doggy svg').setAttribute('opacity', '1') }, 1200)
+         }
       }
    }
 })
@@ -505,9 +534,11 @@ document.addEventListener('click', (e) => {
 document.addEventListener('click', (e) => {
    if (e.target.classList.contains('close-modal-btn')) {
       closeTourModal(true)
-      // if (localStorage.getItem('currentLocation') == 'modules') {
-      //    document.querySelector('.scen-link').removeAttribute('style')
-      // }
+      closeFocusbox(true)
+      document.querySelector('.doggy svg').setAttribute('opacity', '0')
+      document.querySelector('.doggy-flipped svg').setAttribute('opacity', '0')
+      document.querySelector('.doggy-head svg').setAttribute('opacity', '0')
+      localStorage.setItem('tourEnabled', 'false')
    }
 })
 
@@ -631,6 +662,36 @@ document.addEventListener('click', (e) => {
 
             tourEnabled_btnPlus = false
          }
+      }
+
+      if (e.target.classList.contains('btn-find-el')) {
+         if (tourEnabled_btnFindEl) {
+            //Close prev
+            closeTourModal(true)
+            closeFocusbox(false)
+
+            //Create next 
+            setTimeout(() => {
+               document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg2Header"], modalsBodyContent["Seg2Step9"]))
+               positionModal(false, 50, 55)
+               modifyModal('modify', '9/10')
+            }, 600)
+            setTimeout(() => {
+               const targetElem = document.querySelectorAll('.step-input')[1]
+               positionFocusbox(getFocusboxWidth(targetElem), getFocusboxHeight(targetElem), getFocusboxLeftPos(targetElem), getFocusboxTopPos(targetElem))
+            }, 700)
+            openFocusbox(true)
+            openTourModal('nooverlay', false, 'pointed', -6, 52, -45)
+
+            tourEnabled_btnFindEl = false
+         }
+      }
+
+      if (e.target.value == 'Execute') {
+         document.querySelector('.doggy svg').setAttribute('opacity', '0')
+         closeTourModal(true)
+         closeFocusbox(true)
+         localStorage.setItem('tourEnabled', 'false')
       }
    }
 })
