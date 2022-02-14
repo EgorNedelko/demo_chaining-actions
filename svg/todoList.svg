@@ -1,0 +1,19 @@
+<svg width="117" height="127" viewBox="0 0 117 127" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Frame 11">
+<g id="todoBG">
+<path id="Vector 15" d="M45.5 25.5H88.5" stroke="black"/>
+<path id="Vector 17" d="M45 76H88" stroke="black"/>
+<path id="Vector 16" d="M46 51H89" stroke="black"/>
+<path id="Vector 18" d="M45.5 101.5H88.5" stroke="black"/>
+<rect id="Rectangle 1" x="9" y="6" width="90" height="114" rx="11" stroke="black" stroke-width="2"/>
+<rect id="Rectangle 2" x="19" y="17" width="17" height="17" rx="3" stroke="black" stroke-width="2"/>
+<rect id="Rectangle 4" x="19" y="67" width="17" height="17" rx="3" stroke="black" stroke-width="2"/>
+<rect id="Rectangle 3" x="19" y="42" width="17" height="17" rx="3" stroke="black" stroke-width="2"/>
+<rect id="Rectangle 5" x="19" y="92" width="17" height="17" rx="3" stroke="black" stroke-width="2"/>
+</g>
+<path id="tick4" d="M22 98.5645C22 98.5645 23.7778 100.277 24.963 103.703C25.6941 105.817 26.3098 105.416 27.9259 101.99C30.8889 95.7097 38 90 38 90" stroke="#2DCE89" stroke-width="1.5"/>
+<path id="tick3" d="M22 72.5645C22 72.5645 23.7778 74.2774 24.963 77.7032C25.6941 79.8166 26.3098 79.4161 27.9259 75.9903C30.8889 69.7097 38 64 38 64" stroke="#2DCE89" stroke-width="1.5"/>
+<path id="tick2" d="M22 49.5645C22 49.5645 23.7778 51.2774 24.963 54.7032C25.6941 56.8166 26.3098 56.4161 27.9259 52.9903C30.8889 46.7097 38 41 38 41" stroke="#2DCE89" stroke-width="1.5"/>
+<path id="tick1" d="M22 23.5645C22 23.5645 23.7778 25.2774 24.963 28.7032C25.6941 30.8166 26.3098 30.4161 27.9259 26.9903C30.8889 20.7097 38 15 38 15" stroke="#2DCE89" stroke-width="1.5"/>
+</g>
+</svg>

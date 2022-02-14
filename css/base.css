@@ -995,3 +995,25 @@ header {
       transform: translate(0%, 0%);
    }
 }
+
+/* TODO LIST ANIMATION */
+#tick1,
+#tick2,
+#tick3,
+#tick4 {
+   animation: tick linear 4s forwards;
+   stroke-dasharray: 100;
+   stroke-dashoffset: 100;
+   transform-origin: bottom;
+   transform-box: fill-box;
+}
+#tick1 { animation-delay: 4s; }
+#tick2 { animation-delay: 5.2s; }
+#tick3 { animation-delay: 6.4s; }
+#tick4 { animation-delay: 7.6s; }
+
+@keyframes tick {
+   to {
+      stroke-dashoffset: 0;
+   }
+}

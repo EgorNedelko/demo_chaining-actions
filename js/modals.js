@@ -292,9 +292,24 @@ document.addEventListener('DOMContentLoaded', () => {
       if (localStorage.getItem('currentLocation') == 'steps') {
          document.querySelector('.container').append(buildModal(modalsHeaderContent["Seg2Header"], modalsBodyContent["Seg2Step1"]))
          modifyModal('modify', '1/10')
+         positionDoggy(false, 'doggy-head', 35, 32.5)
+
+         //Add folders svg animation
+         fetch('../svg/todoList.svg').then(response => response.text()).then(data => {
+            const todoList = document.createElement('div')
+            todoList.classList.add('todo-list')
+            todoList.innerHTML = data
+            document.querySelector('.modal-body').insertBefore(todoList, document.querySelector('.modal-content'))
+            document.querySelector('.modal-body').style.display = 'flex'
+            document.querySelector('.modal-body').style.justifyContent = 'space-between'
+            document.querySelector('.modal-body').style.alignItems = 'center'
+            document.querySelector('.modal-content').style.maxWidth = '500px'
+            document.querySelector('.modal-content').style.textAlign = 'left'
+         })
 
          //Activate tour elements
          openTourModal()
+         setTimeout(() => { document.querySelector('.doggy-head svg').setAttribute('opacity', '1') }, 1200)
       }
    }
 })
@@ -318,7 +333,6 @@ document.addEventListener('click', (e) => {
 
                //Add folders svg animation
                fetch('../svg/foldersGroup.svg').then(response => response.text()).then(data => {
-                  // console.log(data)
                   const foldersContainer = document.createElement('div')
                   foldersContainer.classList.add('folders-container')
                   foldersContainer.innerHTML = data
@@ -377,6 +391,7 @@ document.addEventListener('click', (e) => {
       if (localStorage.getItem('currentLocation') == 'steps') {
          if (document.querySelector('.modal-order-num').textContent == '1/10') {
             //Close prev
+            document.querySelector('.doggy-head svg').setAttribute('opacity', '0')
             closeTourModal(true)
             
             //Create next
