@@ -938,3 +938,50 @@ header {
 #smallFolderFront {
    z-index: 5;
 }
+
+#bigFolder {
+   animation: bigFly linear 4s infinite alternate;
+   transform-origin: center;
+   transform-box: fill-box;
+}
+
+#midFolder {
+   animation: midFly linear 4s infinite alternate;
+   /* transform: translate(-165%, -10%); */
+   transform-origin: center;
+   transform-box: fill-box;
+}
+
+#smallFolder {
+   animation: smallFly linear 4s infinite alternate;
+   /* transform: translate(-180%, -10%); */
+   transform-origin: center;
+   transform-box: fill-box;
+}
+
+@keyframes smallFly {
+   0% {
+      transform: translate(-180%, -10%);
+   }
+   100% {
+      transform: translate(0%, 0%);
+   }
+}
+
+@keyframes midFly {
+   0% {
+      transform: translate(-165%, -10%);
+   }
+   100% {
+      transform: translate(0%, 0%);
+   }
+}
+
+@keyframes bigFly {
+   0% {
+      transform: translate(80%, 0%);
+   }
+   100% {
+      transform: translate(0%, 0%);
+   }
+}
