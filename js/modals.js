@@ -256,7 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
          
          //Make doggy and modal visible
          openTourModal()
-         setTimeout(() => { document.querySelector('.doggy-head svg').setAttribute('opacity', '1') }, 1250)
+         setTimeout(() => { document.querySelector('.doggy-head svg').setAttribute('opacity', '1') }, 1200)
       }
    }
 
@@ -791,7 +791,7 @@ document.addEventListener('click', (e) => {
 document.addEventListener('click', (e) => {
    if (e.target.value == 'Restart tour') {
       changeCurrentLocation('projects')
-      localStorage.clear()
       window.location = "/"
+      localStorage.clear()
    }
 })
