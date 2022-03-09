@@ -193,16 +193,13 @@ function closeStepOptions(elemToClose) {
    const plusBtn = elemToClose.children[1]
    const dropdownBtn = elemToClose.children[2].children[0].children[0]
    const commonBtns = elemToClose.children[4]
-   // const trashBin = stepToClose.children[3]
 
    elemToClose.classList.remove('options-opened')
    order.classList.remove('invisible')
    plusBtn.classList.remove('invisible')
-   // dropdownBtn.classList.remove('btn-grey')
    dropdownBtn.classList.remove('no-type')
    dropdownBtn.classList.add('btn-white')
    commonBtns.classList.add('invisible')
-   // trashBin.classList.remove('invisible')
 }
 
 function hideDropdowns() {
@@ -528,6 +525,23 @@ function storeDestination(targetElem) {
    }
 }
 
+function loadTools() {
+   if (localStorage.getItem('advancedTools') == 'false') {
+      document.querySelector('.btn-chain-mode').style.display = 'none'
+      document.querySelector(".btn[value='Add Common Step']").style.display = 'none'
+
+      let steps = document.querySelectorAll('.step')
+      for (let i = 0; i < steps.length; i++) {
+         if (steps[i].classList.contains('options-opened')) {
+            steps[i].classList.remove('options-opened')
+            steps[i].querySelector('.order').classList.remove('invisible')
+            steps[i].querySelector('.btn-plus').classList.remove('invisible')
+            steps[i].querySelector('.specific-step-buttons').classList.add('invisible')
+         }
+      }
+   }
+}
+
 //AUTO-SAVING
 window.addEventListener('beforeunload', saveSteps)
 document.querySelector('.sidebar-pr-link').addEventListener('click', () => {
@@ -542,6 +556,7 @@ document.addEventListener('DOMContentLoaded', () => {
    localStorage.removeItem('saveScenario')
    currentLocation = localStorage.getItem('currentLocation')
    loadSteps()
+   loadTools()
 })
 
 //Click QUICK NAV DROPDOWN ITEM to store destination 
@@ -780,9 +795,11 @@ document.addEventListener('click', (e) => {
       hideDropdowns()
       addStep(targetPosition)
 
-      steps = [...document.querySelectorAll('.step')]
-      const elemToOpen = steps[targetPosition+1]
-      openStepOptions(elemToOpen)
+      if (localStorage.getItem('advancedTools') == 'true') {
+         steps = [...document.querySelectorAll('.step')]
+         const elemToOpen = steps[targetPosition+1]
+         openStepOptions(elemToOpen)
+      }
 
       //Refresh core
       refreshCore()
