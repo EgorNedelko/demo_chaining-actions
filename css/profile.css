@@ -1,6 +1,9 @@
 /* .wrapper {
    position: relative;
 } */
+* {
+   font-family: "Open Sans", sans-serif;
+}
 
 .profile-container {
    position: absolute;
@@ -24,7 +27,7 @@
 }
 
 .profile-header-title {
-   font-family: "Open Sans", sans-serif;
+   /* font-family: "Open Sans", sans-serif; */
    font-size: 17px;
    font-weight: 600;
    color: rgb(50, 50, 93);
@@ -35,7 +38,7 @@
 }
 
 .profile-body {
-   padding: 24px;
+   padding: 24px 24px 0 24px;
    display: flex;
    align-items: center;
    justify-content: space-between;
@@ -52,7 +55,7 @@
    font-weight: 600;
    color: rgb(82, 95, 127);
    line-height: 21px;
-   font-family: "Open Sans", sans-serif;
+   /* font-family: "Open Sans", sans-serif; */
    margin-bottom: 8px;
 }
 
@@ -61,6 +64,7 @@
    width: 460px;
    font-size: 14px;
    line-height: 21px;
+   /* font-family: "Open Sans", sans-serif; */
    color: #525f7f;
    border: 0;
    border-radius: 6px;
@@ -69,4 +73,31 @@
 }
 .profile-input::placeholder {
    color: rgba(0,0,0,0.5)
+}
+
+.profile-footer {
+   padding: 14px 24px 20px;
+}
+
+.profile-footer-btns {
+   font-size: 14px;
+}
+
+.profile-checkbox-wrapper {
+   display: flex;
+   align-items: center;
+}
+
+.profile-checkbox {
+   width: 22px;
+   height: 22px;
+   border-radius: 6px;
+   margin-right: 10px;
+}
+
+.profile-checkbox-label {
+   font-size: 14px;
+   line-height: 21px;
+   /* font-family: "Open Sans", sans-serif; */
+   color: #525f7f;
 }

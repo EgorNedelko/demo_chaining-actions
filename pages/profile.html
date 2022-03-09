@@ -124,10 +124,35 @@
                   <input class="profile-input" type="password" id="newPassword" placeholder="New password">
                </div>
             </div>
+
+            <div class="profile-footer">
+               <div class="profile-footer-btns">
+                  <div class="profile-checkbox-wrapper">
+                     <input class="profile-checkbox" id="profileCheckboxAdvanced" type="checkbox">
+                     <label class="profile-checkbox-label" for="profileCheckboxAdvanced">Scenario Editor Advanced Tools</label>
+                  </div>
+               </div>
+            </div>
          </div>
 
       </div>
 
    </div>
+   <script>
+      document.addEventListener('DOMContentLoaded', () => {
+         if (localStorage.getItem('advancedTools') == 'true') {
+            document.getElementById('profileCheckboxAdvanced').checked = true
+         } else {
+            document.getElementById('profileCheckboxAdvanced').checked = false
+         }
+      })
+      document.getElementById('profileCheckboxAdvanced').addEventListener('change', () => {
+         if (document.getElementById('profileCheckboxAdvanced').checked) {
+            localStorage.setItem('advancedTools', true)
+         } else {
+            localStorage.setItem('advancedTools', false)
+         }
+      })
+   </script>
 </body>
 </html>
