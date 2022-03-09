@@ -1,0 +1,72 @@
+/* .wrapper {
+   position: relative;
+} */
+
+.profile-container {
+   position: absolute;
+   left: 53.5%;
+   top: 25%;
+   transform: translate(-50%, -50%);
+   margin: 0 auto;
+   width: 1000px;
+   /* width: 66%; */
+   border: 1px solid rgba(0,0,0,0.05);
+   border-radius: 6px;
+   background-color: rgb(247, 250, 252);
+   box-shadow: rgba(136, 152, 170, 0.15) 0px 0px 32px 0px;
+}
+
+.profile-header {
+   padding: 20px 24px;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}
+
+.profile-header-title {
+   font-family: "Open Sans", sans-serif;
+   font-size: 17px;
+   font-weight: 600;
+   color: rgb(50, 50, 93);
+}
+
+.profile-header-btns input[value="Save"] {
+   margin-right: 8px;
+}
+
+.profile-body {
+   padding: 24px;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   flex-wrap: wrap;
+}
+
+.profile-input-wrapper {
+   margin-bottom: 24px;
+}
+
+.profile-input-label {
+   display: block;
+   font-size: 14px;
+   font-weight: 600;
+   color: rgb(82, 95, 127);
+   line-height: 21px;
+   font-family: "Open Sans", sans-serif;
+   margin-bottom: 8px;
+}
+
+.profile-input {
+   padding: 10px 12px;
+   width: 460px;
+   font-size: 14px;
+   line-height: 21px;
+   color: #525f7f;
+   border: 0;
+   border-radius: 6px;
+   border-color: rgba(50,151,211,0.25);
+   box-shadow: 0 1px 3px rgb(50 50 93 / 15%), 0 1px 0 rgb(0 0 0 / 2%);
+}
+.profile-input::placeholder {
+   color: rgba(0,0,0,0.5)
+}

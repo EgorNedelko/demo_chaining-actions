@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>DogQ Demo</title>
+   <!-- fonts -->
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+   <!-- icons -->
+   <script src="https://kit.fontawesome.com/7fbaa6cda4.js" crossorigin="anonymous"></script>
+   <!-- styles -->
+   <link rel="stylesheet" href="../css/base.css">
+   <link rel="stylesheet" href="../css/profile.css">
+</head>
+<body>
+   <div id="overlay"></div>
+   <div class="container">
+
+      <nav class="sidebar">
+         <div class="sidebar-container">
+            <a href="/" class="sidebar-logo">
+               <img class="sidebar-logo-img" src="../img/logotype_square.svg" alt="sidebar-logo-icon">
+            </a>
+            <div class="sidebar-menu"> 
+               <ul class="sidebar-list">
+                  <li class="sidebar-item sidebar-dashboard">
+                     <i class="fas fa-desktop"></i>
+                     Dashboard
+                  </li>
+                  <li class="sidebar-item sidebar-pr-link">
+                     <i class="fas fa-folder"></i>
+                     <a href="../pages/projects.html">Projects</a>
+                  </li>
+                  <li class="sidebar-item">
+                     <i class="fas fa-list-ul"></i>
+                     Test Runs
+                  </li>
+                  <li class="sidebar-item">
+                     <i class="fas fa-scroll"></i>
+                     Macros
+                  </li>
+                  <li class="sidebar-item">
+                     <i class="fas fa-user-alt"></i>
+                     <a href="../pages/profile.html">Profile</a>
+                  </li>
+                  <li class="sidebar-item">
+                     <i class="fas fa-users"></i>
+                     Team
+                  </li>
+                  <li class="sidebar-item">
+                     <i class="fas fa-clipboard-list"></i>
+                     Usage History
+                  </li>
+                  <li class="sidebar-item">
+                     <i class="fas fa-credit-card"></i>
+                     Subscription
+                  </li>
+                  <li class="sidebar-item">
+                     <i class="fas fa-sign-out-alt"></i>
+                     Logout
+                  </li>
+               </ul>
+               <hr class="sidebar-divider">
+               <ul class="sidebar-list">
+                  <li class="sidebar-item">
+                     <i class="fas fa-book"></i>
+                     Documentation
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </nav>
+
+      <div class="wrapper">
+         <header class="header">
+            <div class="header-specs invisible">
+               <div class="specs-item">
+                  <h5>name</h5>
+                  <span id="itemName"></span>
+               </div>
+               <div class="specs-item">
+                  <h5>status</h5>
+                  <span>Created</span>
+               </div>
+               <div class="specs-item">
+                  <h5>steps</h5>
+                  <span id="itemCounter">1</span>
+               </div>
+               <div class="specs-item">
+                  <h5>runs</h5>
+                  <span>0</span>
+               </div>
+            </div>
+         </header>
+
+         <div class="profile-container">
+            
+            <div class="profile-header">
+               <h3 class="profile-header-title">My account</h3>
+               <div class="profile-header-btns">
+                  <input class="btn btn-blue" type="button" value="Save" name="Save">
+                  <input class="btn btn-red" type="button" value="Delete Account" name="Delete Account">
+               </div>
+            </div>
+
+            <div class="profile-body">
+               <div class="profile-input-wrapper">
+                  <label class="profile-input-label" for="profileInputName">Name</label>
+                  <input class="profile-input" type="text" id="profileInputName" value="DogQ Demo Account" placeholder="Name">
+               </div>
+               <div class="profile-input-wrapper">
+                  <label class="profile-input-label" for="profileInputEmail">Email</label>
+                  <input class="profile-input" type="email" id="profileInputEmail" value="dogq@demo.email" placeholder="Email">
+               </div>
+               <div class="profile-input-wrapper">
+                  <label class="profile-input-label" for="currentPassword">Current password</label>
+                  <input class="profile-input" type="password" id="currentPassword" placeholder="Current password">
+               </div>
+               <div class="profile-input-wrapper">
+                  <label class="profile-input-label" for="newPassword">New password</label>
+                  <input class="profile-input" type="password" id="newPassword" placeholder="New password">
+               </div>
+            </div>
+         </div>
+
+      </div>
+
+   </div>
+</body>
+</html>
