@@ -1,7 +1,12 @@
-let tourEnabled_dropdownBtn = true
-let tourEnabled_clickElement =  true
-let tourEnabled_btnPlus = true
-let tourEnabled_btnFindEl = true
+let tourEnabled_dropdownBtn = false
+let tourEnabled_clickElement =  false
+let tourEnabled_btnPlus = false
+let tourEnabled_btnFindEl = false
+
+// let tourEnabled_dropdownBtn = true
+// let tourEnabled_clickElement =  true
+// let tourEnabled_btnPlus = true
+// let tourEnabled_btnFindEl = true
 
 const modalsHeaderContent = {
    "Welcome!" : "Welcome to DogQ!",
@@ -240,6 +245,10 @@ function positionFocusbox(width, height, left, top) {
 document.addEventListener('DOMContentLoaded', () => {
    //PROJECTS PAGE
    if (localStorage.getItem('currentLocation') == 'projects') {
+      //temporarily disable tour
+      localStorage.setItem('tourEnabled', 'false')
+      return
+
       if (document.querySelectorAll('.project').length == 0) {
          //Create Welcome Modal 
          document.querySelector('.container').append(buildModal(modalsHeaderContent["Welcome!"], modalsBodyContent["Welcome!"]))
