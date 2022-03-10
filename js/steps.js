@@ -821,7 +821,6 @@ document.addEventListener('click', (e) => {
                   addStep(targetPosition)
                }
             }
-            // addStep(targetPosition+1)
 
             //Find and modify chain step
             steps = [...document.querySelectorAll('.step')]

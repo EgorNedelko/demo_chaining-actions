@@ -115,6 +115,8 @@ function buildPathDropdowns(destinationClass, names, length) {
 }
 
 function openQuickNavItem(elem, textValue) {
+   // if (localStorage.getItem('advancedTools') == 'false') return
+
    elem.parentNode.children[1].classList.remove('contracted') //maximize text field
    elem.parentNode.children[1].classList.remove('borderless') //reveal the border
    elem.classList.add('square-borders') //square off button right borders
@@ -172,6 +174,8 @@ document.addEventListener('DOMContentLoaded', () => {
 //EVENTS
 //Click on the PROJECTS QUICK NAV ITEM to toggle dropdown
 document.querySelector('.pr-link').addEventListener('click', (e) => {
+   if (localStorage.getItem('advancedTools') == 'false') return
+
    const userProjects = JSON.parse(localStorage.getItem('userProjects'))
    const elem = e.target
 
@@ -208,6 +212,8 @@ document.querySelector('.pr-link').addEventListener('click', (e) => {
 
 //Click on the MODULES QUICK NAV ITEM to toggle dropdown
 document.querySelector('.mod-link').addEventListener('click', (e) => {
+   if (localStorage.getItem('advancedTools') == 'false') return
+
    const userProjects = JSON.parse(localStorage.getItem('userProjects'))
    let projectInd = localStorage.getItem('projectInd')
    const elem = e.target
@@ -248,6 +254,8 @@ document.querySelector('.mod-link').addEventListener('click', (e) => {
 
 //Click on the SCENARIOS QUICK NAV ITEM to toggle dropdown
 document.querySelector('.scen-link').addEventListener('click', (e) => {
+   if (localStorage.getItem('advancedTools') == 'false') return
+   
    const userProjects = JSON.parse(localStorage.getItem('userProjects'))
    let projectInd = localStorage.getItem('projectInd')
    let moduleInd = localStorage.getItem('moduleInd') 
