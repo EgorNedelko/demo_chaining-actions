@@ -174,7 +174,12 @@ document.addEventListener('DOMContentLoaded', () => {
 //EVENTS
 //Click on the PROJECTS QUICK NAV ITEM to toggle dropdown
 document.querySelector('.pr-link').addEventListener('click', (e) => {
-   if (localStorage.getItem('advancedTools') == 'false') return
+   if (localStorage.getItem('advancedTools') == 'false') {
+      if (currentLocation == 'projects') return
+      changeCurrentLocation('projects')
+      window.location = "./projects.html"
+      return
+   }
 
    const userProjects = JSON.parse(localStorage.getItem('userProjects'))
    const elem = e.target
@@ -212,7 +217,12 @@ document.querySelector('.pr-link').addEventListener('click', (e) => {
 
 //Click on the MODULES QUICK NAV ITEM to toggle dropdown
 document.querySelector('.mod-link').addEventListener('click', (e) => {
-   if (localStorage.getItem('advancedTools') == 'false') return
+   if (localStorage.getItem('advancedTools') == 'false') {
+      if (currentLocation == 'modules') return
+      changeCurrentLocation('modules')
+      window.location = "./modules.html"
+      return
+   }
 
    const userProjects = JSON.parse(localStorage.getItem('userProjects'))
    let projectInd = localStorage.getItem('projectInd')
@@ -254,8 +264,13 @@ document.querySelector('.mod-link').addEventListener('click', (e) => {
 
 //Click on the SCENARIOS QUICK NAV ITEM to toggle dropdown
 document.querySelector('.scen-link').addEventListener('click', (e) => {
-   if (localStorage.getItem('advancedTools') == 'false') return
-   
+   if (localStorage.getItem('advancedTools') == 'false') {
+      if (currentLocation == 'scenarios') return
+      changeCurrentLocation('scenarios')
+      window.location = "./scenarios.html"
+      return
+   }
+
    const userProjects = JSON.parse(localStorage.getItem('userProjects'))
    let projectInd = localStorage.getItem('projectInd')
    let moduleInd = localStorage.getItem('moduleInd') 
@@ -297,6 +312,31 @@ document.querySelector('.scen-link').addEventListener('click', (e) => {
 
 //Click on the QUICK NAV TEXT to toggle dropdown
 document.querySelectorAll('.path-item-text').forEach(item => item.addEventListener('click', (e) => {
+   if (localStorage.getItem('advancedTools') == 'false') {
+      const targetDestination = e.target.classList[1]
+      
+      switch (targetDestination) {
+         case "pr-path":
+            if (currentLocation == 'projects') return
+            changeCurrentLocation('projects')
+            window.location = "./projects.html"
+            break;
+         case "mod-path":
+            if (currentLocation == 'modules') return
+            changeCurrentLocation('modules')
+            window.location = "./modules.html"
+            break;
+         case "scen-path":
+            if (currentLocation == 'scenarios') return
+            changeCurrentLocation('scenarios')
+            window.location = "./scenarios.html"
+            break;
+         default:
+            return
+      }
+      return
+   }
+
    let elem = e.target
    if (e.target.parentNode.children[2]) {
       //Display dropdown
