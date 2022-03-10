@@ -71,6 +71,11 @@ function addStep(targetPosition) {
       const a = document.createElement('a')
       a.classList.add('dropdown-item')
       a.textContent = Object.keys(stepTypesTextContent)[i]
+      if (Object.keys(stepTypesTextContent)[i] == "Find element" || Object.keys(stepTypesTextContent)[i] == "Find input") {
+         const chainableIcon = document.createElement('i')
+         chainableIcon.classList.add('fas', 'fa-solid', 'fa-link')
+         a.append(chainableIcon)
+      }
       dropdown.appendChild(a)
    }
    const divider = document.createElement('hr')
@@ -107,12 +112,6 @@ function addStep(targetPosition) {
    //create specific step buttons
    const specificStepButtons = document.createElement('div')
    specificStepButtons.classList.add('specific-step-buttons', 'invisible')
-   // let stepIconsSrc = [
-   //    "https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/ffffff/external-magnifying-glass-interface-kiranshastry-lineal-kiranshastry.png",
-   //    "https://img.icons8.com/pastel-glyph/64/ffffff/click-and-collect--v2.png",
-   //    "https://img.icons8.com/ios/50/ffffff/text-input-form.png",
-   //    "https://img.icons8.com/material-outlined/24/ffffff/text.png"
-   // ]
    let stepIconsSrc = [
       "https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/4a90e2/external-magnifying-glass-interface-kiranshastry-lineal-kiranshastry.png",
       "https://img.icons8.com/pastel-glyph/64/4a90e2/click-and-collect--v2.png",
@@ -128,7 +127,6 @@ function addStep(targetPosition) {
    ]
    for (let i = 0; i < stepIconsSrc.length; i++) {
       const img = document.createElement('img')
-      // img.classList.add('btn', 'btn-options', 'btn-blue', stepIconsClass[i])
       img.classList.add('btn', 'btn-options', 'btn-white', stepIconsClass[i])
       img.setAttribute('src', stepIconsSrc[i])
       img.setAttribute('title', stepIconsTooltips[i])
@@ -618,7 +616,6 @@ document.querySelector("input[value='Clear All']").addEventListener('click', () 
 })
 
 
-
 //EVENTS
 //click DROPDOWN-ITEMS to change step type
 document.addEventListener('click', (e) => {
@@ -781,6 +778,79 @@ document.addEventListener('click', (e) => {
    }
 })
 
+//click CHAINABLE icon to change step type and create CHAIN STEP
+document.addEventListener('click', (e) => {
+   if (e.target.classList.contains('fa-link')) {
+      //classes - event start
+      const elemToClose = e.target.parentNode.parentNode.parentNode.parentNode.parentNode
+      closeStepOptions(elemToClose)
+      hideDropdowns()
+
+      //find and modify new step
+      let selectedType = e.target.parentNode.textContent
+      const dropdownBtn = elemToClose.querySelector('.dropdown-btn')
+      const stepInput = elemToClose.querySelector('.step-input')
+      elemToClose.dataset.type = selectedType
+      highlightSelected(elemToClose)
+      dropdownBtn.textContent = selectedType
+      stepInput.setAttribute('placeholder', stepTypesTextContent[selectedType])
+
+      //remove custom name + style
+      elemToClose.querySelector('.step-custom-name').value = ''
+      elemToClose.querySelector('.step-custom-name').setAttribute('placeholder', 'Edit custom name')
+      elemToClose.querySelector('.step-custom-name').removeAttribute('readonly')
+      dropdownBtn.classList.remove('custom-name')
+      dropdownBtn.classList.remove('readonly')
+
+      let targetPosition;
+      let steps = [...document.querySelectorAll('.step')]
+      for (let i = 0; i < steps.length; i++) {
+         if (steps[i].contains(e.target)) {
+            targetPosition = i
+      
+            if (!steps[i+1]) {
+               addStep()
+            } else {
+               if (selectedType == "Find element" && steps[i+1].children[2].children[0].children[0].textContent == "Click element") {
+                  assignOrderNumber()
+                  checkRelations()
+                  return
+               } 
+
+               if (!steps[i+1].children[2].children[0].children[0].classList.contains('no-type')) {
+                  addStep(targetPosition)
+               }
+            }
+            // addStep(targetPosition+1)
+
+            //Find and modify chain step
+            steps = [...document.querySelectorAll('.step')]
+            const chainStepElem = steps[i+1]
+            const chainStepDropdownBtn = chainStepElem.querySelector('.dropdown-btn')
+            const chainStepInput = chainStepElem.querySelector('.step-input')
+            chainStepDropdownBtn.textContent = selectedType == "Find element" ? "Click element" : "Type in"
+            chainStepInput.setAttribute('placeholder', stepTypesTextContent[chainStepDropdownBtn.textContent])
+
+            //remove custom name + style
+            chainStepElem.querySelector('.step-custom-name').value = ''
+            chainStepElem.querySelector('.step-custom-name').setAttribute('placeholder', 'Edit custom name')
+            chainStepElem.querySelector('.step-custom-name').removeAttribute('readonly')
+            chainStepDropdownBtn.classList.remove('custom-name')
+            chainStepDropdownBtn.classList.remove('readonly')
+            
+            selectedType = chainStepDropdownBtn.textContent
+            chainStepElem.dataset.type = selectedType
+            highlightSelected(chainStepElem)
+            closeStepOptions(chainStepElem)
+            handleClickBtnInput(selectedType, chainStepInput)
+
+            //refresh core
+            refreshCore()
+         }
+      }
+   }
+})
+
 //click PLUS BUTTON to add steps and open the options
 document.addEventListener('click', (e) => {
    if (e.target.classList.contains('btn-plus')) {
@@ -930,6 +1000,30 @@ document.addEventListener('click', (e) => {
          targetStep.dataset.name = 'visible'
          dropdownBtn.textContent = stepCustomName.value
          dropdownBtn.classList.toggle('custom-name')
+      }
+   }
+})
+
+//CHAINABLE ICON HOVER
+document.addEventListener('mouseover', (e) => {
+   if (e.target.classList.contains('fa-link')) {
+      let typesList = e.target.parentNode.parentNode.children
+      let targetType = e.target.parentNode
+      for (let i = 0; i < typesList.length; i++) {
+         if (typesList[i] == targetType) {
+            typesList[i+1].classList.add('hover')
+         }
+      }
+   }
+})
+document.addEventListener('mouseout', (e) => {
+   if (e.target.classList.contains('fa-link')) {
+      let typesList = e.target.parentNode.parentNode.children
+      let targetType = e.target.parentNode
+      for (let i = 0; i < typesList.length; i++) {
+         if (typesList[i] == targetType) {
+            typesList[i+1].classList.remove('hover')
+         }
       }
    }
 })
