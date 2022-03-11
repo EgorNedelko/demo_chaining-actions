@@ -301,19 +301,11 @@ function refreshCore() {
 //STORAGE FUNCTIONS
 function saveSteps() {
    let userProjects = JSON.parse(localStorage.getItem('userProjects'))
-   const savePrInd = localStorage.getItem('saveProjectInd') ? localStorage.getItem('saveProjectInd') : localStorage.getItem('projectInd')
-   const saveModInd = localStorage.getItem('saveModuleInd') ? localStorage.getItem('saveModuleInd') : localStorage.getItem('moduleInd')
-   const saveScenInd = localStorage.getItem('saveScenarioInd') ? localStorage.getItem('saveScenarioInd') : localStorage.getItem('scenarioInd')
-   // let targetProject = localStorage.getItem('targetProject')
-   // let targetModule = localStorage.getItem('targetModule')
-   // let targetScenario = localStorage.getItem('targetScenario')
-   // let saveProject = localStorage.getItem('saveProject') ? localStorage.getItem('saveProject') : targetProject
-   // let saveModule = localStorage.getItem('saveModule') ? localStorage.getItem('saveModule') : targetModule
-   // let saveScenario = localStorage.getItem('saveScenario') ? localStorage.getItem('saveScenario') : targetScenario
-
+   const savePrInd = localStorage.getItem('saveProjectInd')
+   const saveModInd = localStorage.getItem('saveModuleInd')
+   const saveScenInd = localStorage.getItem('saveScenarioInd')
    const stepsList = document.querySelectorAll('.step')
 
-   //refactored
    userProjects[savePrInd].modules[saveModInd].scenarios[saveScenInd].steps = []
    for (let s = 0; s < stepsList.length; s++) {
       stylesList = stepsList[s].className.split(' ').filter(x => x != 'onboarding-focus')
@@ -326,47 +318,12 @@ function saveSteps() {
       }
    }
 
-   //Locate the project
-   // for (let i = 0; i < userProjects.length; i++) {
-   //    if (userProjects[i].name == saveProject) {
-
-   //       //Locate the module
-   //       for (let j = 0; j < userProjects[i].modules.length; j++) {
-   //          if (userProjects[i].modules[j].name == saveModule) {
-
-   //             //Locate the scenario
-   //             for (let y = 0; y < userProjects[i].modules[j].scenarios.length; y++) {
-   //                if (userProjects[i].modules[j].scenarios[y].name == saveScenario) {
-
-   //                   //Store steps
-   //                   userProjects[i].modules[j].scenarios[y].steps = []
-   //                   for (let s = 0; s < stepsList.length; s++) {
-   //                      stylesList = stepsList[s].className.split(' ').filter(x => x != 'onboarding-focus')
-   //                      userProjects[i].modules[j].scenarios[y].steps[s] = {
-   //                         type: stepsList[s].dataset.type,
-   //                         value: stepsList[s].querySelector('.step-input').value,
-   //                         name: stepsList[s].querySelector('.step-custom-name').value,
-   //                         nameVisibility: stepsList[s].dataset.name,
-   //                         styles: stylesList
-   //                      }
-   //                   }
-   //                }
-   //             }
-   //          }
-   //       }
-   //    }
-   // }
-
    //Rewrite USERPROJECTS object
    localStorage.removeItem('userProjects')
    localStorage.setItem('userProjects', JSON.stringify(userProjects))
 }
 
 function loadSteps() {
-   // const targetProject = localStorage.getItem('targetProject')
-   // const targetModule = localStorage.getItem('targetModule')
-   // const targetScenario = localStorage.getItem('targetScenario')
-   
    let userProjects = JSON.parse(localStorage.getItem('userProjects'))
    const prInd = localStorage.getItem('projectInd')
    const modInd = localStorage.getItem('moduleInd')
@@ -446,169 +403,34 @@ function loadSteps() {
 
    //Refresh core
    refreshCore()
-                        
-
-   //Locate project
-   // for (let i = 0; i < userProjects.length; i++) {
-   //    if (userProjects[i].name == targetProject) {
-
-   //       //Locate module
-   //       if (userProjects[i].modules) {
-   //          for (let j = 0; j < userProjects[i].modules.length; j++) {
-   //             if (userProjects[i].modules[j].name == targetModule) {
-
-   //                //Locate the scenario
-   //                if (userProjects[i].modules[j].scenarios) {
-   //                   for (let y = 0; y < userProjects[i].modules[j].scenarios.length; y++) {
-   //                      if (userProjects[i].modules[j].scenarios[y].name == targetScenario) {
-
-   //                         //Load steps
-   //                         if (userProjects[i].modules[j].scenarios[y].steps && userProjects[i].modules[j].scenarios[y].steps.length) {
-                              
-   //                            //Clean the slate if there're custom steps
-   //                            document.querySelectorAll('.step').forEach(step => document.querySelector('.steps').removeChild(step))
-                              
-   //                            for (let s = 0; s < userProjects[i].modules[j].scenarios[y].steps.length; s++) {
-   //                               addStep()
-   //                               let stepToModify = document.querySelectorAll('.step')[s]
-
-   //                               //Load type, value, placeholder, custom name and name visibility
-   //                               stepToModify.dataset.type = userProjects[i].modules[j].scenarios[y].steps[s].type
-   //                               stepToModify.querySelector('.dropdown-btn').textContent = stepToModify.dataset.type
-   //                               stepToModify.dataset.name = userProjects[i].modules[j].scenarios[y].steps[s].nameVisibility
-   //                               stepToModify.querySelector('.step-input').value = userProjects[i].modules[j].scenarios[y].steps[s].value
-   //                               stepToModify.querySelector('.step-custom-name').value = userProjects[i].modules[j].scenarios[y].steps[s].name
-   //                               stepToModify.querySelector('.step-input').setAttribute('placeholder', stepTypesTextContent[stepToModify.dataset.type])
-
-   //                               //Make custom name editable if a step has a type 
-   //                               if (stepToModify.dataset.type != "Select Type") {
-   //                                  stepToModify.querySelector('.step-custom-name').removeAttribute('readonly')
-   //                                  stepToModify.querySelector('.step-custom-name').classList.remove('readonly')
-   //                                  stepToModify.querySelector('.step-custom-name').setAttribute('placeholder', 'Edit custom name')
-   //                               }
-
-   //                               //Change step name
-   //                               if (stepToModify.querySelector('.step-custom-name').value) {
-   //                                  if (stepToModify.dataset.name == 'visible') {
-   //                                     stepToModify.querySelector('.dropdown-btn').textContent = stepToModify.querySelector('.step-custom-name').value
-   //                                     stepToModify.querySelector('.dropdown-btn').classList.add('custom-name')
-   //                                  } else {
-   //                                     stepToModify.querySelector('.custom-name-visibility-icon').setAttribute('src', "https://img.icons8.com/material-outlined/50/000000/invisible.png")
-   //                                  }
-   //                               }
-                                 
-   //                               //Add styles to steps, dropdown item, btns and inputs
-   //                               let stepStyles = []
-   //                               for (let style = 0; style < userProjects[i].modules[j].scenarios[y].steps[s].styles.length; style++) {
-   //                                  stepStyles.push(userProjects[i].modules[j].scenarios[y].steps[s].styles[style])
-   //                               }
-   //                               stepStyles.forEach(style => stepToModify.classList.add(style))
-
-   //                               highlightSelected(stepToModify)
-
-   //                               if (userProjects[i].modules[j].scenarios[y].steps[s].value) {
-   //                                  stepToModify.querySelector('.step-input').classList.remove('no-input')
-   //                               }
-                                 
-   //                               if (stepStyles.includes('options-opened')) {
-   //                                  openStepOptions(stepToModify)
-   //                               }
-   //                               if (stepToModify.dataset.type != 'Select Type') {
-   //                                  stepToModify.querySelector('.dropdown-btn').classList.remove('no-type')
-   //                                  stepToModify.querySelector('.dropdown-btn').classList.add('btn-white')
-   //                               }
-   //                            }
-
-   //                         //In case there're no steps, create a default one
-   //                         } else {
-   //                            addStep()
-   //                            document.getElementById('itemCounter').textContent = 1
-   //                            document.querySelectorAll('.step')[0].dataset.type = "Go to URL"
-   //                            highlightSelected(document.querySelectorAll('.step')[0])
-   //                            document.querySelectorAll('.step')[0].querySelector('.dropdown-btn').textContent = "Go to URL"
-   //                            document.querySelectorAll('.step')[0].querySelector('.dropdown-btn').classList.remove('no-type')
-   //                            document.querySelectorAll('.step')[0].querySelector('.dropdown-btn').classList.add('btn-white')
-   //                            document.querySelectorAll('.step')[0].querySelector('.step-input').setAttribute('placeholder', "Provide the URL to go to: https://example.com/")
-   //                            document.querySelectorAll('.step')[0].querySelector('.step-custom-name').removeAttribute('readonly')
-   //                            document.querySelectorAll('.step')[0].querySelector('.step-custom-name').classList.remove('readonly')
-   //                            document.querySelectorAll('.step')[0].querySelector('.step-custom-name').setAttribute('placeholder', 'Edit custom name')
-   //                         }
-
-   //                         //Refresh core
-   //                         refreshCore()
-   //                      }   
-   //                   }
-   //                }
-   //             }
-   //          }
-   //       }
-   //    }
-   // }
-
-   //Update path and name (counter is updated a bit later)
-   // document.querySelector('.pr-path').textContent = targetProject
-   // document.querySelector('.mod-path').textContent = targetModule
-   // document.querySelector('.scen-path').textContent = targetScenario
-   // document.getElementById('itemName').textContent = targetScenario
+   
    document.querySelector('.pr-path').textContent = userProjects[prInd].name
    document.querySelector('.mod-path').textContent = userProjects[prInd].modules[modInd].name
    document.querySelector('.scen-path').textContent = userProjects[prInd].modules[modInd].scenarios[scenInd].name
    document.getElementById('itemName').textContent = userProjects[prInd].modules[modInd].scenarios[scenInd].name
 }
 
-function changeCurrentLocation(newValue) {
-   localStorage.removeItem('currentLocation')
-   localStorage.setItem('currentLocation', newValue)
-}
-
 function storeDestination(targetElem) {
    let userProjects = JSON.parse(localStorage.getItem('userProjects')) 
-
-   // let targetProject = localStorage.getItem('targetProject')
-   // let saveProject = targetProject
-   // let targetModule = localStorage.getItem('targetModule')
-   // let saveModule = targetModule
-   // let targetScenario = localStorage.getItem('targetScenario')
-   // let saveScenario = targetScenario
-
    let projectInd = localStorage.getItem('projectInd')
-   let saveProjectInd = projectInd
    let moduleInd = localStorage.getItem('moduleInd')
-   let saveModuleInd = moduleInd
    let scenarioInd = localStorage.getItem('scenarioInd')
-   let saveScenarioInd = scenarioInd
 
    //if it's a project
    if (targetElem.parentNode.parentNode.classList.contains('projects-container')) {
       for (let i = 0; i < userProjects.length; i++) {
          if (userProjects[i].name == targetElem.textContent) {
             projectInd = i
-            saveProjectInd = i
          }
       }
-      changeCurrentLocation('modules')
-      // localStorage.removeItem('projectInd')
-      // localStorage.setItem('projectInd', projectInd)
-      // localStorage.removeItem('targetProject')
-      // localStorage.setItem('targetProject', targetElem.textContent)
-      // localStorage.removeItem('saveProject')
-      // localStorage.setItem('saveProject', saveProject)
 
    //if it's a module
    } else if (targetElem.parentNode.parentNode.classList.contains('modules-container')) {
       for (let i = 0; i < userProjects[projectInd].modules.length; i++) {
          if (userProjects[projectInd].modules[i].name == targetElem.textContent) {
             moduleInd = i
-            saveModuleInd = i
          }
       }
-      changeCurrentLocation('scenarios')
-      // localStorage.removeItem('moduleInd')
-      // localStorage.setItem('moduleInd', moduleInd)
-      // localStorage.removeItem('targetModule')
-      // localStorage.setItem('targetModule', targetElem.textContent)
-      // localStorage.removeItem('saveModule')
-      // localStorage.setItem('saveModule', saveModule)
 
    //if it's a scenario
    } else if (targetElem.parentNode.parentNode.classList.contains('scenarios-container') ||
@@ -616,23 +438,12 @@ function storeDestination(targetElem) {
       for (let i = 0; i < userProjects[projectInd].modules[moduleInd].scenarios.length; i++) {
          if (userProjects[projectInd].modules[moduleInd].scenarios[i].name == targetElem.textContent) {
             scenarioInd = i
-            saveScenarioInd = i
          }
       }
-      changeCurrentLocation('steps')
-      // localStorage.removeItem('scenarioInd')
-      // localStorage.setItem('scenarioInd', scenarioInd)
-      // localStorage.removeItem('targetScenario')
-      // localStorage.setItem('targetScenario', targetElem.textContent)
-      // localStorage.removeItem('saveScenario')
-      // localStorage.setItem('saveScenario', saveScenario)
    }
    localStorage.setItem('projectInd', projectInd)
-   localStorage.setItem('saveProjectInd', saveProjectInd)
    localStorage.setItem('moduleInd', moduleInd)
-   localStorage.setItem('saveModuleInd', saveModuleInd)
    localStorage.setItem('scenarioInd', scenarioInd)
-   localStorage.setItem('saveScenarioInd', saveScenarioInd)
 }
 
 function loadTools() {
@@ -654,20 +465,10 @@ function loadTools() {
 
 //AUTO-SAVING
 window.addEventListener('beforeunload', saveSteps)
-document.querySelector('.sidebar-pr-link').addEventListener('click', () => {
-   changeCurrentLocation('projects')
-})
 
 //AUTO-LOADING 
 document.addEventListener('DOMContentLoaded', () => {
-   //Remove saveProj, saveMod & saveScen upon pageLoad so the refreshPage check can work
-   localStorage.removeItem('saveProjectInd')
-   localStorage.removeItem('saveModuleInd')
-   localStorage.removeItem('saveScenarioInd')
-   // localStorage.removeItem('saveProject')
-   // localStorage.removeItem('saveModule')
-   // localStorage.removeItem('saveScenario')
-   currentLocation = localStorage.getItem('currentLocation')
+   defineCurrentLocation('steps')
    loadSteps()
    loadTools()
 })
@@ -1141,3 +942,9 @@ document.addEventListener('mouseout', (e) => {
       }
    }
 })
+
+function defineCurrentLocation(location) {
+   сurrentLocation = location
+   const scenInd = localStorage.getItem('scenarioInd')
+   localStorage.setItem('saveScenarioInd', scenInd)
+}

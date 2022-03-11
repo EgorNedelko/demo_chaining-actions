@@ -197,13 +197,9 @@ function refreshItemCounter() {
 /////STORAGE FUNCTIONS
 function saveModules() {
    let userProjects = JSON.parse(localStorage.getItem('userProjects'))
-   const savePrInd = localStorage.getItem('saveProjectInd') ? localStorage.getItem('saveProjectInd') : localStorage.getItem('projectInd')
-   // let targetProject = localStorage.getItem('targetProject')
-   // let saveProject = localStorage.getItem('saveProject') ? localStorage.getItem('saveProject') : targetProject
-
+   const savePrInd = localStorage.getItem('saveProjectInd')
    const modulesList = document.querySelectorAll('.module')
 
-   //refactore
    //Get stored and current modules
    const storedModules = []
    const currentModules = []
@@ -267,75 +263,6 @@ function saveModules() {
       }
    }
 
-   // //Locate project
-   // for (let i = 0; i < userProjects.length; i++) {
-   //    if (userProjects[i].name == saveProject) {
-
-   //       //Get stored and current modules
-   //       const storedModules = []
-   //       const currentModules = []
-   //       if (userProjects[i].modules) {
-   //          for (let j = 0; j < userProjects[i].modules.length; j++) {
-   //             storedModules.push(userProjects[i].modules[j].name)
-   //          }
-   //          for (let y = 0; y < modulesList.length; y++) {
-   //             currentModules.push(modulesList[y].querySelector('.module-name').textContent)
-   //          }
-
-   //          //Check #1 - get projects that were deleted
-   //          let deletedModules = []
-   //          for (let del = 0; del < storedModules.length; del++) {
-   //             if (!currentModules.includes(storedModules[del])) {
-   //                deletedModules.push(storedModules[del])
-   //             }
-   //          }
-
-   //          //Check #2 - get projects that were added
-   //          let addedModules = []
-   //          for (let add = 0; add < currentModules.length; add++) {
-   //             if (!storedModules.includes(currentModules[add])) {
-   //                addedModules.push(currentModules[add])
-   //             }
-   //          }
-
-   //          //Check #3 - whether there were changes 
-   //          if (addedModules.length == 0 && deletedModules.length == 0) {
-   //             return
-   //          }
-
-   //          //Remove deleted projects from the USERSPROJECT object
-   //          if (deletedModules.length != 0) {
-   //             for (let del = 0; del < deletedModules.length; del++) {
-   //                for (let j = 0; j < userProjects[i].modules.length; j++) {
-   //                   if (userProjects[i].modules[j].name == deletedModules[del]) {
-   //                      userProjects[i].modules.splice(j,1)
-   //                   }
-   //                }
-   //             }
-   //          }
-
-   //          //Add new projects to USERPROJECTS object
-   //          if (addedModules.length != 0) {
-   //             for (let add = 0; add < addedModules.length; add++) {
-   //                const modulesLength = userProjects[i].modules.length
-   //                userProjects[i].modules[modulesLength] = {
-   //                   name: addedModules[add]
-   //                }
-   //             }
-   //          }
-         
-   //       //If there're no modules in this project
-   //       } else {
-   //          userProjects[i].modules = []
-   //          for (let q = 0; q < modulesList.length; q++) {
-   //             userProjects[i].modules[q] = {
-   //                name: modulesList[q].querySelector('.module-name').textContent
-   //             }
-   //          }
-   //       }
-   //    }
-   // }
-
    //Rewrite USERPROJECTS object
    localStorage.removeItem('userProjects')
    localStorage.setItem('userProjects', JSON.stringify(userProjects))
@@ -344,9 +271,7 @@ function saveModules() {
 function loadModules() {
    let userProjects = JSON.parse(localStorage.getItem('userProjects'))
    const prInd = localStorage.getItem('projectInd')
-   // const targetProject = localStorage.getItem('targetProject')
 
-   //refactore
    //Load modules
    if (userProjects[prInd].modules) {
       for (let j = 0; j < userProjects[prInd].modules.length; j++) {
@@ -360,62 +285,24 @@ function loadModules() {
       }
    }
 
-   // //Locate project
-   // for (let i = 0; i < userProjects.length; i++) {
-   //    if (userProjects[i].name == targetProject) {
-
-   //       //Load modules
-   //       if (userProjects[i].modules) {
-   //          for (let j = 0; j < userProjects[i].modules.length; j++) {
-   //             addModule(userProjects[i].modules[j].name)
-   //             let moduleToModify = document.querySelectorAll('.module')[document.querySelectorAll('.module').length-1]
-               
-   //             //Update scenarios counter
-   //             if (userProjects[i].modules[j].scenarios) {
-   //                moduleToModify.querySelector('.module-scenarios-counter').textContent = userProjects[i].modules[j].scenarios.length
-   //             }
-   //          }
-   //       }
-   //    }
-   // }
-
    //Update path, name and counter
    document.querySelector('.pr-path').textContent = userProjects[prInd].name
    document.getElementById('itemName').textContent = userProjects[prInd].name
    refreshItemCounter()
 }
 
-function changeCurrentLocation(newValue) {
-   localStorage.removeItem('currentLocation')
-   localStorage.setItem('currentLocation', newValue)
-}
-
 function storeDestination(targetElem) {
    let userProjects = JSON.parse(localStorage.getItem('userProjects')) 
-
-   // let targetProject = localStorage.getItem('targetProject')
-   // let saveProject = targetProject
-
    let projectInd = localStorage.getItem('projectInd')
-   let saveProjectInd = projectInd
    let moduleInd = 0
-   let saveModuleInd = moduleInd  
    
    //if it's a project
    if (targetElem.parentNode.parentNode.classList.contains('projects-container')) {
       for (let i = 0; i < userProjects.length; i++) {
          if (userProjects[i].name == targetElem.textContent) {
             projectInd = i
-            moduleInd = i
          }
       }
-      changeCurrentLocation('modules')
-      // localStorage.removeItem('projectInd')
-      // localStorage.setItem('projectInd', projectInd)
-      // localStorage.removeItem('targetProject')
-      // localStorage.setItem('targetProject', targetElem.textContent)
-      // localStorage.removeItem('saveProject')
-      // localStorage.setItem('saveProject', saveProject)
 
    //if it's a module
    } else if (targetElem.parentNode.parentNode.classList.contains('modules-container') ||
@@ -423,19 +310,11 @@ function storeDestination(targetElem) {
       for (let i = 0; i < userProjects[projectInd].modules.length; i++) {
          if (userProjects[projectInd].modules[i].name == targetElem.textContent) {
             moduleInd = i
-            saveModuleInd = i
          }
       }
-      changeCurrentLocation('scenarios')
-      // localStorage.removeItem('moduleInd')
-      // localStorage.setItem('moduleInd', moduleInd)
-      // localStorage.removeItem('targetModule')
-      // localStorage.setItem('targetModule', targetElem.textContent)
    }
    localStorage.setItem('projectInd', projectInd)
-   localStorage.setItem('saveProjectInd', saveProjectInd)
    localStorage.setItem('moduleInd', moduleInd)
-   localStorage.setItem('saveModuleInd', saveModuleInd)
 }
 
 //Click on the CLEAR ALL BUTTON to clear out CURRENT PROJECT
@@ -479,15 +358,15 @@ document.addEventListener('click', (e) => {
 
 //AUTO-SAVING
 window.addEventListener('beforeunload', saveModules)
-document.querySelector('.sidebar-pr-link').addEventListener('click', () => {
-   changeCurrentLocation('projects')
-})
 
 //AUTO-LOADING 
 document.addEventListener('DOMContentLoaded', () => {
-   //Remove save project upon pageLoad so the refreshPage check can work
-   localStorage.removeItem('saveProjectInd')
-   // localStorage.removeItem('saveProject')
-   currentLocation = localStorage.getItem('currentLocation')
+   defineCurrentLocation('modules')
    loadModules()
 })
+
+function defineCurrentLocation(location) {
+   сurrentLocation = location
+   const prInd = localStorage.getItem('projectInd')
+   localStorage.setItem('saveProjectInd', prInd)
+}

@@ -291,31 +291,18 @@ function loadProjects() {
    }
 }
 
-function changeCurrentLocation(newValue) {
-   localStorage.removeItem('currentLocation')
-   localStorage.setItem('currentLocation', newValue)
-}
-
 function storeDestination(targetElem) {
    let projectInd = 0
-   let saveProjectInd = projectInd
-
-   // localStorage.removeItem('targetProject')
-   // localStorage.setItem('targetProject', targetElem.textContent)
 
    if (localStorage.getItem('userProjects')) {
       let userProjects = JSON.parse(localStorage.getItem('userProjects')) 
       for (let i = 0; i < userProjects.length; i++) {
          if (userProjects[i].name == targetElem.textContent) {
             projectInd = i
-            saveProjectInd = i
          }
       }
    }
-
    localStorage.setItem('projectInd', projectInd)
-   localStorage.setItem('saveProjectInd', saveProjectInd)
-   changeCurrentLocation('modules')
 }
 
 //click on the CLEAR ALL BUTTON to clear out the localStorage and the list
@@ -345,9 +332,13 @@ document.addEventListener('click', (e) => {
 
 //AUTO-SAVING
 window.addEventListener('beforeunload', saveProjects)
-document.querySelector('.sidebar-pr-link').addEventListener('click', () => {
-   changeCurrentLocation('projects')
-})
 
 //LOADING 
-document.addEventListener('DOMContentLoaded', loadProjects)
+document.addEventListener('DOMContentLoaded', () => {
+   defineCurrentLocation('projects')
+   loadProjects()
+})
+
+function defineCurrentLocation(location) {
+   сurrentLocation = location
+}

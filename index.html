@@ -37,10 +37,14 @@
       </div>
    </div>
    <script>
-      const changeCurrentLocation = newValue => localStorage.setItem('currentLocation', newValue)
-      document.querySelector('.create-acc-btn').addEventListener('click', () => { changeCurrentLocation('projects'); window.location = "./pages/projects.html";  })
-      document.querySelector('.github-btn').addEventListener('click', () => { changeCurrentLocation('projects'); window.location = "./pages/projects.html";  })
-      window.addEventListener('keydown', (e) => { if (e.key == "Enter") { changeCurrentLocation('projects'); window.location = "./pages/projects.html";  }})
+      // const changeCurrentLocation = newValue => localStorage.setItem('currentLocation', newValue)
+      // document.querySelector('.create-acc-btn').addEventListener('click', () => { changeCurrentLocation('projects'); window.location = "./pages/projects.html";  })
+      // document.querySelector('.github-btn').addEventListener('click', () => { changeCurrentLocation('projects'); window.location = "./pages/projects.html";  })
+      // window.addEventListener('keydown', (e) => { if (e.key == "Enter") { changeCurrentLocation('projects'); window.location = "./pages/projects.html";  }})
+      
+      document.querySelector('.create-acc-btn').addEventListener('click', () => { window.location = "./pages/projects.html";  })
+      document.querySelector('.github-btn').addEventListener('click', () => { window.location = "./pages/projects.html";  })
+      window.addEventListener('keydown', (e) => { if (e.key == "Enter") { window.location = "./pages/projects.html";  }})
    </script>
 </body>
 </html>

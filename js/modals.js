@@ -799,7 +799,7 @@ document.addEventListener('click', (e) => {
 //RESTART TOUR BUTTON
 document.addEventListener('click', (e) => {
    if (e.target.value == 'Restart tour') {
-      changeCurrentLocation('projects')
+      // changeCurrentLocation('projects')
       window.location = "/"
       localStorage.clear()
    }

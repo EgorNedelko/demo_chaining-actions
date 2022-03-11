@@ -20,9 +20,6 @@ function removeDropdown(targetContainer) {
 function updatePath() {
    let names = []
    let userProjects = JSON.parse(localStorage.getItem('userProjects'))
-   const targetProject = localStorage.getItem('targetProject')
-   const targetModule = localStorage.getItem('targetModule')
-   const targetScenario = localStorage.getItem('targetScenario')
    const projectInd = localStorage.getItem('projectInd')
    const moduleInd = localStorage.getItem('moduleInd')
    const scenarioInd = localStorage.getItem('scenarioInd')
@@ -164,7 +161,7 @@ function closeQuickNavItem(elem, textValue) {
 
 //AUTO-LOADING
 document.addEventListener('DOMContentLoaded', () => {
-   currentLocation = localStorage.getItem('currentLocation')
+   // currentLocation = localStorage.getItem('currentLocation')
    updatePath()
 })
 
@@ -175,7 +172,6 @@ document.querySelector('.pr-link').addEventListener('click', (e) => {
    //Simple Tools Mode
    if (!localStorage.getItem('advancedTools') || localStorage.getItem('advancedTools') == 'false') {
       if (currentLocation == 'projects') return
-      changeCurrentLocation('projects')
       window.location = "./projects.html"
       return
    }
@@ -222,7 +218,6 @@ document.querySelector('.mod-link').addEventListener('click', (e) => {
    //Simple Tools Mode
    if (!localStorage.getItem('advancedTools') || localStorage.getItem('advancedTools') == 'false') {
       if (currentLocation == 'modules') return
-      changeCurrentLocation('modules')
       window.location = "./modules.html"
       return
    }
@@ -270,7 +265,6 @@ document.querySelector('.scen-link').addEventListener('click', (e) => {
    //Simple Tools Mode
    if (!localStorage.getItem('advancedTools') || localStorage.getItem('advancedTools') == 'false') {
       if (currentLocation == 'scenarios') return
-      changeCurrentLocation('scenarios')
       window.location = "./scenarios.html"
       return
    }
@@ -301,6 +295,7 @@ document.querySelector('.scen-link').addEventListener('click', (e) => {
          if (!elem.parentNode.children[1].textContent == "") {
             elem.parentNode.children[2].classList.toggle('display-none')
          } else {
+            console.log(elem.parentNode)
             if (elem.parentNode.children[2].classList.contains('display-none')) {
                setTimeout(()=>{ elem.parentNode.children[2].classList.remove('display-none') }, 150)
             } else if (!elem.parentNode.children[2].classList.contains('display-none')) {
@@ -313,23 +308,21 @@ document.querySelector('.scen-link').addEventListener('click', (e) => {
 
 //Click on the QUICK NAV TEXT to toggle dropdown
 document.querySelectorAll('.path-item-text').forEach(item => item.addEventListener('click', (e) => {
+   //Simple Tools Mode
    if (!localStorage.getItem('advancedTools') || localStorage.getItem('advancedTools') == 'false') {
       const targetDestination = e.target.classList[1]
       
       switch (targetDestination) {
          case "pr-path":
             if (currentLocation == 'projects') return
-            changeCurrentLocation('projects')
             window.location = "./projects.html"
             break;
          case "mod-path":
             if (currentLocation == 'modules') return
-            changeCurrentLocation('modules')
             window.location = "./modules.html"
             break;
          case "scen-path":
             if (currentLocation == 'scenarios') return
-            changeCurrentLocation('scenarios')
             window.location = "./scenarios.html"
             break;
          default:
@@ -339,6 +332,23 @@ document.querySelectorAll('.path-item-text').forEach(item => item.addEventListen
    }
 
    let elem = e.target
+   // let textValue
+   // switch (elem.classList[1]) {
+   //    case "pr-path":
+   //       textValue = "Projects"
+   //       break;
+   //    case "mod-path":
+   //       textValue = "Modules"
+   //       break;
+   //    case "scen-path":
+   //       textValue = "Scenarios"
+   //       break;
+   // } 
+   // if (currentLocation == 'projects' && textValue == 'Projects') {
+   //    if (elem.parentNode.children[0].classList.contains('opened')) {
+   //       closeQuickNavItem(elem.parentNode.children[0], textValue)
+   //    }
+   // }
    if (e.target.parentNode.children[2]) {
       //Display dropdown
       if (!elem.parentNode.children[1].textContent == "") {
@@ -370,17 +380,14 @@ document.querySelectorAll('.path-item-text').forEach(item => item.addEventListen
 
 document.querySelector('.pr-link').addEventListener('dblclick', () => {
    if (currentLocation == 'projects') return
-   changeCurrentLocation('projects')
    window.location = "./projects.html"
 })
 document.querySelector('.mod-link').addEventListener('dblclick', () => {
    if (currentLocation == 'projects' || currentLocation == 'modules') return
-   changeCurrentLocation('modules')
    window.location = "./modules.html"
 })
 document.querySelector('.scen-link').addEventListener('dblclick', () => {
    if (currentLocation == 'projects' || currentLocation == 'modules'|| currentLocation == 'scenarios') return
-   changeCurrentLocation('scenarios')
    window.location = "./scenarios.html"
 })
 

@@ -197,16 +197,10 @@ function refreshItemCounter() {
 /////STORAGE FUNCTIONS
 function saveScenarios() {
    let userProjects = JSON.parse(localStorage.getItem('userProjects'))
-   const savePrInd = localStorage.getItem('saveProjectInd') ? localStorage.getItem('saveProjectInd') : localStorage.getItem('projectInd')
-   const saveModInd = localStorage.getItem('saveModuleInd') ? localStorage.getItem('saveModuleInd') : localStorage.getItem('moduleInd')
-   // let targetProject = localStorage.getItem('targetProject')
-   // let targetModule = localStorage.getItem('targetModule')
-   // let saveProject = localStorage.getItem('saveProject') ? localStorage.getItem('saveProject') : targetProject
-   // let saveModule = localStorage.getItem('saveModule') ? localStorage.getItem('saveModule') : targetModule
-
+   const savePrInd = localStorage.getItem('saveProjectInd')
+   const saveModInd = localStorage.getItem('saveModuleInd')
    const scenariosList = document.querySelectorAll('.scenario')
 
-   //refactored
    //Get stored and current modules
    const storedScenarios = []
    const currentScenarios = []
@@ -270,81 +264,6 @@ function saveScenarios() {
       }
    }
 
-   // //Locate project
-   // for (let i = 0; i < userProjects.length; i++) {
-   //    if (userProjects[i].name == saveProject) {
-
-   //       //Locate module
-   //       for (let j = 0; j < userProjects[i].modules.length; j++) {
-   //          if (userProjects[i].modules[j].name == saveModule) {
-
-   //             //Get stored and current modules
-   //             const storedScenarios = []
-   //             const currentScenarios = []
-   //             if (userProjects[i].modules[j].scenarios) {
-   //                for (let y = 0; y < userProjects[i].modules[j].scenarios.length; y++) {
-   //                   storedScenarios.push(userProjects[i].modules[j].scenarios[y].name)
-   //                }
-   //                for (let q = 0; q < scenariosList.length; q++) {
-   //                   currentScenarios.push(scenariosList[q].querySelector('.scenario-name').textContent)
-   //                }
-
-   //                //Check #1 - get projects that were deleted
-   //                let deletedScenarios = []
-   //                for (let del = 0; del < storedScenarios.length; del++) {
-   //                   if (!currentScenarios.includes(storedScenarios[del])) {
-   //                      deletedScenarios.push(storedScenarios[del])
-   //                   }
-   //                }
-
-   //                //Check #2 - get projects that were added
-   //                let addedScenarios = []
-   //                for (let add = 0; add < currentScenarios.length; add++) {
-   //                   if (!storedScenarios.includes(currentScenarios[add])) {
-   //                      addedScenarios.push(currentScenarios[add])
-   //                   }
-   //                }
-
-   //                //Check #3 - whether there were changes 
-   //                if (addedScenarios.length == 0 && deletedScenarios.length == 0) {
-   //                   return
-   //                }
-
-   //                //Remove deleted projects from the USERSPROJECT object
-   //                if (deletedScenarios.length != 0) {
-   //                   for (let del = 0; del < deletedScenarios.length; del++) {
-   //                      for (let y = 0; y < userProjects[i].modules[j].scenarios.length; y++) {
-   //                         if (userProjects[i].modules[j].scenarios[y].name == deletedScenarios[del]) {
-   //                            userProjects[i].modules[j].scenarios.splice(y,1)
-   //                         }
-   //                      }
-   //                   }
-   //                }
-
-   //                //Add new projects to USERPROJECTS object
-   //                if (addedScenarios.length != 0) {
-   //                   for (let add = 0; add < addedScenarios.length; add++) {
-   //                      const scenariosLength = userProjects[i].modules[j].scenarios.length
-   //                      userProjects[i].modules[j].scenarios[scenariosLength] = {
-   //                         name: addedScenarios[add]
-   //                      }
-   //                   }
-   //                }
-
-   //             //If there're no scenarios   
-   //             } else {
-   //                userProjects[i].modules[j].scenarios = []
-   //                for (let q = 0; q < scenariosList.length; q++) {
-   //                   userProjects[i].modules[j].scenarios[q] = {
-   //                      name: scenariosList[q].querySelector('.scenario-name').textContent
-   //                   }
-   //                }
-   //             }
-   //          }
-   //       }
-   //    }
-   // }
-
    //Rewrite USERPROJECTS object
    localStorage.removeItem('userProjects')
    localStorage.setItem('userProjects', JSON.stringify(userProjects))
@@ -354,10 +273,7 @@ function loadScenarios() {
    let userProjects = JSON.parse(localStorage.getItem('userProjects'))
    const prInd = localStorage.getItem('projectInd')
    const modInd = localStorage.getItem('moduleInd')
-   // const targetProject = localStorage.getItem('targetProject')
-   // const targetModule = localStorage.getItem('targetModule')
 
-   //refactored
    //Load scenarios
    if (userProjects[prInd].modules[modInd].scenarios) {
       for (let y = 0; y < userProjects[prInd].modules[modInd].scenarios.length; y++) {
@@ -371,33 +287,6 @@ function loadScenarios() {
       }
    }
 
-   // //Locate project
-   // for (let i = 0; i < userProjects.length; i++) {
-   //    if (userProjects[i].name == targetProject) {
-
-   //       //Locate module
-   //       if (userProjects[i].modules) {
-   //          for (let j = 0; j < userProjects[i].modules.length; j++) {
-   //             if (userProjects[i].modules[j].name == targetModule) {
-
-   //                //Load scenarios
-   //                if (userProjects[i].modules[j].scenarios) {
-   //                   for (let y = 0; y < userProjects[i].modules[j].scenarios.length; y++) {
-   //                      addScenario(userProjects[i].modules[j].scenarios[y].name)
-   //                      let scenarioToModify = document.querySelectorAll('.scenario')[document.querySelectorAll('.scenario').length-1]
-                        
-   //                      //Update steps counter
-   //                      if (userProjects[i].modules[j].scenarios[y].steps) {
-   //                         scenarioToModify.querySelector('.scenario-steps-counter').textContent = userProjects[i].modules[j].scenarios[y].steps.length
-   //                      }
-   //                   }
-   //                }
-   //             }
-   //          }
-   //       }
-   //    }
-   // }
-
    //Update path, name and counter
    document.querySelector('.pr-path').textContent = userProjects[prInd].name
    document.querySelector('.mod-path').textContent = userProjects[prInd].modules[modInd].name
@@ -405,57 +294,27 @@ function loadScenarios() {
    refreshItemCounter()
 }
 
-function changeCurrentLocation(newValue) {
-   localStorage.removeItem('currentLocation')
-   localStorage.setItem('currentLocation', newValue)
-}
-
 function storeDestination(targetElem) {
    let userProjects = JSON.parse(localStorage.getItem('userProjects'))
-
-   // let targetProject = localStorage.getItem('targetProject')
-   // let saveProject = targetProject
-   // let targetModule = localStorage.getItem('targetModule')
-   // let saveModule = targetModule
-
    let projectInd = localStorage.getItem('projectInd')
-   let saveProjectInd = projectInd
    let moduleInd = localStorage.getItem('moduleInd')
-   let saveModuleInd = moduleInd
    let scenarioInd = 0
-   let saveScenarioInd = scenarioInd
 
    //if it's a project
    if (targetElem.parentNode.parentNode.classList.contains('projects-container')) {
       for (let i = 0; i < userProjects.length; i++) {
          if (userProjects[i].name == targetElem.textContent) {
             projectInd = i
-            saveProjectInd = i
          }
       }
-      changeCurrentLocation('modules')
-      // localStorage.removeItem('projectInd')
-      // localStorage.setItem('projectInd', projectInd)
-      // localStorage.removeItem('targetProject')
-      // localStorage.setItem('targetProject', targetElem.textContent)
-      // localStorage.removeItem('saveProject')
-      // localStorage.setItem('saveProject', saveProject)
 
    //if it's a module
    } else if (targetElem.parentNode.parentNode.classList.contains('modules-container')) {
       for (let i = 0; i < userProjects[projectInd].modules.length; i++) {
          if (userProjects[projectInd].modules[i].name == targetElem.textContent) {
             moduleInd = i
-            saveModuleInd = i
          }
       }
-      changeCurrentLocation('scenarios')
-      // localStorage.removeItem('moduleInd')
-      // localStorage.setItem('moduleInd', moduleInd)
-      // localStorage.removeItem('targetModule')
-      // localStorage.setItem('targetModule', targetElem.textContent)
-      // localStorage.removeItem('saveModule')
-      // localStorage.setItem('saveModule', saveModule)
 
    //if it's a scenario
    } else if (targetElem.parentNode.parentNode.classList.contains('scenarios-container') ||
@@ -463,21 +322,12 @@ function storeDestination(targetElem) {
       for (let i = 0; i < userProjects[projectInd].modules[moduleInd].scenarios.length; i++) {
          if (userProjects[projectInd].modules[moduleInd].scenarios[i].name == targetElem.textContent) {
             scenarioInd = i
-            saveScenarioInd = i
          }
       }
-      changeCurrentLocation('steps')
-      // localStorage.removeItem('scenarioInd')
-      // localStorage.setItem('scenarioInd', scenarioInd)
-      // localStorage.removeItem('targetScenario')
-      // localStorage.setItem('targetScenario', targetElem.textContent)
    }
    localStorage.setItem('projectInd', projectInd)
-   localStorage.setItem('saveProjectInd', saveProjectInd)
    localStorage.setItem('moduleInd', moduleInd)
-   localStorage.setItem('saveModuleInd', saveModuleInd)
    localStorage.setItem('scenarioInd', scenarioInd)
-   localStorage.setItem('saveScenarioInd', saveScenarioInd)
 }
 
 //Click on the CLEAR ALL BUTTON to clear out CURRENT MODULE
@@ -530,17 +380,15 @@ document.addEventListener('click', (e) => {
 
 //AUTO-SAVING
 window.addEventListener('beforeunload', saveScenarios)
-document.querySelector('.sidebar-pr-link').addEventListener('click', () => {
-   changeCurrentLocation('projects')
-})
 
 //AUTO-LOADING 
 document.addEventListener('DOMContentLoaded', () => {
-   //Remove saveProj & saveMod upon pageLoad so the refreshPage check can work
-   localStorage.removeItem('saveProjectInd')
-   localStorage.removeItem('saveModuleInd')
-   // localStorage.removeItem('saveProject')
-   // localStorage.removeItem('saveModule')
-   currentLocation = localStorage.getItem('currentLocation')
+   defineCurrentLocation('scenarios')
    loadScenarios()
 })
+
+function defineCurrentLocation(location) {
+   сurrentLocation = location
+   const modInd = localStorage.getItem('moduleInd')
+   localStorage.setItem('saveModuleInd', modInd)
+}
