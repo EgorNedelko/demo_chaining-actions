@@ -115,8 +115,6 @@ function buildPathDropdowns(destinationClass, names, length) {
 }
 
 function openQuickNavItem(elem, textValue) {
-   // if (localStorage.getItem('advancedTools') == 'false') return
-
    elem.parentNode.children[1].classList.remove('contracted') //maximize text field
    elem.parentNode.children[1].classList.remove('borderless') //reveal the border
    elem.classList.add('square-borders') //square off button right borders
@@ -174,7 +172,8 @@ document.addEventListener('DOMContentLoaded', () => {
 //EVENTS
 //Click on the PROJECTS QUICK NAV ITEM to toggle dropdown
 document.querySelector('.pr-link').addEventListener('click', (e) => {
-   if (localStorage.getItem('advancedTools') == 'false') {
+   //Simple Tools Mode
+   if (!localStorage.getItem('advancedTools') || localStorage.getItem('advancedTools') == 'false') {
       if (currentLocation == 'projects') return
       changeCurrentLocation('projects')
       window.location = "./projects.html"
@@ -217,7 +216,11 @@ document.querySelector('.pr-link').addEventListener('click', (e) => {
 
 //Click on the MODULES QUICK NAV ITEM to toggle dropdown
 document.querySelector('.mod-link').addEventListener('click', (e) => {
-   if (localStorage.getItem('advancedTools') == 'false') {
+   //Navigation logic
+   if (currentLocation == 'projects') return
+
+   //Simple Tools Mode
+   if (!localStorage.getItem('advancedTools') || localStorage.getItem('advancedTools') == 'false') {
       if (currentLocation == 'modules') return
       changeCurrentLocation('modules')
       window.location = "./modules.html"
@@ -235,9 +238,6 @@ document.querySelector('.mod-link').addEventListener('click', (e) => {
    if (document.querySelector('.scen-link').parentNode.children[2]) {
       document.querySelector('.scen-link').parentNode.children[2].classList.add('display-none')
    }
-
-   //Navigation logic
-   if (currentLocation == 'projects') return
 
    if (userProjects[projectInd].modules) {
       if (userProjects[projectInd].modules.length) {
@@ -264,7 +264,11 @@ document.querySelector('.mod-link').addEventListener('click', (e) => {
 
 //Click on the SCENARIOS QUICK NAV ITEM to toggle dropdown
 document.querySelector('.scen-link').addEventListener('click', (e) => {
-   if (localStorage.getItem('advancedTools') == 'false') {
+   //Navigation logic
+   if (currentLocation == 'projects' || currentLocation == 'modules') return
+
+   //Simple Tools Mode
+   if (!localStorage.getItem('advancedTools') || localStorage.getItem('advancedTools') == 'false') {
       if (currentLocation == 'scenarios') return
       changeCurrentLocation('scenarios')
       window.location = "./scenarios.html"
@@ -283,9 +287,6 @@ document.querySelector('.scen-link').addEventListener('click', (e) => {
    if (document.querySelector('.mod-link').parentNode.children[2]) {
       document.querySelector('.mod-link').parentNode.children[2].classList.add('display-none')
    }
-
-   //Navigation logic
-   if (currentLocation == 'projects' || currentLocation == 'modules') return
    
    if (userProjects[projectInd].modules[moduleInd].scenarios) {
       if (userProjects[projectInd].modules[moduleInd].scenarios.length) {
@@ -312,7 +313,7 @@ document.querySelector('.scen-link').addEventListener('click', (e) => {
 
 //Click on the QUICK NAV TEXT to toggle dropdown
 document.querySelectorAll('.path-item-text').forEach(item => item.addEventListener('click', (e) => {
-   if (localStorage.getItem('advancedTools') == 'false') {
+   if (!localStorage.getItem('advancedTools') || localStorage.getItem('advancedTools') == 'false') {
       const targetDestination = e.target.classList[1]
       
       switch (targetDestination) {

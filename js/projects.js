@@ -291,6 +291,33 @@ function loadProjects() {
    }
 }
 
+function changeCurrentLocation(newValue) {
+   localStorage.removeItem('currentLocation')
+   localStorage.setItem('currentLocation', newValue)
+}
+
+function storeDestination(targetElem) {
+   let projectInd = 0
+   let saveProjectInd = projectInd
+
+   // localStorage.removeItem('targetProject')
+   // localStorage.setItem('targetProject', targetElem.textContent)
+
+   if (localStorage.getItem('userProjects')) {
+      let userProjects = JSON.parse(localStorage.getItem('userProjects')) 
+      for (let i = 0; i < userProjects.length; i++) {
+         if (userProjects[i].name == targetElem.textContent) {
+            projectInd = i
+            saveProjectInd = i
+         }
+      }
+   }
+
+   localStorage.setItem('projectInd', projectInd)
+   localStorage.setItem('saveProjectInd', saveProjectInd)
+   changeCurrentLocation('modules')
+}
+
 //click on the CLEAR ALL BUTTON to clear out the localStorage and the list
 document.querySelector("input[value='Clear All']").addEventListener('click', () => {
    //Rewrite USERPROJECTS object
@@ -315,25 +342,6 @@ document.addEventListener('click', (e) => {
    }
 })
 
-function storeDestination(targetElem) {
-   let projectInd = 0
-
-   localStorage.removeItem('targetProject')
-   localStorage.setItem('targetProject', targetElem.textContent)
-
-   if (localStorage.getItem('userProjects')) {
-      let userProjects = JSON.parse(localStorage.getItem('userProjects')) 
-      for (let i = 0; i < userProjects.length; i++) {
-         if (userProjects[i].name == targetElem.textContent) {
-            projectInd = i
-         }
-      }
-   }
-
-   localStorage.removeItem('projectInd')
-   localStorage.setItem('projectInd', projectInd)
-   changeCurrentLocation('modules')
-}
 
 //AUTO-SAVING
 window.addEventListener('beforeunload', saveProjects)
@@ -343,9 +351,3 @@ document.querySelector('.sidebar-pr-link').addEventListener('click', () => {
 
 //LOADING 
 document.addEventListener('DOMContentLoaded', loadProjects)
-
-function changeCurrentLocation(newValue) {
-   localStorage.removeItem('currentLocation')
-   localStorage.setItem('currentLocation', newValue)
-}
-
