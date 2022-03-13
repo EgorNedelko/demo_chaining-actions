@@ -389,6 +389,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function defineCurrentLocation(location) {
    сurrentLocation = location
+   localStorage.setItem('currentLocation', location)
    const modInd = localStorage.getItem('moduleInd')
    localStorage.setItem('saveModuleInd', modInd)
 }

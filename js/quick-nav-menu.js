@@ -22,7 +22,6 @@ function updatePath() {
    let userProjects = JSON.parse(localStorage.getItem('userProjects'))
    const projectInd = localStorage.getItem('projectInd')
    const moduleInd = localStorage.getItem('moduleInd')
-   const scenarioInd = localStorage.getItem('scenarioInd')
 
    //Build projects regardless (for projects, modules, scenarios and steps)
    if (userProjects) {
@@ -161,8 +160,11 @@ function closeQuickNavItem(elem, textValue) {
 
 //AUTO-LOADING
 document.addEventListener('DOMContentLoaded', () => {
-   // currentLocation = localStorage.getItem('currentLocation')
-   updatePath()
+   setTimeout(()=> {
+      currentLocation = localStorage.getItem('currentLocation')
+      // console.log(currentLocation)
+      updatePath()
+   }, 500) 
 })
 
 

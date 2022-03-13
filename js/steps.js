@@ -945,6 +945,7 @@ document.addEventListener('mouseout', (e) => {
 
 function defineCurrentLocation(location) {
    сurrentLocation = location
+   localStorage.setItem('currentLocation', location)
    const scenInd = localStorage.getItem('scenarioInd')
    localStorage.setItem('saveScenarioInd', scenInd)
 }

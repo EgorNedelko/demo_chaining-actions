@@ -341,4 +341,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function defineCurrentLocation(location) {
    сurrentLocation = location
+   localStorage.setItem('currentLocation', location)
 }

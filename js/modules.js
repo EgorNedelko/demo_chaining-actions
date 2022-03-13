@@ -367,6 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function defineCurrentLocation(location) {
    сurrentLocation = location
+   localStorage.setItem('currentLocation', location)
    const prInd = localStorage.getItem('projectInd')
    localStorage.setItem('saveProjectInd', prInd)
 }
