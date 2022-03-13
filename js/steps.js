@@ -515,7 +515,7 @@ function storeDestination(targetElem) {
 }
 
 function loadTools() {
-   if (localStorage.getItem('advancedTools') == 'false') {
+   if (!localStorage.getItem('advancedTools') || localStorage.getItem('advancedTools') == 'false') {
       document.querySelector('.btn-chain-mode').style.display = 'none'
       document.querySelector(".btn[value='Add Common Step']").style.display = 'none'
 
