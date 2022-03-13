@@ -162,9 +162,8 @@ function closeQuickNavItem(elem, textValue) {
 document.addEventListener('DOMContentLoaded', () => {
    setTimeout(()=> {
       currentLocation = localStorage.getItem('currentLocation')
-      // console.log(currentLocation)
       updatePath()
-   }, 500) 
+   }, 200) 
 })
 
 
@@ -297,7 +296,6 @@ document.querySelector('.scen-link').addEventListener('click', (e) => {
          if (!elem.parentNode.children[1].textContent == "") {
             elem.parentNode.children[2].classList.toggle('display-none')
          } else {
-            console.log(elem.parentNode)
             if (elem.parentNode.children[2].classList.contains('display-none')) {
                setTimeout(()=>{ elem.parentNode.children[2].classList.remove('display-none') }, 150)
             } else if (!elem.parentNode.children[2].classList.contains('display-none')) {
@@ -334,23 +332,6 @@ document.querySelectorAll('.path-item-text').forEach(item => item.addEventListen
    }
 
    let elem = e.target
-   // let textValue
-   // switch (elem.classList[1]) {
-   //    case "pr-path":
-   //       textValue = "Projects"
-   //       break;
-   //    case "mod-path":
-   //       textValue = "Modules"
-   //       break;
-   //    case "scen-path":
-   //       textValue = "Scenarios"
-   //       break;
-   // } 
-   // if (currentLocation == 'projects' && textValue == 'Projects') {
-   //    if (elem.parentNode.children[0].classList.contains('opened')) {
-   //       closeQuickNavItem(elem.parentNode.children[0], textValue)
-   //    }
-   // }
    if (e.target.parentNode.children[2]) {
       //Display dropdown
       if (!elem.parentNode.children[1].textContent == "") {
