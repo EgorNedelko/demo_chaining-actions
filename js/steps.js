@@ -163,6 +163,74 @@ function addStep(targetPosition) {
 
 
 //HELPER FUNCTIONS
+function modifyNewStep(elemToClose, selectedType) {
+   closeStepOptions(elemToClose)
+   hideDropdowns()
+
+   //find and modify new step
+   const dropdownBtn = elemToClose.querySelector('.dropdown-btn')
+   const stepInput = elemToClose.querySelector('.step-input')
+   elemToClose.dataset.type = selectedType
+   highlightSelected(elemToClose)
+   dropdownBtn.textContent = selectedType
+   stepInput.setAttribute('placeholder', stepTypesTextContent[selectedType])
+
+   //remove custom name + style
+   elemToClose.querySelector('.step-custom-name').value = ''
+   elemToClose.querySelector('.step-custom-name').setAttribute('placeholder', 'Edit custom name')
+   elemToClose.querySelector('.step-custom-name').removeAttribute('readonly')
+   dropdownBtn.classList.remove('custom-name')
+   dropdownBtn.classList.remove('readonly')
+
+   //Highlighting the click input grey and making it non-editable
+   handleClickBtnInput(selectedType, elemToClose.querySelector('.step-input'))
+}
+
+function addAndModifyChainStep(e, selectedType) {
+   let targetPosition;
+   let steps = [...document.querySelectorAll('.step')]
+   for (let i = 0; i < steps.length; i++) {
+      if (steps[i].contains(e.target)) {
+         targetPosition = i
+
+         if (!steps[i+1]) {
+            addStep()
+         } else {
+            if (selectedType == "Find element" && steps[i+1].children[2].children[0].children[0].textContent == "Click element") {
+               assignOrderNumber()
+               checkRelations()
+               return
+            } 
+
+            if (!steps[i+1].children[2].children[0].children[0].classList.contains('no-type')) {
+               addStep(targetPosition)
+            }
+         }
+
+         //Find and modify chain step
+         steps = [...document.querySelectorAll('.step')]
+         const chainStepElem = steps[i+1]
+         const chainStepDropdownBtn = chainStepElem.querySelector('.dropdown-btn')
+         const chainStepInput = chainStepElem.querySelector('.step-input')
+         chainStepDropdownBtn.textContent = selectedType == "Find element" ? "Click element" : "Type in"
+         chainStepInput.setAttribute('placeholder', stepTypesTextContent[chainStepDropdownBtn.textContent])
+
+         //remove custom name + style
+         chainStepElem.querySelector('.step-custom-name').value = ''
+         chainStepElem.querySelector('.step-custom-name').setAttribute('placeholder', 'Edit custom name')
+         chainStepElem.querySelector('.step-custom-name').removeAttribute('readonly')
+         chainStepDropdownBtn.classList.remove('custom-name')
+         chainStepDropdownBtn.classList.remove('readonly')
+         
+         selectedType = chainStepDropdownBtn.textContent
+         chainStepElem.dataset.type = selectedType
+         highlightSelected(chainStepElem)
+         closeStepOptions(chainStepElem)
+         handleClickBtnInput(selectedType, chainStepInput)
+      }
+   }
+}
+
 function handleClickBtnInput(selectedType, stepInput) {
    if (selectedType == "Click element") {
       stepInput.value = ''
@@ -536,73 +604,13 @@ document.querySelector("input[value='Clear All']").addEventListener('click', () 
 //click DROPDOWN-ITEMS to change step type
 document.addEventListener('click', (e) => {
    if (e.target.classList.contains('dropdown-item')) {
-      //classes - event start
       const elemToClose = e.target.parentNode.parentNode.parentNode.parentNode
-      closeStepOptions(elemToClose)
-      hideDropdowns()
-
-      //find and modify new step
-      let selectedType = e.target.textContent
-      const dropdownBtn = elemToClose.querySelector('.dropdown-btn')
-      const stepInput = elemToClose.querySelector('.step-input')
-      elemToClose.dataset.type = selectedType
-      highlightSelected(elemToClose)
-      dropdownBtn.textContent = e.target.textContent
-      stepInput.setAttribute('placeholder', stepTypesTextContent[selectedType])
-
-      //remove custom name + style
-      elemToClose.querySelector('.step-custom-name').value = ''
-      elemToClose.querySelector('.step-custom-name').setAttribute('placeholder', 'Edit custom name')
-      elemToClose.querySelector('.step-custom-name').removeAttribute('readonly')
-      dropdownBtn.classList.remove('custom-name')
-      dropdownBtn.classList.remove('readonly')
-
-      //Highlighting the click input grey and making it non-editable
-      handleClickBtnInput(selectedType, elemToClose.querySelector('.step-input'))
+      const selectedType = e.target.textContent
       
-      let targetPosition;
+      modifyNewStep(elemToClose, selectedType)
+      
       if ((isChainMode && selectedType == "Find element") || (isChainMode && selectedType == "Find input")) {
-         let steps = [...document.querySelectorAll('.step')]
-         for (let i = 0; i < steps.length; i++) {
-            if (steps[i].contains(e.target)) {
-               targetPosition = i
-
-               if (!steps[i+1]) {
-                  addStep()
-               } else {
-                  if (selectedType == "Find element" && steps[i+1].children[2].children[0].children[0].textContent == "Click element") {
-                     assignOrderNumber()
-                     checkRelations()
-                     return
-                  } 
-
-                  if (!steps[i+1].children[2].children[0].children[0].classList.contains('no-type')) {
-                     addStep(targetPosition)
-                  }
-               }
-
-               //Find and modify chain step
-               steps = [...document.querySelectorAll('.step')]
-               const chainStepElem = steps[i+1]
-               const chainStepDropdownBtn = chainStepElem.querySelector('.dropdown-btn')
-               const chainStepInput = chainStepElem.querySelector('.step-input')
-               chainStepDropdownBtn.textContent = selectedType == "Find element" ? "Click element" : "Type in"
-               chainStepInput.setAttribute('placeholder', stepTypesTextContent[chainStepDropdownBtn.textContent])
-
-               //remove custom name + style
-               chainStepElem.querySelector('.step-custom-name').value = ''
-               chainStepElem.querySelector('.step-custom-name').setAttribute('placeholder', 'Edit custom name')
-               chainStepElem.querySelector('.step-custom-name').removeAttribute('readonly')
-               chainStepDropdownBtn.classList.remove('custom-name')
-               chainStepDropdownBtn.classList.remove('readonly')
-               
-               selectedType = chainStepDropdownBtn.textContent
-               chainStepElem.dataset.type = selectedType
-               highlightSelected(chainStepElem)
-               closeStepOptions(chainStepElem)
-               handleClickBtnInput(selectedType, chainStepInput)
-            }
-         }
+         addAndModifyChainStep(e, selectedType)
       }
 
       //refresh core
@@ -620,73 +628,13 @@ document.addEventListener('click', (e) => {
          }
 
    if (e.target.classList.contains('btn-options')) {
-      //classes - event start
       const elemToClose = e.target.parentNode.parentNode
-      closeStepOptions(elemToClose)
-      hideDropdowns()
+      const selectedType = commonTypesArr[e.target.classList[3]]
 
-      //find and modify new step
-      const dropdownBtn = elemToClose.querySelector('.dropdown-btn')
-      const stepInput = elemToClose.querySelector('.step-input')
-      dropdownBtn.textContent = commonTypesArr[e.target.classList[3]]
-      stepInput.setAttribute('placeholder', stepTypesTextContent[dropdownBtn.textContent])
-      let selectedType = elemToClose.querySelector('.dropdown-btn').textContent
-      elemToClose.dataset.type = selectedType
-      highlightSelected(elemToClose)
+      modifyNewStep(elemToClose, selectedType)
 
-      //remove custom name + style
-      elemToClose.querySelector('.step-custom-name').value = ''
-      elemToClose.querySelector('.step-custom-name').setAttribute('placeholder', 'Edit custom name')
-      elemToClose.querySelector('.step-custom-name').removeAttribute('readonly')
-      dropdownBtn.classList.remove('custom-name')
-      dropdownBtn.classList.remove('readonly')
-
-      //Highlighting the click input grey and making it non-editable
-      handleClickBtnInput(selectedType, stepInput)
-
-      let targetPosition;
       if ((isChainMode && selectedType == "Find element") || (isChainMode && selectedType == "Find input")) {
-         let steps = [...document.querySelectorAll('.step')]
-         for (let i = 0; i < steps.length; i++) {
-            if (steps[i].contains(e.target)) {
-               targetPosition = i
-
-               if (!steps[i+1]) {
-                  addStep()
-               } else {
-                  if (selectedType == "Find element" && steps[i+1].children[2].children[0].children[0].textContent == "Click element") {
-                     assignOrderNumber()
-                     checkRelations()
-                     return
-                  } 
-
-                  if (!steps[i+1].children[2].children[0].children[0].classList.contains('no-type')) {
-                     addStep(targetPosition)
-                  }
-               }
-
-               //Find and modify chain step
-               steps = [...document.querySelectorAll('.step')]
-               const chainStepElem = steps[i+1]
-               const chainStepDropdownBtn = chainStepElem.querySelector('.dropdown-btn')
-               const chainStepInput = chainStepElem.querySelector('.step-input')
-               chainStepDropdownBtn.textContent = selectedType == "Find element" ? "Click element" : "Type in"
-               chainStepInput.setAttribute('placeholder', stepTypesTextContent[chainStepDropdownBtn.textContent])
-
-               //remove custom name + style
-               chainStepElem.querySelector('.step-custom-name').value = ''
-               chainStepElem.querySelector('.step-custom-name').setAttribute('placeholder', 'Edit custom name')
-               chainStepElem.querySelector('.step-custom-name').removeAttribute('readonly')
-               chainStepDropdownBtn.classList.remove('custom-name')
-               chainStepDropdownBtn.classList.remove('readonly')
-               
-               selectedType = chainStepDropdownBtn.textContent
-               chainStepElem.dataset.type = selectedType
-               highlightSelected(chainStepElem)
-               closeStepOptions(chainStepElem)
-               handleClickBtnInput(selectedType, chainStepInput)
-            }
-         }
+         addAndModifyChainStep(e, selectedType)
       }
 
       //refresh core
@@ -697,72 +645,15 @@ document.addEventListener('click', (e) => {
 //click CHAINABLE icon to change step type and create CHAIN STEP
 document.addEventListener('click', (e) => {
    if (e.target.classList.contains('fa-link')) {
-      //classes - event start
       const elemToClose = e.target.parentNode.parentNode.parentNode.parentNode.parentNode
-      closeStepOptions(elemToClose)
-      hideDropdowns()
-
-      //find and modify new step
-      let selectedType = e.target.parentNode.textContent
-      const dropdownBtn = elemToClose.querySelector('.dropdown-btn')
-      const stepInput = elemToClose.querySelector('.step-input')
-      elemToClose.dataset.type = selectedType
-      highlightSelected(elemToClose)
-      dropdownBtn.textContent = selectedType
-      stepInput.setAttribute('placeholder', stepTypesTextContent[selectedType])
-
-      //remove custom name + style
-      elemToClose.querySelector('.step-custom-name').value = ''
-      elemToClose.querySelector('.step-custom-name').setAttribute('placeholder', 'Edit custom name')
-      elemToClose.querySelector('.step-custom-name').removeAttribute('readonly')
-      dropdownBtn.classList.remove('custom-name')
-      dropdownBtn.classList.remove('readonly')
-
-      let targetPosition;
-      let steps = [...document.querySelectorAll('.step')]
-      for (let i = 0; i < steps.length; i++) {
-         if (steps[i].contains(e.target)) {
-            targetPosition = i
+      const selectedType = e.target.parentNode.textContent
       
-            if (!steps[i+1]) {
-               addStep()
-            } else {
-               if (selectedType == "Find element" && steps[i+1].children[2].children[0].children[0].textContent == "Click element") {
-                  assignOrderNumber()
-                  checkRelations()
-                  return
-               } 
+      modifyNewStep(elemToClose, selectedType)
 
-               if (!steps[i+1].children[2].children[0].children[0].classList.contains('no-type')) {
-                  addStep(targetPosition)
-               }
-            }
-
-            //Find and modify chain step
-            steps = [...document.querySelectorAll('.step')]
-            const chainStepElem = steps[i+1]
-            const chainStepDropdownBtn = chainStepElem.querySelector('.dropdown-btn')
-            const chainStepInput = chainStepElem.querySelector('.step-input')
-            chainStepDropdownBtn.textContent = selectedType == "Find element" ? "Click element" : "Type in"
-            chainStepInput.setAttribute('placeholder', stepTypesTextContent[chainStepDropdownBtn.textContent])
-
-            //remove custom name + style
-            chainStepElem.querySelector('.step-custom-name').value = ''
-            chainStepElem.querySelector('.step-custom-name').setAttribute('placeholder', 'Edit custom name')
-            chainStepElem.querySelector('.step-custom-name').removeAttribute('readonly')
-            chainStepDropdownBtn.classList.remove('custom-name')
-            chainStepDropdownBtn.classList.remove('readonly')
-            
-            selectedType = chainStepDropdownBtn.textContent
-            chainStepElem.dataset.type = selectedType
-            highlightSelected(chainStepElem)
-            closeStepOptions(chainStepElem)
-            handleClickBtnInput(selectedType, chainStepInput)
-
-            //refresh core
-            refreshCore()
-         }
-      }
+      addAndModifyChainStep(e, selectedType)
+      
+      //refresh core
+      refreshCore()
    }
 })
 
