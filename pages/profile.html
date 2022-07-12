@@ -19,6 +19,93 @@
    <div id="overlay"></div>
    <div class="container">
 
+      <div class="notifications-settings-modal display-none">
+         <div class="notifications-settings-modal-header">Email Notifications Settings</div>
+
+         <div class="notifications-settings-modal-body">
+
+            <table class="notifications-table">
+               <tr class="notifications-table-header">
+                  <th class="notifications-table-header">Project</th>
+                  <th class="notifications-table-header">Never</th>
+                  <th class="notifications-table-header">Failed</th>
+                  <th class="notifications-table-header">Any</th>
+               </tr>
+               <tr>
+                  <th class="table-project-name">Smoke Tests</th>
+                  <th class="tick">✓</th>
+                  <th></th>
+                  <th></th>
+               </tr>
+               <tr>
+                  <th class="table-project-name">Critical Path Tests</th>
+                  <th></th>
+                  <th class="tick">✓</th>
+                  <th></th>
+               </tr>
+               <tr>
+                  <th class="table-project-name">Extended Tests</th>
+                  <th></th>
+                  <th></th>
+                  <th class="tick">✓</th>
+               </tr>
+               <tr>
+                  <th class="table-project-name">Performance Tests</th>
+                  <th></th>
+                  <th class="tick">✓</th>
+                  <th></th>
+               </tr>
+            </table>
+
+            <!-- <div class="input-group">
+               <div class="input-group-prepend">
+                  <label class="input-group-text" for="test_project">DogQ Smoke Tests</label>
+               </div>
+               <select class="input-group-select">
+                  <option>Never</option>
+                  <option>About failed Test Runs</option>
+                  <option>About any completed Test Runs</option>
+               </select>
+            </div>
+            <div class="input-group">
+               <div class="input-group-prepend">
+                  <label class="input-group-text" for="test_project">DogQ Сritical Path Tests</label>
+               </div>
+               <select class="input-group-select">
+                  <option>Never</option>
+                  <option>About failed Test Runs</option>
+                  <option>About any completed Test Runs</option>
+               </select>
+            </div>
+            <div class="input-group">
+               <div class="input-group-prepend">
+                  <label class="input-group-text" for="test_project">DogQ Extended Tests</label>
+               </div>
+               <select class="input-group-select">
+                  <option>Never</option>
+                  <option>About failed Test Runs</option>
+                  <option>About any completed Test Runs</option>
+               </select>
+            </div>
+            <div class="input-group">
+               <div class="input-group-prepend">
+                  <label class="input-group-text" for="test_project">DogQ Peformance Tests</label>
+               </div>
+               <select class="input-group-select">
+                  <option>Never</option>
+                  <option>About failed Test Runs</option>
+                  <option>About any completed Test Runs</option>
+               </select>
+            </div> -->
+
+         </div>
+
+         <div class="new-item-modal-footer-btns">
+            <input class="btn btn-grey" type="button" value="Cancel">
+            <input class="btn btn-blue" type="button" value="Save">
+         </div>
+      </div>
+
       <nav class="sidebar">
          <div class="sidebar-container">
             <a href="/" class="sidebar-logo">
@@ -127,10 +214,42 @@
 
             <div class="profile-footer">
                <div class="profile-footer-btns">
+
                   <div class="profile-checkbox-wrapper">
                      <input class="profile-checkbox" id="profileCheckboxAdvanced" type="checkbox">
                      <label class="profile-checkbox-label" for="profileCheckboxAdvanced">Scenario Editor Advanced Tools</label>
                   </div>
+
+                  <div class="profile-checkbox-wrapper">
+                     <div class="input-group">
+                        <div class="input-group-prepend">
+                           <label class="input-group-text" for="test_project">Default Execution Order for New Modules</label>
+                        </div>
+                        <select class="input-group-select">
+                           <option>Simultaneously</option>
+                           <option>Sequentially</option>
+                        </select>
+                     </div>
+                  </div>
+
+                  <div class="profile-checkbox-wrapper">
+                     <div class="input-group">
+                        <div class="input-group-prepend">
+                           <label class="input-group-text" for="test_project">Default Email Notifications for New Projects</label>
+                        </div>
+                        <select class="input-group-select">
+                           <option>Never</option>
+                           <option>About failed Test Runs</option>
+                           <option>About any completed Test Runs</option>
+                        </select>
+                        <input class="btn btn-grey" type="button" value="Set Email Notifications" name="Set Email Notifications">
+                     </div>
+                  </div>
+
+                  <!-- <div class="profile-checkbox-wrapper">
+                     <input class="btn btn-grey" type="button" value="Set Email Notifications" name="Set Email Notifications">    
+                  </div> -->
+
                </div>
             </div>
          </div>
@@ -138,21 +257,7 @@
       </div>
 
    </div>
-   <script>
-      document.addEventListener('DOMContentLoaded', () => {
-         if (localStorage.getItem('advancedTools') == 'true') {
-            document.getElementById('profileCheckboxAdvanced').checked = true
-         } else {
-            document.getElementById('profileCheckboxAdvanced').checked = false
-         }
-      })
-      document.getElementById('profileCheckboxAdvanced').addEventListener('change', () => {
-         if (document.getElementById('profileCheckboxAdvanced').checked) {
-            localStorage.setItem('advancedTools', true)
-         } else {
-            localStorage.setItem('advancedTools', false)
-         }
-      })
-   </script>
+   <script src="../js/profile.js"></script>
+   <!-- <script src="../js/modals.js"></script> -->
 </body>
 </html>

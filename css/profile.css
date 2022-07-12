@@ -8,7 +8,7 @@
 .profile-container {
    position: absolute;
    left: 53.5%;
-   top: 25%;
+   top: 30%;
    transform: translate(-50%, -50%);
    margin: 0 auto;
    width: 1000px;
@@ -76,7 +76,31 @@
 }
 
 .profile-footer {
-   padding: 14px 24px 20px;
+   padding: 4px 24px 20px;
+}
+
+.input-group {
+   display: flex;
+   align-items: center;
+   padding: 10px 12px 10px 0;
+
+   font-size: 14px;
+   line-height: 21px;
+   color: #525f7f;
+   border-radius: 6px;
+}
+
+.input-group-text {
+   padding: 10px 12px 10px 0;
+}
+
+.input-group-select {
+   min-width: 260px;
+   padding: 10px 12px;
+   border: 0;
+   border-radius: 6px;
+   border-color: rgba(50,151,211,0.25);
+   box-shadow: 0 1px 3px rgb(50 50 93 / 15%), 0 1px 0 rgb(0 0 0 / 2%);
 }
 
 .profile-footer-btns {
@@ -87,6 +111,15 @@
    display: flex;
    align-items: center;
 }
+
+.profile-checkbox-wrapper:first-child {
+   margin-top: 14px;
+   margin-bottom: 10px;
+}
+
+/* .profile-checkbox-wrapper:nth-child(2) {
+   margin-top: 14px;
+} */
 
 .profile-checkbox {
    width: 22px;
@@ -100,4 +133,58 @@
    line-height: 21px;
    /* font-family: "Open Sans", sans-serif; */
    color: #525f7f;
+}
+
+input[value="Set Email Notifications"] {
+   font-size: 14px;
+   padding: 10px 14px;
+   margin-left: 14px;
+}
+
+
+/* //////////////////////////// */
+/* //////////////////////////// */
+.notifications-table {
+   border-collapse: collapse;
+}
+
+.notifications-table-header {
+   font-size: 20px !important;
+}
+
+.notifications-table tr:last-child {
+   border-bottom: 0;
+}
+
+.notifications-table th {
+   padding: 10px 12px;
+   font-size: 16px;
+   /* color:rgb(50, 50, 93); */
+   border-left: 0.5px solid #000;
+   border-right: 0.5px solid #000;
+   border-bottom: 0.5px solid #000;
+}
+.notifications-table th:first-child {
+   border-left: 0;
+}
+.notifications-table th:last-child {
+   border-right: 0;
+}
+
+.table-project-name {
+   font-size: 14px;
+   line-height: 21px;
+   /* font-family: "Open Sans", sans-serif; */
+   color: #525f7f;
+   font-weight: 400;
+}
+
+.table-radio {
+   width: 18px;
+   height: 18px;
+}
+
+.tick {
+   font-size: 20px !important;
+   color: rgb(94, 114, 228);
 }

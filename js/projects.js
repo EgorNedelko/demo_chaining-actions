@@ -343,3 +343,8 @@ function defineCurrentLocation(location) {
    сurrentLocation = location
    localStorage.setItem('currentLocation', location)
 }
+
+document.addEventListener('click', (e) => {
+   // console.log(document.querySelector('.path-item-text'))
+   console.log(document.querySelector("[class='path-item-text']"))
+})
