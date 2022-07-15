@@ -8,7 +8,7 @@
 .profile-container {
    position: absolute;
    left: 53.5%;
-   top: 30%;
+   top: 35%;
    transform: translate(-50%, -50%);
    margin: 0 auto;
    width: 1000px;
@@ -57,6 +57,7 @@
    line-height: 21px;
    /* font-family: "Open Sans", sans-serif; */
    margin-bottom: 8px;
+   margin-left: 8px;
 }
 
 .profile-input {
@@ -113,8 +114,8 @@
 }
 
 .profile-checkbox-wrapper:first-child {
-   margin-top: 14px;
-   margin-bottom: 10px;
+   margin-top: 12px;
+   margin-bottom: 16px;
 }
 
 /* .profile-checkbox-wrapper:nth-child(2) {
@@ -126,6 +127,7 @@
    height: 22px;
    border-radius: 6px;
    margin-right: 10px;
+   cursor: pointer;
 }
 
 .profile-checkbox-label {
@@ -141,6 +143,27 @@ input[value="Set Email Notifications"] {
    margin-left: 14px;
 }
 
+input[value="Connect Github"] {
+   font-size: 14px;
+   padding: 10px 14px;
+   /* margin: 0 auto; */
+}
+
+.github-btn {
+   font-size: 14px;
+   padding: 10px 14px;
+}
+
+.github-btn-wrapper {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.github-logo {
+   width: 34px;
+   height: 34px;
+}
 
 /* //////////////////////////// */
 /* //////////////////////////// */

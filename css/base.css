@@ -530,10 +530,6 @@ header {
    user-select: none;
 }
 
-.notifications-settings-modal {
-   top: 60%;
-}
-
 .new-item-modal-header,
 .notifications-settings-modal-header {
    font-size: 17px;
