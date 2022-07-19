@@ -193,6 +193,8 @@
                </div>
             </div>
 
+            <!-- <hr class="profile-divider">
+            <h3 class="profile-section-title">Account Information</h3> -->
             <div class="profile-body">
                <div class="profile-input-wrapper">
                   <label class="profile-input-label" for="profileInputName">Name</label>
@@ -213,56 +215,87 @@
             </div>
 
             <div class="profile-footer">
-               <div class="profile-footer-btns">
 
+               <!-- Intergrations Section -->
+               <div class="profile-section">
+                  <hr class="profile-divider">
+                  <h3 class="profile-section-title">Integrations</h3>
                   <div class="profile-checkbox-wrapper github-btn-wrapper">
+                     <button class="btn btn-white slack-btn" type="button">
+                        <svg class="slack-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M94.12 315.1c0 25.9-21.16 47.06-47.06 47.06S0 341 0 315.1c0-25.9 21.16-47.06 47.06-47.06h47.06v47.06zm23.72 0c0-25.9 21.16-47.06 47.06-47.06s47.06 21.16 47.06 47.06v117.84c0 25.9-21.16 47.06-47.06 47.06s-47.06-21.16-47.06-47.06V315.1zm47.06-188.98c-25.9 0-47.06-21.16-47.06-47.06S139 32 164.9 32s47.06 21.16 47.06 47.06v47.06H164.9zm0 23.72c25.9 0 47.06 21.16 47.06 47.06s-21.16 47.06-47.06 47.06H47.06C21.16 243.96 0 222.8 0 196.9s21.16-47.06 47.06-47.06H164.9zm188.98 47.06c0-25.9 21.16-47.06 47.06-47.06 25.9 0 47.06 21.16 47.06 47.06s-21.16 47.06-47.06 47.06h-47.06V196.9zm-23.72 0c0 25.9-21.16 47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06V79.06c0-25.9 21.16-47.06 47.06-47.06 25.9 0 47.06 21.16 47.06 47.06V196.9zM283.1 385.88c25.9 0 47.06 21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06v-47.06h47.06zm0-23.72c-25.9 0-47.06-21.16-47.06-47.06 0-25.9 21.16-47.06 47.06-47.06h117.84c25.9 0 47.06 21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06H283.1z"/></svg>
+                        Connect Slack
+                     </button>
                      <button class="btn btn-white github-btn" type="button">
-                        <i class="fab fa-github"></i>
+                        <i class="fab fa-github github-logo"></i>
                         Connect Github
                      </button>
                   </div>
+               </div>
 
-                  <div class="profile-checkbox-wrapper">
+               <!-- Notifications Sections -->
+               <div class="profile-section">
+                  <hr class="profile-divider">
+                  <h3 class="profile-section-title">Notifications</h3>
+
+                  <div class="input-group">
+                     <div class="input-group-prepend">
+                        <label class="input-group-text" for="test_project">Default Slack Notifications for New Projects</label>
+                     </div>
+                     <select class="input-group-select">
+                        <option>Never</option>
+                        <option>About failed Test Runs</option>
+                        <option>About any completed Test Runs</option>
+                     </select>
+                     <input class="btn btn-grey" type="button" value="Set Slack Notifications" name="Set Slack Notifications">
+                  </div>
+
+                  <div class="input-group">
+                     <div class="input-group-prepend">
+                        <label class="input-group-text" for="test_project">Default Email Notifications for New Projects</label>
+                     </div>
+                     <select class="input-group-select">
+                        <option>Never</option>
+                        <option>About failed Test Runs</option>
+                        <option>About any completed Test Runs</option>
+                     </select>
+                     <input class="btn btn-grey" type="button" value="Set Email Notifications" name="Set Email Notifications">
+                  </div>
+                  
+               </div>
+
+               <!-- Executions Sections -->
+               <div class="profile-section">
+                  <hr class="profile-divider">
+                  <h3 class="profile-section-title">Execution Options</h3>
+
+                  <div class="input-group">
+                     <div class="input-group-prepend">
+                        <label class="input-group-text" for="test_project">Default Execution Order for New Modules</label>
+                     </div>
+                     <select class="input-group-select">
+                        <option>Simultaneously</option>
+                        <option>Sequentially</option>
+                     </select>
+                  </div>
+
+               </div>
+
+               <!-- Extended Options -->
+               <div class="profile-section">
+                  <hr class="profile-divider">
+                  <h3 class="profile-section-title">Extended Options</h3>
+
+                  <div class="profile-checkbox-wrapper" style="margin: 20px 0; padding-left: 14px;">
                      <input class="profile-checkbox" id="profilePopupTips" type="checkbox">
                      <label class="profile-checkbox-label" for="profilePopupTips">Popup Tips</label>
                   </div>
 
-                  <!-- <div class="profile-checkbox-wrapper">
+                  <div class="profile-checkbox-wrapper" style="padding-left: 14px;">
                      <input class="profile-checkbox" id="profileCheckboxAdvanced" type="checkbox">
                      <label class="profile-checkbox-label" for="profileCheckboxAdvanced">Scenario Editor Advanced Tools</label>
-                  </div> -->
-
-                  <div class="profile-checkbox-wrapper">
-                     <div class="input-group">
-                        <div class="input-group-prepend">
-                           <label class="input-group-text" for="test_project">Default Execution Order for New Modules</label>
-                        </div>
-                        <select class="input-group-select">
-                           <option>Simultaneously</option>
-                           <option>Sequentially</option>
-                        </select>
-                     </div>
                   </div>
-
-                  <div class="profile-checkbox-wrapper">
-                     <div class="input-group">
-                        <div class="input-group-prepend">
-                           <label class="input-group-text" for="test_project">Default Email Notifications for New Projects</label>
-                        </div>
-                        <select class="input-group-select">
-                           <option>Never</option>
-                           <option>About failed Test Runs</option>
-                           <option>About any completed Test Runs</option>
-                        </select>
-                        <input class="btn btn-grey" type="button" value="Set Email Notifications" name="Set Email Notifications">
-                     </div>
-                  </div>
-
-                  <!-- <div class="profile-checkbox-wrapper">
-                     <input class="btn btn-grey" type="button" value="Set Email Notifications" name="Set Email Notifications">    
-                  </div> -->
-
                </div>
+
             </div>
          </div>
 

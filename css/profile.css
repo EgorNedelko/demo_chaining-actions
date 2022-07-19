@@ -8,7 +8,7 @@
 .profile-container {
    position: absolute;
    left: 53.5%;
-   top: 35%;
+   top: 52%;
    transform: translate(-50%, -50%);
    margin: 0 auto;
    width: 1000px;
@@ -26,11 +26,21 @@
    justify-content: space-between;
 }
 
-.profile-header-title {
+.profile-section {
+   padding: 20px 0;
+}
+
+.profile-header-title,
+.profile-section-title {
    /* font-family: "Open Sans", sans-serif; */
    font-size: 17px;
    font-weight: 600;
    color: rgb(50, 50, 93);
+}
+
+.profile-section-title {
+   margin-bottom: 10px;
+   margin-left: 8px;
 }
 
 .profile-header-btns input[value="Save"] {
@@ -43,6 +53,13 @@
    align-items: center;
    justify-content: space-between;
    flex-wrap: wrap;
+}
+
+.profile-divider {
+   min-width: 100%;
+   margin: 0 0 8px;
+   border-top: 0;
+   border-bottom: 0.5px solid rgba(0, 64, 124, 0.2);
 }
 
 .profile-input-wrapper {
@@ -83,7 +100,7 @@
 .input-group {
    display: flex;
    align-items: center;
-   padding: 10px 12px 10px 0;
+   padding: 10px 12px 10px 8px;
 
    font-size: 14px;
    line-height: 21px;
@@ -137,7 +154,8 @@
    color: #525f7f;
 }
 
-input[value="Set Email Notifications"] {
+input[value="Set Email Notifications"], 
+input[value="Set Slack Notifications"] {
    font-size: 14px;
    padding: 10px 14px;
    margin-left: 14px;
@@ -149,21 +167,46 @@ input[value="Connect Github"] {
    /* margin: 0 auto; */
 }
 
-.github-btn {
+.github-btn,
+.slack-btn {
    font-size: 14px;
-   padding: 10px 14px;
+   padding: 10px 16px;
+   display: flex;
+   column-gap: 4px;
+   align-items: center;
+   justify-content: space-between;
+}
+
+.github-logo {
+   width: 18px;
+}
+
+.slack-logo {
+   width: 18px;
+   height: 18px;
 }
 
 .github-btn-wrapper {
    display: flex;
    justify-content: center;
+   column-gap: 44px;
    align-items: center;
 }
 
-.github-logo {
+/* .github-logo {
    width: 34px;
    height: 34px;
+} */
+
+.slack-logo {
+   fill: rgb(94, 114, 228);
+   /* width: 20px;
+   height: 20px; */
 }
+/* .fa-github {
+   width: 50px;
+   height: 50px;
+} */
 
 /* //////////////////////////// */
 /* //////////////////////////// */
