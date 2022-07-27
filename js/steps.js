@@ -161,6 +161,14 @@ function addStep(targetPosition) {
 
 }
 
+function addRecordBtn(inputsGroup) {
+   const recordBtn = document.createElement('button')
+   recordBtn.classList.add('btn', 'btn-record')
+   recordBtn.setAttribute('type', 'button')
+   recordBtn.textContent = 'Record'
+   inputsGroup.appendChild(recordBtn)
+}
+
 
 //HELPER FUNCTIONS
 function modifyNewStep(elemToClose, selectedType) {
@@ -181,6 +189,11 @@ function modifyNewStep(elemToClose, selectedType) {
    elemToClose.querySelector('.step-custom-name').removeAttribute('readonly')
    dropdownBtn.classList.remove('custom-name')
    dropdownBtn.classList.remove('readonly')
+
+   //add record btn to GoToURL step
+   if (selectedType == "Go to URL" && localStorage.getItem('recordBtn') == 'true') {
+      addRecordBtn(elemToClose.querySelector('.inputs-group'))
+   }
 
    //Highlighting the click input grey and making it non-editable
    handleClickBtnInput(selectedType, elemToClose.querySelector('.step-input'))
@@ -415,6 +428,11 @@ function loadSteps() {
          stepToModify.querySelector('.step-custom-name').value = userProjects[prInd].modules[modInd].scenarios[scenInd].steps[s].name
          stepToModify.querySelector('.step-input').setAttribute('placeholder', stepTypesTextContent[stepToModify.dataset.type])
 
+         //Add Record Btn
+         if (stepToModify.dataset.type == 'Go to URL' && localStorage.getItem('recordBtn') == 'true') {
+            addRecordBtn(stepToModify.querySelector('.inputs-group'))
+         }
+
          //Make custom name editable if a step has a type 
          if (stepToModify.dataset.type != "Select Type") {
             stepToModify.querySelector('.step-custom-name').removeAttribute('readonly')
@@ -597,6 +615,10 @@ document.querySelector("input[value='Clear All']").addEventListener('click', () 
    document.querySelectorAll('.step')[0].querySelector('.step-custom-name').removeAttribute('readonly')
    document.querySelectorAll('.step')[0].querySelector('.step-custom-name').classList.remove('readonly')
    document.querySelectorAll('.step')[0].querySelector('.step-custom-name').setAttribute('placeholder', 'Edit custom name')
+
+   if (localStorage.getItem('recordBtn') == 'true') {
+      addRecordBtn(document.querySelectorAll('.step')[0].querySelector('.inputs-group'))
+   }
 })
 
 

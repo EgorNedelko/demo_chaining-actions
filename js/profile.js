@@ -19,6 +19,22 @@ document.querySelector("input[value='Save']").addEventListener('click', () => {
    closeModal()
 })
 
+//Record Btn
+document.addEventListener('DOMContentLoaded', () => {
+   if (localStorage.getItem('recordBtn') == 'true') {
+      document.getElementById('profileRecordCheckbox').checked = true
+   } else {
+      document.getElementById('profileRecordCheckbox').checked = false
+   }
+})
+document.getElementById('profileRecordCheckbox').addEventListener('change', () => {
+   if (document.getElementById('profileRecordCheckbox').checked) {
+      localStorage.setItem('recordBtn', true)
+   } else {
+      localStorage.setItem('recordBtn', false)
+   }
+})
+
 //Templates
 document.addEventListener('DOMContentLoaded', () => {
    if (localStorage.getItem('templates') == 'true') {
