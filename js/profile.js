@@ -19,6 +19,22 @@ document.querySelector("input[value='Save']").addEventListener('click', () => {
    closeModal()
 })
 
+//Templates
+document.addEventListener('DOMContentLoaded', () => {
+   if (localStorage.getItem('templates') == 'true') {
+      document.getElementById('profileTemplatesCheckbox').checked = true
+   } else {
+      document.getElementById('profileTemplatesCheckbox').checked = false
+   }
+})
+document.getElementById('profileTemplatesCheckbox').addEventListener('change', () => {
+   if (document.getElementById('profileTemplatesCheckbox').checked) {
+      localStorage.setItem('templates', true)
+   } else {
+      localStorage.setItem('templates', false)
+   }
+})
+
 //Advanced Tools 
 document.addEventListener('DOMContentLoaded', () => {
    if (localStorage.getItem('advancedTools') == 'true') {
