@@ -1,0 +1,32 @@
+/* .body {
+   background-color: #f5f6fa;
+} */
+.wrapper {
+   margin-left: 380px;
+   background-color: #f5f6fa;
+}
+
+.header {
+   padding: 25px 0;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.header-nav-link {
+   display: box;
+   font-size: 16px;
+   line-height: 23px;
+   letter-spacing: 0.8px;
+   font-weight: 600;
+   color: #444049;
+   text-decoration: none;
+}
+
+.header-nav-link:first-child {
+   margin-right: 50px;
+}
+
+.header-btns input:first-child {
+   margin-right: 25px;
+}

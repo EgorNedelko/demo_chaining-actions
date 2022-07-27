@@ -378,6 +378,16 @@ header {
    border: 1px solid #cad1d7; 
    /* border: 1px solid #afafaf; */
 }
+.btn-yellow {
+   background-color: #ffec88;
+}
+.btn-rounded {
+   font-size: 16px;
+   color: rgb(91, 90, 176);
+   border-radius: 40px;
+   padding: 10px 25px;
+   border: none;
+}
 
 .divider {
    display: flex;
