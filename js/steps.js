@@ -372,12 +372,45 @@ function handleChainMode() {
    chainModeBtn.classList.toggle('btn-grey')
 }
 
+function handleNewStepBtn() {
+   const items = document.querySelector('.steps').children
+   const arr = []
+   for (let i = 0; i < items.length; i++) {
+      arr.push(items[0].classList[0])
+   }
+   if (arr.indexOf('new-step-btn') != arr.length-1) {
+      document.querySelector('.steps').removeChild(document.querySelector('.new-step-btn-container'))
+      addNewStepBtn()
+   }
+}
+
+function addNewStepBtn() {
+   //create document fragment
+   const fragment = document.createDocumentFragment()
+
+   //create step container
+   const newStepBtnContainer = document.createElement('div')
+   newStepBtnContainer.classList.add('new-step-btn-container')
+
+   // create plus button
+   const newStepBtn = document.createElement('input')
+   newStepBtn.classList.add('btn', 'btn-white', 'btn-plus', 'new-step-btn')
+   newStepBtn.setAttribute('type', 'button')
+   newStepBtn.setAttribute('value', "+")
+   newStepBtn.setAttribute('name', "Plus")
+
+   //attachments
+   newStepBtnContainer.appendChild(newStepBtn)
+   fragment.appendChild(newStepBtnContainer)
+   document.querySelector('.steps').append(fragment)
+}
+
 function refreshCore() {
    checkRelations()
    assignOrderNumber()
+   handleNewStepBtn()
    document.getElementById('itemCounter').textContent = document.querySelector('.steps').children.length
 }
-
 
 //STORAGE FUNCTIONS
 function saveSteps() {
@@ -619,6 +652,9 @@ document.querySelector("input[value='Clear All']").addEventListener('click', () 
    if (localStorage.getItem('recordBtn') == 'true') {
       addRecordBtn(document.querySelectorAll('.step')[0].querySelector('.inputs-group'))
    }
+
+   //Refresh core
+   refreshCore()
 })
 
 

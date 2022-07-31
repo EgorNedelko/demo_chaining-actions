@@ -38,6 +38,18 @@
    /* transform: translateY(63px); */
 }
 
+.new-step-btn-container {
+   padding: 16px 24px 16px 12px;
+   display: flex;
+   align-items: flex-start;
+   justify-content: flex-start;
+   flex-wrap: wrap;
+   /* border-bottom: 1px solid #e9ecef; */
+   position: relative;
+   transition: background-color 0.4s ease;
+   background-color: rgb(255, 255, 255);
+}
+
 .order-icon {
    user-select: none;
    cursor: move;
@@ -257,6 +269,12 @@
 
 .btn-plus {
    margin-left: 35px;
+   transition: all .3s ease;
+}
+
+.new-step-btn {
+   /* margin-left: 65px; */
+   margin-left: 230px;
    transition: all .3s ease;
 }
 
