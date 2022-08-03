@@ -41,13 +41,24 @@
 .new-step-btn-container {
    padding: 16px 24px 16px 12px;
    display: flex;
-   align-items: flex-start;
+   align-items: center;
    justify-content: flex-start;
    flex-wrap: wrap;
-   /* border-bottom: 1px solid #e9ecef; */
+   border-bottom: 1px solid #e9ecef;
    position: relative;
-   transition: background-color 0.4s ease;
+   transition: all 0.4s ease;
    background-color: rgb(255, 255, 255);
+   opacity: 1;
+}
+.new-step-btn-container.transparent {
+   opacity: 0.4;
+}
+
+.message {
+   margin-left: 45px; 
+   font-size: 18px;
+   color: rgb(94, 114, 228);
+   cursor: default;
 }
 
 .order-icon {
@@ -273,8 +284,9 @@
 }
 
 .new-step-btn {
+   margin-left: 100px;
    /* margin-left: 65px; */
-   margin-left: 230px;
+   /* margin-left: 230px; */
    transition: all .3s ease;
 }
 

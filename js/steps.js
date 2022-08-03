@@ -390,20 +390,27 @@ function addNewStepBtn() {
 
    //create step container
    const newStepBtnContainer = document.createElement('div')
-   newStepBtnContainer.classList.add('new-step-btn-container')
+   newStepBtnContainer.classList.add('new-step-btn-container', 'transparent')
 
    // create plus button
    const newStepBtn = document.createElement('input')
-   newStepBtn.classList.add('btn', 'btn-white', 'btn-plus', 'new-step-btn')
+   newStepBtn.classList.add('btn', 'btn-white', 'new-step-btn')
    newStepBtn.setAttribute('type', 'button')
    newStepBtn.setAttribute('value', "+")
    newStepBtn.setAttribute('name', "Plus")
 
+   const message = document.createElement('p')
+   message.classList.add('message')
+   message.textContent = 'Add new step'
+
    //attachments
    newStepBtnContainer.appendChild(newStepBtn)
+   newStepBtnContainer.appendChild(message)
    fragment.appendChild(newStepBtnContainer)
    document.querySelector('.steps').append(fragment)
 }
+
+
 
 function refreshCore() {
    checkRelations()
@@ -565,6 +572,13 @@ function storeDestination(targetElem) {
    localStorage.setItem('scenarioInd', scenarioInd)
 }
 
+function defineCurrentLocation(location) {
+   сurrentLocation = location
+   localStorage.setItem('currentLocation', location)
+   const scenInd = localStorage.getItem('scenarioInd')
+   localStorage.setItem('saveScenarioInd', scenInd)
+}
+
 function loadTools() {
    if (!localStorage.getItem('advancedTools') || localStorage.getItem('advancedTools') == 'false') {
       document.querySelector('.btn-chain-mode').style.display = 'none'
@@ -709,6 +723,17 @@ document.addEventListener('click', (e) => {
       modifyNewStep(elemToClose, selectedType)
 
       addAndModifyChainStep(e, selectedType)
+      
+      //refresh core
+      refreshCore()
+   }
+})
+
+//click NEW STEP PLUS BUTTON to add a new step
+document.addEventListener('click', (e) => {
+   if (e.target.classList.contains('new-step-btn')) {
+      hideDropdowns()
+      addStep()
       
       //refresh core
       refreshCore()
@@ -892,9 +917,16 @@ document.addEventListener('mouseout', (e) => {
    }
 })
 
-function defineCurrentLocation(location) {
-   сurrentLocation = location
-   localStorage.setItem('currentLocation', location)
-   const scenInd = localStorage.getItem('scenarioInd')
-   localStorage.setItem('saveScenarioInd', scenInd)
-}
+
+
+//NEW STEP BTN HOVER
+document.addEventListener('mouseover', (e) => {
+   if (e.target.classList.contains('new-step-btn')) {
+      document.querySelector('.new-step-btn-container').classList.remove('transparent')
+   }
+})
+document.addEventListener('mouseout', (e) => {
+   if (e.target.classList.contains('new-step-btn')) {
+      document.querySelector('.new-step-btn-container').classList.add('transparent')
+   }
+})
