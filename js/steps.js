@@ -784,7 +784,7 @@ document.addEventListener('click', (e) => {
 })
 
 //click ADD COMMON STEP button to add template steps
-document.querySelector("input[value='Add Common Step'").addEventListener('click', () => {
+document.querySelector("input[value='Add Common Step']").addEventListener('click', () => {
    hideDropdowns()
    addStep()
    const steps = [...document.querySelectorAll('.step')]
