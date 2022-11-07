@@ -41,7 +41,7 @@
       // document.querySelector('.create-acc-btn').addEventListener('click', () => { changeCurrentLocation('projects'); window.location = "./pages/projects.html";  })
       // document.querySelector('.github-btn').addEventListener('click', () => { changeCurrentLocation('projects'); window.location = "./pages/projects.html";  })
       // window.addEventListener('keydown', (e) => { if (e.key == "Enter") { changeCurrentLocation('projects'); window.location = "./pages/projects.html";  }})
-      
+      document.addEventListener('DOMContentLoaded', () => localStorage.setItem('profileCheckboxAdvanced', false))
       document.querySelector('.create-acc-btn').addEventListener('click', () => { window.location = "./pages/projects.html";  })
       document.querySelector('.github-btn').addEventListener('click', () => { window.location = "./pages/projects.html";  })
       window.addEventListener('keydown', (e) => { if (e.key == "Enter") { window.location = "./pages/projects.html";  }})
